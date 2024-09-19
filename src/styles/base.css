@@ -1,0 +1,84 @@
+@tailwind base;
+
+/* styles.css */
+
+/* Hide the default time picker icon */
+input[type="time"]::-webkit-calendar-picker-indicator {
+  display: none;
+  -webkit-appearance: none;
+}
+
+input[type="time"]::-webkit-inner-spin-button {
+  display: none;
+  -webkit-appearance: none;
+}
+
+input[type="time"] {
+  appearance: none; /* For other browsers */
+  -moz-appearance: textfield; /* Firefox */
+  -webkit-appearance: none; /* Chrome and Safari */
+}
+
+@keyframes rotate {
+  0% {
+    transform: translate(-595px, 0px);
+  }
+  20% {
+    transform: translate(133px, 0px);
+  }
+  35% {
+    transform: translate(333px, -70px);
+  }
+  50% {
+    transform: translate(133px, -133px);
+  }
+  70% {
+    transform: translate(-595px, -133px);
+  }
+  85% {
+    transform: translate(-795px, -70px);
+  }
+  100% {
+    transform: translate(-595px, 0px);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  /* Track */
+  ::-webkit-scrollbar-track {
+    @apply bg-none rounded-md;
+  }
+
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    @apply bg-gray-100 rounded-lg h-[11px];
+  }
+}
+
+@keyframes zoom {
+  0%,
+  100% {
+    transform: scale(1) scaleY(1);
+  }
+  50% {
+    transform: scale(1.1) scaleY(1.1);
+  }
+}
+
+.overlay {
+  transition: opacity 0.5s ease;
+}
+
+.animate-zoom {
+  animation: zoom 2s infinite;
+}
