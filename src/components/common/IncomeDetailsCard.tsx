@@ -17,10 +17,15 @@ const IncomeDetailsCard: React.FC<IncomeDetailsCardProps> = ({
   setReligion,
   ...props
 }) => {
+  const [checked, setChecked] = useState<boolean>(false);
   return (
     <>
       {cardData.map((card, index) => (
-        <div key={index} className="flex flex-col justify-center items-center">
+        <div
+          key={index}
+          className="flex flex-col justify-center items-center"
+          onClick={(e) => setChecked(!checked)}
+        >
           <div
             className="flex flex-col justify-start items-center gap-2 p-5 bg-cardbg rounded-xl border-cardBorder border-[1px] cursor-pointer"
             onClick={(e) => {
