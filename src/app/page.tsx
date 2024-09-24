@@ -1,8 +1,8 @@
 import React, { Suspense } from 'react';
-import LoginScreen from '@/components/pages-partial/login';
+import SigninScreen from '@/components/pages-partial/signin';
 
 const Page = () => {
-  return <LoginScreen />;
+  return <SigninScreen />;
 };
 
 export default Page;

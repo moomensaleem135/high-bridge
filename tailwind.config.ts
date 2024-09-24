@@ -41,6 +41,15 @@ const config: Config = {
         background: 'var(--background)',
         foreground: 'var(--foreground)',
 
+        back: 'var(--backcolor)',
+        cardbg: 'var(--cardbg)',
+        cardBorder: 'var(--card-border)',
+        cardHeading: 'var(--cardheading)',
+        cardText: 'var(--cardText)',
+        hoverNav: 'var(--hover)',
+        detailsBtn: 'var(--detailsbutton)',
+        btnText: 'var( --btn-text)',
+
         primary: {
           DEFAULT: 'var(--primary)',
           background: 'var(--primary-background)',
@@ -64,6 +73,8 @@ const config: Config = {
         calendar: {
           text: 'var(--calendar-text)',
           active: 'var(--calendar-active)',
+          field: 'var(--dropdown-calendar)',
+          boundary: 'var(--dropdown-outline)',
         },
 
         event: {

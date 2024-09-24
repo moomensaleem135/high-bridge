@@ -34,10 +34,13 @@ const CustomToast: React.FC<CustomToastProps> = ({ t, title, onClickEdit }) => {
       </div>
       <div className="flex">
         <button
-          onClick={() => toast.dismiss(t.id)}
+          onClick={() => {
+            toast.dismiss(t.id);
+            console.log('clicked toast');
+          }}
           className="w-full p-4 flex items-center justify-center"
         >
-          <CloseIcon className="text-red w-8 h-8" />
+          <CloseIcon className="text-red w-8 h-8 hover:bg-[#dfe3e6] rounded-sm" />
         </button>
       </div>
     </div>

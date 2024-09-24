@@ -5,6 +5,15 @@
 @layer base {
   :root {
     --background: #ffffff;
+    --backcolor: #f8f8f8;
+    --cardbg: #f8f8f8;
+    --cardheading: #000000;
+    --cardText: #000000;
+
+    --hover: #ffffff;
+
+    --detailsbutton: #000000;
+    --btn-text: #ffffff;
 
     --primary: #006514d5;
     --primary-hover: #00200010;
@@ -12,21 +21,34 @@
 
     --secondary: #040e0082;
 
+    --card-border: #dfe3e6;
+
     --accent: #00200010;
     --accent-background: #00970016;
 
     --heading: #1d211c;
     --subheading: #020a00a0;
 
-    --calendar-text: #898e87;
-    --calendar-active: #cccfcc;
+    --calendar-text: #ffffff;
+    --calendar-active: #f8f8f8;
+    --calendar-dropdown: #66666659;
+    --calendar-outline: #66666659;
 
     --event-heading: #040f0047;
   }
 
   .dark {
     --background: #111210;
+    --backcolor: #111210;
+    --cardbg: #f8f8f8;
+    --cardheading: #000000;
+    --cardText: #000000;
+    --card-border: #dfe3e6;
 
+    --detailsbutton: #dfe3e6;
+    --btn-text: #000000;
+
+    --hover: #8b8b8b;
     --primary: #006514d5;
     --primary-hover: #f4f5f312;
     --primary-background: #00970016;

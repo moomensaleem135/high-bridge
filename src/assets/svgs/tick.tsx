@@ -6,35 +6,19 @@ export const TickIcon = ({
 }: React.ComponentProps<'svg'>) => {
   return (
     <svg
-      width="60"
-      height="60"
-      viewBox="0 0 60 60"
+      width="14"
+      height="12"
+      viewBox="0 0 14 12"
       fill="none"
-      className={cn('h-8 w-8 group-focus-within:text-brand', className)}
       xmlns="http://www.w3.org/2000/svg"
-      {...props}
     >
       <path
-        d="M50 15L22.5 42.5L10 30"
-        stroke="url(#paint0_linear_1332_1526)"
-        stroke-width="6"
-        stroke-linecap="round"
+        d="M1.51978 6.55966L4.93515 9.90672L12.2782 1.53906"
+        stroke="white"
+        strokeWidth="2.39076"
+        strokeLinecap="round"
         strokeLinejoin="round"
       />
-      <defs>
-        <linearGradient
-          id="paint0_linear_1332_1526"
-          x1="47.3492"
-          y1="5.02156"
-          x2="19.2296"
-          y2="47.9783"
-          gradientUnits="userSpaceOnUse"
-        >
-          <stop stopColor="#006514d5" />
-          <stop offset="0.568499" stopColor="#006514d5" />
-          <stop offset="1" stopColor="#006514d5" />
-        </linearGradient>
-      </defs>
     </svg>
   );
 };

@@ -26,7 +26,6 @@ export const formatAmount = (amount: string | number): string => {
   return `$${formattedAmount}`;
 };
 
-
 export const formatFileSize = (bytes: number, decimals: number = 2): string => {
   if (bytes === 0) return '0 Bytes';
 
@@ -42,3 +41,40 @@ export const fileToNewBlob = (file: File): Blob => {
   // Create a new Blob from the file's contents
   return new Blob([file], { type: file.type });
 };
+
+export interface EvaluateType {
+  type: string;
+  score: number;
+}
+
+export function evaluatePasswordStrength(password: string): EvaluateType {
+  let score = 0;
+
+  if (!password) return { type: 'Weak', score: score };
+
+  // Check password length
+  if (password.length > 8) score += 1;
+  // Contains lowercase
+  if (/[a-z]/.test(password)) score += 1;
+  // Contains uppercase
+  if (/[A-Z]/.test(password)) score += 1;
+  // Contains numbers
+  if (/\d/.test(password)) score += 1;
+  // Contains special characters
+  if (/[^A-Za-z0-9]/.test(password)) score += 1;
+
+  switch (score) {
+    case 0:
+    case 1:
+    case 2:
+      return { type: 'Weak', score: score };
+    case 3:
+      return { type: 'Medium', score: score };
+    case 4:
+      return { type: 'Strong', score: score };
+    case 5:
+      return { type: 'Very Strong', score: score };
+    default:
+      return { type: '', score: -1 };
+  }
+}
