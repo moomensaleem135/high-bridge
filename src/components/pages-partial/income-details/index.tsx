@@ -38,6 +38,7 @@ const cardData = [
 
 export default function PartialIncome() {
   const [religion, setReligion] = useState<string | undefined>('');
+  const [checked, setChecked] = useState<boolean>(false);
   const router = useRouter();
 
   const handleClick = () => {

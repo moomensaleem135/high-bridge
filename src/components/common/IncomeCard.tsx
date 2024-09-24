@@ -19,8 +19,8 @@ const IncomeCard: React.FC<IncomeCardProps> = ({
     <>
       {cardData.map((card, index) => (
         <div key={index} className="flex flex-col justify-center items-center">
-          <div className="flex flex-col justify-start items-center gap-2 p-5 bg-cardbg rounded-xl border-cardBorder border-[1px]">
-            <h2 className="text-cardHeading font-[600] text-2xl">
+          <div className="flex flex-col justify-start items-center gap-2 p-5 bg-cardbg rounded-xl border-cardBorder border-[1px] w-full">
+            <h2 className="text-cardHeading font-[600] text-2xl text-center text-nowrap">
               {card.title}
             </h2>
             <p className="text-center text-cardText text-wrap">{card.text}</p>
