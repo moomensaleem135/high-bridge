@@ -5,6 +5,7 @@ import * as SelectPrimitive from '@radix-ui/react-select';
 
 import { cn } from '@/lib/cn';
 import { TickIcon, ArrowDownIcon } from '@/assets/svgs';
+import { Checkbox } from '@/components/ui/checkbox';
 
 const Select = SelectPrimitive.Root;
 
@@ -24,7 +25,7 @@ const SelectTrigger = React.forwardRef<
   <SelectPrimitive.Trigger
     ref={ref}
     className={cn(
-      'focus:outline-none flex h-10 px-3 py-2 w-full items-center justify-between rounded-md  bg-accent text-sm shadow-background text-subheadingColor placeholder:text-subheadingColor disabled:cursor-not-allowed disabled:opacity-50',
+      'focus:outline-none border-[1px] border-solid border-[#66666659] flex h-12 px-3 py-2 w-full items-center justify-between rounded-md bg-field text-sm shadow-background text-subheadingColor placeholder:text-subheadingColor disabled:cursor-not-allowed disabled:opacity-50',
       className
     )}
     {...props}
@@ -87,17 +88,24 @@ const SelectItem = React.forwardRef<
   <SelectPrimitive.Item
     ref={ref}
     className={cn(
-      'relative flex w-full cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none focus:text-primary data-[disabled]:pointer-events-none data-[disabled]:opacity-50',
+      'relative flex w-full cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none hover:bg-[#DFE3E6] data-[disabled]:pointer-events-none data-[disabled]:opacity-50',
       className
     )}
     {...props}
   >
-    <span className="absolute left-2 flex h-3.5 w-3.5 items-center justify-center">
+    {/* <span className="absolute left-2 flex h-3.5 w-3.5 items-center justify-center">
       <SelectPrimitive.ItemIndicator>
-        <TickIcon className="h-4 w-4 text-primary" />
+        <TickIcon className="h-4 w-4 text-primary border-black border-[1px] border-solid" />
       </SelectPrimitive.ItemIndicator>
-    </span>
-    <SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText>
+    </span> */}
+    <div className="flex justify-center items-center">
+      <Checkbox
+        checked={false}
+        //onCheckedChange={handleServerCheck}
+        className="absolute left-2 flex w-4 h-4 my-[0.1rem] items-center justify-center rounded-sm border-[#a8adb3]" // Optional custom class
+      />
+      <SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText>
+    </div>
   </SelectPrimitive.Item>
 ));
 SelectItem.displayName = SelectPrimitive.Item.displayName;

@@ -10,7 +10,9 @@ import { IOptions } from 'tailwind-datepicker-react/types/Options';
 import useClickOutside from '@/hooks/useClickOutside';
 
 interface DatePickerProps {
-  onDateChange: (date: string) => void;
+  onDateChange?: (date: string) => void;
+  setStartDate?: (value: string) => void;
+  endDate?: string;
   initialValue?: string;
   show: boolean;
   setShow: React.Dispatch<boolean>;
@@ -21,7 +23,7 @@ const options: IOptions = {
   autoHide: true,
   todayBtn: false,
   clearBtn: false,
-  maxDate: new Date(),
+  maxDate: new Date('2026-01-01'),
   minDate: new Date('1950-01-01'),
   theme: {
     background: 'bg-background',
@@ -56,6 +58,8 @@ const DatePicker = ({
   onDateChange,
   show,
   setShow,
+  setStartDate,
+  endDate,
 }: DatePickerProps) => {
   const ref = useClickOutside(() => {
     setShow(false);
@@ -67,18 +71,31 @@ const DatePicker = ({
     if (onDateChange) {
       onDateChange(selectedDate.toDateString());
     }
+    if (setStartDate) {
+      setStartDate(selectedDate.toDateString());
+    }
   };
 
   const handleClose = (state: boolean) => {
     setShow(state);
   };
 
+  React.useEffect(() => {
+    setDate(initialValue);
+  }, [initialValue]);
+
   useEffect(() => {
+    if (endDate) {
+      const date = new Date(endDate);
+      date.setFullYear(date.getFullYear() + 1);
+      setDate(date.toString().split(' ').slice(0, 4).join(' '));
+      handleDateChange(date);
+    }
     if (initialValue) {
       setDate(initialValue);
       options.defaultDate = new Date(initialValue);
     }
-  }, [initialValue]);
+  }, [initialValue, endDate]);
 
   return (
     <div ref={ref} className="relative">
@@ -88,18 +105,21 @@ const DatePicker = ({
         show={show}
         setShow={handleClose}
       >
-        <div className="bg-accent flex items-center rounded-lg px-3  w-full cursor-pointer">
-          <div className="mr-1">
+        <div className="bg-field flex border-[1px] border-solid border-[#66666659] items-center rounded-md px-3 w-full h-12 cursor-pointer">
+          {/* <div className="mr-1">
             <CalendarIcon className="w-4 h-4 text-headingColor" />
-          </div>
+          </div> */}
           <input
             type="text"
             className="p-2 w-full bg-transparent  placeholder:text-subheadingColor text-subheadingColor focus:outline-none cursor-pointer"
-            placeholder="Select Date(s)..."
+            //placeholder="Select Date(s)..."
             value={date}
           />
-          <div className="-mr-1">
+          {/* <div className="-mr-1">
             <ArrowDownIcon className="w-4 h-4 text-headingColor" />
+          </div> */}
+          <div className="mr-1">
+            <CalendarIcon className="w-4 h-4 text-headingColor" />
           </div>
         </div>
       </Datepicker>
