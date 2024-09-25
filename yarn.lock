@@ -7,6 +7,34 @@
   resolved "https://registry.yarnpkg.com/@adobe/css-tools/-/css-tools-4.4.0.tgz#728c484f4e10df03d5a3acd0d8adcbbebff8ad63"
   integrity sha512-Ff9+ksdQQB3rMncgqDK78uLznstjyfIf2Arnh22pW8kBpLs6rpKDwgnZT46hin5Hl1WzazzK64DOrhSwYpS7bQ==
 
+"@ag-grid-community/client-side-row-model@^32.2.0":
+  version "32.2.0"
+  resolved "https://registry.yarnpkg.com/@ag-grid-community/client-side-row-model/-/client-side-row-model-32.2.0.tgz#e85d32d016e271a1be5d241b90e71c9848ebaa5b"
+  integrity sha512-Wg/jOd9+luIvIw5Ha+q4hTLMq1zSYtOrSwWZTGS8TIiLcAP/zScoPaweYrcEbWcR72aQ4XmSEcwwgluiwTbPtQ==
+  dependencies:
+    "@ag-grid-community/core" "32.2.0"
+    tslib "^2.3.0"
+
+"@ag-grid-community/core@32.2.0", "@ag-grid-community/core@^32.0.0":
+  version "32.2.0"
+  resolved "https://registry.yarnpkg.com/@ag-grid-community/core/-/core-32.2.0.tgz#9379e44b7aa4e03a46d9652ed7bd7e92fdfc41d0"
+  integrity sha512-ng7qhDfF91ecT5TldQsb5lhJ6M1ZhSIB2c1hSSmY0kqQHxn0uAJo6lpjz7SIUqyy4PFupsOoPs98CsW0Dl9dHA==
+  dependencies:
+    ag-charts-types "10.2.0"
+    tslib "^2.3.0"
+
+"@ag-grid-community/react@^32.0.0":
+  version "32.2.0"
+  resolved "https://registry.yarnpkg.com/@ag-grid-community/react/-/react-32.2.0.tgz#36c47cc7b9dcf66ea1d8ca8374c85d2b559936e1"
+  integrity sha512-Lx1c9gHzIwhlxivCd6g4bBAQMyNLQCS+GJ6QkhddKoT2TUQcl/9ExMOptbrC/FguHP3gdYKntVKMcp/xmNmSSg==
+  dependencies:
+    prop-types "^15.8.1"
+
+"@ag-grid-community/styles@^32.0.0":
+  version "32.2.0"
+  resolved "https://registry.yarnpkg.com/@ag-grid-community/styles/-/styles-32.2.0.tgz#979ffb67d6fdad0183c0f597db529657f3528ba0"
+  integrity sha512-OYk8PRqv3WEiYGTamQ4G85hjI7gjmQzY51MtN2nuqlEqC/+lAeRavgPpQ3QCS2hDyRj0pjdaDgBMVMMz6SpDuw==
+
 "@alloc/quick-lru@^5.2.0":
   version "5.2.0"
   resolved "https://registry.yarnpkg.com/@alloc/quick-lru/-/quick-lru-5.2.0.tgz#7bf68b20c0a350f936915fcae06f58e32007ce30"
@@ -1523,6 +1551,11 @@ acorn@^8.1.0, acorn@^8.11.0, acorn@^8.4.1, acorn@^8.8.1, acorn@^8.9.0:
   version "8.12.1"
   resolved "https://registry.yarnpkg.com/acorn/-/acorn-8.12.1.tgz#71616bdccbe25e27a54439e0046e89ca76df2248"
   integrity sha512-tcpGyI9zbizT9JbV6oYE477V6mTlXvvi0T0G3SNIYE2apm/G5huBa1+K89VGeovbg+jycCrfhl3ADxErOuO6Jg==
+
+ag-charts-types@10.2.0:
+  version "10.2.0"
+  resolved "https://registry.yarnpkg.com/ag-charts-types/-/ag-charts-types-10.2.0.tgz#9af7e333d196d02da1635b19b2649a9b2d06241a"
+  integrity sha512-PUqH1QtugpYLnlbMdeSZVf5PpT1XZVsP69qN1JXhetLtQpVC28zaj7ikwu9CMA9N9b+dBboA9QcjUQUJZVUokQ==
 
 agent-base@6:
   version "6.0.2"
@@ -6176,7 +6209,7 @@ tsconfig-paths@^3.15.0:
     minimist "^1.2.6"
     strip-bom "^3.0.0"
 
-tslib@^2.0.0, tslib@^2.1.0, tslib@^2.4.0:
+tslib@^2.0.0, tslib@^2.1.0, tslib@^2.3.0, tslib@^2.4.0:
   version "2.7.0"
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.7.0.tgz#d9b40c5c40ab59e8738f297df3087bf1a2690c01"
   integrity sha512-gLXCKdN1/j47AiHiOkJN69hJmcbGTHI0ImLmbYLHykhgeN0jVGola9yVjFgzCUklsZQMW55o+dW7IXv3RCXDzA==
