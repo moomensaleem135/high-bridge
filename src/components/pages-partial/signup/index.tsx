@@ -7,13 +7,13 @@ import { useState } from 'react';
 
 const PartialSignup = () => {
   return (
-    <div className="flex justify-center gap-x-32 items-center h-[100vh]">
-      <AuthLayout>
+    <AuthLayout>
+      <div className="flex justify-center gap-x-32 items-center h-full lg:h-[100vh]">
         <div className="w-full">
           <SignUp />
         </div>
-      </AuthLayout>
-    </div>
+      </div>
+    </AuthLayout>
   );
 };
 

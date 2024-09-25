@@ -71,7 +71,7 @@ const ResetPassword: React.FC<ResetProps> = () => {
   };
 
   return (
-    <div className="flex flex-col w-full justify-center items-center bg-[#F8F8F8] gap-12 xl:gap-5 xl:w-5/5 rounded-3xl border-solid border-[1px] border-opacity-35 border-[#666666]">
+    <div className="flex flex-col w-full justify-center items-center bg-[#F8F8F8] gap-5 xl:w-5/5 rounded-3xl border-solid border-[1px] border-opacity-35 border-[#666666]">
       {Object.keys(form.formState.errors).length > 0 && (
         <div className=" mt-2 p-1">
           {Object.values(form.formState.errors).map((error, index) => (
@@ -106,7 +106,7 @@ const ResetPassword: React.FC<ResetProps> = () => {
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="flex flex-col w-[82%] gap-12 xl:gap-6 mb-12 xl:mb-10"
+          className="flex flex-col w-[82%] gap-6 mb-12 xl:mb-10"
           data-testid="event-form"
         >
           <div className="w-full items-center">

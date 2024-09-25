@@ -24,7 +24,7 @@ import { forgetUrl, signupUrl } from '@/configs/constants';
 interface LoginProps {}
 
 const LoginSchema = z.object({
-  email: z.string().min(1, { message: 'email is required' }),
+  email: z.string().min(1, { message: 'Email is required' }),
   password: z.string().min(1, { message: 'Password is required' }),
 });
 
@@ -65,8 +65,8 @@ const Login: React.FC<LoginProps> = () => {
   };
 
   return (
-    <div className="flex flex-col w-full justify-center items-center bg-[#F8F8F8] gap-12 xl:gap-5 xl:w-5/5 rounded-3xl border-solid border-[1px] border-opacity-35 border-[#666666]">
-      {Object.keys(form.formState.errors).length > 0 && (
+    <div className="flex flex-col w-full justify-center items-center pt-10 pb-4 bg-[#F8F8F8] gap-12 xl:gap-5 xl:w-5/5 rounded-3xl border-solid border-[1px] border-opacity-35 border-[#666666]">
+      {/* {Object.keys(form.formState.errors).length > 0 && (
         <div className=" mt-2 p-1">
           {Object.values(form.formState.errors).map((error, index) => (
             <div
@@ -78,10 +78,10 @@ const Login: React.FC<LoginProps> = () => {
             </div>
           ))}
         </div>
-      )}
+      )} */}
       <div className="flex flex-col w-full justify-center items-center py-7">
         <p
-          className="font-medium text-3xl text-headingColor"
+          className="font-medium text-[32px] text-headingColor"
           data-cy="page-title"
           data-testid="page-title"
         >
@@ -101,7 +101,7 @@ const Login: React.FC<LoginProps> = () => {
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="flex flex-col w-[82%] gap-12 xl:gap-6 mb-12 xl:mb-10"
+          className="flex flex-col w-[82%] gap-6 mb-12 xl:mb-10"
           data-testid="event-form"
         >
           <div className="w-full items-center">
@@ -110,8 +110,8 @@ const Login: React.FC<LoginProps> = () => {
                 control={form.control}
                 name="email"
                 render={({ field }) => (
-                  <div className="w-full gap-y-2 flex flex-col">
-                    <Label>Email Address:</Label>
+                  <div className="w-full flex flex-col">
+                    <Label className="mb-2">Email Address:</Label>
                     <FormControl>
                       <IconInput
                         {...field}
@@ -125,6 +125,12 @@ const Login: React.FC<LoginProps> = () => {
                         data-testid="email-address"
                       />
                     </FormControl>
+                    {form.formState.errors.email && (
+                      <span className="text-destructive text-sm flex items-center gap-1 mt-2">
+                        <ErrorIcon />
+                        {form.formState.errors.email.message}
+                      </span>
+                    )}
                   </div>
                 )}
               />
@@ -140,16 +146,15 @@ const Login: React.FC<LoginProps> = () => {
                   <div className="w-full flex flex-col">
                     <div className="flex justify-between">
                       <Label>Password:</Label>
-                      <span
-                        className="flex items-center justify-between gap-1 cursor-pointer"
+                      <div
+                        className="flex items-center justify-between gap-1 cursor-pointer text-iconText "
                         onClick={(e) => {
                           setShowPaasword(!showPassword);
-                          console.log(showPassword);
                         }}
                       >
                         <img src={hide.src} />
                         {showPassword ? 'Hide' : 'Show'}
-                      </span>
+                      </div>
                     </div>
 
                     <FormControl>
@@ -166,6 +171,12 @@ const Login: React.FC<LoginProps> = () => {
                         data-testid="password"
                       />
                     </FormControl>
+                    {form.formState.errors.password && (
+                      <span className="text-destructive text-sm flex items-center gap-1 mt-2">
+                        <ErrorIcon />
+                        {form.formState.errors.password.message}
+                      </span>
+                    )}
                   </div>
                 )}
               />
@@ -177,7 +188,7 @@ const Login: React.FC<LoginProps> = () => {
             <Link href={forgetUrl}>
               <span className="underline">Forgot password ?</span>
             </Link>
-            <div className="w-full bg-black h-[6vh] rounded-md ">
+            <div className="w-full bg-black h-full p-[6px] rounded-md ">
               <Button
                 className="text-white text-center w-full h-full font-[400]"
                 type="submit"

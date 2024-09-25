@@ -8,13 +8,13 @@ import AuthLayout from '@/components/layouts/AuthLayout';
 
 const PartialProfileSetup = () => {
   return (
-    <div className="flex justify-center gap-x-32 items-center h-[100vh]">
-      <AuthLayout>
+    <AuthLayout>
+      <div className="flex justify-center gap-x-32 items-center h-[100vh]">
         <div className="w-full">
           <ProfileSetup />
         </div>
-      </AuthLayout>
-    </div>
+      </div>
+    </AuthLayout>
   );
 };
 

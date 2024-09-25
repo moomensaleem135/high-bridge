@@ -26,8 +26,8 @@ import { signinUrl } from '@/configs/constants';
 interface SignUpProps {}
 
 const SignUpSchema = z.object({
-  name: z.string().min(1, { message: 'name is required' }),
-  email: z.string().min(1, { message: 'email is required' }),
+  name: z.string().min(1, { message: 'Name is required' }),
+  email: z.string().min(1, { message: 'Email is required' }),
   password: z.string().min(1, { message: 'Password is required' }),
   confirmPassword: z
     .string()
@@ -85,7 +85,7 @@ const SignUp: React.FC<SignUpProps> = () => {
 
   return (
     <>
-      {Object.keys(form.formState.errors).length > 0 && (
+      {/* {Object.keys(form.formState.errors).length > 0 && (
         <div className=" mt-2 p-1 absolute right-10">
           {Object.values(form.formState.errors).map((error, index) => (
             <div
@@ -97,18 +97,18 @@ const SignUp: React.FC<SignUpProps> = () => {
             </div>
           ))}
         </div>
-      )}
-      <div className="flex flex-col w-full justify-center items-center bg-[#F8F8F8] rounded-3xl border-solid border-[1px] border-opacity-35 border-[#666666]">
+      )} */}
+      <div className="flex flex-col w-full justify-center items-center bg-[#F8F8F8] xl:w-5/5 rounded-3xl border-solid border-[1px] border-opacity-35 border-[#666666]">
         <div className="flex flex-col w-full justify-center items-center">
           <p
-            className="font-medium text-3xl text-headingColor mt-10"
+            className="font-medium text-3xl text-headingColor mt-10 max-lg:mt-6"
             data-cy="page-title"
             data-testid="page-title"
           >
             Create an account
           </p>
           <p
-            className="font-medium text-sm text-slate-900"
+            className="font-medium text-sm text-slate-900 max-lg:mb-4"
             data-cy="page-description"
             data-testid="page-description"
           >
@@ -122,7 +122,7 @@ const SignUp: React.FC<SignUpProps> = () => {
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
-            className="flex flex-col w-[82%] gap-12  py-4 justify-center"
+            className="flex flex-col w-[82%] gap-5 mb-8 py-4 max-lg:pb-0 justify-center"
             data-testid="event-form"
           >
             <div className="w-full items-center">
@@ -146,6 +146,12 @@ const SignUp: React.FC<SignUpProps> = () => {
                           data-testid="user-name"
                         />
                       </FormControl>
+                      {form.formState.errors.name && (
+                        <span className="text-destructive text-sm flex items-center gap-1">
+                          <ErrorIcon />
+                          {form.formState.errors.name.message}
+                        </span>
+                      )}
                     </div>
                   )}
                 />
@@ -172,6 +178,12 @@ const SignUp: React.FC<SignUpProps> = () => {
                           data-testid="email-address"
                         />
                       </FormControl>
+                      {form.formState.errors.email && (
+                        <span className="text-destructive text-sm flex items-center gap-1">
+                          <ErrorIcon />
+                          {form.formState.errors.email.message}
+                        </span>
+                      )}
                     </div>
                   )}
                 />
@@ -188,7 +200,7 @@ const SignUp: React.FC<SignUpProps> = () => {
                       <div className="flex justify-between">
                         <Label>Password:</Label>
                         <span
-                          className="flex items-center justify-between gap-1 cursor-pointer"
+                          className="flex items-center justify-between gap-1 cursor-pointer text-iconText"
                           onClick={(e) => {
                             setShowPassword(!showPassword);
                             console.log(showPassword);
@@ -213,6 +225,12 @@ const SignUp: React.FC<SignUpProps> = () => {
                           data-testid="password"
                         />
                       </FormControl>
+                      {form.formState.errors.password && (
+                        <span className="text-destructive text-sm flex items-center gap-1 mt-2">
+                          <ErrorIcon />
+                          {form.formState.errors.password.message}
+                        </span>
+                      )}
                       {field.name === 'password' &&
                         form.getValues('password') && (
                           <div className="flex gap-2.5 justify-start mt-3 w-full">
@@ -236,7 +254,7 @@ const SignUp: React.FC<SignUpProps> = () => {
                       <div className="flex justify-between">
                         <Label>Confirm Password:</Label>
                         <span
-                          className="flex items-center justify-between gap-1 cursor-pointer"
+                          className="flex items-center justify-between gap-1 cursor-pointer text-iconText"
                           onClick={(e) => {
                             setShowConfirmPaasword(!showConfirmPassword);
                             console.log(showConfirmPassword);
@@ -261,6 +279,12 @@ const SignUp: React.FC<SignUpProps> = () => {
                           data-testid="confirm-password"
                         />
                       </FormControl>
+                      {form.formState.errors.confirmPassword && (
+                        <span className="text-destructive text-sm flex items-center gap-1 mt-2">
+                          <ErrorIcon />
+                          {form.formState.errors.confirmPassword.message}
+                        </span>
+                      )}
                     </div>
                   )}
                 />

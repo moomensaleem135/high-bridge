@@ -47,6 +47,7 @@ const config: Config = {
         cardBorder: 'var(--card-border)',
         cardHeading: 'var(--cardheading)',
         cardText: 'var(--cardText)',
+        iconText: 'var(--iconText)',
         hoverNav: 'var(--hover)',
         detailsBtn: 'var(--detailsbutton)',
         btnText: 'var( --btn-text)',

@@ -28,7 +28,7 @@ const CarouselText: React.FC<CarouselTextProps> = ({
   }, [textParas.length, interval]);
 
   return (
-    <div className="flex flex-col justify-evenly h-4/6 w-full">
+    <div className="lg:flex flex-col justify-evenly h-4/6 w-full hidden">
       <section className={containerClassName}>
         {textParas.map((para, index) => (
           <div

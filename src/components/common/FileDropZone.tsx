@@ -103,7 +103,7 @@ const FileDropzone: React.FC<FileDropzoneProps> = ({ onFileUpload, error }) => {
         </>
       )}
       {error && (
-        <p className="text-red-600 text-center mt-2">{error}</p> // Display error from form
+        <p className="text-destructive text-center mt-2">{error}</p> // Display error from form
       )}
     </div>
   );
