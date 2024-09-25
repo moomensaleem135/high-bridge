@@ -24,7 +24,7 @@ import { signinUrl } from '@/configs/constants';
 interface ForgotPasswordProps {}
 
 const ForgotPasswordSchema = z.object({
-  email: z.string().min(1, { message: 'email is required' }),
+  email: z.string().min(1, { message: 'Email is required' }),
 });
 
 type FormFields = z.infer<typeof ForgotPasswordSchema>;
@@ -63,8 +63,8 @@ const ForgotPassword: React.FC<ForgotPasswordProps> = () => {
   };
 
   return (
-    <div className="flex flex-col w-full justify-center items-center bg-[#F8F8F8] gap-12 xl:gap-5 xl:w-5/5 rounded-3xl border-solid border-[1px] border-opacity-35 border-[#666666]">
-      {Object.keys(form.formState.errors).length > 0 && (
+    <div className="flex flex-col w-full justify-center items-center pt-4 pb-1 bg-[#F8F8F8] gap-12 xl:gap-5 xl:w-5/5 rounded-3xl border-solid border-[1px] border-opacity-35 border-[#666666]">
+      {/* {Object.keys(form.formState.errors).length > 0 && (
         <div className=" mt-2 p-1">
           {Object.values(form.formState.errors).map((error, index) => (
             <div
@@ -76,7 +76,7 @@ const ForgotPassword: React.FC<ForgotPasswordProps> = () => {
             </div>
           ))}
         </div>
-      )}
+      )} */}
       <div className="flex flex-col w-full justify-center items-center py-7 gap-y-1">
         <p
           className="font-medium text-3xl text-headingColor"
@@ -97,7 +97,7 @@ const ForgotPassword: React.FC<ForgotPasswordProps> = () => {
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="flex flex-col w-[82%] gap-12 xl:gap-5 mb-12 xl:mb-10"
+          className="flex flex-col w-[82%] gap-5 mb-12 xl:mb-10"
           data-testid="event-form"
         >
           <div className="w-full items-center">
@@ -106,8 +106,8 @@ const ForgotPassword: React.FC<ForgotPasswordProps> = () => {
                 control={form.control}
                 name="email"
                 render={({ field }) => (
-                  <div className="w-full gap-y-2 flex flex-col">
-                    <Label>Email Address:</Label>
+                  <div className="w-full flex flex-col">
+                    <Label className='mb-2'>Email Address:</Label>
                     <FormControl>
                       <IconInput
                         {...field}
@@ -121,6 +121,12 @@ const ForgotPassword: React.FC<ForgotPasswordProps> = () => {
                         data-testid="email-address"
                       />
                     </FormControl>
+                    {form.formState.errors.email && (
+                      <span className="text-destructive text-sm flex items-center gap-1 mt-2">
+                        <ErrorIcon />
+                        {form.formState.errors.email.message}
+                      </span>
+                    )}
                   </div>
                 )}
               />
@@ -143,7 +149,7 @@ const ForgotPassword: React.FC<ForgotPasswordProps> = () => {
           </div>
 
           <Link
-            className="flex justify-start items-center gap-3"
+            className="flex justify-start items-center gap-3 text-sm font-medium"
             href={signinUrl}
           >
             <img src={back.src} />

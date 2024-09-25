@@ -5,12 +5,12 @@ import AuthLayout from '@/components/layouts/AuthLayout';
 
 export default function PartialSignin() {
   return (
-    <div className="flex justify-center gap-x-32 items-center h-[100vh]">
-      <AuthLayout>
+    <AuthLayout>
+      <div className="flex justify-center gap-x-32 items-center h-full lg:h-[100vh]">
         <div className="w-full">
           <Login />
         </div>
-      </AuthLayout>
-    </div>
+      </div>
+    </AuthLayout>
   );
 }
