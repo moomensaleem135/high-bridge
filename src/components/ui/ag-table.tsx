@@ -2,7 +2,7 @@ import React, { useMemo, useState, useEffect, useRef } from 'react';
 import { AgGridReact, AgGridReactProps } from '@ag-grid-community/react';
 import { ColDef, ModuleRegistry } from '@ag-grid-community/core';
 import { ClientSideRowModelModule } from '@ag-grid-community/client-side-row-model';
-import PaginationControls from '../Pagination';
+// import PaginationControls from '../Pagination';
 
 // Register the required modules
 ModuleRegistry.registerModules([ClientSideRowModelModule]);
@@ -100,7 +100,7 @@ const AgGridTable: React.FC<AgGridTableProps> = ({
           {...props}
         />
       </div>
-      {enablePagination && showPageination && (
+      {/* {enablePagination && showPageination && (
         <PaginationControls
           pageSize={pageSize}
           setPageSize={setPageSize}
@@ -108,7 +108,7 @@ const AgGridTable: React.FC<AgGridTableProps> = ({
           setCurrentPage={handlePage}
           totalRows={totalRows}
         />
-      )}
+      )} */}
     </div>
   );
 };
