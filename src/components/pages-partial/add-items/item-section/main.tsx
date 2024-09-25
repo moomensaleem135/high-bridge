@@ -1,7 +1,7 @@
 import React from 'react';
 import { AddIcon } from '@/assets/svgs/add-icon';
 import { useRouter } from 'next/navigation';
-import GridSection from './grid';
+import GridSection from './table';
 
 const MainSection = () => {
   const router = useRouter();
