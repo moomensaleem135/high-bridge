@@ -16,5 +16,6 @@ export const resetUrl = '/reset-password/';
 export const verifyUrl = '/verify/';
 export const profilesetupUrl = '/profile-setup/';
 export const incomedetailsUrl = '/income-details/';
+export const addItemssUrl = '/add-items/';
 
 export const jwtExpMsg = 'jwt expired';

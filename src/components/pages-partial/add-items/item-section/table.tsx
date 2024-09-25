@@ -3,52 +3,78 @@ import AgGridTable from '@/components/ui/ag-table';
 import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-alpine.css';
 import '../../../../styles/grid.css';
+import CustomOptions from './customOption';
 
 const GridSection = () => {
-  const [pageSize, setPageSize] = useState('10');
-  const [currentPage, setCurrentPage] = useState(1);
+  // const [pageSize, setPageSize] = useState('10');
+  // const [currentPage, setCurrentPage] = useState(1);
 
   const columns = [
-    { headerName: 'Item', field: 'item' },
-    { headerName: 'Purpose', field: 'purpose' },
-    { headerName: 'Used Before', field: 'usedbefore' },
-    { headerName: 'Quantity', field: 'quantity' },
-    { headerName: 'Quality', field: 'quality' },
-    { headerName: 'Option', field: 'option' },
-  ];
-
-  const rowData: any = [
+    { headerName: 'Item', field: 'item', flex: 1 },
+    { headerName: 'Purpose', field: 'purpose', flex: 1 },
+    { headerName: 'Used Before', field: 'usedbefore', flex: 1 },
+    { headerName: 'Quantity', field: 'quantity', flex: 1 },
+    { headerName: 'Quality', field: 'quality', flex: 1 },
     {
-      item: 'Gold',
-      purpose: 'Trade',
-      usedbefore: 'No',
-      quantity: '5 tola',
-      quality: '24 Karat',
-    },
-    {
-      item: 'Gold',
-      purpose: 'Trade',
-      usedbefore: 'No',
-      quantity: '5 tola',
-      quality: '24 Karat',
-    },
-    {
-      item: 'Gold',
-      purpose: 'Trade',
-      usedbefore: 'No',
-      quantity: '5 tola',
-      quality: '24 Karat',
-    },
-    {
-      item: 'Gold',
-      purpose: 'Trade',
-      usedbefore: 'No',
-      quantity: '5 tola',
-      quality: '24 Karat',
+      headerName: 'Option',
+      field: 'option',
+      cellRenderer: CustomOptions,
     },
   ];
 
-  const totalRows = rowData.length;
+  // const rowData: any = [
+  //   {
+  //     item: 'Gold',
+  //     purpose: 'Trade',
+  //     usedbefore: 'No',
+  //     quantity: '5 tola',
+  //     quality: '24 Karat',
+  //   },
+  //   {
+  //     item: 'Gold',
+  //     purpose: 'Trade',
+  //     usedbefore: 'No',
+  //     quantity: '5 tola',
+  //     quality: '24 Karat',
+  //   },
+  //   {
+  //     item: 'Gold',
+  //     purpose: 'Trade',
+  //     usedbefore: 'No',
+  //     quantity: '5 tola',
+  //     quality: '24 Karat',
+  //   },
+  //   {
+  //     item: 'Gold',
+  //     purpose: 'Trade',
+  //     usedbefore: 'No',
+  //     quantity: '5 tola',
+  //     quality: '24 Karat',
+  //   },
+  //   {
+  //     item: 'Gold',
+  //     purpose: 'Trade',
+  //     usedbefore: 'No',
+  //     quantity: '5 tola',
+  //     quality: '24 Karat',
+  //   },
+  //   {
+  //     item: 'Gold',
+  //     purpose: 'Trade',
+  //     usedbefore: 'No',
+  //     quantity: '5 tola',
+  //     quality: '24 Karat',
+  //   },
+  //   {
+  //     item: 'Gold',
+  //     purpose: 'Trade',
+  //     usedbefore: 'No',
+  //     quantity: '5 tola',
+  //     quality: '24 Karat',
+  //   },
+  // ];
+
+  // const totalRows = rowData.length;
 
   const getRowClass = (params: any) => {
     return params.rowIndex % 2 === 0 ? 'row-even' : 'row-odd';
@@ -74,11 +100,11 @@ const GridSection = () => {
   return (
     <AgGridTable
       columns={columns}
-      rowData={rowData ? rowData : []}
+      rowData={[]}
       getRowClass={getRowClass}
-      totalRows={totalRows}
+      totalRows={0}
       customHeight={400}
-      overlayNoRowsTemplate={rowData.length === 0 ? EmptyTable : ''}
+      overlayNoRowsTemplate={EmptyTable}
     />
   );
 };

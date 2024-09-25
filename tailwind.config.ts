@@ -34,6 +34,7 @@ const config: Config = {
         subheadingColor: 'var(--subheading)',
 
         searchBarBg: 'var(--search-bar-bg)',
+        inputBg: 'var(--input-bg)',
 
         border: 'var(--border)',
         input: 'var(--accent)',

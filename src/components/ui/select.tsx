@@ -83,8 +83,10 @@ SelectLabel.displayName = SelectPrimitive.Label.displayName;
 
 const SelectItem = React.forwardRef<
   React.ElementRef<typeof SelectPrimitive.Item>,
-  React.ComponentPropsWithoutRef<typeof SelectPrimitive.Item>
->(({ className, children, ...props }, ref) => (
+  React.ComponentPropsWithoutRef<typeof SelectPrimitive.Item> & {
+    isChecked: boolean;
+  }
+>(({ className, children, isChecked, ...props }, ref) => (
   <SelectPrimitive.Item
     ref={ref}
     className={cn(
@@ -100,7 +102,7 @@ const SelectItem = React.forwardRef<
     </span> */}
     <div className="flex justify-center items-center">
       <Checkbox
-        checked={false}
+        checked={isChecked}
         //onCheckedChange={handleServerCheck}
         className="absolute left-2 flex w-4 h-4 my-[0.1rem] items-center justify-center rounded-sm border-[#a8adb3]" // Optional custom class
       />

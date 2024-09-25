@@ -98,7 +98,7 @@ const SignUp: React.FC<SignUpProps> = () => {
           ))}
         </div>
       )}
-      <div className="flex flex-col w-full justify-center items-center bg-[#F8F8F8] xl:w-5/5 rounded-3xl border-solid border-[1px] border-opacity-35 border-[#666666]">
+      <div className="flex flex-col w-full justify-center items-center bg-[#F8F8F8] rounded-3xl border-solid border-[1px] border-opacity-35 border-[#666666]">
         <div className="flex flex-col w-full justify-center items-center">
           <p
             className="font-medium text-3xl text-headingColor mt-10"
@@ -122,7 +122,7 @@ const SignUp: React.FC<SignUpProps> = () => {
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
-            className="flex flex-col w-[82%] gap-12 xl:gap-10 mb-12 xl:mb-8 py-4 justify-center"
+            className="flex flex-col w-[82%] gap-12  py-4 justify-center"
             data-testid="event-form"
           >
             <div className="w-full items-center">
