@@ -4,6 +4,7 @@ import React from 'react';
 
 import AppLayout from '@/components/common/layout/AppLayout';
 import ComingSoon from '@/components/common/ComingSoon';
+import MainSection from './item-section/main';
 
 export default function PartialAddItems() {
   return (
@@ -16,7 +17,9 @@ export default function PartialAddItems() {
             such as tola, grams, or ounces.
           </span>
         </div>
-        <ComingSoon />
+        <div className="flex justify-center items-center mt-2">
+          <MainSection />
+        </div>
       </div>
     </AppLayout>
   );

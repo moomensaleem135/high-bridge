@@ -4,7 +4,6 @@ import { ColDef, ModuleRegistry } from '@ag-grid-community/core';
 import { ClientSideRowModelModule } from '@ag-grid-community/client-side-row-model';
 import PaginationControls from '../Pagination';
 
-
 // Register the required modules
 ModuleRegistry.registerModules([ClientSideRowModelModule]);
 
@@ -31,7 +30,7 @@ const AgGridTable: React.FC<AgGridTableProps> = ({
   currentPage,
   setCurrentPage,
   totalRows,
-  enablePagination = true,
+  enablePagination = false,
   onPageChange,
   customHeight,
   ...props

@@ -8,25 +8,41 @@ import {
   AccordionContent,
 } from '@radix-ui/react-accordion';
 
-import { ArrowDownIcon } from '@/assets/svgs';
+import { AccordionDownIcon } from '@/assets/svgs/accordion-down';
+import { ArrowUpIcon } from '@/assets/svgs/arrow-up';
 
 import PersonalCards from './PersonalCards';
 import CommercialCards from './CommercialCards';
 
 const IncomeAccordion = () => {
+  const [selected, setSelected] = useState<string>('');
+
+  const handleSelection = (e: React.MouseEvent<HTMLDivElement>) => {
+    const target = e.target as HTMLElement;
+    const clickedValue = target.innerText;
+    setSelected((prevSelected) =>
+      prevSelected === clickedValue ? '' : clickedValue
+    );
+  };
   return (
     <Accordion
       type="single"
+      value={selected}
       collapsible
-      className="flex flex-col justify-center items-center gap-y-5 w-full"
+      className="flex flex-col justify-center items-center gap-y-3 w-full"
     >
       <AccordionItem
         value="Personal Property"
         className="w-full flex flex-col justify-center items-center"
+        onClick={(e) => handleSelection(e)}
       >
-        <AccordionTrigger className="bg-[#F8F8F8] border-[1px] border-[#DFE3E6] flex justify-between items-center w-4/5 p-4 pl-6 pr-6 rounded-md">
+        <AccordionTrigger className="bg-accordionBg border-[1px] border-accodionBorder font-[500] text-accordionText flex justify-between items-center w-4/5 p-4 pl-6 pr-6 rounded-md">
           Personal Property
-          <ArrowDownIcon className="h-4 w-4 ml-2 transition-transform duration-200" />
+          {selected === 'Personal Property' ? (
+            <ArrowUpIcon className="h-4 w-4 ml-2 transition-transform duration-200" />
+          ) : (
+            <AccordionDownIcon className="h-4 w-4 ml-2 transition-transform duration-200" />
+          )}
         </AccordionTrigger>
         <AccordionContent className="flex justify-center items-center">
           <PersonalCards />
@@ -34,12 +50,17 @@ const IncomeAccordion = () => {
       </AccordionItem>
 
       <AccordionItem
-        value="Personal Property"
+        value={'Commercial Property'}
         className="w-full flex flex-col justify-center items-center"
+        onClick={(e) => handleSelection(e)}
       >
-        <AccordionTrigger className="bg-[#F8F8F8] border-[1px] border-[#DFE3E6] flex justify-between items-center w-4/5 p-4 pl-6 pr-6 rounded-md">
+        <AccordionTrigger className="bg-accordionBg border-[1px] border-accodionBorder  font-[500] text-accordionText flex justify-between items-center w-4/5 p-4 pl-6 pr-6 rounded-md">
           Commercial Property
-          <ArrowDownIcon className="h-4 w-4 ml-2 transition-transform duration-200" />
+          {selected === 'Commercial Property' ? (
+            <ArrowUpIcon className="h-4 w-4 ml-2 transition-transform duration-200" />
+          ) : (
+            <AccordionDownIcon className="h-4 w-4 ml-2 transition-transform duration-200" />
+          )}
         </AccordionTrigger>
         <AccordionContent className="flex justify-center items-center">
           <CommercialCards />

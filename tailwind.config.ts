@@ -50,6 +50,10 @@ const config: Config = {
         detailsBtn: 'var(--detailsbutton)',
         btnText: 'var( --btn-text)',
 
+        accordionText: 'var(--accordionText)',
+        accordionBg: 'var(--accordionBg)',
+        accodionBorder: 'var(--accodionBorder)',
+
         primary: {
           DEFAULT: 'var(--primary)',
           background: 'var(--primary-background)',

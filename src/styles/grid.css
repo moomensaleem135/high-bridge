@@ -1,0 +1,32 @@
+/* Custom styles for Ag-Grid */
+
+.ag-theme-alpine {
+  --ag-borders: none;
+  --ag-header-background-color: black;
+  --ag-header-foreground-color: white;
+  --ag-foreground-color: black;
+  --ag-font-size: 0.8rem;
+}
+
+.ag-theme-alpine .ag-root {
+  background-color: #f8f8f8;
+  border-bottom-left-radius: 0.3rem;
+  border-bottom-right-radius: 0.3rem;
+}
+
+.ag-theme-alpine .ag-header-cell {
+  font-weight: 500;
+  font-size: 1rem;
+}
+
+.ag-theme-alpine .ag-cell {
+  font-weight: 400;
+}
+
+.row-even {
+  background-color: #ebebeb; /* Light gray for even rows */
+}
+
+.row-odd {
+  background-color: #f8f8f8; /* White for odd rows */
+}
