@@ -4,8 +4,8 @@ import * as React from 'react';
 import * as SelectPrimitive from '@radix-ui/react-select';
 
 import { cn } from '@/lib/cn';
-import { TickIcon, ArrowDownIcon } from '@/assets/svgs';
-import { Checkbox } from '@/components/ui/checkbox';
+import { ArrowDownIcon } from '@/assets/svgs';
+import { Checkbox, CheckboxDropdown } from '@/components/ui/checkbox';
 
 const Select = SelectPrimitive.Root;
 
@@ -101,7 +101,7 @@ const SelectItem = React.forwardRef<
       </SelectPrimitive.ItemIndicator>
     </span> */}
     <div className="flex justify-center items-center">
-      <Checkbox
+      <CheckboxDropdown
         checked={isChecked}
         //onCheckedChange={handleServerCheck}
         className="absolute left-2 flex w-4 h-4 my-[0.1rem] items-center justify-center rounded-sm border-[#a8adb3]" // Optional custom class

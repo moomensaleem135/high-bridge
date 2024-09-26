@@ -10,6 +10,7 @@ export const TickIcon = ({
       height="12"
       viewBox="0 0 14 12"
       fill="none"
+      className={cn(className)}
       xmlns="http://www.w3.org/2000/svg"
     >
       <path

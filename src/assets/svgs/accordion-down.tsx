@@ -10,6 +10,7 @@ export const AccordionDownIcon = ({
       height="8"
       viewBox="0 0 14 8"
       fill="none"
+      className={cn(className)}
       xmlns="http://www.w3.org/2000/svg"
     >
       <path

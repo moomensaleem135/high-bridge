@@ -9,12 +9,15 @@ import toast from 'react-hot-toast';
 import { Form, FormControl, FormField } from '@/components/ui/form';
 import { ArrowLeftIcon } from '@/assets/svgs';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { IconInput } from '@/components/ui/icon-input';
 
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Label } from '@/components/ui/label';
 import PurposeDropdown from './purposeDropdown';
 import QualityDropdown from './qualityDropdown';
+import WeightDropdown from './weightDropdown';
+import { ErrorIcon } from '@/assets/svgs';
 
 import { useCreateEventMutation } from '@/store/features/events/eventsApi';
 import CustomToast from '@/components/common/CustomToast';
@@ -29,6 +32,7 @@ const ItemDetailsSchema = z.object({
   purpose: z.string().min(1, { message: 'purpose is required' }),
   usage: z.string().min(1, { message: 'usage is required' }),
   quality: z.string().min(1, { message: 'quality is required' }),
+  quantity: z.string().min(1, { message: 'quantity is required' }),
   weight: z.string().min(1, { message: 'weight is required' }),
 });
 
@@ -127,7 +131,7 @@ const ItemDetailsForm: React.FC<ProfileSetupProps> = () => {
                 render={({ field }) => (
                   <PurposeDropdown
                     initialValue={field.value}
-                    onYearChange={(purposeVal) => field.onChange(purposeVal)}
+                    onPurposeChange={(purposeVal) => field.onChange(purposeVal)}
                   />
                 )}
               />
@@ -177,7 +181,7 @@ const ItemDetailsForm: React.FC<ProfileSetupProps> = () => {
                 render={({ field }) => (
                   <QualityDropdown
                     initialValue={field.value}
-                    onYearChange={(yearVal) => field.onChange(yearVal)}
+                    onQualityChange={(qualityVal) => field.onChange(qualityVal)}
                   />
                 )}
               />
@@ -187,16 +191,52 @@ const ItemDetailsForm: React.FC<ProfileSetupProps> = () => {
           <div className="w-full items-center">
             <div className="flex flex-col justify-start gap-x-6 gap-y-2 items-start">
               <Label>5 . What is the estimated weight of this item?</Label>
-              <FormField
-                control={form.control}
-                name="quality"
-                render={({ field }) => (
-                  <QualityDropdown
-                    initialValue={field.value}
-                    onYearChange={(yearVal) => field.onChange(yearVal)}
-                  />
-                )}
-              />
+              <div className="flex w-full">
+                <FormField
+                  control={form.control}
+                  name="weight"
+                  render={({ field }) => (
+                    <div className="w-full flex flex-col">
+                      <FormControl>
+                        <IconInput
+                          {...field}
+                          type="text"
+                          id="weight"
+                          aria-label="weight"
+                          placeholder=""
+                          className="bg-outline rounded-r-none rounded-l-lg h-[50px]"
+                          error={!!form.formState.errors.weight}
+                          data-cy="weight"
+                          data-testid="weight"
+                        />
+                      </FormControl>
+
+                      {form.formState.errors.weight && (
+                        <span className="text-destructive text-sm flex items-center gap-1 mt-2">
+                          <ErrorIcon />
+                          {form.formState.errors.weight.message}
+                        </span>
+                      )}
+                    </div>
+                  )}
+                />
+                <div className="w-1/6 items-center">
+                  <div className="flex flex-col justify-start gap-x-6 gap-y-2 items-start">
+                    <FormField
+                      control={form.control}
+                      name="quantity"
+                      render={({ field }) => (
+                        <WeightDropdown
+                          initialValue={field.value}
+                          onWeightChange={(quantityVal) =>
+                            field.onChange(quantityVal)
+                          }
+                        />
+                      )}
+                    />
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
 

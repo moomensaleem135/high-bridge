@@ -10,12 +10,12 @@ import {
 
 interface QualityDropdownProps {
   initialValue: string;
-  onYearChange: (yearVal: string) => void;
+  onQualityChange: (qualityVal: string) => void;
 }
 
 const QualityDropdown: React.FC<QualityDropdownProps> = ({
   initialValue,
-  onYearChange,
+  onQualityChange,
 }) => {
   const [selectedQuality, setSelectedQuality] = React.useState<
     string | undefined
@@ -27,12 +27,12 @@ const QualityDropdown: React.FC<QualityDropdownProps> = ({
 
   const handleChange = (quality: string) => {
     setSelectedQuality(quality);
-    onYearChange(quality);
+    onQualityChange(quality);
   };
 
   return (
     <Select onValueChange={handleChange} value={selectedQuality}>
-      <SelectTrigger>
+      <SelectTrigger className="rounded-lg">
         <SelectValue placeholder="Select Quality" />
       </SelectTrigger>
       <SelectContent>

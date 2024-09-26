@@ -10,12 +10,12 @@ import {
 
 interface PurposeDropdownProps {
   initialValue: string;
-  onYearChange: (yearVal: string) => void;
+  onPurposeChange: (purposeVal: string) => void;
 }
 
 const PurposeDropdown: React.FC<PurposeDropdownProps> = ({
   initialValue,
-  onYearChange,
+  onPurposeChange,
 }) => {
   const [selectedPurpose, setSelectedPurpose] = React.useState<
     string | undefined
@@ -27,12 +27,12 @@ const PurposeDropdown: React.FC<PurposeDropdownProps> = ({
 
   const handleChange = (purpose: string) => {
     setSelectedPurpose(purpose);
-    onYearChange(purpose);
+    onPurposeChange(purpose);
   };
 
   return (
     <Select onValueChange={handleChange} value={selectedPurpose}>
-      <SelectTrigger>
+      <SelectTrigger className="rounded-lg">
         <SelectValue placeholder="Select purpose" />
       </SelectTrigger>
       <SelectContent>
