@@ -72,7 +72,7 @@ const ResetPassword: React.FC<ResetProps> = () => {
 
   return (
     <div className="flex flex-col w-full justify-center items-center bg-[#F8F8F8] gap-5 xl:w-5/5 rounded-3xl border-solid border-[1px] border-opacity-35 border-[#666666]">
-      {Object.keys(form.formState.errors).length > 0 && (
+      {/* {Object.keys(form.formState.errors).length > 0 && (
         <div className=" mt-2 p-1">
           {Object.values(form.formState.errors).map((error, index) => (
             <div
@@ -84,7 +84,7 @@ const ResetPassword: React.FC<ResetProps> = () => {
             </div>
           ))}
         </div>
-      )}
+      )} */}
 
       <div className="flex flex-col w-full justify-center items-center py-7">
         <p
@@ -146,6 +146,12 @@ const ResetPassword: React.FC<ResetProps> = () => {
                         data-testid="password"
                       />
                     </FormControl>
+                    {form.formState.errors.password && (
+                      <span className="text-destructive text-sm flex items-center gap-1 mt-2">
+                        <ErrorIcon />
+                        {form.formState.errors.password.message}
+                      </span>
+                    )}
                     {field.name === 'password' &&
                       form.getValues('password') && (
                         <div className="flex gap-2.5 justify-start mt-3 w-full">
@@ -197,6 +203,12 @@ const ResetPassword: React.FC<ResetProps> = () => {
                         data-testid="password"
                       />
                     </FormControl>
+                    {form.formState.errors.confirmPassword && (
+                      <span className="text-destructive text-sm flex items-center gap-1 mt-2">
+                        <ErrorIcon />
+                        {form.formState.errors.confirmPassword.message}
+                      </span>
+                    )}
                   </div>
                 )}
               />

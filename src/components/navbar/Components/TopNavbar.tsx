@@ -9,39 +9,54 @@ import {
 import NextImage from '@/components/ui/next-image';
 import { ILayoutProps } from '@/lib/types';
 import { IconInput } from '@/components/ui/icon-input';
-import { Hamburger } from './Hamburger';
+import { cn } from '@/lib/cn';
 
 interface ITopNavbar extends ILayoutProps {
   open: boolean;
   setOpen: (state: boolean) => void;
+  collapseNav: boolean;
+  setCollapseNav: (state: boolean) => void;
 }
 
-const TopNavbar = ({ open, setOpen }: ITopNavbar) => {
+const TopNavbar = ({
+  open,
+  setOpen,
+  collapseNav,
+  setCollapseNav,
+}: ITopNavbar) => {
   return (
     <div className="px-2 min-h-[70px] flex w-full items-center justify-between">
       <div className="flex items-center gap-x-2 w-3/5">
         {/* Back Icon */}
-        <div className="rounded-lg justify-center items-center bg-background border-solid border-[1px] border-[#DFE3E6] w-[30px] h-[30px] flex absolute left-[19rem] top-9 z-50">
-          <ArrowLeftIcon className="w-6 h-6 cursor-pointer " />
+        <div
+          onClick={() => setCollapseNav(!collapseNav)}
+          className={cn(
+            'rounded-lg justify-center items-center  bg-background border-solid border-[1px] border-[#DFE3E6] w-[30px] h-[30px] hidden lg:flex absolute top-9 z-50 transition-all duration-300',
+            collapseNav ? 'left-[17rem]' : 'left-[3rem]'
+          )}
+        >
+          <ArrowLeftIcon
+            className={cn(
+              'w-6 h-6 cursor-pointer ',
+              collapseNav ? '' : 'rotate-180'
+            )}
+          />
         </div>
 
         {/* Search Input */}
-        <div className="w-2/6 hidden xl:flex pl-7 ">
-          <span className="text-[1.1rem] font-[500]">
-            Zakat Due: <span className="text-[#4CAF50] font-[700]">$0.00</span>
+        <div className="w-2/6 hidden lg:flex pl-7">
+          <span className="text-lg font-medium">
+            Zakat Due:{' '}
+            <span className="text-[#4CAF50] font-bold text-xl">$0.00</span>
           </span>
         </div>
       </div>
 
       <div className="flex items-center gap-x-4">
         <div className="w-full hidden xl:flex pr-7">
-          <span className="text-[1.1rem] font-[500]">
+          <span className="text-sm font-medium">
             Zakat Pay Date : 24-05-2024
           </span>
-        </div>
-        {/* Hamburger Menu */}
-        <div className="xl:hidden">
-          <Hamburger open={open} setOpen={setOpen} />
         </div>
       </div>
     </div>

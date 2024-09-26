@@ -23,13 +23,13 @@ const IncomeAccordion = () => {
     <Accordion
       type="single"
       collapsible
-      className="flex flex-col justify-center items-center gap-y-3 w-full"
+      className="flex flex-col justify-center items-center gap-y-3"
     >
       <AccordionItem
         value="Personal Property"
         className="w-full flex flex-col justify-center items-center"
       >
-        <AccordionTrigger className="bg-accordionBg border-[1px] border-accodionBorder font-[500] text-accordionText flex justify-between items-center w-4/5 p-4 pl-6 pr-6 rounded-md ">
+        <AccordionTrigger className="bg-accordionBg tracking-tight border-[1px] border-accodionBorder text-xl font-medium text-accordionText flex justify-between items-center w-[90%]  max-w-[985px] p-4 pl-6 pr-6 rounded-md">
           Personal Property
           <AccordionDownIcon className="AccordionIcon" />
         </AccordionTrigger>
@@ -42,7 +42,7 @@ const IncomeAccordion = () => {
         value="Commercial Property"
         className="w-full flex flex-col justify-center items-center"
       >
-        <AccordionTrigger className="bg-accordionBg border-[1px] border-accodionBorder font-[500] text-accordionText flex justify-between items-center w-4/5 p-4 pl-6 pr-6 rounded-md ">
+        <AccordionTrigger className="bg-accordionBg border-[1px] text-xl tracking-tight border-accodionBorder  font-medium text-accordionText flex justify-between items-center w-[90%] max-w-[985px] p-4 pl-6 pr-6 rounded-md">
           Commercial Property
           <AccordionDownIcon className="AccordionIcon" />
         </AccordionTrigger>

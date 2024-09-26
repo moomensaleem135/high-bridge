@@ -18,17 +18,22 @@ const IncomeCard: React.FC<IncomeCardProps> = ({
   return (
     <>
       {cardData.map((card, index) => (
-        <div key={index} className="flex flex-col justify-center items-center">
+        <div
+          key={index}
+          className="flex flex-col justify-center items-center min-w-56 max-w-64"
+        >
           <div className="flex flex-col justify-start items-center gap-2 p-5 bg-cardbg rounded-xl border-cardBorder border-[1px] w-full">
-            <h2 className="text-cardHeading font-[600] text-2xl text-center text-nowrap">
+            <h2 className="text-cardHeading font-medium text-xl text-center text-nowrap">
               {card.title}
             </h2>
-            <p className="text-center text-cardText text-wrap">{card.text}</p>
+            <p className="text-center font-light text-sm text-cardText text-wrap h-16 line-clamp-3">
+              {card.text}
+            </p>
             <Link
               href={'income-details'}
-              className="flex justify-center items-center w-full"
+              className="flex justify-center items-center w-full mt-1"
             >
-              <Button className="bg-black text-white font-normal w-3/6 hover:bg-[#5e5f5d]">
+              <Button className="bg-black text-white font-medium text-base w-3/6 hover:bg-[#5e5f5d]">
                 Start
               </Button>
             </Link>
