@@ -39,7 +39,7 @@ const CarouselText: React.FC<CarouselTextProps> = ({
           >
             {index === current && (
               // eslint-disable-next-line @next/next/no-img-element
-              <div className="flex flex-col justify-between gap-12">
+              <div className="flex flex-col justify-between gap-12 text-base font-normal">
                 <h2 className={titleClassName}>{title}</h2>
                 {para.text}
               </div>

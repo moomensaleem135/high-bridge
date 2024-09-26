@@ -137,7 +137,7 @@ const LeftNavbar = ({
   return (
     <div
       className={cn(
-        'fixed z-30 xl:static h-full bg-back border-[1px] border-[#DFE3E6] border-solid rounded-r-3xl w-0  transition-all duration-300 flex-none',
+        'z-30 xl:static h-full bg-back border-[1px] border-[#DFE3E6] border-solid rounded-r-3xl w-0  transition-all duration-300 flex-none',
         open && 'w-full',
         collapseNav ? ' lg:min-w-72' : 'lg:min-w-16'
       )}
@@ -168,7 +168,7 @@ const LeftNavbar = ({
                     <UserIcon />
                   </div>
                   <div className="flex flex-col justify-between items-start w-4/6">
-                    <span className="text-headingColor font-bold text-[15px]">
+                    <span className="text-black font-bold text-[15px]">
                       Kate Russell
                     </span>
                     <span className="text-[#83899F] font-normal text-sm">

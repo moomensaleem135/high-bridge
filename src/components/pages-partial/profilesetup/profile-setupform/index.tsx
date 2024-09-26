@@ -26,10 +26,10 @@ import { forgetUrl, signupUrl } from '@/configs/constants';
 interface ProfileSetupProps {}
 
 const ProfileSetupSchema = z.object({
-  year: z.string().min(1, { message: 'year is required' }),
-  month: z.string().min(1, { message: 'month is required' }),
-  startDate: z.string().min(1, { message: 'start date is required' }),
-  endDate: z.string().min(1, { message: 'end date is required' }),
+  year: z.string().min(1, { message: 'Year is required' }),
+  month: z.string().min(1, { message: 'Month is required' }),
+  startDate: z.string().min(1, { message: 'Start date is required' }),
+  endDate: z.string().min(1, { message: 'End date is required' }),
 });
 
 type FormFields = z.infer<typeof ProfileSetupSchema>;
@@ -84,19 +84,6 @@ const ProfileSetup: React.FC<ProfileSetupProps> = () => {
 
   return (
     <div className="flex flex-col w-full justify-center items-center bg-[#F8F8F8] gap-12 xl:gap-5 xl:w-5/5 rounded-3xl border-solid border-[1px] border-opacity-35 border-[#666666]">
-      {Object.keys(form.formState.errors).length > 0 && (
-        <div className=" mt-2 p-1">
-          {Object.values(form.formState.errors).map((error, index) => (
-            <div
-              key={'error-' + index}
-              className="bg-red-100 text-red-700 p-2 rounded-lg flex gap-3 mt-2 "
-            >
-              <ErrorIcon />
-              <p className="text-sm">{error?.message?.toString()}</p>{' '}
-            </div>
-          ))}
-        </div>
-      )}
       <div className="flex flex-col w-full justify-center items-center py-7">
         <p
           className="font-medium text-3xl text-headingColor"
@@ -126,6 +113,12 @@ const ProfileSetup: React.FC<ProfileSetupProps> = () => {
                   />
                 )}
               />
+              {form.formState.errors.year && (
+                <span className="text-destructive text-sm flex items-center gap-1 mt-2">
+                  <ErrorIcon />
+                  {form.formState.errors.year.message}
+                </span>
+              )}
             </div>
           </div>
 
@@ -144,6 +137,12 @@ const ProfileSetup: React.FC<ProfileSetupProps> = () => {
                   />
                 )}
               />
+              {form.formState.errors.month && (
+                <span className="text-destructive text-sm flex items-center gap-1 mt-2">
+                  <ErrorIcon />
+                  {form.formState.errors.month.message}
+                </span>
+              )}
             </div>
           </div>
 
@@ -168,6 +167,12 @@ const ProfileSetup: React.FC<ProfileSetupProps> = () => {
                     />
                   )}
                 />
+                {form.formState.errors.startDate && (
+                  <span className="text-destructive text-sm flex items-center gap-1 mt-2">
+                    <ErrorIcon />
+                    {form.formState.errors.startDate.message}
+                  </span>
+                )}
               </div>
             </div>
             <div className="flex flex-col gap-y-2 items-center w-full">
@@ -190,6 +195,12 @@ const ProfileSetup: React.FC<ProfileSetupProps> = () => {
                     />
                   )}
                 />
+                {form.formState.errors.endDate && (
+                  <span className="text-destructive text-sm flex items-center gap-1 mt-2">
+                    <ErrorIcon />
+                    {form.formState.errors.endDate.message}
+                  </span>
+                )}
               </div>
             </div>
           </div>

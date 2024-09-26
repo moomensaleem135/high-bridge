@@ -44,16 +44,16 @@ const TopNavbar = ({
         </div>
 
         {/* Search Input */}
-        <div className="w-2/6 hidden lg:flex pl-7">
+        <div className=" hidden lg:flex pl-7">
           <span className="text-lg font-medium">
             Zakat Due:{' '}
             <span className="text-[#4CAF50] font-bold text-xl">$0.00</span>
-          </span>
+          </span> 
         </div>
       </div>
 
-      <div className="flex items-center gap-x-4">
-        <div className="w-full hidden xl:flex pr-7">
+      <div className="items-center gap-x-4 hidden lg:flex">
+        <div className="w-full  pr-7">
           <span className="text-sm font-medium">
             Zakat Pay Date : 24-05-2024
           </span>

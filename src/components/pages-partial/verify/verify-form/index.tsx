@@ -25,7 +25,7 @@ import OtpField from './verifyotp-field';
 interface VerifyProps {}
 
 const VerifySchema = z.object({
-  otp: z.string().min(5, { message: 'verification code is required' }),
+  otp: z.string().min(1, { message: 'verification code is required' }),
 });
 
 type FormFields = z.infer<typeof VerifySchema>;
@@ -66,19 +66,6 @@ const VerifyCode: React.FC<VerifyProps> = () => {
 
   return (
     <div className="flex flex-col w-full justify-center items-center bg-[#F8F8F8] gap-12 xl:gap-5 xl:w-5/5 rounded-3xl border-solid border-[1px] border-opacity-35 border-[#666666]">
-      {/* {Object.keys(form.formState.errors).length > 0 && (
-        <div className=" mt-2 p-1">
-          {Object.values(form.formState.errors).map((error, index) => (
-            <div
-              key={'error-' + index}
-              className="bg-red-100 text-red-700 p-2 rounded-lg flex gap-3 mt-2 "
-            >
-              <ErrorIcon />
-              <p className="text-sm">{error?.message?.toString()}</p>{' '}
-            </div>
-          ))}
-        </div>
-      )} */}
       <div className="flex flex-col w-full justify-center items-center py-7">
         <p
           className="font-medium text-3xl text-headingColor"
@@ -144,15 +131,15 @@ const VerifyCode: React.FC<VerifyProps> = () => {
           </div>
           <div className="flex justify-between items-center flex-row max-md:flex-col">
             <Link
-              className="flex justify-start items-center gap-3"
+              className="flex justify-start items-center gap-3 text-sm font-medium"
               href={signinUrl}
             >
               <img src={back.src} />
               Back to login
             </Link>
-            <span>
+            <span className="font-medium text-sm">
               Didn’t receive a code?{' '}
-              <span className="text-[#FF8682] font-[500] cursor-pointer">
+              <span className="text-[#FF8682] cursor-pointer">
                 Resend
               </span>
             </span>

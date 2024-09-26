@@ -17,7 +17,7 @@ export function DarkToggle() {
       <Switch
         checked={isDark}
         onCheckedChange={(checked) => setTheme(checked ? 'dark' : 'light')}
-        className="flex items-center space-x-2"
+        className="flex items-center space-x-2 h-4 w-7"
       />
     </div>
   );

@@ -85,23 +85,10 @@ const SignUp: React.FC<SignUpProps> = () => {
 
   return (
     <>
-      {/* {Object.keys(form.formState.errors).length > 0 && (
-        <div className=" mt-2 p-1 absolute right-10">
-          {Object.values(form.formState.errors).map((error, index) => (
-            <div
-              key={'error-' + index}
-              className="bg-red-100 text-red-700 p-2 rounded-lg flex gap-3 mt-2"
-            >
-              <ErrorIcon />
-              <p className="text-sm">{error?.message?.toString()}</p>{' '}
-            </div>
-          ))}
-        </div>
-      )} */}
       <div className="flex flex-col w-full justify-center items-center bg-[#F8F8F8] xl:w-5/5 rounded-3xl border-solid border-[1px] border-opacity-35 border-[#666666]">
         <div className="flex flex-col w-full justify-center items-center">
           <p
-            className="font-medium text-3xl text-headingColor mt-10 max-lg:mt-6"
+            className="font-medium text-[32px] text-headingColor mt-10 max-lg:mt-6"
             data-cy="page-title"
             data-testid="page-title"
           >
