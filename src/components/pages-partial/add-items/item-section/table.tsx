@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import AgGridTable from '@/components/ui/ag-table';
 import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-alpine.css';
@@ -9,6 +10,9 @@ const GridSection = () => {
   // const [pageSize, setPageSize] = useState('10');
   // const [currentPage, setCurrentPage] = useState(1);
 
+  const items = useSelector((state: any) => state.items.items) || [];
+
+  console.log(items);
   const columns = [
     { headerName: 'Item', field: 'item', flex: 1 },
     { headerName: 'Purpose', field: 'purpose', flex: 1 },
@@ -21,6 +25,14 @@ const GridSection = () => {
       cellRenderer: CustomOptions,
     },
   ];
+
+  const rowData = items.map((item: any) => ({
+    item: item.item,
+    purpose: item.purpose,
+    usedbefore: item.usage, // Assuming 'usage' corresponds to 'Used Before'
+    quantity: item.quantity,
+    quality: item.quality,
+  }));
 
   // const rowData: any = [
   //   {
@@ -74,7 +86,7 @@ const GridSection = () => {
   //   },
   // ];
 
-  // const totalRows = rowData.length;
+  const totalRows = rowData.length;
 
   const getRowClass = (params: any) => {
     return params.rowIndex % 2 === 0 ? 'row-even' : 'row-odd';
@@ -100,9 +112,9 @@ const GridSection = () => {
   return (
     <AgGridTable
       columns={columns}
-      rowData={[]}
+      rowData={rowData}
       getRowClass={getRowClass}
-      totalRows={0}
+      totalRows={totalRows}
       customHeight={400}
       overlayNoRowsTemplate={EmptyTable}
     />

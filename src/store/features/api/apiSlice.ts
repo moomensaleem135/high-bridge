@@ -22,6 +22,6 @@ const customBaseQuery: BaseQueryFn<
 export const apiSlice = createApi({
   reducerPath: 'api',
   baseQuery: customBaseQuery,
-  tagTypes: ['Events', 'TodayEvents'],
+  tagTypes: ['Items', 'ZakatItems'],
   endpoints: () => ({}),
 });

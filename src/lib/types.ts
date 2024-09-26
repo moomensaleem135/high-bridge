@@ -25,6 +25,14 @@ export interface IEvent {
   image?: string | StaticImageData;
 }
 
+export interface IItems {
+  type: string;
+  purpose: string;
+  usage: string;
+  quality: string;
+  weight: string;
+}
+
 export interface ITimezone {
   value: string;
   abbr: string;

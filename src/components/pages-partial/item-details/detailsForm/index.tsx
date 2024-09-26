@@ -1,5 +1,6 @@
 'use client';
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import { useDispatch, UseDispatch } from 'react-redux';
 import { useForm, Controller } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
 import { z } from 'zod';
@@ -19,13 +20,14 @@ import QualityDropdown from './qualityDropdown';
 import WeightDropdown from './weightDropdown';
 import { ErrorIcon } from '@/assets/svgs';
 
-import { useCreateEventMutation } from '@/store/features/events/eventsApi';
+import { useCreateItemMutation } from '@/store/features/items/itemsApi';
 import CustomToast from '@/components/common/CustomToast';
 import { addItemssUrl } from '@/configs/constants';
+import { addItems } from '@/store/features/items/itemsSlice';
 
 import Spinner from '@/components/common/Spinner';
 
-interface ProfileSetupProps {}
+interface ItemDetailsProps {}
 
 const ItemDetailsSchema = z.object({
   item: z.string(),
@@ -38,9 +40,10 @@ const ItemDetailsSchema = z.object({
 
 type FormFields = z.infer<typeof ItemDetailsSchema>;
 
-const ItemDetailsForm: React.FC<ProfileSetupProps> = () => {
+const ItemDetailsForm: React.FC<ItemDetailsProps> = () => {
+  const dispatch = useDispatch();
   const router = useRouter();
-  const [login, { isLoading }] = useCreateEventMutation();
+  const [createItem, { isLoading }] = useCreateItemMutation();
 
   const form = useForm<FormFields>({
     resolver: zodResolver(ItemDetailsSchema),
@@ -53,11 +56,22 @@ const ItemDetailsForm: React.FC<ProfileSetupProps> = () => {
     },
   });
 
-  const onSubmit = async (setupData: FormFields) => {
+  const onSubmit = async (itemsData: FormFields) => {
+    console.log('in submit');
+
+    const itemData = {
+      item: itemsData.item,
+      purpose: itemsData.purpose,
+      usage: itemsData.usage,
+      quality: itemsData.quality,
+      weight: itemsData.weight,
+      quantity: itemsData.quantity,
+    };
+
     const formData = new FormData();
 
-    Object.keys(setupData).forEach((key) => {
-      const value = setupData[key as keyof FormFields];
+    Object.keys(itemsData).forEach((key) => {
+      const value = itemsData[key as keyof FormFields];
       console.log(value);
       if (value !== undefined && value !== null) {
         formData.append(key, value as any); // Type assertion for `value` to `any`
@@ -65,23 +79,22 @@ const ItemDetailsForm: React.FC<ProfileSetupProps> = () => {
     });
 
     try {
-      const response = await login(formData);
+      // const response = await createItem(formData);
+      dispatch(addItems(itemData));
       form.reset();
 
       toast.custom((t) => (
         <CustomToast
           t={t}
-          title={`${setupData.item} ${setupData.purpose} ${setupData.usage} ${setupData.quality}`}
+          title={`${itemsData.item} ${itemsData.purpose} ${itemsData.usage} ${itemsData.quality}`}
         />
       ));
-      router.push('/signin');
+      router.push('/add-items');
     } catch (error) {
       console.error('Error creating event:', error);
       toast.error('Failed to Create event');
     }
   };
-
-  const handleClick = () => {};
 
   return (
     <div className="flex flex-col w-4/6 justify-center items-center gap-12 rounded-3xl mt-6">
@@ -251,10 +264,7 @@ const ItemDetailsForm: React.FC<ProfileSetupProps> = () => {
                 Back
               </Link>
 
-              <Button
-                className="bg-detailsBtn text-btnText font-normal hover:bg-[#5e5f5d]"
-                onClick={handleClick}
-              >
+              <Button className="bg-detailsBtn text-btnText font-normal hover:bg-[#5e5f5d]">
                 Add Item
               </Button>
             </div>

@@ -1,13 +1,13 @@
 // import toast from 'react-hot-toast';
 
 import { apiSlice } from '../api/apiSlice';
-import { EVENTS, TODAY_EVENTS } from '../api/endpoints';
+import { ITEMS, ZAKAT_ITEMS } from '../api/endpoints';
 
-export const eventApi = apiSlice.injectEndpoints({
+export const itemsApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    createEvent: builder.mutation({
+    createItem: builder.mutation({
       query: (data) => ({
-        url: EVENTS,
+        url: ITEMS,
         method: 'POST',
         body: data,
       }),
@@ -18,9 +18,9 @@ export const eventApi = apiSlice.injectEndpoints({
       },
     }),
 
-    getTodayEvents: builder.query({
-      query: () => TODAY_EVENTS,
-      // providesTags: ['TodayEvents'],
+    getZakatItems: builder.query({
+      query: () => ZAKAT_ITEMS,
+      providesTags: ['ZakatItems'],
       async onQueryStarted(arg, { queryFulfilled }) {
         try {
           await queryFulfilled;
@@ -31,7 +31,7 @@ export const eventApi = apiSlice.injectEndpoints({
 });
 
 export const {
-  useCreateEventMutation,
-  useGetTodayEventsQuery,
-  useLazyGetTodayEventsQuery,
-} = eventApi;
+  useCreateItemMutation,
+  useGetZakatItemsQuery,
+  useLazyGetZakatItemsQuery,
+} = itemsApi;

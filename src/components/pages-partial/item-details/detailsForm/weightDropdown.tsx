@@ -31,11 +31,7 @@ const WeightDropdown: React.FC<WeightDropdownProps> = ({
   };
 
   return (
-    <Select
-      onValueChange={handleChange}
-      value={selectedWeight}
-      defaultValue="Tola"
-    >
+    <Select onValueChange={handleChange} value={selectedWeight}>
       <SelectTrigger className="rounded-l-none h-[50px] rounded-r-lg">
         <SelectValue placeholder="Tola" />
       </SelectTrigger>
