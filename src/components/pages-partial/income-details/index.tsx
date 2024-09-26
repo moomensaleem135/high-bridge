@@ -50,7 +50,7 @@ export default function PartialIncome() {
   };
   return (
     <AppLayout>
-      <div className="flex flex-col self-stretch w-full gap-y-4 my-20">
+      <div className="flex flex-col self-stretch w-full gap-y-4 my-20 overflow-y-scroll overflow-x-hidden">
         <div className="flex flex-col justify-center items-center">
           <h1 className="text-3xl font-[700]">Review your Gold & Sliver</h1>
           <span className="font-[400] text-lg">

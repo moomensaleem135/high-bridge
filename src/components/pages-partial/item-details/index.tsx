@@ -8,7 +8,7 @@ import ItemDetailsForm from './detailsForm';
 export default function PartialItemDetails() {
   return (
     <AppLayout>
-      <div className="flex flex-col self-stretch w-full gap-y-4 my-20">
+      <div className="flex flex-col self-stretch w-full gap-y-4 my-20 overflow-y-scroll">
         <div className="flex flex-col justify-center items-center">
           <h1 className="text-3xl font-[700]">Add Gold & Sliver Items</h1>
           <span className="font-[400] text-lg mb-2">

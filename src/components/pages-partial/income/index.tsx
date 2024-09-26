@@ -7,7 +7,7 @@ import IncomeAccordion from './income-cards/IncomeAccordion';
 export default function Income() {
   return (
     <AppLayout>
-      <div className="flex flex-col self-stretch w-full gap-y-4 my-20">
+      <div className="flex flex-col self-stretch w-full gap-y-4 my-20 overflow-y-scroll">
         <div className="flex flex-col justify-center items-center">
           <h1 className="text-3xl font-[700]">
             Zakat on Various Income Sources
