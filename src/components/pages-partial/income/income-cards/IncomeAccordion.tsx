@@ -29,14 +29,14 @@ const IncomeAccordion = () => {
       type="single"
       value={selected}
       collapsible
-      className="flex flex-col justify-center items-center gap-y-3 w-full"
+      className="flex flex-col justify-center items-center gap-y-3"
     >
       <AccordionItem
         value="Personal Property"
         className="w-full flex flex-col justify-center items-center"
         onClick={(e) => handleSelection(e)}
       >
-        <AccordionTrigger className="bg-accordionBg border-[1px] border-accodionBorder font-[500] text-accordionText flex justify-between items-center w-4/5 p-4 pl-6 pr-6 rounded-md">
+        <AccordionTrigger className="bg-accordionBg tracking-tight border-[1px] border-accodionBorder text-xl font-medium text-accordionText flex justify-between items-center w-[90%]  max-w-[985px] p-4 pl-6 pr-6 rounded-md">
           Personal Property
           {selected === 'Personal Property' ? (
             <ArrowUpIcon className="h-4 w-4 ml-2 transition-transform duration-200" />
@@ -54,7 +54,7 @@ const IncomeAccordion = () => {
         className="w-full flex flex-col justify-center items-center"
         onClick={(e) => handleSelection(e)}
       >
-        <AccordionTrigger className="bg-accordionBg border-[1px] border-accodionBorder  font-[500] text-accordionText flex justify-between items-center w-4/5 p-4 pl-6 pr-6 rounded-md">
+        <AccordionTrigger className="bg-accordionBg border-[1px] text-xl tracking-tight border-accodionBorder  font-medium text-accordionText flex justify-between items-center w-[90%] max-w-[985px] p-4 pl-6 pr-6 rounded-md">
           Commercial Property
           {selected === 'Commercial Property' ? (
             <ArrowUpIcon className="h-4 w-4 ml-2 transition-transform duration-200" />

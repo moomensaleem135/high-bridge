@@ -1,4 +1,4 @@
-import { memo } from 'react';
+import { memo, useState } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 import Link from 'next/link';
 
@@ -19,6 +19,7 @@ import {
   UserIcon,
   HelpIcon,
   LogoutIcon,
+  NavLogo,
 } from '@/assets/svgs';
 import Image from '@/components/ui/next-image';
 import {
@@ -43,12 +44,21 @@ interface NavItemProps {
   currentPath: string;
   onClick: () => void;
   logout?: boolean;
+  collapseNav?: boolean;
 }
 
 const normalizePath = (path: string) => path.replace(/\/+$/, '');
 
 const NavItem = memo(
-  ({ to, label, Symbol, currentPath, onClick, logout }: NavItemProps) => {
+  ({
+    to,
+    label,
+    Symbol,
+    currentPath,
+    onClick,
+    logout,
+    collapseNav,
+  }: NavItemProps) => {
     const currentPathNormalized = normalizePath(currentPath);
     const toNormalized = normalizePath(to);
 
@@ -58,8 +68,9 @@ const NavItem = memo(
       <Link href={to}>
         <div
           className={cn([
-            `text-lg text-heading w-full group hover:bg-hoverNav hover:text-heading cursor-pointer p-3 flex space-x-3 items-center rounded-lg`,
+            `w-full group hover:bg-hoverNav hover:text-heading cursor-pointer p-3 flex items-center rounded-lg`,
             active && 'bg-background text-heading font-extrabold',
+            !collapseNav ? 'justify-center w-fit' : 'space-x-3',
           ])}
           onClick={onClick}
         >
@@ -69,11 +80,13 @@ const NavItem = memo(
               active && ' stroke-brand fill-none',
             ])}
           />
-          <p
-            className={`font-medium text-md ${logout === true ? 'text-[#EE2750]' : ''}`}
-          >
-            {label}
-          </p>
+          {collapseNav && (
+            <p
+              className={`font-medium text-sm ${logout === true ? 'text-[#EE2750]' : ''}`}
+            >
+              {label}
+            </p>
+          )}
         </div>
       </Link>
     );
@@ -104,9 +117,16 @@ NavItem.displayName = 'NavItem';
 interface LeftNavbarProps {
   open: boolean;
   setOpen: (state: boolean) => void;
+  collapseNav: boolean;
+  setCollapseNav: (state: boolean) => void;
 }
 
-const LeftNavbar = ({ open, setOpen }: LeftNavbarProps) => {
+const LeftNavbar = ({
+  open,
+  setOpen,
+  collapseNav,
+  setCollapseNav,
+}: LeftNavbarProps) => {
   const router = useRouter();
   const pathname = usePathname();
 
@@ -117,68 +137,104 @@ const LeftNavbar = ({ open, setOpen }: LeftNavbarProps) => {
   return (
     <div
       className={cn(
-        'fixed z-30 xl:static h-full bg-back border-[1px] border-[#DFE3E6] border-solid rounded-r-3xl w-0 xl:w-80 transition-all duration-300 flex-none',
-        open && 'w-full'
+        'fixed z-30 xl:static h-full bg-back border-[1px] border-[#DFE3E6] border-solid rounded-r-3xl w-0  transition-all duration-300 flex-none',
+        open && 'w-full',
+        collapseNav ? ' lg:min-w-72' : 'lg:min-w-16'
       )}
     >
       <div className="h-full w-full overflow-y-auto sm:overflow-hidden">
         <div className="flex flex-col h-full min-w-[13rem] 2xl:min-w-[18rem] ">
-          <div className="h-full px-4 flex flex-col justify-evenly">
-            <div className="flex justify-between items-start flex-col gap-6">
-              <NavIcon className="text-headingColor " />
-              {open && <Hamburger open={open} setOpen={setOpen} />}
-              <hr className="w-[275px] border-[1px] border-solid border-[#DFE3E6]" />
-            </div>
-            <div className="flex justify-evenly items-center bg-backgound h-20 rounded-md border-[1px] border-solid border-[#DFE3E6]">
-              <div>
-                <UserIcon />
+          <div className="h-full px-4 flex flex-col justify-between">
+            <div>
+              {collapseNav ? (
+                <div className="flex justify-between items-center flex-col gap-6 mt-4">
+                  <div className=" w-full flex items-start  ml-4 mb-8">
+                    <NavIcon className="text-headingColor flex items-start" />
+                  </div>
+                </div>
+              ) : (
+                <div className="w-fit flex items-center my-4">
+                  <NavLogo />
+                </div>
+              )}
+              {collapseNav ? (
+                <hr className="flex w-[88%] border-[1px] border-solid border-[#DFE3E6]" />
+              ) : (
+                ''
+              )}
+              {collapseNav ? (
+                <div className="flex bg-white items-center bg-backgound h-16 rounded-md border-[1px] border-solid w-[98%] border-[#DFE3E6] mt-7">
+                  <div className="mx-2">
+                    <UserIcon />
+                  </div>
+                  <div className="flex flex-col justify-between items-start w-4/6">
+                    <span className="text-headingColor font-bold text-[15px]">
+                      Kate Russell
+                    </span>
+                    <span className="text-[#83899F] font-normal text-sm">
+                      kate@gmail.com
+                    </span>
+                  </div>
+                </div>
+              ) : (
+                <div className="mt-8 mb-4">
+                  <UserIcon />
+                </div>
+              )}
+
+              <div className="flex flex-col space-y-1">
+                {collapseNav && (
+                  <div className="mt-2 pl-3">
+                    <span className="text-headingColor text-[10px] font-[500] tracking-[0.5px] leading-3">
+                      MAIN
+                    </span>
+                  </div>
+                )}
+                {navItems.map(({ to, label, Symbol }) => (
+                  <NavItem
+                    key={to}
+                    to={to}
+                    label={label}
+                    Symbol={Symbol}
+                    currentPath={pathname}
+                    onClick={() => setOpen(false)}
+                    collapseNav={collapseNav}
+                  />
+                ))}
+                {collapseNav ? (
+                  <div className="flex justify-center items-center w-[88%]">
+                    <hr className="flex w-full border-[1px] border-solid border-[#DFE3E6]  mt-4" />
+                  </div>
+                ) : (
+                  ''
+                )}
               </div>
-              <div className="flex flex-col justify-between items-start w-4/6">
-                <span className="text-headingColor font-[700]">
-                  Kate Russell
-                </span>
-                <span className="text-[#83899F] font-[400]">
-                  kate@gmail.com
-                </span>
+
+              <div className="flex flex-col py-3 space-y-1">
+                {collapseNav ? (
+                  <div className="pl-3">
+                    <span className="text-headingColor text-[10px] font-[500] tracking-[0.5px] leading-3">
+                      SETTINGS
+                    </span>
+                  </div>
+                ) : (
+                  ''
+                )}
+                {settingItems.map(({ to, label, Symbol }) => (
+                  <NavItem
+                    key={to}
+                    to={to}
+                    label={label}
+                    Symbol={Symbol}
+                    currentPath={pathname}
+                    onClick={() => setOpen(false)}
+                    collapseNav={collapseNav}
+                  />
+                ))}
               </div>
             </div>
 
-            <div className="flex flex-col pb-3 space-y-2">
-              <div>
-                <span className="pl-2 text-headingColor font-[500]">MAIN</span>
-              </div>
-              {navItems.map(({ to, label, Symbol }) => (
-                <NavItem
-                  key={to}
-                  to={to}
-                  label={label}
-                  Symbol={Symbol}
-                  currentPath={pathname}
-                  onClick={() => setOpen(false)}
-                />
-              ))}
-              <hr className="w-[275px] border-[1px] border-solid border-[#DFE3E6]" />
-            </div>
-
-            <div className="flex flex-col pb-3 space-y-2">
-              <div>
-                <span className="pl-2 text-headingColor font-[500]">
-                  SETTINGS
-                </span>
-              </div>
-              {settingItems.map(({ to, label, Symbol }) => (
-                <NavItem
-                  key={to}
-                  to={to}
-                  label={label}
-                  Symbol={Symbol}
-                  currentPath={pathname}
-                  onClick={() => setOpen(false)}
-                />
-              ))}
-            </div>
-
-            <div className="flex flex-col pb-3 space-y-2">
+            <div className="flex flex-col pb-3 space-y-1">
               {profileItems.map(({ to, label, Symbol, logout }) => (
                 <NavItem
                   key={to}
@@ -188,11 +244,16 @@ const LeftNavbar = ({ open, setOpen }: LeftNavbarProps) => {
                   logout={logout}
                   currentPath={pathname}
                   onClick={() => setOpen(false)}
+                  collapseNav={collapseNav}
                 />
               ))}
-              <div className="w-full mt-12 sm:mt-28">
-                <DarkToggle />
-              </div>
+              {collapseNav ? (
+                <div className="w-[90%]">
+                  <DarkToggle />
+                </div>
+              ) : (
+                ''
+              )}
             </div>
           </div>
         </div>

@@ -29,3 +29,4 @@ export { HelpIcon } from './help';
 export { LogoutIcon } from './logout';
 export { ChevronRightIcon } from './chevron-right';
 export { ChevronLeftIcon } from './chevron-left';
+export { NavLogo } from './nav-logo';

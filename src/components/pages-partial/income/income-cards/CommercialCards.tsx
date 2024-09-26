@@ -33,7 +33,7 @@ const cardData = [
 
 export default function CommercialCards() {
   return (
-    <section className="grid grid-cols-3 grid-rows-3 w-[70%] gap-6 mt-6">
+    <section className="flex flex-wrap justify-center items-center flex-row w-[85%] max-w-[1200px] gap-6 mt-6 mb-6">
       <IncomeCard cardData={cardData} className="flex h-10" />
     </section>
   );

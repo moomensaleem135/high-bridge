@@ -1,6 +1,6 @@
 import { ThemeProvider } from 'next-themes';
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import { Inter, Poppins } from 'next/font/google';
 import NextTopLoader from 'nextjs-toploader';
 import { Toaster } from 'react-hot-toast';
 
@@ -8,7 +8,10 @@ import '@/styles/globals.css';
 import '@/styles/tailwind.css';
 import StoreProvider from '@/store/store-provider';
 
-const inter = Inter({ subsets: ['latin'] });
+const poppins = Poppins({
+  subsets: ['latin'],
+  weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
+});
 
 export const metadata: Metadata = {
   title: 'highbridge',
@@ -24,7 +27,7 @@ export default function RootLayout({
     <html lang="en">
       <ThemeProvider attribute="class">
         <StoreProvider>
-          <body className={inter.className}>
+          <body className={poppins.className}>
             <Toaster position="top-right" />
             <NextTopLoader
               color="#89FF9FCD"

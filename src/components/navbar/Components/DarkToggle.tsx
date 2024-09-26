@@ -8,10 +8,10 @@ export function DarkToggle() {
   const isDark = theme === 'dark';
 
   return (
-    <div className="flex flex-row gap-x-16 items-center bg-background h-14 justify-evenly rounded-lg">
+    <div className="flex flex-row items-center bg-background h-14 justify-between rounded-lg px-3">
       <div className="flex justify-evenly items-center gap-3">
         <ModeIcon />
-        <span className="text-heading text-sm font-[500]">Dark Mode</span>
+        <span className="text-heading text-sm font-medium">Dark Mode</span>
       </div>
 
       <Switch
