@@ -11,11 +11,13 @@ import {
 interface PurposeDropdownProps {
   initialValue: string;
   onPurposeChange: (purposeVal: string) => void;
+  setReason: (reason: string) => void;
 }
 
 const PurposeDropdown: React.FC<PurposeDropdownProps> = ({
   initialValue,
   onPurposeChange,
+  setReason,
 }) => {
   const [selectedPurpose, setSelectedPurpose] = React.useState<
     string | undefined
@@ -28,6 +30,7 @@ const PurposeDropdown: React.FC<PurposeDropdownProps> = ({
   const handleChange = (purpose: string) => {
     setSelectedPurpose(purpose);
     onPurposeChange(purpose);
+    setReason(purpose);
   };
 
   return (

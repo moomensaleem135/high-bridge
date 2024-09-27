@@ -23,16 +23,16 @@ const cardData = [
     title: `Shafi'i`,
   },
   {
-    text: 'Stresses strict adherence to  the Quran and Hadith.',
+    text: 'Stresses strict adherence to the Quran and Hadith.',
     title: 'Hanbali',
   },
   {
-    text: `Focuses on the teachings of the sixth Imam, Ja'far al-Sadiq.`,
-    title: 'Jafari',
+    text: `Provides jurisprudential rulings based on contemporary issues.`,
+    title: 'Islamic Fiqh Council',
   },
   {
-    text: 'Similar to Sunni practices but with distinct theological differences.',
-    title: 'Zaidi',
+    text: 'Offers guidance on Islamic law for Muslims living in North America.',
+    title: 'Assembly of Muslim Jurists of America',
   },
 ];
 
@@ -50,17 +50,17 @@ export default function PartialIncome() {
   };
   return (
     <AppLayout>
-      <div className="flex flex-col self-stretch w-full gap-y-4 my-20 overflow-y-scroll overflow-x-hidden">
+      <div className="flex flex-col self-stretch w-full gap-y-4 overflow-y-scroll overflow-x-hidden xs:mb-16 lg:my-16">
         <div className="flex flex-col justify-center items-center">
-          <h1 className="text-center px-4 text-3xl font-bold">
-            Review your Gold & Sliver
+          <h1 className="text-center px-4 text-3xl font-semibold">
+            Gold & Silver Entry
           </h1>
-          <span className="text-center px-4 font-medium text-lg">
+          <span className="text-center px-4 font-normal text-lg mt-2 leading-6">
             Please select the Islamic school of thought (madhab) you are
             following:
           </span>
         </div>
-        <div className="flex flex-col justify-evenly items-center gap-10 pt-5">
+        <div className="flex flex-col justify-evenly items-center gap-10 pt-5 mt-5">
           <div className="flex flex-col justify-center items-center gap-12">
             <section className="flex flex-wrap justify-center items-center max-w-[1000px] gap-6">
               <IncomeDetailsCard
@@ -70,7 +70,7 @@ export default function PartialIncome() {
               />
             </section>
             <div className="flex flex-col justify-evenly items-center w-full gap-5">
-              <hr className="w-full max-lg:w-[60%] border-[1px] border-solid border-[#DFE3E6]" />
+              <hr className="w-full max-lg:w-[60%] border-[1px] border-solid border-underline" />
               <div className="flex flex-row justify-between items-center w-full max-lg:px-12  ">
                 <Link
                   className="flex justify-start items-center "
@@ -82,7 +82,7 @@ export default function PartialIncome() {
                 <div>
                   <Button
                     disabled={religion ? false : true}
-                    className="bg-detailsBtn text-btnText font-normal w-6/6 hover:bg-[#5e5f5d]"
+                    className="bg-detailsBtn text-btnText font-normal w-6/6 hover:bg-btnHover"
                     onClick={handleClick}
                   >
                     {religion ? 'Next' : 'Select to proceed'}

@@ -63,7 +63,20 @@ const ForgotPassword: React.FC<ForgotPasswordProps> = () => {
   };
 
   return (
-    <div className="flex flex-col w-full justify-center items-center pt-4 pb-1 bg-[#F8F8F8] gap-12 xl:gap-5 xl:w-5/5 rounded-3xl border-solid border-[1px] border-opacity-35 border-[#666666]">
+    <div className="flex flex-col w-full justify-center items-center pt-4 pb-1 bg-formBg gap-12 xl:gap-5 xl:w-5/5 rounded-3xl border-solid border-[1px] border-formBorder">
+      {/* {Object.keys(form.formState.errors).length > 0 && (
+        <div className=" mt-2 p-1">
+          {Object.values(form.formState.errors).map((error, index) => (
+            <div
+              key={'error-' + index}
+              className="bg-red-100 text-red-700 p-2 rounded-lg flex gap-3 mt-2 "
+            >
+              <ErrorIcon />
+              <p className="text-sm">{error?.message?.toString()}</p>{' '}
+            </div>
+          ))}
+        </div>
+      )} */}
       <div className="flex flex-col w-full justify-center items-center py-7 gap-y-1">
         <p
           className="font-medium text-3xl text-headingColor"
@@ -94,7 +107,7 @@ const ForgotPassword: React.FC<ForgotPasswordProps> = () => {
                 name="email"
                 render={({ field }) => (
                   <div className="w-full flex flex-col">
-                    <Label className='mb-2'>Email Address:</Label>
+                    <Label className="mb-2">Email Address:</Label>
                     <FormControl>
                       <IconInput
                         {...field}

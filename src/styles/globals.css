@@ -2,14 +2,54 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer utilities {
+  .scrollbar::-webkit-scrollbar {
+    width: 18px;
+    height: 18px;
+  }
+
+  .scrollbar::-webkit-scrollbar-track {
+    border-radius: 100vh;
+    background: #f7f4ed;
+  }
+
+  .scrollbar::-webkit-scrollbar-thumb {
+    background: #e0cbcb;
+    border-radius: 100vh;
+    height: 2px;
+    border: 5px solid #f6f7ed;
+  }
+
+  .scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #c0a0b9;
+  }
+}
+
 @layer base {
   :root {
     --background: #ffffff;
     --backcolor: #f8f8f8;
+
+    --navBorder: #dfe3e6;
+
+    --formBg: #f8f8f8;
+    --formBorder: #66666659;
+
     --cardbg: #f8f8f8;
     --cardheading: #000000;
     --cardText: #000000;
     --iconText: #666666cc;
+
+    --resendText: #ff8682;
+    --verifyField: #000000;
+
+    --underline: #dfe3e6;
+
+    --detailsCheck: #79747e;
+    --detailsChecked: #79747e;
+
+    --tableBg: #f8f8f8;
+    --tableBorder: #dfe3e6;
 
     --input-bg: #f8f8f8;
 
@@ -17,10 +57,15 @@
     --accordionBg: #f8f8f8;
     --accodionBorder: #dfe3e6;
 
+    --logoutText: #ee2750;
+    --userMail: #83899f;
+    --zakatText: #4caf50;
+
     --hover: #ffffff;
 
     --detailsbutton: #000000;
     --btn-text: #ffffff;
+    --btn-hover: #5e5f5d;
 
     --primary: #006514d5;
     --primary-hover: #00200010;
@@ -49,19 +94,40 @@
   .dark {
     --background: #111210;
     --backcolor: #111210;
+
+    --navBorder: #dfe3e6;
+
+    --formBg: #f8f8f8;
+    --formBorder: #666666;
+
     --cardbg: #f8f8f8;
     --cardheading: #000000;
     --cardText: #000000;
     --card-border: #dfe3e6;
 
+    --resendText: #ff8682;
+    --verifyField: #000000;
     --input-bg: #f8f8f8;
+
+    --underline: #dfe3e6;
+
+    --detailsCheck: #79747e;
+    --detailsChecked: #79747e;
+
+    --tableBg: #f8f8f8;
+    --tableBorder: #dfe3e6;
 
     --accordionText: #000000;
     --accordionBg: #f8f8f8;
     --accodionBorder: #dfe3e6;
 
+    --logoutText: #ee2750;
+    --userMail: #83899f;
+    --zakatText: #4caf50;
+
     --detailsbutton: #dfe3e6;
     --btn-text: #000000;
+    --btn-hover: #5e5f5d;
 
     --hover: #8b8b8b;
     --primary: #006514d5;

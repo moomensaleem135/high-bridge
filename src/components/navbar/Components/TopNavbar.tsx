@@ -25,13 +25,13 @@ const TopNavbar = ({
   setCollapseNav,
 }: ITopNavbar) => {
   return (
-    <div className="px-2 min-h-[70px] flex w-full items-center justify-between">
+    <div className="px-2 min-h-[70px] xs:min-h-[45px] sm:min-h-[70px] flex w-full items-center justify-between xs:hidden lg:flex">
       <div className="flex items-center gap-x-2 w-3/5">
         {/* Back Icon */}
         <div
           onClick={() => setCollapseNav(!collapseNav)}
           className={cn(
-            'rounded-lg justify-center items-center  bg-background border-solid border-[1px] border-[#DFE3E6] w-[30px] h-[30px] hidden lg:flex absolute top-9 z-50 transition-all duration-300',
+            'rounded-lg justify-center items-center  bg-background border-solid border-[1px] border-navBorder w-[30px] h-[30px] hidden lg:flex absolute top-9 z-50 transition-all duration-300',
             collapseNav ? 'left-[17rem]' : 'left-[3rem]'
           )}
         >
@@ -44,16 +44,16 @@ const TopNavbar = ({
         </div>
 
         {/* Search Input */}
-        <div className=" hidden lg:flex pl-7">
+        <div className="hidden lg:flex pl-7">
           <span className="text-lg font-medium">
             Zakat Due:{' '}
-            <span className="text-[#4CAF50] font-bold text-xl">$0.00</span>
-          </span> 
+            <span className="text-zakatText font-bold text-xl">$0.00</span>
+          </span>
         </div>
       </div>
 
-      <div className="items-center gap-x-4 hidden lg:flex">
-        <div className="w-full  pr-7">
+      <div className="flex items-center gap-x-4">
+        <div className="w-full hidden lg:flex pr-7">
           <span className="text-sm font-medium">
             Zakat Pay Date : 24-05-2024
           </span>

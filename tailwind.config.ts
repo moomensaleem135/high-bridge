@@ -42,19 +42,43 @@ const config: Config = {
         background: 'var(--background)',
         foreground: 'var(--foreground)',
 
+        navBorder: 'var(--navBorder)',
+
+        formBg: 'var(--formBg)',
+        formBorder: 'var(--formBorder)',
+
+        underline: 'var(--underline)',
+
+        resendText: 'var(--resendText)',
+        verifyField: 'var(--verifyField)',
+
         back: 'var(--backcolor)',
         cardbg: 'var(--cardbg)',
         cardBorder: 'var(--card-border)',
         cardHeading: 'var(--cardheading)',
         cardText: 'var(--cardText)',
+
         iconText: 'var(--iconText)',
+
         hoverNav: 'var(--hover)',
         detailsBtn: 'var(--detailsbutton)',
-        btnText: 'var( --btn-text)',
+
+        btnText: 'var(--btn-text)',
+        btnHover: 'var(--btn-hover)',
+
+        detailsCheck: 'var(--detailsCheck)',
+        detailsChecked: 'var(--detailsChecked)',
+
+        tableBg: 'var(--tableBg)',
+        tableBorder: 'var(--tableBorder)',
 
         accordionText: 'var(--accordionText)',
         accordionBg: 'var(--accordionBg)',
         accodionBorder: 'var(--accodionBorder)',
+
+        logoutText: 'var(--logoutText)',
+        userMail: 'var(--userMail)',
+        zakatText: 'var(--zakatText)',
 
         primary: {
           DEFAULT: 'var(--primary)',

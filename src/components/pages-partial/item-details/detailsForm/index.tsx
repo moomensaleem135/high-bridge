@@ -32,7 +32,7 @@ interface ItemDetailsProps {}
 const ItemDetailsSchema = z.object({
   item: z.string(),
   purpose: z.string().min(1, { message: 'purpose is required' }),
-  usage: z.string().min(1, { message: 'usage is required' }),
+  usage: z.string().min(0, { message: 'usage is required' }),
   quality: z.string().min(1, { message: 'quality is required' }),
   quantity: z.string().min(1, { message: 'quantity is required' }),
   weight: z.string().min(1, { message: 'weight is required' }),
@@ -43,6 +43,8 @@ type FormFields = z.infer<typeof ItemDetailsSchema>;
 const ItemDetailsForm: React.FC<ItemDetailsProps> = () => {
   const dispatch = useDispatch();
   const router = useRouter();
+  const [item, setItem] = React.useState<string>('');
+  const [reason, setReason] = React.useState<string>('');
   const [createItem, { isLoading }] = useCreateItemMutation();
 
   const form = useForm<FormFields>({
@@ -59,10 +61,13 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = () => {
   const onSubmit = async (itemsData: FormFields) => {
     console.log('in submit');
 
+    const usage = itemsData.usage ? itemsData.usage : '';
+    console.log(usage);
+
     const itemData = {
       item: itemsData.item,
       purpose: itemsData.purpose,
-      usage: itemsData.usage,
+      usage: usage,
       quality: itemsData.quality,
       weight: itemsData.weight,
       quantity: itemsData.quantity,
@@ -96,6 +101,10 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = () => {
     }
   };
 
+  React.useEffect(() => {
+    console.log(item);
+  }, [item]);
+
   return (
     <div className="flex flex-col w-4/6 justify-center items-center gap-12 rounded-3xl mt-6">
       <Form {...form}>
@@ -113,8 +122,11 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = () => {
                 render={({ field }) => (
                   <Checkbox
                     checked={field.value === 'Gold'}
-                    onCheckedChange={() => field.onChange('Gold')}
-                    className="rounded-sm h-5 w-5 mt-0.5 border-[2px] border-[#79747E] data-[state=checked]:bg-[#79747E]"
+                    onCheckedChange={() => {
+                      field.onChange('Gold');
+                      setItem('Gold');
+                    }}
+                    className="rounded-sm h-5 w-5 mt-0.5 border-[2px] border-detailsCheck data-[state=checked]:bg-detailsChecked"
                   />
                 )}
               />
@@ -127,8 +139,11 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = () => {
                 render={({ field }) => (
                   <Checkbox
                     checked={field.value === 'Silver'}
-                    onCheckedChange={() => field.onChange('Silver')}
-                    className="rounded-sm h-5 w-5 mt-0.5 border-[2px] border-[#79747E] data-[state=checked]:bg-[#79747E]"
+                    onCheckedChange={() => {
+                      field.onChange('Silver');
+                      setItem('Silver');
+                    }}
+                    className="rounded-sm h-5 w-5 mt-0.5 border-[2px] border-detailsCheck data-[state=checked]:bg-detailsChecked"
                   />
                 )}
               />
@@ -145,45 +160,50 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = () => {
                   <PurposeDropdown
                     initialValue={field.value}
                     onPurposeChange={(purposeVal) => field.onChange(purposeVal)}
+                    setReason={setReason}
                   />
                 )}
               />
             </div>
           </div>
 
-          <Label>
-            3 . Did you use this item at least once in the last one year??
-          </Label>
-          <div className="w-full items-center flex justify-start gap-8 pl-4">
-            <div className="flex justify-center items-center gap-4">
-              <Controller
-                name="usage"
-                control={form.control}
-                render={({ field }) => (
-                  <Checkbox
-                    checked={field.value === 'Yes'}
-                    onCheckedChange={() => field.onChange('Yes')}
-                    className="rounded-sm h-5 w-5 mt-0.5 border-[2px] border-[#79747E] data-[state=checked]:bg-[#79747E]"
+          {reason === 'personal' && (
+            <>
+              <Label>
+                3 . Did you use this item at least once in the last one year??
+              </Label>
+              <div className="w-full items-center flex justify-start gap-8 pl-4">
+                <div className="flex justify-center items-center gap-4">
+                  <Controller
+                    name="usage"
+                    control={form.control}
+                    render={({ field }) => (
+                      <Checkbox
+                        checked={field.value === 'Yes'}
+                        onCheckedChange={() => field.onChange('Yes')}
+                        className="rounded-sm h-5 w-5 mt-0.5 border-[2px] border-detailsCheck data-[state=checked]:bg-detailsChecked"
+                      />
+                    )}
                   />
-                )}
-              />
-              <label htmlFor="myCheckbox">Yes</label>
-            </div>
-            <div className="flex justify-center items-center gap-4">
-              <Controller
-                name="usage"
-                control={form.control}
-                render={({ field }) => (
-                  <Checkbox
-                    checked={field.value === 'No'}
-                    onCheckedChange={() => field.onChange('No')}
-                    className="rounded-sm h-5 w-5 mt-0.5 border-[2px] border-[#79747E] data-[state=checked]:bg-[#79747E]"
+                  <label htmlFor="myCheckbox">Yes</label>
+                </div>
+                <div className="flex justify-center items-center gap-4">
+                  <Controller
+                    name="usage"
+                    control={form.control}
+                    render={({ field }) => (
+                      <Checkbox
+                        checked={field.value === 'No'}
+                        onCheckedChange={() => field.onChange('No')}
+                        className="rounded-sm h-5 w-5 mt-0.5 border-[2px] border-detailsCheck data-[state=checked]:bg-detailsChecked"
+                      />
+                    )}
                   />
-                )}
-              />
-              <label htmlFor="myCheckbox">No</label>
-            </div>
-          </div>
+                  <label htmlFor="myCheckbox">No</label>
+                </div>
+              </div>
+            </>
+          )}
 
           <div className="w-full items-center">
             <div className="flex flex-col justify-start gap-x-6 gap-y-2 items-start">
@@ -194,6 +214,7 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = () => {
                 render={({ field }) => (
                   <QualityDropdown
                     initialValue={field.value}
+                    item={item}
                     onQualityChange={(qualityVal) => field.onChange(qualityVal)}
                   />
                 )}
@@ -254,8 +275,8 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = () => {
           </div>
 
           <div className="flex flex-col justify-evenly items-center w-full gap-5 mt-6">
-            <hr className="w-full border-[1px] border-solid border-[#DFE3E6]" />
-            <div className="flex justify-between items-center w-full">
+            <hr className="w-full border-[1px] border-solid border-underline" />
+            <div className="flex justify-between items-center w-full md:flex-row md:justify-between md:items-center xs:flex-col-reverse xs:gap-y-4 xs:justify-start xs:items-start">
               <Link
                 className="flex justify-start items-center "
                 href={addItemssUrl}
@@ -264,7 +285,7 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = () => {
                 Back
               </Link>
 
-              <Button className="bg-detailsBtn text-btnText font-normal hover:bg-[#5e5f5d]">
+              <Button className="bg-detailsBtn text-btnText font-normal hover:bg-btnHover">
                 Add Item
               </Button>
             </div>

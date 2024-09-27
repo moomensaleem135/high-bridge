@@ -36,6 +36,7 @@ import {
 } from '@/configs/constants';
 import { DarkToggle } from './DarkToggle';
 import { Hamburger } from './Hamburger';
+import { matches } from 'cypress/types/lodash';
 
 interface NavItemProps {
   to: string;
@@ -82,7 +83,7 @@ const NavItem = memo(
           />
           {collapseNav && (
             <p
-              className={`font-medium text-sm ${logout === true ? 'text-[#EE2750]' : ''}`}
+              className={`font-medium text-sm ${logout === true ? 'text-logoutText' : ''}`}
             >
               {label}
             </p>
@@ -137,7 +138,7 @@ const LeftNavbar = ({
   return (
     <div
       className={cn(
-        'z-30 xl:static h-full bg-back border-[1px] border-[#DFE3E6] border-solid rounded-r-3xl w-0  transition-all duration-300 flex-none',
+        'z-30 xl:static h-full bg-back border-[1px] border-navBorder border-solid rounded-r-3xl w-0  transition-all duration-300 flex-none',
         open && 'w-full',
         collapseNav ? ' lg:min-w-72' : 'lg:min-w-16'
       )}
@@ -158,12 +159,12 @@ const LeftNavbar = ({
                 </div>
               )}
               {collapseNav ? (
-                <hr className="flex w-[88%] border-[1px] border-solid border-[#DFE3E6]" />
+                <hr className="flex w-[88%] border-[1px] border-solid border-underline" />
               ) : (
                 ''
               )}
               {collapseNav ? (
-                <div className="flex bg-white items-center bg-backgound h-16 rounded-md border-[1px] border-solid w-[98%] border-[#DFE3E6] mt-7">
+                <div className="flex bg-white items-center bg-backgound h-16 rounded-md border-[1px] border-solid w-[98%] border-navBorder mt-7">
                   <div className="mx-2">
                     <UserIcon />
                   </div>
@@ -171,7 +172,7 @@ const LeftNavbar = ({
                     <span className="text-black font-bold text-[15px]">
                       Kate Russell
                     </span>
-                    <span className="text-[#83899F] font-normal text-sm">
+                    <span className="text-userMail font-normal text-sm">
                       kate@gmail.com
                     </span>
                   </div>
@@ -203,7 +204,7 @@ const LeftNavbar = ({
                 ))}
                 {collapseNav ? (
                   <div className="flex justify-center items-center w-[88%]">
-                    <hr className="flex w-full border-[1px] border-solid border-[#DFE3E6]  mt-4" />
+                    <hr className="flex w-full border-[1px] border-solid border-underline mt-4" />
                   </div>
                 ) : (
                   ''

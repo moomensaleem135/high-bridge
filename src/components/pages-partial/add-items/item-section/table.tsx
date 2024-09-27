@@ -34,58 +34,6 @@ const GridSection = () => {
     quality: item.quality,
   }));
 
-  // const rowData: any = [
-  //   {
-  //     item: 'Gold',
-  //     purpose: 'Trade',
-  //     usedbefore: 'No',
-  //     quantity: '5 tola',
-  //     quality: '24 Karat',
-  //   },
-  //   {
-  //     item: 'Gold',
-  //     purpose: 'Trade',
-  //     usedbefore: 'No',
-  //     quantity: '5 tola',
-  //     quality: '24 Karat',
-  //   },
-  //   {
-  //     item: 'Gold',
-  //     purpose: 'Trade',
-  //     usedbefore: 'No',
-  //     quantity: '5 tola',
-  //     quality: '24 Karat',
-  //   },
-  //   {
-  //     item: 'Gold',
-  //     purpose: 'Trade',
-  //     usedbefore: 'No',
-  //     quantity: '5 tola',
-  //     quality: '24 Karat',
-  //   },
-  //   {
-  //     item: 'Gold',
-  //     purpose: 'Trade',
-  //     usedbefore: 'No',
-  //     quantity: '5 tola',
-  //     quality: '24 Karat',
-  //   },
-  //   {
-  //     item: 'Gold',
-  //     purpose: 'Trade',
-  //     usedbefore: 'No',
-  //     quantity: '5 tola',
-  //     quality: '24 Karat',
-  //   },
-  //   {
-  //     item: 'Gold',
-  //     purpose: 'Trade',
-  //     usedbefore: 'No',
-  //     quantity: '5 tola',
-  //     quality: '24 Karat',
-  //   },
-  // ];
-
   const totalRows = rowData.length;
 
   const getRowClass = (params: any) => {

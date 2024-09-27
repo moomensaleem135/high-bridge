@@ -15,7 +15,7 @@ function Navbar({ children, ...props }: INavbar) {
   return (
     <>
       {/* Hamburger Menu */}
-      <div className="lg:hidden">
+      <div className="lg:hidden pl-4 pr-4 pt-4 pb-8">
         <Hamburger open={open} setOpen={setOpen} />
       </div>
       <div
@@ -35,10 +35,8 @@ function Navbar({ children, ...props }: INavbar) {
             collapseNav={collapseNav}
             setCollapseNav={setCollapseNav}
           />
-          <hr className="w-full border-[1px] border-solid border-[#DFE3E6] lg:flex hidden" />
-          <div className="flex flex-col h-full lg:ml-3">
-            {children}
-          </div>
+          <hr className="w-full border-[1px] border-solid border-underline xs:hidden lg:block" />
+          <div className="flex flex-col h-full lg:ml-3">{children}</div>
         </div>
       </div>
     </>

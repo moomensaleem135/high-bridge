@@ -83,7 +83,7 @@ const ProfileSetup: React.FC<ProfileSetupProps> = () => {
   };
 
   return (
-    <div className="flex flex-col w-full justify-center items-center bg-[#F8F8F8] gap-12 xl:gap-5 xl:w-5/5 rounded-3xl border-solid border-[1px] border-opacity-35 border-[#666666]">
+    <div className="flex flex-col w-full justify-center items-center bg-formBg gap-12 xl:gap-5 xl:w-5/5 rounded-3xl border-solid border-[1px] border-formBorder">
       <div className="flex flex-col w-full justify-center items-center py-7">
         <p
           className="font-medium text-3xl text-headingColor"

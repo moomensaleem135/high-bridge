@@ -85,7 +85,7 @@ const SignUp: React.FC<SignUpProps> = () => {
 
   return (
     <>
-      <div className="flex flex-col w-full justify-center items-center bg-[#F8F8F8] xl:w-5/5 rounded-3xl border-solid border-[1px] border-opacity-35 border-[#666666]">
+      <div className="flex flex-col w-full justify-center items-center bg-formBg xl:w-5/5 rounded-3xl border-solid border-[1px] border-formBorder">
         <div className="flex flex-col w-full justify-center items-center">
           <p
             className="font-medium text-[32px] text-headingColor mt-10 max-lg:mt-6"
@@ -282,7 +282,7 @@ const SignUp: React.FC<SignUpProps> = () => {
                 <Checkbox
                   checked={localChecked}
                   onCheckedChange={handleLocalCheck}
-                  className="rounded-sm border-[#66666659] border-[2px] h-5 w-5 mt-0.5" // Optional custom class
+                  className="rounded-sm border-formBorder border-[2px] h-5 w-5 mt-0.5" // Optional custom class
                 />
                 <label htmlFor="my-checkbox">
                   Local (We will save your data locally on your system in a
@@ -294,7 +294,7 @@ const SignUp: React.FC<SignUpProps> = () => {
                 <Checkbox
                   checked={serverChecked}
                   onCheckedChange={handleServerCheck}
-                  className="rounded-sm border-[#66666659] border-[2px] h-5 w-5 mt-0.5" // Optional custom class
+                  className="rounded-sm border-formBorder border-[2px] h-5 w-5 mt-0.5" // Optional custom class
                 />
                 <label htmlFor="my-checkbox">
                   Server (We will encrypt and save your data on our servers).

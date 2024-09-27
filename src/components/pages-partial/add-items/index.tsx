@@ -9,10 +9,12 @@ import MainSection from './item-section/main';
 export default function PartialAddItems() {
   return (
     <AppLayout>
-      <div className="flex flex-col self-stretch w-full gap-y-4 my-20">
+      <div className="flex flex-col self-stretch w-full gap-y-4 my-16">
         <div className="flex flex-col justify-center items-center">
-          <h1 className="text-center px-4 text-3xl font-bold">Add Gold & Sliver Items</h1>
-          <span className="text-center px-4 font-medium text-lg">
+          <h1 className="text-center px-4 text-3xl font-semibold">
+            Add Gold & Sliver Items
+          </h1>
+          <span className="text-center px-4 font-normal text-lg mt-2 leading-6">
             Here’s what you have so far. Please add your gold and silver items
             such as tola, grams, or ounces.
           </span>
