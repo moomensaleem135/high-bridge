@@ -79,7 +79,7 @@ const ProfileDetailsForm: React.FC<ProfileDetailsProps> = () => {
           title={`${profileData.year} ${profileData.month} ${profileData.startDate} ${profileData.endDate}`}
         />
       ));
-      router.push('/add-items');
+      router.push('/income');
     } catch (error) {
       console.error('Error creating event:', error);
       toast.error('Failed to Create event');
