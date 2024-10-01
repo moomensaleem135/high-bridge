@@ -22,7 +22,7 @@ const IncomeSection: React.FC<IncomeSectionProps> = ({
   return (
     <div className="lg:flex flex-col justify-evenly">
       <section className="flex flex-col justify-center items-center">
-        <h1 className="text-left w-[95%] max-w-[1200px] font-medium leading-9 text-2xl mb-2">
+        <h1 className="text-left w-full max-w-[1200px] font-medium leading-9 text-2xl mb-2">
           {title}
         </h1>
         <div className="flex flex-col w-full justify-center items-center gap-y-3">
