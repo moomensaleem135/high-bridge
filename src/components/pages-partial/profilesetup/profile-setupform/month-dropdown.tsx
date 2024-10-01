@@ -27,6 +27,13 @@ const MonthDropdown: React.FC<Prop> = ({
   );
 
   React.useEffect(() => {
+    if (year) {
+      setSelectedMonth('');
+      onMonthChange('');
+    }
+  }, [year]);
+
+  React.useEffect(() => {
     setSelectedMonth(initialValue);
   }, [initialValue]);
 

@@ -54,7 +54,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
         <div className="relative -left-[0.4rem] w-full h-8 ">
           <input
             className={cn(
-              `text-input-class peer w-full h-full text-subheadingColor font-normal outline outline-0 focus:outline-0 
+              `text-input-class peer w-full h-full text-inputText font-normal outline outline-0 focus:outline-0 
                disabled:bg-brand transition-all text-sm px-3 py-2 rounded-[7px] bg-transparent focus:bg-transparent placeholder:text-subheadingColor`,
               className,
               extraClass

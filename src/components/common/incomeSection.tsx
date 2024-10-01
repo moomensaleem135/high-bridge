@@ -1,9 +1,10 @@
 'use client';
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import { cn } from '@/lib/cn';
 import { Button } from '../ui/button';
 import Link from 'next/link';
-
+import { IncomeChoice } from '@/store/features/income/incomeSlice';
 interface IncomeSectionProps {
   texts: { text: string }[];
   containerClassName?: string;
@@ -18,6 +19,7 @@ const IncomeSection: React.FC<IncomeSectionProps> = ({
   titleClassName,
 }) => {
   const [current, setCurrent] = React.useState(0);
+  const dispatch = useDispatch();
 
   return (
     <div className="lg:flex flex-col justify-evenly">
@@ -33,7 +35,10 @@ const IncomeSection: React.FC<IncomeSectionProps> = ({
                 href={'income-details'}
                 className="flex justify-center items-center"
               >
-                <Button className="bg-transparent border-black border-[1px] w-2/3 text-white font-medium h-8 bg-black hover:bg-btnHover">
+                <Button
+                  className="bg-transparent border-black border-[1px] w-2/3 text-white font-medium h-8 bg-black hover:bg-btnHover"
+                  onClick={() => dispatch(IncomeChoice(text.text))}
+                >
                   Start
                 </Button>
               </Link>

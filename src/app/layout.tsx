@@ -30,7 +30,7 @@ export default function RootLayout({
           <body className={poppins.className}>
             <Toaster position="top-right" />
             <NextTopLoader
-              color="#89FF9FCD"
+              color="#000000"
               initialPosition={0.08}
               crawlSpeed={200}
               height={3}

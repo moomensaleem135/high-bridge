@@ -14,8 +14,6 @@ const itemSlice = createSlice({
   initialState,
   reducers: {
     addItems: (state, action) => {
-      console.log('in add');
-      console.log(action.payload);
       if (state.items) {
         state.items.push(action.payload);
       }

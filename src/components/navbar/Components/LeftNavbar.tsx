@@ -97,7 +97,7 @@ const NavItem = memo(
       <Link href={to}>
         <div
           className={cn([
-            `w-full group hover:bg-hoverNav hover:text-heading cursor-pointer p-3 flex items-center rounded-lg`,
+            `w-[98%] group hover:bg-hoverNav hover:text-heading cursor-pointer p-3 flex items-center rounded-lg`,
             active && 'bg-background text-heading font-extrabold',
             !collapseNav ? 'justify-center w-fit' : 'space-x-3',
           ])}
@@ -250,7 +250,7 @@ const LeftNavbar = ({
                     />
                   ))}
 
-                  <div className="flex justify-center items-center w-[88%]">
+                  <div className="flex justify-center items-center w-[98%]">
                     <hr className="flex w-full border-[1px] border-solid border-underline mt-4" />
                   </div>
                 </div>
@@ -294,7 +294,7 @@ const LeftNavbar = ({
                       />
                     ))}
                     {collapseNav ? (
-                      <div className="w-[90%]">
+                      <div className="w-[98%]">
                         <DarkToggle />
                       </div>
                     ) : (

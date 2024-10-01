@@ -40,9 +40,6 @@ const PurposeDropdown: React.FC<PurposeDropdownProps> = ({
       </SelectTrigger>
       <SelectContent>
         <SelectGroup>
-          <SelectItem value="trade" isChecked={selectedPurpose === 'trade'}>
-            Trade
-          </SelectItem>
           <SelectItem
             value="personal"
             isChecked={selectedPurpose === 'personal'}
@@ -54,9 +51,6 @@ const PurposeDropdown: React.FC<PurposeDropdownProps> = ({
             isChecked={selectedPurpose === 'business'}
           >
             Business
-          </SelectItem>
-          <SelectItem value="jewelry" isChecked={selectedPurpose === 'jewelry'}>
-            Jewelry
           </SelectItem>
         </SelectGroup>
       </SelectContent>

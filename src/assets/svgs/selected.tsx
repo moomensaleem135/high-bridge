@@ -15,9 +15,9 @@ export const SelectedIcon = ({
       <path
         d="M2.38818 11.9687L7.75519 17.5472L19.2943 3.60107"
         stroke="#4CAF50"
-        stroke-width="3"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="3"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );

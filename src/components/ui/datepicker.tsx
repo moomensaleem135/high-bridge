@@ -17,6 +17,8 @@ interface DatePickerProps {
   show: boolean;
   setShow: React.Dispatch<boolean>;
   className?: string;
+  isEndDate?: boolean;
+  isDisabled?: boolean;
 }
 
 const options: IOptions = {
@@ -62,6 +64,8 @@ const DatePicker = ({
   setStartDate,
   endDate,
   className,
+  isEndDate,
+  isDisabled,
 }: DatePickerProps) => {
   const ref = useClickOutside(() => {
     setShow(false);
@@ -115,16 +119,19 @@ const DatePicker = ({
           </div> */}
           <input
             type="text"
-            className="p-2 w-full bg-transparent  placeholder:text-subheadingColor text-subheadingColor focus:outline-none cursor-pointer"
+            className={`p-2 w-full bg-transparent  placeholder:text-subheadingColor text-inputText focus:outline-none ${isDisabled ? 'cursor-not-allowed' : 'cursor-pointer'}`}
             //placeholder="Select Date(s)..."
+            disabled={isDisabled}
             value={date}
           />
           {/* <div className="-mr-1">
             <ArrowDownIcon className="w-4 h-4 text-headingColor" />
           </div> */}
-          <div className="mr-1">
-            <CalendarIcon className="w-4 h-4 text-headingColor" />
-          </div>
+          {isEndDate === false && (
+            <div className="mr-1">
+              <CalendarIcon className="w-4 h-4 text-headingColor" />
+            </div>
+          )}
         </div>
       </Datepicker>
     </div>

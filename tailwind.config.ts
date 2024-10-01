@@ -36,6 +36,7 @@ const config: Config = {
         searchBarBg: 'var(--search-bar-bg)',
         inputBg: 'var(--input-bg)',
         inputBorder: 'var(--input-border)',
+        inputText: 'var(--inputText)',
 
         border: 'var(--border)',
         input: 'var(--accent)',

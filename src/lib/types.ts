@@ -33,6 +33,21 @@ export interface IItems {
   weight: string;
 }
 
+export interface ISects {
+  sect: string;
+}
+
+export interface IIncome {
+  income: string;
+}
+
+export interface ISetup {
+  startDate: string;
+  endDate: string;
+  year: string;
+  month: string;
+}
+
 export interface ITimezone {
   value: string;
   abbr: string;

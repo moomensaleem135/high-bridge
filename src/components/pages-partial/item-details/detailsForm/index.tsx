@@ -239,7 +239,7 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = () => {
                           id="weight"
                           aria-label="weight"
                           placeholder=""
-                          className="bg-inputBg rounded-r-none rounded-l-lg h-[45px] border-inputBorder py-1.5"
+                          className="bg-inputBg rounded-r-none rounded-l-lg h-[45px] border-inputBorder py-1.5 text-black"
                           error={!!form.formState.errors.weight}
                           data-cy="weight"
                           data-testid="weight"

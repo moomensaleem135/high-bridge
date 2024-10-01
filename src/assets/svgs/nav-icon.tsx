@@ -12,7 +12,7 @@ export const NavIcon = ({
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <g clip-path="url(#clip0_159_910)">
+      <g clipPath="url(#clip0_159_910)">
         <circle cx="18.7724" cy="20.0004" r="15.2275" fill="#2E90FA" />
         <path
           fill-rule="evenodd"

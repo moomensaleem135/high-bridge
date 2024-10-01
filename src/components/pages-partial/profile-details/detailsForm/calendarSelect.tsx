@@ -40,10 +40,10 @@ const CalendarSelect: React.FC<CalendarDropdownProps> = ({
       </SelectTrigger>
       <SelectContent>
         <SelectGroup>
-          <SelectItem value="Lunar" isChecked={selectedYear === 'lunar'}>
+          <SelectItem value="lunar" isChecked={selectedYear === 'lunar'}>
             Lunar
           </SelectItem>
-          <SelectItem value="Solar" isChecked={selectedYear === 'solar'}>
+          <SelectItem value="solar" isChecked={selectedYear === 'solar'}>
             Solar
           </SelectItem>
         </SelectGroup>

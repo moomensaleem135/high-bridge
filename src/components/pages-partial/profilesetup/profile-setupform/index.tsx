@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
+import { useDispatch } from 'react-redux';
 import { z } from 'zod';
 import toast from 'react-hot-toast';
 import Link from 'next/link';
@@ -21,7 +22,7 @@ import { useCreateEventMutation } from '@/store/features/events/eventsApi';
 import CustomToast from '@/components/common/CustomToast';
 
 import Spinner from '@/components/common/Spinner';
-import { forgetUrl, signupUrl } from '@/configs/constants';
+import { profileData } from '@/store/features/setup/setupSlice';
 
 interface ProfileSetupProps {}
 
@@ -42,6 +43,8 @@ const ProfileSetup: React.FC<ProfileSetupProps> = () => {
   const [endDate, setEndDate] = useState<string>('');
   const [show, setShow] = React.useState<boolean>(false);
 
+  const dispatch = useDispatch();
+
   const form = useForm<FormFields>({
     resolver: zodResolver(ProfileSetupSchema),
     defaultValues: {
@@ -51,6 +54,12 @@ const ProfileSetup: React.FC<ProfileSetupProps> = () => {
       endDate: '',
     },
   });
+
+  const onYearChange = (yearVal: string) => {
+    form.setValue('year', yearVal);
+    setYear(yearVal);
+    form.setValue('month', ''); // Reset month selection
+  };
 
   const onSubmit = async (setupData: FormFields) => {
     const formData = new FormData();
@@ -64,11 +73,13 @@ const ProfileSetup: React.FC<ProfileSetupProps> = () => {
     });
 
     try {
-      const response = await login(formData);
+      // const response = await login(formData);
+      dispatch(profileData({ setupData }));
       form.reset();
       setYear('');
       setStartDate('');
       setEndDate('');
+
       toast.custom((t) => (
         <CustomToast
           t={t}
@@ -108,7 +119,7 @@ const ProfileSetup: React.FC<ProfileSetupProps> = () => {
                 render={({ field }) => (
                   <CalendarDropdown
                     initialValue={field.value}
-                    onYearChange={(yearVal) => field.onChange(yearVal)}
+                    onYearChange={onYearChange}
                     setYear={setYear}
                   />
                 )}
@@ -151,7 +162,7 @@ const ProfileSetup: React.FC<ProfileSetupProps> = () => {
               <div className="col-span-12 w-full">
                 <Label>Date to Pay Zakat:</Label>
               </div>
-              <div className="col-span-6" onFocus={() => setShow(true)}>
+              <div className="col-span-6 w-full" onFocus={() => setShow(true)}>
                 <Controller
                   name="startDate"
                   control={form.control}
@@ -163,6 +174,7 @@ const ProfileSetup: React.FC<ProfileSetupProps> = () => {
                         field.onChange(date);
                       }}
                       show={show}
+                      isEndDate={false}
                       setShow={setShow}
                     />
                   )}
@@ -179,7 +191,7 @@ const ProfileSetup: React.FC<ProfileSetupProps> = () => {
               <div className="col-span-12 w-full">
                 <Label>End Date for Zakat:</Label>
               </div>
-              <div className="col-span-6">
+              <div className="col-span-6 w-full">
                 <Controller
                   name="endDate"
                   control={form.control}
@@ -190,7 +202,9 @@ const ProfileSetup: React.FC<ProfileSetupProps> = () => {
                         field.onChange(date);
                       }}
                       endDate={startDate}
+                      isEndDate={true}
                       show={false}
+                      isDisabled={true}
                       setShow={() => {}}
                     />
                   )}

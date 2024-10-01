@@ -62,7 +62,7 @@ const IconInput = React.forwardRef<HTMLInputElement, IconInputProps>(
         {showRightIcon && RightIcon && (
           <RightIcon
             className={cn(
-              'group-focus-within:text-primary text-2xl ml-auto mr-2',
+              'group-focus-within:text-primary text-inputText text-2xl ml-auto mr-2',
               rightIconClassName
             )}
             onClick={onClickRightIcon}

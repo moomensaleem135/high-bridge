@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 
 import { IncomeDetailsIcon } from '@/assets/svgs/Income-details';
 import { SelectedIcon } from '@/assets/svgs/selected';
+import { useDispatch } from 'react-redux';
+import { addSect } from '@/store/features/sects/sectsSlice';
 
 interface IncomeDetailsCardProps {
   cardData: {
@@ -19,6 +21,7 @@ const IncomeDetailsCard: React.FC<IncomeDetailsCardProps> = ({
   ...props
 }) => {
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
+  const dispatch = useDispatch();
   return (
     <>
       {cardData.map((card, index) => (
@@ -28,6 +31,7 @@ const IncomeDetailsCard: React.FC<IncomeDetailsCardProps> = ({
             onClick={(e) => {
               setReligion(card.title);
               setSelectedIndex(index);
+              dispatch(addSect(card.title));
             }}
           >
             {selectedIndex === index ? (

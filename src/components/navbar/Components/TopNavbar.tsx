@@ -1,4 +1,5 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import UserImage from '@/assets/png/user.png';
 import {
   ArrowLeftIcon,
@@ -6,9 +7,7 @@ import {
   SearchIcon,
   SearchRightIcon,
 } from '@/assets/svgs';
-import NextImage from '@/components/ui/next-image';
 import { ILayoutProps } from '@/lib/types';
-import { IconInput } from '@/components/ui/icon-input';
 import { cn } from '@/lib/cn';
 
 interface ITopNavbar extends ILayoutProps {
@@ -24,6 +23,18 @@ const TopNavbar = ({
   collapseNav,
   setCollapseNav,
 }: ITopNavbar) => {
+  function formatDate(dateString: string) {
+    if (dateString !== '') {
+      const date = new Date(dateString);
+      const day = String(date.getDate()).padStart(2, '0');
+      const month = String(date.getMonth() + 1).padStart(2, '0');
+      const year = date.getFullYear();
+      return `${day}-${month}-${year}`;
+    }
+  }
+
+  const selector = useSelector((state: any) => state.setup.setup);
+  const selectedDate = formatDate(selector.startDate);
   return (
     <div className="px-2 min-h-[70px] xs:min-h-[45px] sm:min-h-[70px] flex w-full items-center justify-between xs:hidden lg:flex">
       <div className="flex items-center gap-x-2 w-3/5">
@@ -55,7 +66,7 @@ const TopNavbar = ({
       <div className="flex items-center gap-x-4">
         <div className="w-full hidden lg:flex pr-7">
           <span className="text-sm font-medium">
-            Zakat Pay Date : 24-05-2024
+            Zakat Pay Date : {selectedDate ? selectedDate : '24-05-2020'}
           </span>
         </div>
       </div>

@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { useRouter } from 'next/navigation';
 import IncomeDetailsCard from '@/components/common/IncomeDetailsCard';
 import AppLayout from '@/components/common/layout/AppLayout';
@@ -41,6 +42,7 @@ export default function PartialIncome() {
   const [checked, setChecked] = useState<boolean>(false);
   const router = useRouter();
 
+  const selector = useSelector((state: any) => state.income.income);
   const handleClick = () => {
     if (!religion) {
       alert('select a religion to proceed please');
@@ -53,7 +55,7 @@ export default function PartialIncome() {
       <div className="flex flex-col self-stretch w-full gap-y-4 overflow-y-scroll overflow-x-hidden xs:mb-16 lg:my-5">
         <div className="flex flex-col justify-center items-center">
           <h1 className="text-center px-4 text-3xl font-semibold">
-            Gold & Silver Entry
+            {selector} Entry
           </h1>
           <span className="text-center px-4 font-normal text-base mt-2 leading-6 mb-2">
             Please select the Islamic school of thought (madhab) you are
@@ -72,7 +74,7 @@ export default function PartialIncome() {
             </section>
             <div className="flex flex-col justify-evenly items-center w-full gap-5 ">
               <hr className="w-full max-lg:w-[75%] border-[1px] border-solid border-underline" />
-              <div className="flex flex-row justify-between items-center w-full max-lg:w-[70%] max-md:gap-y-3 max-md:items-start max-md:flex-col-reverse ">
+              <div className="flex flex-row justify-between items-center w-full max-lg:w-[70%] ">
                 <Link
                   className="flex justify-start items-center "
                   href={incomeUrl}

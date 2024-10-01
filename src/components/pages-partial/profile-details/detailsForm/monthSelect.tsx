@@ -37,14 +37,17 @@ const MonthSelect: React.FC<Prop> = ({
 
   return (
     <>
-      {year && year === 'Lunar' ? (
+      {year && year === 'lunar' ? (
         <Select
           onValueChange={handleChange}
           disabled={disabled}
           value={selectedmonth}
         >
           <SelectTrigger className="rounded-lg bg-inputBg border-inputBorder">
-            <SelectValue placeholder="Select month" />
+            <SelectValue
+              placeholder="Select month"
+              className="text-subheadingColor"
+            />
           </SelectTrigger>
           <SelectContent>
             <SelectGroup>

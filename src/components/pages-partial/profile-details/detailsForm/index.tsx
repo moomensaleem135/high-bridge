@@ -1,6 +1,6 @@
 'use client';
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useForm, Controller } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
 import { z } from 'zod';
@@ -37,7 +37,7 @@ const ProfileDetailsSchema = z.object({
 type FormFields = z.infer<typeof ProfileDetailsSchema>;
 
 const ProfileDetailsForm: React.FC<ProfileDetailsProps> = () => {
-  const dispatch = useDispatch();
+  const selector = useSelector((state: any) => state.setup.setup);
 
   const router = useRouter();
   const [year, setYear] = useState<string>('');
@@ -55,6 +55,10 @@ const ProfileDetailsForm: React.FC<ProfileDetailsProps> = () => {
       endDate: '',
     },
   });
+
+  React.useEffect(() => {
+    setYear(selector.year);
+  }, []);
 
   const onSubmit = async (profileData: FormFields) => {
     console.log('in submit');
@@ -102,7 +106,7 @@ const ProfileDetailsForm: React.FC<ProfileDetailsProps> = () => {
                 name="year"
                 render={({ field }) => (
                   <CalendarSelect
-                    initialValue={field.value}
+                    initialValue={selector.year}
                     onYearChange={(yearVal) => field.onChange(yearVal)}
                     setYear={setYear}
                   />
@@ -121,7 +125,7 @@ const ProfileDetailsForm: React.FC<ProfileDetailsProps> = () => {
                   <MonthSelect
                     onMonthChange={(month) => field.onChange(month)}
                     year={year}
-                    initialValue={field.value}
+                    initialValue={selector.month}
                   />
                 )}
               />
@@ -131,12 +135,12 @@ const ProfileDetailsForm: React.FC<ProfileDetailsProps> = () => {
           <div className="w-full items-center">
             <div className="flex flex-col justify-start gap-x-6 gap-y-2 items-start">
               <div className="w-full flex justify-evenly items-center gap-4">
-                <div className="flex flex-col gap-y-2  items-center w-full">
+                <div className="flex flex-col gap-y-2  items-center w-full h-[108px]">
                   <div className="col-span-12 w-full">
                     <Label>Date to Pay Zakat:</Label>
                   </div>
                   <div
-                    className="col-span-6 w-full rounded-lg bg-inputBg border-inputBorder"
+                    className="col-span-6 w-full rounded-lg"
                     onFocus={() => setShowStart(true)}
                   >
                     <Controller
@@ -144,12 +148,13 @@ const ProfileDetailsForm: React.FC<ProfileDetailsProps> = () => {
                       control={form.control}
                       render={({ field }) => (
                         <DatePicker
-                          initialValue={field.value}
+                          initialValue={selector.startDate}
                           setStartDate={setStartDate}
                           onDateChange={(date) => {
                             field.onChange(date);
                           }}
                           show={showStart}
+                          isEndDate={false}
                           setShow={setShowStart}
                           className="bg-inputBg border-inputBorder"
                         />
@@ -163,7 +168,7 @@ const ProfileDetailsForm: React.FC<ProfileDetailsProps> = () => {
                     )}
                   </div>
                 </div>
-                <div className="flex flex-col gap-y-2 items-center w-full">
+                <div className="flex flex-col gap-y-2 items-center w-full h-[108px]">
                   <div className="col-span-12 w-full">
                     <Label>End Date for Zakat:</Label>
                   </div>
@@ -176,12 +181,15 @@ const ProfileDetailsForm: React.FC<ProfileDetailsProps> = () => {
                       control={form.control}
                       render={({ field }) => (
                         <DatePicker
-                          initialValue={field.value}
+                          initialValue={selector.endDate}
                           onDateChange={(date) => {
                             field.onChange(date);
                           }}
-                          show={showEnd}
-                          setShow={setShowEnd}
+                          show={false}
+                          endDate={startDate}
+                          setShow={() => {}}
+                          isEndDate={true}
+                          isDisabled={true}
                           className="bg-inputBg border-inputBorder"
                         />
                       )}
