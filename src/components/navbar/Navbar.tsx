@@ -5,6 +5,7 @@ import { ILayoutProps } from '@/lib/types';
 import LeftNavbar from './Components/LeftNavbar';
 import TopNavbar from './Components/TopNavbar';
 import { Hamburger } from './Components/Hamburger';
+import { NavIcon } from '@/assets/svgs';
 
 interface INavbar extends ILayoutProps {}
 
@@ -15,8 +16,14 @@ function Navbar({ children, ...props }: INavbar) {
   return (
     <>
       {/* Hamburger Menu */}
-      <div className="lg:hidden pl-4 pr-4 pt-4 pb-8">
+      <div className="lg:hidden pl-4 pr-4 pt-4 pb-8 flex  items-center">
         <Hamburger open={open} setOpen={setOpen} />
+
+        {open && (
+          <div className="flex w-full justify-center items-center">
+            <NavIcon />
+          </div>
+        )}
       </div>
       <div
         className="flex w-full relative bg-background "

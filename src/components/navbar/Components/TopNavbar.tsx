@@ -32,7 +32,7 @@ const TopNavbar = ({
           onClick={() => setCollapseNav(!collapseNav)}
           className={cn(
             'rounded-lg justify-center items-center  bg-background border-solid border-[1px] border-navBorder w-[30px] h-[30px] hidden lg:flex absolute top-9 z-50 transition-all duration-300',
-            collapseNav ? 'left-[17rem]' : 'left-[3rem]'
+            collapseNav ? 'left-[17rem]' : 'left-[5rem]'
           )}
         >
           <ArrowLeftIcon
