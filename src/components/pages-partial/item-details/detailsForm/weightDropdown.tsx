@@ -32,13 +32,16 @@ const WeightDropdown: React.FC<WeightDropdownProps> = ({
 
   return (
     <Select onValueChange={handleChange} value={selectedWeight}>
-      <SelectTrigger className="rounded-l-none h-[50px] rounded-r-lg">
+      <SelectTrigger className="rounded-l-none h-[45px] rounded-r-lg bg-inputBg border-inputBorder">
         <SelectValue placeholder="Tola" />
       </SelectTrigger>
       <SelectContent>
         <SelectGroup>
           <SelectItem value="Tola" isChecked={selectedWeight === 'Tola'}>
             Tola
+          </SelectItem>
+          <SelectItem value="Grams" isChecked={selectedWeight === 'Grams'}>
+            Grams
           </SelectItem>
           <SelectItem value="Masha" isChecked={selectedWeight === 'Masha'}>
             Masha

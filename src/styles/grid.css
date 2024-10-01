@@ -1,6 +1,6 @@
 /* Custom styles for Ag-Grid */
 
-.ag-theme-alpine {
+/* .ag-theme-alpine {
   --ag-borders: none;
   --ag-header-column-resize-handle-display: none;
   --ag-header-background-color: black;
@@ -25,9 +25,9 @@
 }
 
 .row-even {
-  background-color: #ebebeb; /* Light gray for even rows */
+  background-color: #ebebeb;
 }
 
 .row-odd {
-  background-color: #f8f8f8; /* White for odd rows */
-}
+  background-color: #f8f8f8;
+} */

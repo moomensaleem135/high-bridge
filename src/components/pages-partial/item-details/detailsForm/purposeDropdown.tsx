@@ -35,7 +35,7 @@ const PurposeDropdown: React.FC<PurposeDropdownProps> = ({
 
   return (
     <Select onValueChange={handleChange} value={selectedPurpose}>
-      <SelectTrigger className="rounded-lg">
+      <SelectTrigger className="rounded-lg bg-inputBg border-inputBorder">
         <SelectValue placeholder="Select purpose" />
       </SelectTrigger>
       <SelectContent>

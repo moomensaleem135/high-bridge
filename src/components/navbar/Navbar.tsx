@@ -43,7 +43,7 @@ function Navbar({ children, ...props }: INavbar) {
             setCollapseNav={setCollapseNav}
           />
           <hr className="w-full border-[1px] border-solid border-underline xs:hidden lg:block" />
-          <div className="flex flex-col h-full lg:ml-3">{children}</div>
+          <div className="flex flex-col h-full">{children}</div>
         </div>
       </div>
     </>

@@ -95,6 +95,7 @@ const AgGridTable: React.FC<AgGridTableProps> = ({
           pagination={enablePagination}
           paginationPageSize={enablePagination ? Number(pageSize) : undefined}
           suppressPaginationPanel={enablePagination}
+          suppressRowHoverHighlight={true}
           defaultColDef={defaultColDef}
           colResizeDefault={'shift'}
           onGridReady={handleGridReady}

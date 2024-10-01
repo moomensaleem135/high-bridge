@@ -24,9 +24,8 @@ const IncomeDetailsCard: React.FC<IncomeDetailsCardProps> = ({
       {cardData.map((card, index) => (
         <div key={index} className="flex flex-col justify-center items-center">
           <div
-            className={`flex flex-col justify-start items-center p-2 py-9 pb-5 gap-y-2 bg-cardbg rounded-xl ${selectedIndex === index ? 'border-[#4CAF50]' : 'border-cardBorder'}  border-[1px] cursor-pointer  `}
+            className={`flex flex-col justify-start items-center p-2 pt-8 pb-3 gap-y-2 bg-cardbg rounded-xl ${selectedIndex === index ? 'border-[#4CAF50] border-[2px]' : 'border-cardBorder'}  border-[1px] cursor-pointer  `}
             onClick={(e) => {
-              alert(`religion ${card.title} selected`);
               setReligion(card.title);
               setSelectedIndex(index);
             }}

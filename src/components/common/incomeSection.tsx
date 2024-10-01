@@ -13,7 +13,7 @@ interface IncomeSectionProps {
 
 const IncomeSection: React.FC<IncomeSectionProps> = ({
   texts,
-  containerClassName = 'bg-accordionBg tracking-tight border-[1px] border-accodionBorder text-xl font-medium text-accordionText flex justify-between items-center w-full max-w-[1200px] p-3 pl-6 pr-6 rounded-md',
+  containerClassName = 'bg-accordionBg tracking-tight border-[1px] border-accodionBorder text-xl font-medium text-accordionText flex justify-between items-center w-full max-w-[850px] p-3 pl-6 pr-6 rounded-md',
   title,
   titleClassName,
 }) => {
@@ -22,18 +22,18 @@ const IncomeSection: React.FC<IncomeSectionProps> = ({
   return (
     <div className="lg:flex flex-col justify-evenly">
       <section className="flex flex-col justify-center items-center">
-        <h1 className="text-left w-full max-w-[1200px] font-medium leading-9 text-2xl mb-2">
+        <h1 className="text-left w-full max-w-[850px] font-medium leading-9 text-2xl mb-2">
           {title}
         </h1>
         <div className="flex flex-col w-full justify-center items-center gap-y-3">
           {texts.map((text, index) => (
             <div key={index} className={containerClassName}>
-              {text.text}
+              <span>{text.text}</span>
               <Link
                 href={'income-details'}
                 className="flex justify-center items-center"
               >
-                <Button className="bg-transparent border-black border-[1px] w-2/3 text-black font-medium h-8">
+                <Button className="bg-transparent border-black border-[1px] w-2/3 text-white font-medium h-8 bg-black hover:bg-btnHover">
                   Start
                 </Button>
               </Link>

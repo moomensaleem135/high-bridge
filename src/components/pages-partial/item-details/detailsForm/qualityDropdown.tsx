@@ -34,7 +34,7 @@ const QualityDropdown: React.FC<QualityDropdownProps> = ({
 
   return (
     <Select onValueChange={handleChange} value={selectedQuality}>
-      <SelectTrigger className="rounded-lg">
+      <SelectTrigger className="rounded-lg bg-inputBg border-inputBorder">
         <SelectValue placeholder="Select Quality" />
       </SelectTrigger>
       <SelectContent>

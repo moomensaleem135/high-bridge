@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import AgGridTable from '@/components/ui/ag-table';
 import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-alpine.css';
-import '../../../../styles/grid.css';
+import '../../../../styles/globals.css';
 import CustomOptions from './customOption';
 
 const GridSection = () => {
@@ -11,26 +11,44 @@ const GridSection = () => {
   // const [currentPage, setCurrentPage] = useState(1);
 
   const items = useSelector((state: any) => state.items.items) || [];
+  const rowHeight = 42;
+  const maxHeight = 400;
+  const minHeight = 100;
+  const [gridHeight, setGridHeight] = useState(400);
+
+  React.useEffect(() => {
+    if (items.length !== 0) {
+      const numberOfRows = items.length;
+      const calculatedHeight = Math.min(numberOfRows * rowHeight, maxHeight);
+      setGridHeight(calculatedHeight + 47);
+    }
+  }, [items.length]);
 
   console.log(items);
   const columns = [
-    { headerName: 'Item', field: 'item', flex: 1 },
+    {
+      headerName: 'Item',
+      field: 'item',
+      flex: 1,
+    },
     { headerName: 'Purpose', field: 'purpose', flex: 1 },
     { headerName: 'Used Before', field: 'usedbefore', flex: 1 },
     { headerName: 'Quantity', field: 'quantity', flex: 1 },
     { headerName: 'Quality', field: 'quality', flex: 1 },
+
     {
       headerName: 'Option',
       field: 'option',
       cellRenderer: CustomOptions,
+      flex: 1,
     },
   ];
 
   const rowData = items.map((item: any) => ({
     item: item.item,
     purpose: item.purpose,
-    usedbefore: item.usage, // Assuming 'usage' corresponds to 'Used Before'
-    quantity: item.quantity,
+    usedbefore: item.usage,
+    quantity: `${item.weight} ${item.quantity}`,
     quality: item.quality,
   }));
 
@@ -58,14 +76,16 @@ const GridSection = () => {
 `;
 
   return (
-    <AgGridTable
-      columns={columns}
-      rowData={rowData}
-      getRowClass={getRowClass}
-      totalRows={totalRows}
-      customHeight={400}
-      overlayNoRowsTemplate={EmptyTable}
-    />
+    <div className="grid-container gridscrollbar">
+      <AgGridTable
+        columns={columns}
+        rowData={rowData}
+        getRowClass={getRowClass}
+        totalRows={totalRows}
+        customHeight={gridHeight}
+        overlayNoRowsTemplate={EmptyTable}
+      />
+    </div>
   );
 };
 

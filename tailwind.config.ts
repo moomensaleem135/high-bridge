@@ -35,6 +35,7 @@ const config: Config = {
 
         searchBarBg: 'var(--search-bar-bg)',
         inputBg: 'var(--input-bg)',
+        inputBorder: 'var(--input-border)',
 
         border: 'var(--border)',
         input: 'var(--accent)',
@@ -48,6 +49,7 @@ const config: Config = {
         formBorder: 'var(--formBorder)',
 
         underline: 'var(--underline)',
+        underlineTop: 'var(--underlineTop)',
 
         resendText: 'var(--resendText)',
         verifyField: 'var(--verifyField)',

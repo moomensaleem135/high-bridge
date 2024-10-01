@@ -54,6 +54,7 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = () => {
       purpose: '',
       usage: '',
       quality: '',
+      quantity: '',
       weight: '',
     },
   });
@@ -106,7 +107,7 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = () => {
   }, [item]);
 
   return (
-    <div className="flex flex-col w-4/6 justify-center items-center gap-12 rounded-3xl mt-6">
+    <div className="flex flex-col w-full max-w-[960px] justify-center items-center gap-12 rounded-3xl mt-6">
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
@@ -238,7 +239,7 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = () => {
                           id="weight"
                           aria-label="weight"
                           placeholder=""
-                          className="bg-outline rounded-r-none rounded-l-lg h-[50px]"
+                          className="bg-inputBg rounded-r-none rounded-l-lg h-[45px] border-inputBorder py-1.5"
                           error={!!form.formState.errors.weight}
                           data-cy="weight"
                           data-testid="weight"

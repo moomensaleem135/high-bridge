@@ -50,28 +50,29 @@ export default function PartialIncome() {
   };
   return (
     <AppLayout>
-      <div className="flex flex-col self-stretch w-full gap-y-4 overflow-y-scroll overflow-x-hidden xs:mb-16 lg:my-16">
+      <div className="flex flex-col self-stretch w-full gap-y-4 overflow-y-scroll overflow-x-hidden xs:mb-16 lg:my-5">
         <div className="flex flex-col justify-center items-center">
           <h1 className="text-center px-4 text-3xl font-semibold">
             Gold & Silver Entry
           </h1>
-          <span className="text-center px-4 font-normal text-lg mt-2 leading-6">
+          <span className="text-center px-4 font-normal text-base mt-2 leading-6 mb-2">
             Please select the Islamic school of thought (madhab) you are
             following:
           </span>
+          <hr className="w-full border-[1px] border-underlineTop" />
         </div>
         <div className="flex flex-col justify-evenly items-center gap-10 pt-5 mt-5">
           <div className="flex flex-col justify-center items-center gap-12">
-            <section className="flex flex-wrap justify-center items-center max-w-[1000px] gap-6">
+            <section className="flex flex-wrap justify-center items-center max-w-[830px] gap-6">
               <IncomeDetailsCard
                 cardData={cardData}
                 className="flex h-10"
                 setReligion={setReligion}
               />
             </section>
-            <div className="flex flex-col justify-evenly items-center w-full gap-5">
-              <hr className="w-full max-lg:w-[60%] border-[1px] border-solid border-underline" />
-              <div className="flex flex-row justify-between items-center w-full max-lg:px-12  ">
+            <div className="flex flex-col justify-evenly items-center w-full gap-5 ">
+              <hr className="w-full max-lg:w-[75%] border-[1px] border-solid border-underline" />
+              <div className="flex flex-row justify-between items-center w-full max-lg:w-[70%] max-md:gap-y-3 max-md:items-start max-md:flex-col-reverse ">
                 <Link
                   className="flex justify-start items-center "
                   href={incomeUrl}

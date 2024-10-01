@@ -3,6 +3,26 @@
 @tailwind utilities;
 
 @layer utilities {
+  .gridscrollbar::-webkit-scrollbar {
+    width: 18px;
+    height: 10px;
+  }
+
+  .gridscrollbar::-webkit-scrollbar-track {
+    border-radius: 100vh;
+    background: #f8f8f8;
+  }
+
+  .gridscrollbar::-webkit-scrollbar-thumb {
+    background: #dfe3e6;
+    border-radius: 100vh;
+    height: 1px;
+  }
+
+  .gridscrollbar::-webkit-scrollbar-thumb:hover {
+    background: #a9acaf;
+  }
+
   .scrollbar::-webkit-scrollbar {
     width: 18px;
     height: 18px;
@@ -10,19 +30,76 @@
 
   .scrollbar::-webkit-scrollbar-track {
     border-radius: 100vh;
-    background: #f7f4ed;
+    background: #ffffff;
   }
 
   .scrollbar::-webkit-scrollbar-thumb {
-    background: #e0cbcb;
+    background: #dfe3e6;
     border-radius: 100vh;
     height: 2px;
     border: 5px solid #f6f7ed;
   }
 
   .scrollbar::-webkit-scrollbar-thumb:hover {
-    background: #c0a0b9;
+    background: #a9acaf;
   }
+}
+
+/* Custom styles for Ag-Grid */
+
+.ag-theme-alpine .ag-body-viewport::-webkit-scrollbar {
+  width: 10px; /* Width of the scrollbar */
+}
+
+.ag-theme-alpine .ag-body-viewport::-webkit-scrollbar-track {
+  background: black; /* Background of the scrollbar track */
+}
+
+.ag-theme-alpine .ag-body-viewport::-webkit-scrollbar-thumb {
+  background: black; /* Color of the scrollbar thumb */
+  border-radius: 5px; /* Rounded corners for the thumb */
+}
+
+.ag-theme-alpine .ag-body-viewport::-webkit-scrollbar-thumb:hover {
+  background: black; /* Color on hover */
+}
+
+.grid-container {
+  overflow-x: auto; /* Allow horizontal scrolling */
+  width: 100%; /* Make sure it takes full width */
+}
+
+.ag-theme-alpine {
+  min-width: 600px;
+  --ag-borders: none;
+  --ag-header-column-resize-handle-display: none;
+  --ag-header-background-color: black;
+  --ag-header-foreground-color: white;
+  --ag-foreground-color: black;
+  --ag-font-size: 0.8rem;
+}
+
+.ag-theme-alpine .ag-root {
+  background-color: #f8f8f8;
+  border-bottom-left-radius: 0.3rem;
+  border-bottom-right-radius: 0.3rem;
+}
+
+.ag-theme-alpine .ag-header-cell {
+  font-weight: 500;
+  font-size: 1rem;
+}
+
+.ag-theme-alpine .ag-cell {
+  font-weight: 400;
+}
+
+.row-even {
+  background-color: #ebebeb; /* Light gray for even rows */
+}
+
+.row-odd {
+  background-color: #f8f8f8; /* White for odd rows */
 }
 
 @layer base {
@@ -44,6 +121,7 @@
     --verifyField: #000000;
 
     --underline: #dfe3e6;
+    --underlineTop: #dfe3e680;
 
     --detailsCheck: #79747e;
     --detailsChecked: #79747e;
@@ -52,6 +130,7 @@
     --tableBorder: #dfe3e6;
 
     --input-bg: #f8f8f8;
+    --input-border: #dfe3e6;
 
     --accordionText: #000000;
     --accordionBg: #f8f8f8;
@@ -108,8 +187,10 @@
     --resendText: #ff8682;
     --verifyField: #000000;
     --input-bg: #f8f8f8;
+    --input-border: #dfe3e6;
 
     --underline: #dfe3e6;
+    --underlineTop: #dfe3e680;
 
     --detailsCheck: #79747e;
     --detailsChecked: #79747e;

@@ -31,6 +31,7 @@ import {
   zakatUrl,
   settingsUrl,
   profileUrl,
+  profilesetupUrl,
   helpUrl,
   signoutUrl,
 } from '@/configs/constants';
@@ -123,7 +124,7 @@ const NavItem = memo(
 
 const navItems = [
   { to: homeUrl, label: 'Home', Symbol: HomeIcon },
-  { to: setupUrl, label: 'Setup', Symbol: SetupIcon },
+  { to: profilesetupUrl, label: 'Setup', Symbol: SetupIcon },
   { to: incomeUrl, label: 'Income', Symbol: IncomeIcon },
   { to: deductionUrl, label: 'Deductions', Symbol: DeductionIcon },
   { to: reviewUrl, label: 'Reviews', Symbol: ReviewIcon },
