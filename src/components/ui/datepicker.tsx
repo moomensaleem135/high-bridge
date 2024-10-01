@@ -16,6 +16,7 @@ interface DatePickerProps {
   initialValue?: string;
   show: boolean;
   setShow: React.Dispatch<boolean>;
+  className?: string;
 }
 
 const options: IOptions = {
@@ -60,6 +61,7 @@ const DatePicker = ({
   setShow,
   setStartDate,
   endDate,
+  className,
 }: DatePickerProps) => {
   const ref = useClickOutside(() => {
     setShow(false);
@@ -105,7 +107,9 @@ const DatePicker = ({
         show={show}
         setShow={handleClose}
       >
-        <div className="bg-field flex border-[1px] border-solid border-[#66666659] items-center rounded-md px-3 w-full h-12 cursor-pointer">
+        <div
+          className={`bg-field flex border-[1px] border-solid border-[#66666659] items-center rounded-md px-3 w-full h-12 cursor-pointer ${className}`}
+        >
           {/* <div className="mr-1">
             <CalendarIcon className="w-4 h-4 text-headingColor" />
           </div> */}
