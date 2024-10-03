@@ -20,6 +20,7 @@ const TopNavbar = ({
 }: ITopNavbar) => {
   const selector = useSelector((state: any) => state.setup.setup);
   const selectedDate = formatDate(selector.startDate);
+  console.log(selectedDate);
   return (
     <div className="px-2 min-h-[70px] xs:min-h-[45px] sm:min-h-[70px] flex w-full items-center justify-between xs:hidden lg:flex">
       <div className="flex items-center gap-x-2 w-3/5">
@@ -51,8 +52,7 @@ const TopNavbar = ({
       <div className="flex items-center gap-x-4">
         <div className="w-full hidden lg:flex pr-7">
           <span className="text-sm font-medium">
-            Zakat Pay Date :{' '}
-            {selectedDate ? selectedDate : formatDate(new Date().toISOString())}
+            Zakat Pay Date : {formatDate(new Date().toISOString())}
           </span>
         </div>
       </div>
