@@ -154,6 +154,7 @@ const ProfileDetailsForm: React.FC<ProfileDetailsProps> = () => {
                             field.onChange(date);
                           }}
                           show={showStart}
+                          year={year}
                           isEndDate={false}
                           setShow={setShowStart}
                           className="bg-inputBg border-inputBorder"
@@ -190,6 +191,7 @@ const ProfileDetailsForm: React.FC<ProfileDetailsProps> = () => {
                           setShow={() => {}}
                           isEndDate={true}
                           isDisabled={true}
+                          year={year}
                           className="bg-inputBg border-inputBorder"
                         />
                       )}

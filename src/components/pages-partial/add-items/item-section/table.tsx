@@ -31,16 +31,27 @@ const GridSection = () => {
       field: 'item',
       flex: 1,
     },
-    { headerName: 'Purpose', field: 'purpose', flex: 1 },
-    { headerName: 'Used Before', field: 'usedbefore', flex: 1 },
-    { headerName: 'Quantity', field: 'quantity', flex: 1 },
-    { headerName: 'Quality', field: 'quality', flex: 1 },
+    { headerName: 'Purpose', field: 'purpose', flex: 1, suppressMovable: true },
+    {
+      headerName: 'Used Before',
+      field: 'usedbefore',
+      flex: 1,
+      suppressMovable: true,
+    },
+    {
+      headerName: 'Quantity',
+      field: 'quantity',
+      flex: 1,
+      suppressMovable: true,
+    },
+    { headerName: 'Quality', field: 'quality', flex: 1, suppressMovable: true },
 
     {
       headerName: 'Option',
       field: 'option',
       cellRenderer: CustomOptions,
       flex: 1,
+      suppressMovable: true,
     },
   ];
 
@@ -59,7 +70,7 @@ const GridSection = () => {
   };
 
   const EmptyTable = `
-  <div style="display : flex; flex-direction : column; justifyContent : center; alignItems : center; ">
+  <div style="display : flex; flex-direction : column; justifyContent : center; alignItems : center; gap : 3px">
     <div style="display : flex; justifyContent : center; alignItems : center; padding-left : 45px">
        <svg width="36" height="36"  viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M32.148 31.05L34.0886 29.2078C34.7355 28.589 34.7636 27.5765 34.1589 26.9156C33.5402 26.2687 32.5277 26.2406 31.8808 26.8453L29.9261 28.6875L28.1402 26.789C27.5214 26.1422 26.5089 26.114 25.8621 26.7187C25.2152 27.3375 25.1871 28.35 25.7917 28.9968L27.5777 30.8953L25.6371 32.7375C24.9902 33.3562 24.9621 34.3687 25.5667 35.0156C26.1855 35.6625 27.198 35.6906 27.8449 35.0859L29.7855 33.2437L31.6699 35.2406C32.2886 35.8875 33.3011 35.9156 33.948 35.3109C34.5949 34.6922 34.623 33.6797 34.0183 33.0328L32.148 31.05Z" fill="black"/>
@@ -70,7 +81,7 @@ const GridSection = () => {
       </svg>
     </div>
 
-    <h2 style="font-weight : 500">No Data Available</h2>
+    <h2 style="font-weight : 500;">No Data Available</h2>
     <p style="font-weight : 500">Please Add Your Items.</p>
   </div>
 `;

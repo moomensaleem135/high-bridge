@@ -85,9 +85,15 @@
   border-bottom-right-radius: 0.3rem !important;
 }
 
+.ag-theme-alpine .ag-header {
+  height: 49px !important;
+  min-height: 49px !important;
+}
+
 .ag-theme-alpine .ag-header-cell {
   font-weight: 500 !important;
   font-size: 1rem !important;
+  height: 100% !important;
 }
 
 .ag-theme-alpine .ag-cell {

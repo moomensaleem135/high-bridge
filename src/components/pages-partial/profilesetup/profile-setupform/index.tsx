@@ -175,6 +175,7 @@ const ProfileSetup: React.FC<ProfileSetupProps> = () => {
                       }}
                       show={show}
                       isEndDate={false}
+                      year={year}
                       setShow={setShow}
                     />
                   )}
@@ -204,6 +205,7 @@ const ProfileSetup: React.FC<ProfileSetupProps> = () => {
                       endDate={startDate}
                       isEndDate={true}
                       show={false}
+                      year={year}
                       isDisabled={true}
                       setShow={() => {}}
                     />
