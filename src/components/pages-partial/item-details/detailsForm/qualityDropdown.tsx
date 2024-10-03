@@ -24,6 +24,11 @@ const QualityDropdown: React.FC<QualityDropdownProps> = ({
   >(initialValue);
 
   React.useEffect(() => {
+    setSelectedQuality('');
+    onQualityChange('');
+  }, [item]);
+
+  React.useEffect(() => {
     setSelectedQuality(initialValue);
   }, [initialValue]);
 
@@ -39,7 +44,7 @@ const QualityDropdown: React.FC<QualityDropdownProps> = ({
       </SelectTrigger>
       <SelectContent>
         <SelectGroup>
-          {item === 'Gold' && (
+          {item === 'Gold' ? (
             <>
               <SelectItem
                 value="06 Karat"
@@ -114,8 +119,7 @@ const QualityDropdown: React.FC<QualityDropdownProps> = ({
                 24 Karat
               </SelectItem>
             </>
-          )}
-          {item === 'Silver' && (
+          ) : (
             <>
               <SelectItem value="Fine" isChecked={selectedQuality === 'Fine'}>
                 Fine

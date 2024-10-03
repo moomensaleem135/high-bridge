@@ -30,7 +30,7 @@ import Spinner from '@/components/common/Spinner';
 interface ItemDetailsProps {}
 
 const ItemDetailsSchema = z.object({
-  item: z.string(),
+  item: z.string().min(1, { message: 'purpose is required' }),
   purpose: z.string().min(1, { message: 'purpose is required' }),
   usage: z.string().min(0, { message: 'usage is required' }),
   quality: z.string().min(1, { message: 'quality is required' }),
@@ -115,41 +115,49 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = () => {
           data-testid="event-form"
         >
           <Label>1 . Which item do you have?</Label>
-          <div className="w-full items-center flex justify-start gap-8 pl-4">
-            <div className="flex justify-center items-center gap-4">
-              <Controller
-                name="item"
-                control={form.control}
-                render={({ field }) => (
-                  <Checkbox
-                    checked={field.value === 'Gold'}
-                    onCheckedChange={() => {
-                      field.onChange('Gold');
-                      setItem('Gold');
-                    }}
-                    className="rounded-sm h-5 w-5 mt-0.5 border-[2px] border-detailsCheck data-[state=checked]:bg-detailsChecked"
-                  />
-                )}
-              />
-              <label htmlFor="myCheckbox">Gold</label>
+          <div>
+            <div className="w-full items-center flex justify-start gap-8 pl-4">
+              <div className="flex justify-center items-center gap-4">
+                <Controller
+                  name="item"
+                  control={form.control}
+                  render={({ field }) => (
+                    <Checkbox
+                      checked={field.value === 'Gold'}
+                      onCheckedChange={() => {
+                        field.onChange('Gold');
+                        setItem('Gold');
+                      }}
+                      className="rounded-sm h-5 w-5 mt-0.5 border-[2px] border-detailsCheck data-[state=checked]:bg-detailsChecked"
+                    />
+                  )}
+                />
+                <label htmlFor="myCheckbox">Gold</label>
+              </div>
+              <div className="flex justify-center items-center gap-4">
+                <Controller
+                  name="item"
+                  control={form.control}
+                  render={({ field }) => (
+                    <Checkbox
+                      checked={field.value === 'Silver'}
+                      onCheckedChange={() => {
+                        field.onChange('Silver');
+                        setItem('Silver');
+                      }}
+                      className="rounded-sm h-5 w-5 mt-0.5 border-[2px] border-detailsCheck data-[state=checked]:bg-detailsChecked"
+                    />
+                  )}
+                />
+                <label htmlFor="myCheckbox">Silver</label>
+              </div>
             </div>
-            <div className="flex justify-center items-center gap-4">
-              <Controller
-                name="item"
-                control={form.control}
-                render={({ field }) => (
-                  <Checkbox
-                    checked={field.value === 'Silver'}
-                    onCheckedChange={() => {
-                      field.onChange('Silver');
-                      setItem('Silver');
-                    }}
-                    className="rounded-sm h-5 w-5 mt-0.5 border-[2px] border-detailsCheck data-[state=checked]:bg-detailsChecked"
-                  />
-                )}
-              />
-              <label htmlFor="myCheckbox">Silver</label>
-            </div>
+            {form.formState.errors.item && (
+              <span className="text-destructive text-sm flex items-center gap-1 mt-2">
+                <ErrorIcon />
+                {form.formState.errors.item.message}
+              </span>
+            )}
           </div>
           <div className="w-full items-center">
             <div className="flex flex-col justify-start gap-y-2 items-start">
@@ -165,6 +173,12 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = () => {
                   />
                 )}
               />
+              {form.formState.errors.purpose && (
+                <span className="text-destructive text-sm flex items-center gap-1">
+                  <ErrorIcon />
+                  {form.formState.errors.purpose.message}
+                </span>
+              )}
             </div>
           </div>
 
@@ -220,6 +234,12 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = () => {
                   />
                 )}
               />
+              {form.formState.errors.quality && (
+                <span className="text-destructive text-sm flex items-center gap-1 ">
+                  <ErrorIcon />
+                  {form.formState.errors.quality.message}
+                </span>
+              )}
             </div>
           </div>
 
