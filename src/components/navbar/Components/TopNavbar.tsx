@@ -1,12 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import UserImage from '@/assets/png/user.png';
-import {
-  ArrowLeftIcon,
-  NotificationIcon,
-  SearchIcon,
-  SearchRightIcon,
-} from '@/assets/svgs';
+import { formatDate } from '@/lib/helpers';
+import { ArrowLeftIcon } from '@/assets/svgs';
 import { ILayoutProps } from '@/lib/types';
 import { cn } from '@/lib/cn';
 
@@ -23,16 +18,6 @@ const TopNavbar = ({
   collapseNav,
   setCollapseNav,
 }: ITopNavbar) => {
-  function formatDate(dateString: string) {
-    if (dateString !== '') {
-      const date = new Date(dateString);
-      const day = String(date.getDate()).padStart(2, '0');
-      const month = String(date.getMonth() + 1).padStart(2, '0');
-      const year = date.getFullYear();
-      return `${day}-${month}-${year}`;
-    }
-  }
-
   const selector = useSelector((state: any) => state.setup.setup);
   const selectedDate = formatDate(selector.startDate);
   return (
@@ -66,7 +51,8 @@ const TopNavbar = ({
       <div className="flex items-center gap-x-4">
         <div className="w-full hidden lg:flex pr-7">
           <span className="text-sm font-medium">
-            Zakat Pay Date : {selectedDate ? selectedDate : '24-05-2020'}
+            Zakat Pay Date :{' '}
+            {selectedDate ? selectedDate : formatDate(new Date().toISOString())}
           </span>
         </div>
       </div>

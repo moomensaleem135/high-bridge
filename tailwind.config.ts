@@ -62,6 +62,7 @@ const config: Config = {
         cardText: 'var(--cardText)',
 
         iconText: 'var(--iconText)',
+        loader: 'var( --loader)',
 
         hoverNav: 'var(--hover)',
         detailsBtn: 'var(--detailsbutton)',

@@ -19,7 +19,6 @@ const setupSlice = createSlice({
   initialState,
   reducers: {
     profileData: (state, action) => {
-      console.log('in add');
       const data = action.payload.setupData;
       if (data) {
         state.setup.startDate = data.startDate;

@@ -55,7 +55,7 @@ export default function PartialIncome() {
       <div className="flex flex-col self-stretch w-full gap-y-4 overflow-y-scroll overflow-x-hidden xs:mb-16 lg:my-5">
         <div className="flex flex-col justify-center items-center">
           <h1 className="text-center px-4 text-3xl font-semibold">
-            {selector} Entry
+            {selector ? selector : 'Gold & Silver'} Entry
           </h1>
           <span className="text-center px-4 font-normal text-base mt-2 leading-6 mb-2">
             Please select the Islamic school of thought (madhab) you are

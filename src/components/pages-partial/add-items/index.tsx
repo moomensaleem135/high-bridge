@@ -11,12 +11,13 @@ import { Button } from '@/components/ui/button';
 
 export default function PartialAddItems() {
   const items = useSelector((state: any) => state.items.items) || [];
+  const income = useSelector((state: any) => state.income.income);
   return (
     <AppLayout>
       <div className="flex flex-col self-stretch w-full gap-y-4 my-5">
         <div className="flex flex-col justify-center items-center">
           <h1 className="text-center px-4 text-3xl font-semibold">
-            Add Gold & Sliver Items
+            Add {income ? income : 'Gold & Sliver'} Items
           </h1>
           <span className="text-center px-4 font-normal text-base mt-2 leading-6 mb-2">
             Here’s what you have so far. Please add your gold and silver items
