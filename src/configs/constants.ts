@@ -2,13 +2,13 @@
 export const homeUrl = '/home/';
 export const setupUrl = '/setup/';
 export const incomeUrl = '/income/';
-export const deductionUrl = '/deduction/';
-export const reviewUrl = '/review/';
+export const deductionUrl = '/deductions/';
+export const reviewUrl = '/reviews/';
 export const zakatUrl = '/pay-zakat/';
 export const settingsUrl = '/settings/';
 export const profileUrl = '/profile/';
 export const helpUrl = '/help/';
-export const signoutUrl = '/signout/';
+export const signoutUrl = '/logout/';
 export const signupUrl = '/signup/';
 export const signinUrl = '/signin/';
 export const forgetUrl = '/forgot-password/';

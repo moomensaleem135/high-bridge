@@ -48,58 +48,58 @@
 /* Custom styles for Ag-Grid */
 
 .ag-theme-alpine .ag-body-viewport::-webkit-scrollbar {
-  width: 10px; /* Width of the scrollbar */
+  width: 10px !important; /* Width of the scrollbar */
 }
 
 .ag-theme-alpine .ag-body-viewport::-webkit-scrollbar-track {
-  background: black; /* Background of the scrollbar track */
+  background: black !important; /* Background of the scrollbar track */
 }
 
 .ag-theme-alpine .ag-body-viewport::-webkit-scrollbar-thumb {
-  background: black; /* Color of the scrollbar thumb */
-  border-radius: 5px; /* Rounded corners for the thumb */
+  background: black !important; /* Color of the scrollbar thumb */
+  border-radius: 5px !important; /* Rounded corners for the thumb */
 }
 
 .ag-theme-alpine .ag-body-viewport::-webkit-scrollbar-thumb:hover {
-  background: black; /* Color on hover */
+  background: black !important; /* Color on hover */
 }
 
 .grid-container {
-  overflow-x: auto; /* Allow horizontal scrolling */
-  width: 100%; /* Make sure it takes full width */
+  overflow-x: auto !important; /* Allow horizontal scrolling */
+  width: 100% !important; /* Make sure it takes full width */
 }
 
 .ag-theme-alpine {
-  min-width: 600px;
-  --ag-borders: none;
-  --ag-header-column-resize-handle-display: none;
-  --ag-header-background-color: black;
-  --ag-header-foreground-color: white;
-  --ag-foreground-color: black;
-  --ag-font-size: 0.8rem;
+  min-width: 600px !important;
+  --ag-borders: none !important;
+  --ag-header-column-resize-handle-display: none !important;
+  --ag-header-background-color: black !important;
+  --ag-header-foreground-color: white !important;
+  --ag-foreground-color: black !important;
+  --ag-font-size: 0.8rem !important;
 }
 
 .ag-theme-alpine .ag-root {
-  background-color: #f8f8f8;
-  border-bottom-left-radius: 0.3rem;
-  border-bottom-right-radius: 0.3rem;
+  background-color: #f8f8f8 !important;
+  border-bottom-left-radius: 0.3rem !important;
+  border-bottom-right-radius: 0.3rem !important;
 }
 
 .ag-theme-alpine .ag-header-cell {
-  font-weight: 500;
-  font-size: 1rem;
+  font-weight: 500 !important;
+  font-size: 1rem !important;
 }
 
 .ag-theme-alpine .ag-cell {
-  font-weight: 400;
+  font-weight: 400 !important;
 }
 
 .row-even {
-  background-color: #ebebeb; /* Light gray for even rows */
+  background-color: #ebebeb !important; /* Light gray for even rows */
 }
 
 .row-odd {
-  background-color: #f8f8f8; /* White for odd rows */
+  background-color: #f8f8f8 !important; /* White for odd rows */
 }
 
 @layer base {
