@@ -65,18 +65,29 @@
 }
 
 .grid-container {
-  overflow-x: auto !important; /* Allow horizontal scrolling */
-  width: 100% !important; /* Make sure it takes full width */
+  overflow-x: auto !important;
+  width: 100% !important;
 }
 
 .ag-theme-alpine {
-  min-width: 600px !important;
   --ag-borders: none !important;
   --ag-header-column-resize-handle-display: none !important;
   --ag-header-background-color: black !important;
   --ag-header-foreground-color: white !important;
   --ag-foreground-color: black !important;
   --ag-font-size: 0.8rem !important;
+}
+
+/* .ag-root-wrapper .ag-layout-normal {
+  height: 100% !important;
+  width: 100% !important;
+} */
+
+.ag-theme-alpine .ag-body-horizontal-scroll-viewport {
+  height: 15px !important;
+  border-radius: none !important;
+  background-color: gainsboro !important;
+  width: 100% !important;
 }
 
 .ag-theme-alpine .ag-root {
@@ -95,8 +106,8 @@
 }
 
 .ag-theme-alpine .ag-header-cell {
-  /* font-weight: 500 !important; */
-  font-size: 1rem !important;
+  font-weight: 500 !important;
+  font-size: 16px !important;
   height: 100% !important;
 }
 

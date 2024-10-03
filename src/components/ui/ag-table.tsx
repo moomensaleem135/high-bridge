@@ -46,7 +46,8 @@ const AgGridTable: React.FC<AgGridTableProps> = ({
       sortable: true,
       filter: false,
       resizable: true,
-      flex: 1,
+      width: 141,
+      maxWidth: 600,
     }),
     []
   );
