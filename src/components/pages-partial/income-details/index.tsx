@@ -88,7 +88,8 @@ export default function PartialIncome() {
                     className="bg-detailsBtn text-btnText font-normal w-6/6 hover:bg-btnHover"
                     onClick={handleClick}
                   >
-                    {religion ? 'Next' : 'Select to proceed'}
+                    {/* {religion ? 'Next' : 'Select to proceed'} */}
+                    {'Next'}
                   </Button>
                 </div>
               </div>

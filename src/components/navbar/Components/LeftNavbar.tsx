@@ -1,6 +1,7 @@
 import { memo, useEffect, useState } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 import Link from 'next/link';
+import { Tooltip as ReactTooltip } from 'react-tooltip';
 
 import { cn } from '@/lib/cn';
 
@@ -34,6 +35,7 @@ import {
   profilesetupUrl,
   helpUrl,
   signoutUrl,
+  signinUrl,
 } from '@/configs/constants';
 import { DarkToggle } from './DarkToggle';
 import { Hamburger } from './Hamburger';
@@ -74,8 +76,6 @@ const NavItem = memo(
 
     useEffect(() => {
       const handleResize = () => {
-        console.log(window.innerWidth);
-
         // Update collapseNav to true if window width is less than or equal to 1024px (lg breakpoint)
         if (window.innerWidth <= 1024) {
           setCollapseNav(true);
@@ -93,31 +93,45 @@ const NavItem = memo(
       };
     }, [setCollapseNav]);
 
+    // Generate a unique ID for the tooltip based on the label
+    const tooltipId = `navbar-tooltip-${label.replace(/\s+/g, '-').toLowerCase()}`;
+
     return (
-      <Link href={to}>
-        <div
-          className={cn([
-            `w-[98%] group hover:bg-hoverNav hover:text-heading cursor-pointer p-3 flex items-center rounded-lg`,
-            active && 'bg-background text-heading font-extrabold',
-            !collapseNav ? 'justify-center w-fit' : 'space-x-3',
-          ])}
-          onClick={onClick}
-        >
-          <Symbol
+      <>
+        <Link href={to} data-tooltip-id={tooltipId}>
+          <div
             className={cn([
-              'w-15 group-hover:scale-125 transition-transform',
-              active && ' stroke-brand fill-none',
+              `w-[98%] group hover:bg-hoverNav hover:text-heading cursor-pointer p-3 flex items-center rounded-lg`,
+              active && 'bg-background text-heading font-extrabold',
+              !collapseNav ? 'justify-center w-fit' : 'space-x-3',
             ])}
-          />
-          {collapseNav && (
-            <p
-              className={`font-medium text-sm ${logout === true ? 'text-logoutText' : ''}`}
-            >
-              {label}
-            </p>
-          )}
-        </div>
-      </Link>
+            onClick={onClick}
+          >
+            <Symbol
+              className={cn([
+                'w-15 group-hover:scale-125 transition-transform',
+                active && ' stroke-brand fill-none',
+              ])}
+            />
+            {collapseNav && (
+              <p
+                className={`font-medium text-sm ${logout === true ? 'text-logoutText' : ''}`}
+              >
+                {label}
+              </p>
+            )}
+            {!collapseNav && (
+              <ReactTooltip
+                className="custom-tooltip"
+                id={tooltipId}
+                place="right"
+                variant="info"
+                content={label}
+              />
+            )}
+          </div>
+        </Link>
+      </>
     );
   }
 );
@@ -138,7 +152,7 @@ const settingItems = [
 
 const profileItems = [
   { to: helpUrl, label: 'Help', Symbol: HelpIcon },
-  { to: signoutUrl, label: 'Logout Account', Symbol: LogoutIcon, logout: true },
+  { to: signinUrl, label: 'Logout Account', Symbol: LogoutIcon, logout: true },
 ];
 
 NavItem.displayName = 'NavItem';
@@ -161,6 +175,12 @@ const LeftNavbar = ({
 
   const handleClickSettings = () => {
     router.push(settingsUrl);
+  };
+
+  // Logout Handler
+  const handleLogout = () => {
+    // Redirect to the sign-in page
+    router.push(signinUrl);
   };
 
   return (
@@ -286,7 +306,7 @@ const LeftNavbar = ({
                         Symbol={Symbol}
                         logout={logout}
                         currentPath={pathname}
-                        onClick={() => setOpen(false)}
+                        onClick={logout ? handleLogout : () => setOpen(false)}
                         collapseNav={collapseNav}
                         setCollapseNav={setCollapseNav}
                         open={open}

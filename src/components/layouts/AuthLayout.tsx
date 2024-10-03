@@ -40,7 +40,7 @@ const paras = [
 
 const AuthLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <main className="flex flex-col lg:flex-row py-0 lg:pr-[7rem] xl:pl-[15rem] lg:pl-[8rem] items-center w-screen h-screen max-lg:my-20">
+    <main className="flex flex-col lg:flex-row py-0 lg:pr-[7rem] xl:pl-[15rem] lg:pl-[8rem] items-center w-screen h-screen max-lg:my-10">
       <div className="flex flex-col justify-between items-start lg:h-3/6 mb-12 lg:w-1/2 w-full">
         <div className="w-full max-lg:flex max-lg:justify-center max-lg:items-center">
           <LogoIcon />

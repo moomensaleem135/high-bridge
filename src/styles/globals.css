@@ -286,3 +286,9 @@ body {
   top: 50%;
   left: 0;
 }
+
+.custom-tooltip {
+  background-color: black !important;
+  font-weight: normal !important; /* Ensure the tooltip has normal font-weight */
+  font-size: 14px !important; /* Consistent font size */
+}

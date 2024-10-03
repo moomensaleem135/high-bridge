@@ -54,8 +54,8 @@ const CarouselText: React.FC<CarouselTextProps> = ({
             key={index}
             onClick={() => setCurrent(index)}
             className={cn(
-              'rounded-none cursor-pointer h-[5px] bg-black',
-              index === current ? 'w-14 ' : ' w-10 opacity-30'
+              'rounded-none cursor-pointer  bg-black',
+              index === current ? 'w-14 h-1' : ' w-10 opacity-30 h-[2px]'
             )}
           />
         ))}

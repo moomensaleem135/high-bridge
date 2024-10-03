@@ -1,5 +1,6 @@
 'use client';
 import React, { useEffect, useState } from 'react';
+import 'react-tooltip/dist/react-tooltip.css';
 import { ILayoutProps } from '@/lib/types';
 
 import LeftNavbar from './Components/LeftNavbar';

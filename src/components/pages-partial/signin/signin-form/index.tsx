@@ -68,14 +68,14 @@ const Login: React.FC<LoginProps> = () => {
     <div className="flex flex-col w-full justify-center items-center pt-10 pb-4 bg-formBg gap-12 xl:gap-5 xl:w-5/5 rounded-3xl border-solid border-[1px] border-formBorder">
       <div className="flex flex-col w-full justify-center items-center py-7">
         <p
-          className="font-medium text-[32px] text-headingColor"
+          className="font-medium text-[32px] text-headingColor text-center"
           data-cy="page-title"
           data-testid="page-title"
         >
           Log In
         </p>
         <p
-          className="font-medium text-sm text-slate-900"
+          className="font-medium text-sm text-slate-900 text-center"
           data-cy="page-description"
           data-testid="page-description"
         >

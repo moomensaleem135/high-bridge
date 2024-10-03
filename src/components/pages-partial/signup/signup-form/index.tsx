@@ -88,7 +88,7 @@ const SignUp: React.FC<SignUpProps> = () => {
       <div className="flex flex-col w-full justify-center items-center bg-formBg xl:w-5/5 rounded-3xl border-solid border-[1px] border-formBorder">
         <div className="flex flex-col w-full justify-center items-center">
           <p
-            className="font-medium text-[32px] text-headingColor mt-10 max-lg:mt-6"
+            className="font-medium text-[32px] text-headingColor mt-10 max-lg:mt-6 text-center"
             data-cy="page-title"
             data-testid="page-title"
           >
@@ -279,25 +279,34 @@ const SignUp: React.FC<SignUpProps> = () => {
             </div>
             <div className="flex flex-col justify-evenly items-start gap-2">
               <div className="flex justify-start items-center gap-2">
-                <Checkbox
-                  checked={localChecked}
-                  onCheckedChange={handleLocalCheck}
-                  className="rounded-sm border-formBorder border-[2px] h-5 w-5 mt-0.5" // Optional custom class
-                />
-                <label htmlFor="my-checkbox">
-                  Local (We will save your data locally on your system in a
-                  file).
+                <div className="flex justify-center items-center">
+                  <Checkbox
+                    checked={localChecked}
+                    onCheckedChange={handleLocalCheck}
+                    className="rounded-sm border-formBorder border-[2px] h-5 w-5 mt-0.5" // Optional custom class
+                  />
+                </div>
+
+                <label htmlFor="my-checkbox" className="text-sm font-normal">
+                  <span className="text-base font-medium">Local Storage</span>{' '}
+                  (your data will be saved on your local drive, no one from
+                  Zakat software can view or access the data).
                 </label>
               </div>
 
               <div className="flex justify-start items-center gap-2">
-                <Checkbox
-                  checked={serverChecked}
-                  onCheckedChange={handleServerCheck}
-                  className="rounded-sm border-formBorder border-[2px] h-5 w-5 mt-0.5" // Optional custom class
-                />
-                <label htmlFor="my-checkbox">
-                  Server (We will encrypt and save your data on our servers).
+                <div className="flex justify-center items-center">
+                  <Checkbox
+                    checked={serverChecked}
+                    onCheckedChange={handleServerCheck}
+                    className="rounded-sm border-formBorder border-[2px] h-5 w-5 mt-0.5 flex items-center justify-center" // Optional custom class
+                  />
+                </div>
+                <label htmlFor="my-checkbox" className="text-sm font-normal">
+                  <span className="text-base font-medium">Server Storage</span>{' '}
+                  (your data will be encrypted and saved on the server side.
+                  Only with your approval Zakat software admins can view or
+                  access the data.)
                 </label>
               </div>
             </div>
