@@ -199,7 +199,7 @@ const LeftNavbar = ({
               )}
 
               {!open && (
-                <hr className="flex w-[88%] border-[1px] border-solid border-underline" />
+                <hr className="flex w-[98%] border-[1px] border-solid border-underline" />
               )}
               {collapseNav ? (
                 <div className="flex bg-white items-center bg-backgound h-16 rounded-md border-[1px] border-solid w-[98%] border-navBorder mt-7">
