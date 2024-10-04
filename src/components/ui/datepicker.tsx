@@ -13,6 +13,7 @@ interface DatePickerProps {
   onDateChange?: (date: string) => void;
   setStartDate?: (value: string) => void;
   endDate?: string;
+  year: string;
   initialValue?: string;
   show: boolean;
   setShow: React.Dispatch<boolean>;
@@ -64,6 +65,7 @@ const DatePicker = ({
   setStartDate,
   endDate,
   className,
+  year,
   isEndDate,
   isDisabled,
 }: DatePickerProps) => {
