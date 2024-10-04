@@ -11,16 +11,25 @@ const GridSection = () => {
   // const [currentPage, setCurrentPage] = useState(1);
 
   const items = useSelector((state: any) => state.items.items) || [];
-  const rowHeight = 40;
+  const rowHeight = 92;
   const maxHeight = 400;
   const minHeight = 100;
-  const [gridHeight, setGridHeight] = useState(400);
+  const [gridHeight, setGridHeight] = useState(maxHeight);
 
+  // React.useEffect(() => {
+  //   if (items.length !== 0) {
+  //     const numberOfRows = items.length;
+  //     const calculatedHeight = Math.min(numberOfRows * rowHeight, maxHeight);
+  //     setGridHeight(calculatedHeight + 40);
+  //   }
+  // }, [items.length]);
   React.useEffect(() => {
     if (items.length !== 0) {
       const numberOfRows = items.length;
       const calculatedHeight = Math.min(numberOfRows * rowHeight, maxHeight);
-      setGridHeight(calculatedHeight + 45);
+      setGridHeight(calculatedHeight); // Adding some padding
+    } else {
+      setGridHeight(maxHeight); // Reset height to maxHeight when no items
     }
   }, [items.length]);
 

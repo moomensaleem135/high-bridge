@@ -66,9 +66,13 @@
 
 .grid-container {
   overflow-x: auto !important;
+  overflow-y: auto !important;
   width: 100% !important;
 }
 
+.ag-theme-alpine .ag-center-cols-container {
+  width: 100% !important;
+}
 .ag-theme-alpine {
   --ag-borders: none !important;
   --ag-header-column-resize-handle-display: none !important;
