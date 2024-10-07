@@ -8,9 +8,8 @@ interface IInitialState {
 const initialState: IInitialState = {
   setup: {
     startDate: '',
-    endDate: '',
     year: '',
-    month: '',
+    religion: '',
   },
 };
 
@@ -22,9 +21,8 @@ const setupSlice = createSlice({
       const data = action.payload.setupData;
       if (data) {
         state.setup.startDate = data.startDate;
-        state.setup.endDate = data.endDate;
         state.setup.year = data.year;
-        state.setup.month = data.month;
+        state.setup.religion = data.religion;
       }
     },
   },

@@ -1,20 +1,31 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import AgGridTable from '@/components/ui/ag-table';
 import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-alpine.css';
 import '../../../../styles/globals.css';
 import CustomOptions from './customOption';
+import { deleteItem } from '@/store/features/items/itemsSlice';
 
 const GridSection = () => {
-  // const [pageSize, setPageSize] = useState('10');
-  // const [currentPage, setCurrentPage] = useState(1);
-
+  const dispatch = useDispatch();
   const items = useSelector((state: any) => state.items.items) || [];
+  const zakatVal = useSelector((state: any) => state.zakat.zakat.value);
+  console.log('zakat', zakatVal);
   const rowHeight = 92;
   const maxHeight = 400;
   const minHeight = 100;
   const [gridHeight, setGridHeight] = useState(maxHeight);
+
+  const handleEdit = (id: string) => {
+    console.log('Edit clicked for:', id);
+    // Implement your edit logic here
+  };
+
+  const handleDelete = (id: string) => {
+    console.log('Delete clicked for:', id);
+    dispatch(deleteItem(id)); // Dispatch your delete action here
+  };
 
   React.useEffect(() => {
     if (items.length !== 0) {
@@ -48,14 +59,22 @@ const GridSection = () => {
       field: 'quality',
     },
     {
+      headerName: 'Zakat',
+      field: 'Zakat',
+    },
+
+    {
       headerName: 'Option',
       field: 'option',
       cellRenderer: CustomOptions,
     },
   ];
 
-  const rowData = items.map((item: any) => ({
+  const rowData = items.map((item: any, index: number) => ({
+    id: index,
     item: item.item,
+    Zakat: `$${zakatVal}`,
+    usedbefore: item.usage,
     quantity: `${item.weight} ${item.quantity}`,
     quality: item.quality,
   }));

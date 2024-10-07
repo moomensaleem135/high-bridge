@@ -90,10 +90,13 @@
   --ag-font-size: 0.8rem !important;
 }
 
-/* .ag-root-wrapper .ag-layout-normal {
+.ag-root-wrapper-body.ag-layout-normal {
   height: 100% !important;
-  width: 100% !important;
-} */
+}
+
+.ag-root-wrapper.ag-layout-normal {
+  height: 100% !important;
+}
 
 .ag-theme-alpine .ag-body-horizontal-scroll-viewport {
   height: 15px !important;
@@ -135,6 +138,230 @@
   background-color: #f8f8f8 !important; /* White for odd rows */
 }
 
+/* lunar calendar */
+
+.e-control {
+  border: none !important;
+  min-width: 100% !important;
+  max-width: 100% !important;
+}
+
+.e-cell span {
+  line-height: 2.25rem !important;
+  font-weight: 600 !important;
+  font-size: 0.875rem !important;
+  text-align: center !important;
+  border-radius: 0.5rem !important;
+  border-width: 0px !important;
+  cursor: pointer !important;
+  display: block !important;
+  height: 36.58px !important;
+  width: 36px !important;
+}
+
+.e-footer-container {
+  display: none !important;
+}
+
+.e-calendar .e-content td.e-focused-date.e-today span.e-day {
+  color: white !important;
+  background-color: #006514d5 !important;
+  border: none;
+}
+
+.e-calendar .e-content td.e-focused-date.e-today span.e-day {
+  color: white !important;
+  background-color: #006514d5 !important;
+  border: none;
+}
+
+.e-calendar .e-content td.e-focused-date.e-today span.e-day:hover {
+  color: white !important;
+  background-color: rgb(243 244 246) !important;
+  border: none;
+}
+
+.e-calendar .e-content td.e-today span.e-day,
+.e-calendar .e-content .e-today span.e-day {
+  color: black !important;
+}
+
+.e-calendar .e-content td.e-selected span.e-day {
+  color: white !important;
+  background-color: #006514d5 !important;
+}
+
+.e-calendar .e-header .e-title {
+  opacity: 1 !important;
+  color: rgb(17 24 39) !important;
+  font-weight: 600 !important;
+  font-size: 0.875rem !important;
+  line-height: 1.25rem !important;
+  padding-top: 0.625rem !important;
+  padding-bottom: 0.625rem !important;
+  padding-left: 1.25rem !important;
+  padding-right: 1.25rem !important;
+}
+
+th {
+  opacity: 1 !important;
+  color: rgb(107 114 128) !important;
+  line-height: 1.5rem !important;
+  font-weight: 500 !important;
+  font-size: 0.875rem !important;
+  text-align: center !important;
+  height: 1.5rem !important;
+}
+
+.date-calender {
+  width: 266px;
+  height: 276px;
+  direction: rtl;
+  position: relative;
+  top: 12;
+  background: #ffffff;
+  padding: 15px;
+  border: 1px solid #ddd;
+  margin-top: 2px;
+  font-family: serif;
+  box-sizing: unset;
+  -webkit-box-sizing: unset;
+  font-size: 14px;
+  border-radius: 4px;
+  z-index: 1000;
+  color: black !important;
+}
+
+.date-calender-controls {
+  direction: rtl;
+  text-align: center;
+}
+
+.control-button {
+  position: absolute;
+  border: 0px;
+  font-weight: bold;
+  font-size: 15px;
+  cursor: pointer;
+  background-color: #fff;
+}
+
+.control-button:hover {
+  color: #888888;
+}
+
+.control-button:focus {
+  outline: unset;
+}
+
+.previous-button {
+  right: 15px;
+}
+
+.next-button {
+  left: 15px;
+}
+
+.years-list {
+  width: 100px;
+  background: transparent;
+  height: 25px;
+  border-radius: 4px;
+  font-family: sans-serif;
+  font-size: 12px;
+  border: 1px solid #ddd;
+  margin-left: 4px;
+  margin-top: 5px;
+}
+
+.day-names-container {
+  text-align: right;
+  border-bottom: 1px solid #ddd;
+}
+
+.day-name {
+  display: inline-block;
+  margin: 2px;
+  width: 30px;
+  height: 25px;
+  padding: 1px;
+  border: 1px solid #fff;
+  text-align: center;
+  -webkit-box-sizing: unset !important;
+  box-sizing: unset;
+}
+
+.month-days {
+  text-align: right;
+  display: flex;
+  flex-flow: wrap;
+}
+
+.month-day {
+  margin: 2px;
+  width: 30px;
+  padding: 1px;
+  border: 1px solid #fff;
+  text-align: center;
+  -webkit-box-sizing: unset !important;
+  box-sizing: unset;
+  border-radius: 4px;
+}
+
+.month-day:hover {
+  border: 1px solid black;
+}
+
+.no-hover:hover {
+  border: 1px solid white !important;
+}
+
+.month-day-button {
+  cursor: pointer;
+  border: 0px;
+  width: 30px;
+  padding: 5px;
+  font-size: 14px;
+  border-radius: 4px;
+  background-color: #f0f0f0;
+}
+
+.month-day-button.selected {
+  background-color: black !important;
+  color: white !important;
+}
+
+.month-day-button:focus {
+  outline: unset;
+}
+
+.hijri-date-picker {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  width: 250px;
+}
+
+.date-display {
+  margin-bottom: 10px;
+}
+
+.days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+}
+
+.month-day {
+  margin: 2px;
+  padding: 5px;
+  cursor: pointer;
+}
+
+.month-day.selected {
+  background-color: #007bff;
+  color: white;
+}
+
 @layer base {
   :root {
     --background: #ffffff;
@@ -156,8 +383,8 @@
     --underline: #dfe3e6;
     --underlineTop: #dfe3e680;
 
-    --detailsCheck: #79747e;
-    --detailsChecked: #79747e;
+    --detailsCheck: #000000;
+    --detailsChecked: #000000;
 
     --tableBg: #f8f8f8;
     --tableBorder: #dfe3e6;
@@ -227,8 +454,8 @@
     --underline: #dfe3e6;
     --underlineTop: #dfe3e680;
 
-    --detailsCheck: #79747e;
-    --detailsChecked: #79747e;
+    --detailsCheck: #000000;
+    --detailsChecked: #000000;
 
     --tableBg: #f8f8f8;
     --tableBorder: #dfe3e6;

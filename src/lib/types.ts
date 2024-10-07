@@ -26,6 +26,7 @@ export interface IEvent {
 }
 
 export interface IItems {
+  id: number;
   type: string;
   purpose: string;
   usage: string;
@@ -43,9 +44,14 @@ export interface IIncome {
 
 export interface ISetup {
   startDate: string;
-  endDate: string;
   year: string;
-  month: string;
+  religion: string;
+}
+
+export interface IZakat {
+  quantity: number;
+  weight: string;
+  value: number;
 }
 
 export interface ITimezone {

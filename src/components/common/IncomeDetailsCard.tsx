@@ -3,7 +3,7 @@ import { Tooltip as ReactTooltip } from 'react-tooltip';
 
 import { IncomeDetailsIcon } from '@/assets/svgs/Income-details';
 import { SelectedIcon } from '@/assets/svgs/selected';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addSect } from '@/store/features/sects/sectsSlice';
 
 interface IncomeDetailsCardProps {
@@ -23,6 +23,17 @@ const IncomeDetailsCard: React.FC<IncomeDetailsCardProps> = ({
 }) => {
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
   const dispatch = useDispatch();
+  const selector = useSelector((state: any) => state.setup.setup);
+  console.log(selector.religion);
+
+  React.useEffect(() => {
+    const matchingIndex = cardData.findIndex(
+      (card) => card.title === selector.religion
+    );
+    setSelectedIndex(matchingIndex !== -1 ? matchingIndex : null);
+    setReligion(selector.religion);
+    dispatch(addSect(selector.religion));
+  }, [selector.religion, cardData]);
 
   return (
     <>
@@ -39,7 +50,9 @@ const IncomeDetailsCard: React.FC<IncomeDetailsCardProps> = ({
                 selectedIndex === index
                   ? 'border-[#4CAF50] border-[2px]'
                   : 'border-cardBorder'
-              } border-[1px] cursor-pointer`}
+              } 
+               
+              border-[1px] cursor-pointer`}
               onClick={() => {
                 setReligion(card.title);
                 setSelectedIndex(index);
@@ -71,11 +84,11 @@ const IncomeDetailsCard: React.FC<IncomeDetailsCardProps> = ({
             {/* Render the tooltip only for the specific card title */}
             {card.title === 'Assembly of Muslim Jurists of America' && (
               <ReactTooltip
-                id={tooltipId} 
+                id={tooltipId}
                 place="top"
                 variant="info"
-                content={card.title} 
-                className="custom-tooltip" 
+                content={card.title}
+                className="custom-tooltip"
               />
             )}
           </div>

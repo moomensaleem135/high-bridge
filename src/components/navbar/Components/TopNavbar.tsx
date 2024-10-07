@@ -19,6 +19,7 @@ const TopNavbar = ({
   setCollapseNav,
 }: ITopNavbar) => {
   const selector = useSelector((state: any) => state.setup.setup);
+  const zakatVal = useSelector((state: any) => state.zakat.zakat.value);
   const selectedDate = formatDate(selector.startDate);
   console.log(selectedDate);
   return (
@@ -44,16 +45,22 @@ const TopNavbar = ({
         <div className="hidden lg:flex pl-7">
           <span className="text-lg font-medium">
             Zakat Due:{' '}
-            <span className="text-zakatText font-bold text-xl">$0.00</span>
+            <span className="text-zakatText font-bold text-xl">
+              {`$${zakatVal}`}
+            </span>
           </span>
         </div>
       </div>
 
       <div className="flex items-center gap-x-4">
-        <div className="w-full hidden lg:flex pr-7">
-          <span className="text-sm font-medium">
-            Zakat Pay Date : {formatDate(new Date().toISOString())}
-          </span>
+        <div className="w-full hidden lg:flex pr-7 gap-x-2">
+          <span className="font-medium text-lg">Zakat Pay Date:</span>
+          <div className="flex flex-col justify-between items-start">
+            <span className="text-xs font-medium leading-5">
+              15 Ramadan, 144 Hijri
+            </span>
+            <span className="font-medium text-[8px]">(14-March-2024)</span>
+          </div>
         </div>
       </div>
     </div>

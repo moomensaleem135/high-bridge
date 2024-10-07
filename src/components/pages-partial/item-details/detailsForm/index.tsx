@@ -24,6 +24,7 @@ import { useCreateItemMutation } from '@/store/features/items/itemsApi';
 import CustomToast from '@/components/common/CustomToast';
 import { addItemssUrl } from '@/configs/constants';
 import { addItems } from '@/store/features/items/itemsSlice';
+import { zakatCal } from '@/store/features/zakat/zakatSlice';
 
 import Spinner from '@/components/common/Spinner';
 
@@ -74,6 +75,11 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = () => {
       quantity: itemsData.quantity,
     };
 
+    const zakatCalData = {
+      quantity: itemsData.quantity,
+      weight: itemsData.weight,
+    };
+
     const formData = new FormData();
 
     Object.keys(itemsData).forEach((key) => {
@@ -87,6 +93,8 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = () => {
     try {
       // const response = await createItem(formData);
       dispatch(addItems(itemData));
+      dispatch(zakatCal(zakatCalData));
+
       form.reset();
 
       toast.custom((t) => (
@@ -294,8 +302,14 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = () => {
               </div>
             </div>
           </div>
+          <div className="flex justify-between items-center">
+            <span className="font-medium text-xl">
+              Your payable zakat for this item is:
+            </span>
+            <span className="font-semibold text-2xl text-zakatText">$0.00</span>
+          </div>
 
-          <div className="flex flex-col justify-evenly items-center w-full gap-5 mt-6">
+          <div className="flex flex-col justify-evenly items-center w-full gap-5">
             <hr className="w-full border-[1px] border-solid border-underline" />
             <div className="flex justify-between items-center w-full md:flex-row md:justify-between md:items-center xs:flex-col-reverse xs:gap-y-4 xs:justify-start xs:items-start">
               <Link
