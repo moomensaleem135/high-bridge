@@ -8,7 +8,7 @@ const MainSection = () => {
   const router = useRouter();
   const selector = useSelector((state: any) => state.sect.sect);
   const income = useSelector((state: any) => state.income.income);
-  console.log(selector);
+
   return (
     <div className="flex flex-col self-stretch w-[75%] max-w-[850px] bg-tableBg border-[1px] border-tableBorder rounded-lg ">
       <div className="flex justify-between items-center w-full pt-3 pb-3 pl-4 pr-4">

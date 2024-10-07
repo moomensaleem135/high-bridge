@@ -141,7 +141,7 @@ const navItems = [
   { to: profilesetupUrl, label: 'Setup', Symbol: SetupIcon },
   { to: incomeUrl, label: 'Income', Symbol: IncomeIcon },
   { to: deductionUrl, label: 'Deductions', Symbol: DeductionIcon },
-  { to: reviewUrl, label: 'Reviews', Symbol: ReviewIcon },
+  { to: reviewUrl, label: 'Review Zakat', Symbol: ReviewIcon },
   { to: zakatUrl, label: 'Pay Zakat', Symbol: ZakatIcon },
 ];
 
@@ -179,7 +179,6 @@ const LeftNavbar = ({
 
   // Logout Handler
   const handleLogout = () => {
-    // Redirect to the sign-in page
     router.push(signinUrl);
   };
 

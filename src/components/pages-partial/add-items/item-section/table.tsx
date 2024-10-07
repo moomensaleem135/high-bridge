@@ -16,37 +16,29 @@ const GridSection = () => {
   const minHeight = 100;
   const [gridHeight, setGridHeight] = useState(maxHeight);
 
-  // React.useEffect(() => {
-  //   if (items.length !== 0) {
-  //     const numberOfRows = items.length;
-  //     const calculatedHeight = Math.min(numberOfRows * rowHeight, maxHeight);
-  //     setGridHeight(calculatedHeight + 40);
-  //   }
-  // }, [items.length]);
   React.useEffect(() => {
     if (items.length !== 0) {
       const numberOfRows = items.length;
       const calculatedHeight = Math.min(numberOfRows * rowHeight, maxHeight);
-      setGridHeight(calculatedHeight); // Adding some padding
+      setGridHeight(calculatedHeight);
     } else {
-      setGridHeight(maxHeight); // Reset height to maxHeight when no items
+      setGridHeight(maxHeight);
     }
   }, [items.length]);
 
-  console.log(items);
   const columns = [
     {
       headerName: 'Item',
       field: 'item',
     },
-    {
-      headerName: 'Purpose',
-      field: 'purpose',
-    },
-    {
-      headerName: 'Used Before',
-      field: 'usedbefore',
-    },
+    // {
+    //   headerName: 'Purpose',
+    //   field: 'purpose',
+    // },
+    // {
+    //   headerName: 'Used Before',
+    //   field: 'usedbefore',
+    // },
     {
       headerName: 'Quantity',
       field: 'quantity',
@@ -55,7 +47,6 @@ const GridSection = () => {
       headerName: 'Quality',
       field: 'quality',
     },
-
     {
       headerName: 'Option',
       field: 'option',
@@ -65,8 +56,6 @@ const GridSection = () => {
 
   const rowData = items.map((item: any) => ({
     item: item.item,
-    purpose: item.purpose,
-    usedbefore: item.usage,
     quantity: `${item.weight} ${item.quantity}`,
     quality: item.quality,
   }));

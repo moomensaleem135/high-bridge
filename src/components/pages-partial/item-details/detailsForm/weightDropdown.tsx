@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Select,
   SelectGroup,
@@ -17,13 +17,7 @@ const WeightDropdown: React.FC<WeightDropdownProps> = ({
   initialValue,
   onWeightChange,
 }) => {
-  const [selectedWeight, setSelectedWeight] = React.useState<
-    string | undefined
-  >(initialValue);
-
-  React.useEffect(() => {
-    setSelectedWeight(initialValue);
-  }, [initialValue]);
+  const [selectedWeight, setSelectedWeight] = useState(initialValue || 'Grams');
 
   const handleChange = (weight: string) => {
     setSelectedWeight(weight);
@@ -31,17 +25,21 @@ const WeightDropdown: React.FC<WeightDropdownProps> = ({
   };
 
   return (
-    <Select onValueChange={handleChange} value={selectedWeight}>
+    <Select
+      onValueChange={handleChange}
+      defaultValue="Grams"
+      value={selectedWeight}
+    >
       <SelectTrigger className="rounded-l-none h-[45px] rounded-r-lg bg-inputBg border-inputBorder">
-        <SelectValue placeholder="Tola" />
+        <SelectValue placeholder="Grams" />
       </SelectTrigger>
       <SelectContent>
         <SelectGroup>
-          <SelectItem value="Tola" isChecked={selectedWeight === 'Tola'}>
-            Tola
-          </SelectItem>
           <SelectItem value="Grams" isChecked={selectedWeight === 'Grams'}>
             Grams
+          </SelectItem>
+          <SelectItem value="Tola" isChecked={selectedWeight === 'Tola'}>
+            Tola
           </SelectItem>
           <SelectItem value="Masha" isChecked={selectedWeight === 'Masha'}>
             Masha

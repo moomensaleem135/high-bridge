@@ -46,8 +46,9 @@ const AgGridTable: React.FC<AgGridTableProps> = ({
       sortable: true,
       filter: false,
       resizable: true,
-      width: 141,
-      // maxWidth: 600,
+      flex: 1,
+      minWidth: 141,
+      maxWidth: 600,
     }),
     []
   );
@@ -88,7 +89,12 @@ const AgGridTable: React.FC<AgGridTableProps> = ({
     <div className="w-full h-full flex flex-col" ref={gridContainerRef}>
       <div
         className="ag-theme-alpine"
-        style={{ height: customHeight ? customHeight : gridHeight }}
+        style={{
+          height: rowData.length === 0 ? customHeight : 'fit-content',
+          maxHeight: customHeight,
+          overflowY: 'auto',
+          overflowX: 'hidden',
+        }}
       >
         <AgGridReact
           columnDefs={columns}
