@@ -27,7 +27,7 @@ export interface IEvent {
 
 export interface IItems {
   id: number;
-  type: string;
+  item: string;
   purpose: string;
   usage: string;
   quality: string;

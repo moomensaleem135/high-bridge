@@ -46,7 +46,7 @@ const TopNavbar = ({
           <span className="text-lg font-medium">
             Zakat Due:{' '}
             <span className="text-zakatText font-bold text-xl">
-              {`$${zakatVal}`}
+              {`$${zakatVal}.00`}
             </span>
           </span>
         </div>

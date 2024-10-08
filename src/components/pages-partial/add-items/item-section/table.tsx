@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useRouter } from 'next/navigation';
 import AgGridTable from '@/components/ui/ag-table';
 import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-alpine.css';
@@ -8,6 +9,7 @@ import CustomOptions from './customOption';
 import { deleteItem } from '@/store/features/items/itemsSlice';
 
 const GridSection = () => {
+  const router = useRouter();
   const dispatch = useDispatch();
   const items = useSelector((state: any) => state.items.items) || [];
   const zakatVal = useSelector((state: any) => state.zakat.zakat.value);
@@ -17,14 +19,12 @@ const GridSection = () => {
   const minHeight = 100;
   const [gridHeight, setGridHeight] = useState(maxHeight);
 
-  const handleEdit = (id: string) => {
-    console.log('Edit clicked for:', id);
-    // Implement your edit logic here
+  const handleEdit = (id: number) => {
+    router.push(`/edit-items?editId=${id}`);
   };
 
-  const handleDelete = (id: string) => {
-    console.log('Delete clicked for:', id);
-    dispatch(deleteItem(id)); // Dispatch your delete action here
+  const handleDelete = (id: number) => {
+    dispatch(deleteItem(id));
   };
 
   React.useEffect(() => {
@@ -66,12 +66,18 @@ const GridSection = () => {
     {
       headerName: 'Option',
       field: 'option',
-      cellRenderer: CustomOptions,
+      cellRenderer: (params: any) => (
+        <CustomOptions
+          id={params.data.id}
+          onEdit={handleEdit}
+          onDelete={handleDelete}
+        />
+      ),
     },
   ];
 
   const rowData = items.map((item: any, index: number) => ({
-    id: index,
+    id: item.id,
     item: item.item,
     Zakat: `$${zakatVal}`,
     usedbefore: item.usage,

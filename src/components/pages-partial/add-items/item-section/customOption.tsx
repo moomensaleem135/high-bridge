@@ -2,13 +2,23 @@ import React from 'react';
 import { EditIcon } from '@/assets/svgs/edit';
 import { DeleteIcon } from '@/assets/svgs/delete';
 
-const CustomOptions = () => {
+interface CustomOptionsProps {
+  id: number; // The ID of the item
+  onEdit: (id: number) => void; // Function to handle editing
+  onDelete: (id: number) => void; // Function to handle deleting
+}
+
+const CustomOptions: React.FC<CustomOptionsProps> = ({
+  id,
+  onEdit,
+  onDelete,
+}) => {
   const handleEdit = () => {
-    console.log('Edit clicked for:');
+    onEdit(id); // Call the passed edit function with the ID
   };
 
   const handleDelete = () => {
-    console.log('Delete clicked for:');
+    onDelete(id); // Call the passed delete function with the ID
   };
 
   return (
