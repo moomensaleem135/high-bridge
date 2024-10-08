@@ -24,6 +24,8 @@ import { useCreateItemMutation } from '@/store/features/items/itemsApi';
 import CustomToast from '@/components/common/CustomToast';
 import { addItemssUrl } from '@/configs/constants';
 import { addItems } from '@/store/features/items/itemsSlice';
+
+import Calendar from './calendar';
 import ReligionDropdown from '../../profilesetup/profile-setupform/religionDropdown';
 
 interface ProfileDetailsProps {}
@@ -42,7 +44,7 @@ const ProfileDetailsForm: React.FC<ProfileDetailsProps> = () => {
   const router = useRouter();
   const [year, setYear] = useState<string>('');
   const [startDate, setStartDate] = useState<string>('');
-
+  const [selectedDate, setSelectedDate] = useState<string | null>(null);
   const [showStart, setShowStart] = React.useState<boolean>(false);
   const [showEnd, setShowEnd] = React.useState<boolean>(false);
 
@@ -87,6 +89,15 @@ const ProfileDetailsForm: React.FC<ProfileDetailsProps> = () => {
       console.error('Error creating event:', error);
       toast.error('Failed to Create event');
     }
+  };
+
+  const handleDateChange = (date: Date) => {
+    const selectedDateFormatted = date.toDateString();
+    const startDateFormatted = new Date(
+      date.setFullYear(date.getFullYear() - 1)
+    ).toDateString();
+    setSelectedDate(selectedDateFormatted);
+    setStartDate(startDateFormatted);
   };
 
   return (
@@ -164,35 +175,22 @@ const ProfileDetailsForm: React.FC<ProfileDetailsProps> = () => {
                       name="startDate"
                       control={form.control}
                       render={({ field }) => (
-                        <DatePicker
-                          initialValue={selector.startDate}
-                          setStartDate={setStartDate}
-                          onDateChange={(date) => {
-                            field.onChange(date);
-                          }}
-                          show={showStart}
-                          year={year}
-                          isEndDate={false}
-                          setShow={setShowStart}
-                          className="bg-inputBg border-inputBorder"
-                        />
+                        <Calendar year={year} onDateChange={handleDateChange} />
                       )}
                     />
-                    {form.formState.errors.startDate && (
-                      <span className="text-destructive text-sm flex items-center gap-1 mt-2">
-                        <ErrorIcon />
-                        {form.formState.errors.startDate.message}
-                      </span>
-                    )}
                   </div>
                 </div>
               </div>
-              <span>
-                The Zakat period starts on{' '}
-                <span className="font-semibold">15th Ramadan </span>and ends on
-                <span className="font-semibold">14th Ramadan</span> of the
-                following year.
-              </span>
+              <div>
+                {startDate && selectedDate && (
+                  <>
+                    The Zakat period starts on{' '}
+                    <span className="font-semibold">{startDate}</span> and ends
+                    on <span className="font-semibold">{selectedDate}</span> of
+                    the following year.
+                  </>
+                )}
+              </div>
             </div>
           </div>
 
