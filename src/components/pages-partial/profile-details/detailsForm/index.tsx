@@ -17,13 +17,17 @@ import DatePicker from '@/components/ui/datepicker';
 import { Label } from '@/components/ui/label';
 import CalendarSelect from './calendarSelect';
 import MonthSelect from './monthSelect';
+import moment from 'moment-hijri';
+import { DateObject } from 'react-multi-date-picker';
+import hijri from 'react-date-object/calendars/arabic';
+import gregorian from 'react-date-object/calendars/gregorian';
 
 import { ErrorIcon } from '@/assets/svgs';
 
 import { useCreateItemMutation } from '@/store/features/items/itemsApi';
 import CustomToast from '@/components/common/CustomToast';
 import { addItemssUrl } from '@/configs/constants';
-import { addItems } from '@/store/features/items/itemsSlice';
+import { addItems } from '@/store/features/items/golditemsSlice';
 
 import Calendar from './calendar';
 import ReligionDropdown from '../../profilesetup/profile-setupform/religionDropdown';
@@ -40,6 +44,17 @@ type FormFields = z.infer<typeof ProfileDetailsSchema>;
 
 const ProfileDetailsForm: React.FC<ProfileDetailsProps> = () => {
   const selector = useSelector((state: any) => state.setup.setup);
+  const date = selector.startDate;
+
+  const hijriDate = moment(date).format('iYYYY iM iD');
+  const [years, month, day] = hijriDate.split(' ').map(Number);
+  const value = new DateObject({
+    date: new Date(years, month - 1, day),
+    calendar: hijri,
+  });
+  console.log('islamic date', hijriDate);
+  console.log('converted value', value);
+  console.log(selector);
 
   const router = useRouter();
   const [year, setYear] = useState<string>('');

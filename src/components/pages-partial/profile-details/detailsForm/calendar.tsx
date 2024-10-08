@@ -72,10 +72,10 @@ const locales: Record<CalendarType, any> = {
 interface CalendarProps {
   year: string;
   onDateChange?: (date: Date) => void;
+  dateVal?: DateObject;
 }
 
-const Calendar: React.FC<CalendarProps> = ({ year, onDateChange }) => {
-  
+const Calendar: React.FC<CalendarProps> = ({ year, onDateChange, dateVal }) => {
   const [calendarType, setCalendarType] = useState<CalendarType | string>(
     'solar'
   );

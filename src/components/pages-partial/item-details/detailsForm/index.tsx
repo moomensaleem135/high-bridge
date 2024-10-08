@@ -1,6 +1,6 @@
 'use client';
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, UseDispatch } from 'react-redux';
 import { useForm, Controller } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
 import { z } from 'zod';
@@ -15,9 +15,7 @@ import { IconInput } from '@/components/ui/icon-input';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Label } from '@/components/ui/label';
-import PurposeDropdown from './purposeDropdown';
-import QualityDropdown from './qualityDropdown';
-import WeightDropdown from './weightDropdown';
+
 import { ErrorIcon } from '@/assets/svgs';
 
 import { useCreateItemMutation } from '@/store/features/items/itemsApi';
@@ -27,6 +25,9 @@ import { addItems } from '@/store/features/items/golditemsSlice';
 import { zakatCal } from '@/store/features/zakat/zakatSlice';
 
 import Spinner from '@/components/common/Spinner';
+import PurposeDropdown from '../gold-silver/detailsForm/purposeDropdown';
+import QualityDropdown from '../gold-silver/detailsForm/qualityDropdown';
+import WeightDropdown from '../gold-silver/detailsForm/weightDropdown';
 
 interface ItemDetailsProps {}
 
@@ -37,7 +38,6 @@ const ItemDetailsSchema = z.object({
   quality: z.string().min(1, { message: 'quality is required' }),
   quantity: z.string().min(1, { message: 'quantity is required' }),
   weight: z.string().min(1, { message: 'weight is required' }),
-  price: z.string().min(1, { message: 'price is required' }),
 });
 
 type FormFields = z.infer<typeof ItemDetailsSchema>;
@@ -45,8 +45,6 @@ type FormFields = z.infer<typeof ItemDetailsSchema>;
 const ItemDetailsForm: React.FC<ItemDetailsProps> = () => {
   const dispatch = useDispatch();
   const router = useRouter();
-  const religion = useSelector((state: any) => state.sect.sect);
-  const income = useSelector((state: any) => state.income.income);
   const [item, setItem] = React.useState<string>('');
   const [reason, setReason] = React.useState<string>('');
   const [createItem, { isLoading }] = useCreateItemMutation();
@@ -60,7 +58,6 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = () => {
       quality: '',
       quantity: '',
       weight: '',
-      price: '',
     },
   });
 
@@ -77,9 +74,6 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = () => {
       quality: itemsData.quality,
       weight: itemsData.weight,
       quantity: itemsData.quantity,
-      price: itemsData.price,
-      income: income,
-      religion: religion,
     };
 
     const zakatCalData = {
@@ -110,8 +104,7 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = () => {
           title={`${itemsData.item} ${itemsData.purpose} ${itemsData.usage} ${itemsData.quality}`}
         />
       ));
-
-      router.push('/income/income-details/add-items');
+      router.push('/add-items');
     } catch (error) {
       console.error('Error creating event:', error);
       toast.error('Failed to Create event');
@@ -201,7 +194,7 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = () => {
           {reason === 'personal' && (
             <>
               <Label>
-                3 . Did you use this item at least once in the last one year?
+                3 . Did you use this item at least once in the last one year??
               </Label>
               <div className="w-full items-center flex justify-start gap-8 pl-4">
                 <div className="flex justify-center items-center gap-4">
@@ -310,42 +303,6 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = () => {
               </div>
             </div>
           </div>
-
-          <div className="w-full items-center">
-            <div className="flex flex-col justify-start gap-x-6 gap-y-2 items-start">
-              <Label>6 . What is the price to buy this item?</Label>
-              <div className="flex w-full">
-                <FormField
-                  control={form.control}
-                  name="price"
-                  render={({ field }) => (
-                    <div className="w-full flex flex-col">
-                      <FormControl>
-                        <IconInput
-                          {...field}
-                          type="text"
-                          id="price"
-                          aria-label="price"
-                          placeholder="Enter price"
-                          className="bg-inputBg rounded-r-none rounded-lg h-[45px] border-inputBorder py-1.5 text-black"
-                          error={!!form.formState.errors.price}
-                          data-cy="price"
-                          data-testid="price"
-                        />
-                      </FormControl>
-
-                      {form.formState.errors.price && (
-                        <span className="text-destructive text-sm flex items-center gap-1 mt-2">
-                          <ErrorIcon />
-                          {form.formState.errors.price.message}
-                        </span>
-                      )}
-                    </div>
-                  )}
-                />
-              </div>
-            </div>
-          </div>
           <div className="flex justify-between items-center">
             <span className="font-medium text-xl">
               Your payable zakat for this item is:
@@ -358,8 +315,7 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = () => {
             <div className="flex justify-between items-center w-full md:flex-row md:justify-between md:items-center xs:flex-col-reverse xs:gap-y-4 xs:justify-start xs:items-start">
               <Link
                 className="flex justify-start items-center "
-                href={''}
-                onClick={() => router.back()}
+                href={addItemssUrl}
               >
                 <ArrowLeftIcon />
                 Back

@@ -5,7 +5,7 @@ import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-alpine.css';
 import '../../../../styles/globals.css';
 import CustomOptions from './customOption';
-import { deleteItem } from '@/store/features/items/itemsSlice';
+import { deleteItem } from '@/store/features/items/golditemsSlice';
 
 const GridSection = () => {
   const dispatch = useDispatch();

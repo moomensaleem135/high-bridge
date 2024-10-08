@@ -9,11 +9,12 @@ const initialState: IInitialState = {
   items: [],
 };
 
-const itemSlice = createSlice({
-  name: 'items',
+const golditemSlice = createSlice({
+  name: 'golditems',
   initialState,
   reducers: {
     addItems: (state, action) => {
+      console.log(action.payload);
       console.log(JSON.stringify(state.items));
       if (state.items) {
         state.items.push(action.payload);
@@ -33,6 +34,6 @@ const itemSlice = createSlice({
   },
 });
 
-export const { addItems, deleteItem } = itemSlice.actions;
+export const { addItems, deleteItem } = golditemSlice.actions;
 
-export default itemSlice.reducer;
+export default golditemSlice.reducer;
