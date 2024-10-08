@@ -47,7 +47,7 @@ export default function PartialIncome() {
     if (!religion) {
       alert('select a religion to proceed please');
     } else {
-      router.push('/add-items');
+      router.push('income-details/add-items');
     }
   };
   return (
@@ -77,7 +77,8 @@ export default function PartialIncome() {
               <div className="flex flex-row justify-between items-center w-full max-lg:w-[70%] ">
                 <Link
                   className="flex justify-start items-center "
-                  href={incomeUrl}
+                  href={''}
+                  onClick={() => router.back()}
                 >
                   <ArrowLeftIcon />
                   Back

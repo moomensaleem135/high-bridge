@@ -8,8 +8,11 @@ import MainSection from './item-section/main';
 import Link from 'next/link';
 import { ArrowLeftIcon } from '@/assets/svgs';
 import { Button } from '@/components/ui/button';
+import { Router } from 'next/router';
+import { useRouter } from 'next/navigation';
 
 export default function PartialAddItems() {
+  const router = useRouter();
   const items = useSelector((state: any) => state.items.items) || [];
   const income = useSelector((state: any) => state.income.income);
   return (
@@ -36,7 +39,8 @@ export default function PartialAddItems() {
               <div className="flex justify-between items-center w-full max-w-[850px] md:flex-row md:justify-between md:items-center xs:flex-col-reverse xs:gap-y-4 xs:justify-start xs:items-start">
                 <Link
                   className="flex justify-start items-center "
-                  href={'/income-details'}
+                  onClick={() => router.back()}
+                  href={''}
                 >
                   <ArrowLeftIcon />
                   Back

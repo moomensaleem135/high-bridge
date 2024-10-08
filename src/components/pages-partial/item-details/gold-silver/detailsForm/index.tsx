@@ -103,7 +103,8 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = () => {
           title={`${itemsData.item} ${itemsData.purpose} ${itemsData.usage} ${itemsData.quality}`}
         />
       ));
-      router.push('/add-items');
+
+      router.push('/income/income-details/add-items');
     } catch (error) {
       console.error('Error creating event:', error);
       toast.error('Failed to Create event');
@@ -314,7 +315,8 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = () => {
             <div className="flex justify-between items-center w-full md:flex-row md:justify-between md:items-center xs:flex-col-reverse xs:gap-y-4 xs:justify-start xs:items-start">
               <Link
                 className="flex justify-start items-center "
-                href={addItemssUrl}
+                href={''}
+                onClick={() => router.back()}
               >
                 <ArrowLeftIcon />
                 Back

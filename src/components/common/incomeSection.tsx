@@ -32,7 +32,7 @@ const IncomeSection: React.FC<IncomeSectionProps> = ({
             <div key={index} className={containerClassName}>
               <span>{text.text}</span>
               <Link
-                href={'income-details'}
+                href={'income/income-details'}
                 className="flex justify-center items-center"
               >
                 <Button
