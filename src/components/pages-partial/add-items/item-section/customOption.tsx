@@ -2,23 +2,38 @@ import React from 'react';
 import { EditIcon } from '@/assets/svgs/edit';
 import { DeleteIcon } from '@/assets/svgs/delete';
 
-const CustomOptions = () => {
-  const handleEdit = () => {
-    console.log('Edit clicked for:');
-  };
+interface CustomOptionsProps {
+  id: string;
+  onEdit: (id: string) => void;
+  onDelete: (id: string) => void;
+}
 
-  const handleDelete = () => {
-    console.log('Delete clicked for:');
-  };
-
+const CustomOptions: React.FC<CustomOptionsProps> = ({
+  id,
+  onEdit,
+  onDelete,
+}) => {
   return (
-    <div className="flex justify-start items-center mt-2 gap-1">
-      <button onClick={handleEdit} aria-label="Edit">
-        <EditIcon />
-      </button>
-      <button onClick={handleDelete} aria-label="Delete">
-        <DeleteIcon />
-      </button>
+    <div className="flex justify-evenly items-center xl:gap-1 mt-2">
+      <div
+        className="flex justify-evenly items-center bg-white h-6 gap-1 pl-1 pr-1 rounded-sm border-[#DFE3E6] border-[1px] cursor-pointer"
+        onClick={() => onEdit(id)}
+      >
+        <button aria-label="Edit">
+          <EditIcon />
+        </button>
+        <span className="text-sm xs:hidden xl:block">Edit</span>
+      </div>
+
+      <div
+        className="flex justify-evenly items-center bg-white h-6 gap-1 pl-1 pr-1 rounded-sm border-[#DFE3E6] border-[1px] cursor-pointer "
+        onClick={() => onDelete(id)}
+      >
+        <button aria-label="Delete">
+          <DeleteIcon />
+        </button>
+        <span className="text-sm xs:hidden xl:block">Delete</span>
+      </div>
     </div>
   );
 };

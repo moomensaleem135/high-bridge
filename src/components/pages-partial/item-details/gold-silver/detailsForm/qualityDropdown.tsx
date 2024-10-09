@@ -29,12 +29,16 @@ const QualityDropdown: React.FC<QualityDropdownProps> = ({
   }, [item]);
 
   React.useEffect(() => {
-    setSelectedQuality(initialValue);
+    if (initialValue !== '') {
+      setSelectedQuality(initialValue);
+    }
   }, [initialValue]);
 
   const handleChange = (quality: string) => {
-    setSelectedQuality(quality);
-    onQualityChange(quality);
+    if (quality) {
+      setSelectedQuality(quality);
+      onQualityChange(quality);
+    }
   };
 
   return (

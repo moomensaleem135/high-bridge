@@ -5,13 +5,16 @@ import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-alpine.css';
 import '../../../../styles/globals.css';
 import CustomOptions from './customOption';
-import { deleteItem } from '@/store/features/items/golditemsSlice';
+import { deleteItem, updateItem } from '@/store/features/items/golditemsSlice';
+import { deleteCashItem } from '@/store/features/cash-items/cashSlice';
+import { useRouter } from 'next/navigation';
 
 // Define types for columns and row data
 interface ColumnDef {
   headerName: string;
   field: string;
   cellRenderer?: any;
+  cellRendererParams?: any;
 }
 
 interface Item {
@@ -21,6 +24,12 @@ interface Item {
   quantity?: string;
   quality?: string;
   usage?: string;
+}
+export interface GoldItem extends Item {
+  goldId: string;
+}
+export interface CashItem extends Item {
+  cashId: string;
 }
 
 interface RowDataDef {
@@ -35,28 +44,54 @@ interface RowDataDef {
 const GridSection: React.FC = () => {
   const dispatch = useDispatch();
 
-  const items: Item[] = useSelector((state: any) => state.items.items) || [];
+  const items: GoldItem[] =
+    useSelector((state: any) => state.items.items) || [];
+  const cash: CashItem[] = useSelector((state: any) => state.cash.cash) || [];
+  console.log({ items });
+  console.log({ cash });
   const zakatVal = useSelector((state: any) => state.zakat.zakat.value);
   const income: string[] =
     useSelector((state: any) => state.income.income) || [];
+  const router = useRouter();
 
   // State variables for grid height, columns, and row data
   const rowHeight = 92;
   const maxHeight = 400;
+  const minHeight = 100;
   const [gridHeight, setGridHeight] = useState<number>(maxHeight);
   const [columns, setColumns] = useState<ColumnDef[]>([]);
   const [rowData, setRowData] = useState<RowDataDef[]>([]);
 
   // Dynamically update the grid height based on the number of items
+  // useEffect(() => {
+  //   if (items.length !== 0) {
+  //     const numberOfRows = items.length;
+  //     const calculatedHeight = Math.min(numberOfRows * rowHeight, maxHeight);
+  //     setGridHeight(calculatedHeight);
+  //   } else {
+  //     setGridHeight(maxHeight);
+  //   }
+  // }, [items.length]);
+
   useEffect(() => {
-    if (items.length !== 0) {
-      const numberOfRows = items.length;
-      const calculatedHeight = Math.min(numberOfRows * rowHeight, maxHeight);
-      setGridHeight(calculatedHeight);
+    if (income.includes('Cash') || income.includes('Checking')) {
+      if (cash.length > 0) {
+        const calculatedHeight = Math.min(cash.length * rowHeight, maxHeight);
+        setGridHeight(calculatedHeight);
+      } else {
+        setGridHeight(maxHeight); // Set to max height if cash is empty
+      }
+    } else if (income.includes('Gold')) {
+      if (items.length > 0) {
+        const calculatedHeight = Math.min(items.length * rowHeight, maxHeight);
+        setGridHeight(calculatedHeight);
+      } else {
+        setGridHeight(maxHeight); // Set to max height if items is empty
+      }
     } else {
-      setGridHeight(maxHeight);
+      setGridHeight(maxHeight); // Default max height if no relevant income type
     }
-  }, [items.length]);
+  }, [items.length, cash.length, income]);
 
   // Set columns based on the income type (runs when income changes)
   useEffect(() => {
@@ -66,9 +101,18 @@ const GridSection: React.FC = () => {
     if (income.includes('Cash') || income.includes('Checking')) {
       updatedColumns = [
         { headerName: 'Item', field: 'item' },
-        { headerName: 'Amount', field: 'amount' },
+        { headerName: 'Amount', field: 'quantity' },
         { headerName: 'Zakat', field: 'zakat' },
-        { headerName: 'Option', field: 'option', cellRenderer: CustomOptions },
+        {
+          headerName: '',
+          field: 'option',
+          cellRenderer: (params: any) =>
+            CustomOptions({
+              id: params.data.cashId,
+              onDelete: handleDelete,
+              onEdit: handleEdit,
+            }),
+        },
       ];
     }
 
@@ -78,7 +122,16 @@ const GridSection: React.FC = () => {
         { headerName: 'Quantity', field: 'quantity' },
         { headerName: 'Quality', field: 'quality' },
         { headerName: 'Zakat', field: 'zakat' },
-        { headerName: 'Option', field: 'option', cellRenderer: CustomOptions },
+        {
+          headerName: '',
+          field: 'option',
+          cellRenderer: (params: any) =>
+            CustomOptions({
+              id: params.data.goldId,
+              onDelete: handleDelete,
+              onEdit: handleEdit,
+            }),
+        },
       ];
     }
 
@@ -90,11 +143,12 @@ const GridSection: React.FC = () => {
     let updatedRowData: RowDataDef[] = [];
 
     if (income.includes('Cash') || income.includes('Checking')) {
-      updatedRowData = items.map((item, index) => ({
+      updatedRowData = cash.map((item, index) => ({
         id: index,
         item: item.item,
-        amount: `$${item.amount ?? 0}`,
+        quantity: `$${item.quantity ?? 0}`,
         zakat: `$${zakatVal}`,
+        cashId: item.cashId,
       }));
     }
 
@@ -105,20 +159,30 @@ const GridSection: React.FC = () => {
         quantity: `${item.weight ?? 0} ${item.quantity ?? ''}`,
         quality: item.quality ?? '',
         zakat: `$${zakatVal}`,
+        goldId: item.goldId,
       }));
     }
 
     setRowData(updatedRowData);
-  }, [items, zakatVal, income]);
+  }, [items, cash, zakatVal, income]);
 
   // Handle edit and delete actions
-  const handleEdit = (id: number) => {
-    console.log('Edit clicked for:', id);
+  const handleEdit = (id: string) => {
+    // router.push(`add-items/item-details?id=${id}`);
+    // if (income.includes('Gold')) {
+    //   dispatch(updateItem(id));
+    // } else if (income.includes('Cash')) {
+    //   dispatch(deleteCashItem(id));
+    // }
   };
 
-  const handleDelete = (id: number) => {
+  const handleDelete = (id: string) => {
     console.log('Delete clicked for:', id);
-    dispatch(deleteItem(id));
+    if (income.includes('Gold')) {
+      dispatch(deleteItem(id));
+    } else if (income.includes('Cash')) {
+      dispatch(deleteCashItem(id));
+    }
   };
 
   const totalRows = rowData.length;

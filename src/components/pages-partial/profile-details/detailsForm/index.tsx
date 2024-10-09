@@ -1,6 +1,6 @@
 'use client';
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useForm, Controller } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
 import { z } from 'zod';
@@ -21,6 +21,7 @@ import moment from 'moment-hijri';
 import { DateObject } from 'react-multi-date-picker';
 import hijri from 'react-date-object/calendars/arabic';
 import gregorian from 'react-date-object/calendars/gregorian';
+import { useCreateEventMutation } from '@/store/features/events/eventsApi';
 
 import { ErrorIcon } from '@/assets/svgs';
 
@@ -28,6 +29,8 @@ import { useCreateItemMutation } from '@/store/features/items/itemsApi';
 import CustomToast from '@/components/common/CustomToast';
 import { addItemssUrl } from '@/configs/constants';
 import { addItems } from '@/store/features/items/golditemsSlice';
+import { profileData } from '@/store/features/setup/setupSlice';
+import Spinner from '@/components/common/Spinner';
 
 import Calendar from '../../../common/calendar';
 import ReligionDropdown from '../../profilesetup/profile-setupform/religionDropdown';
@@ -38,14 +41,17 @@ interface ProfileDetailsProps {}
 const ProfileDetailsSchema = z.object({
   year: z.string().min(1, { message: 'Year is required' }),
   religion: z.string().min(1, { message: 'Religion is required' }),
-  startDate: z.string().min(1, { message: 'Start date is required' }),
+  startDate: z.string().min(0, { message: 'Start date is required' }),
 });
 
 type FormFields = z.infer<typeof ProfileDetailsSchema>;
 
 const ProfileDetailsForm: React.FC<ProfileDetailsProps> = () => {
+  const dispatch = useDispatch();
   const selector = useSelector((state: any) => state.setup.setup);
   const date = selector.startDate;
+  console.log('date', date);
+  console.log(typeof date);
 
   const hijriDate = moment(date).format('iYYYY iM iD');
   const [years, month, day] = hijriDate.split(' ').map(Number);
@@ -59,6 +65,7 @@ const ProfileDetailsForm: React.FC<ProfileDetailsProps> = () => {
   console.log(selector);
 
   const router = useRouter();
+  const [login, { isLoading }] = useCreateEventMutation();
   const [year, setYear] = useState<string>('');
   const [startDate, setStartDate] = useState<string>('');
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
@@ -74,34 +81,46 @@ const ProfileDetailsForm: React.FC<ProfileDetailsProps> = () => {
     },
   });
 
-  React.useEffect(() => {
-    setYear(selector.year);
-  }, []);
+  const onYearChange = (yearVal: string) => {
+    form.setValue('year', yearVal);
+    setYear(yearVal);
+    form.trigger('year');
+  };
 
-  const onSubmit = async (profileData: FormFields) => {
-    console.log('in submit');
+  const onReligionChange = (religionVal: string) => {
+    form.setValue('religion', religionVal);
+    form.trigger('religion');
+  };
+
+  const onSubmit = async (setupData: FormFields) => {
+    const finalStartDate = setupData.startDate || startDate;
 
     const formData = new FormData();
 
-    Object.keys(profileData).forEach((key) => {
-      const value = profileData[key as keyof FormFields];
-      console.log(value);
+    const submissionData = {
+      ...setupData,
+      startDate: finalStartDate,
+    };
+
+    Object.keys(submissionData).forEach((key) => {
+      const value = submissionData[key as keyof FormFields];
       if (value !== undefined && value !== null) {
-        formData.append(key, value as any); // Type assertion for `value` to `any`
+        formData.append(key, value as any);
       }
     });
 
     try {
-      // const response = await createItem(formData)
+      dispatch(profileData({ setupData: submissionData }));
       form.reset();
+      setYear('');
+      setStartDate('');
 
       toast.custom((t) => (
         <CustomToast
           t={t}
-          title={`${profileData.year} ${profileData.religion} ${profileData.startDate} `}
+          title={`${submissionData.year} ${submissionData.religion} ${submissionData.startDate} `}
         />
       ));
-      router.push('/income');
     } catch (error) {
       console.error('Error creating event:', error);
       toast.error('Failed to Create event');
@@ -137,12 +156,16 @@ const ProfileDetailsForm: React.FC<ProfileDetailsProps> = () => {
                   <ReligionDropdown
                     initialValue={selector.religion}
                     className="rounded-lg bg-inputBg border-inputBorder"
-                    onReligionChange={(religionVal) =>
-                      field.onChange(religionVal)
-                    }
+                    onReligionChange={onReligionChange}
                   />
                 )}
               />
+              {form.formState.errors.religion && (
+                <span className="text-destructive text-sm flex items-center gap-1 mt-2">
+                  <ErrorIcon />
+                  {form.formState.errors.religion.message}
+                </span>
+              )}
             </div>
           </div>
           <div className="w-full items-center">
@@ -154,11 +177,17 @@ const ProfileDetailsForm: React.FC<ProfileDetailsProps> = () => {
                 render={({ field }) => (
                   <CalendarSelect
                     initialValue={selector.year}
-                    onYearChange={(yearVal) => field.onChange(yearVal)}
+                    onYearChange={onYearChange}
                     setYear={setYear}
                   />
                 )}
               />
+              {form.formState.errors.year && (
+                <span className="text-destructive text-sm flex items-center gap-1 mt-2">
+                  <ErrorIcon />
+                  {form.formState.errors.year.message}
+                </span>
+              )}
             </div>
           </div>
 
@@ -196,6 +225,7 @@ const ProfileDetailsForm: React.FC<ProfileDetailsProps> = () => {
                       render={({ field }) => (
                         <Calendar
                           year={year}
+                          dateVal={date}
                           onDateChange={(date) =>
                             handleDateChange(
                               date,
@@ -226,8 +256,13 @@ const ProfileDetailsForm: React.FC<ProfileDetailsProps> = () => {
           <div className="flex flex-col justify-evenly items-center w-full gap-5 mt-1">
             <hr className="w-full border-[1px] border-solid border-underline" />
             <div className="flex w-full justify-end items-center">
-              <Button className="bg-detailsBtn text-btnText font-normal hover:bg-btnHover">
-                Update
+              <Button
+                className="bg-detailsBtn text-btnText font-normal hover:bg-btnHover"
+                type="submit"
+                data-cy="event-submit"
+                data-testid="event-submit"
+              >
+                {isLoading ? <Spinner /> : 'Update'}
               </Button>
             </div>
           </div>

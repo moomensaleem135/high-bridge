@@ -1,8 +1,8 @@
 'use client';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useForm, Controller } from 'react-hook-form';
-import { useRouter } from 'next/navigation';
+import { useParams, useRouter, useSearchParams } from 'next/navigation';
 import { z } from 'zod';
 import Link from 'next/link';
 import toast from 'react-hot-toast';
@@ -28,6 +28,8 @@ import { zakatCal } from '@/store/features/zakat/zakatSlice';
 
 import Spinner from '@/components/common/Spinner';
 import { calculateZakat } from '@/lib/helpers';
+import { GoldItem } from '@/components/pages-partial/add-items/item-section/table';
+import { GoldIItems } from '@/lib/types';
 
 interface ItemDetailsProps {}
 
@@ -46,7 +48,12 @@ type FormFields = z.infer<typeof ItemDetailsSchema>;
 const ItemDetailsForm: React.FC<ItemDetailsProps> = () => {
   const dispatch = useDispatch();
   const router = useRouter();
+  const params = useParams();
+  const searchparams = useSearchParams();
+  const id = searchparams.get('id');
   const religion = useSelector((state: any) => state.sect.sect);
+  const items: GoldIItems[] =
+    useSelector((state: any) => state.items.items) || [];
   const income = useSelector((state: any) => state.income.income);
   const [payableAmount, setPayableAmount] = React.useState<number | null>(null);
   const [item, setItem] = React.useState<string>('');
@@ -66,11 +73,33 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = () => {
     },
   });
 
+  // useEffect(() => {
+  //   console.log(id);
+  //   if (id) {
+  //     const data = items.filter((item) => item.goldId === id);
+  //     console.log(data, items);
+  //     setItem(data[0].item as string);
+  //     setReason(data[0].purpose);
+  //     form.reset({
+  //       item: data[0].item,
+  //       price: data[0].price,
+  //       weight: data[0].weight,
+  //       quantity: data[0].quantity,
+  //       quality: data[0].quality,
+  //       usage: data[0].usage,
+  //       purpose: data[0].purpose,
+  //     });
+  //     console.log({ data: form.getValues() });
+  //   }
+  // }, [id]);
+
   const onSubmit = async (itemsData: FormFields) => {
     const zakatAmount = calculateZakat(Number(itemsData.price));
 
     const usage = itemsData.usage ? itemsData.usage : '';
     console.log(usage);
+
+    const goldId = `gold-${Date.now()}`;
 
     const itemData = {
       item: itemsData.item,
@@ -82,6 +111,8 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = () => {
       price: itemsData.price,
       income: income,
       religion: religion,
+      zakat: zakatAmount,
+      goldId: goldId,
     };
 
     const zakatCalData = {
@@ -191,13 +222,19 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = () => {
               <FormField
                 control={form.control}
                 name="purpose"
-                render={({ field }) => (
-                  <PurposeDropdown
-                    initialValue={field.value}
-                    onPurposeChange={(purposeVal) => field.onChange(purposeVal)}
-                    setReason={setReason}
-                  />
-                )}
+                render={({ field }) => {
+                  console.log({ field });
+
+                  return (
+                    <PurposeDropdown
+                      initialValue={field.value}
+                      onPurposeChange={(purposeVal) =>
+                        field.onChange(purposeVal)
+                      }
+                      setReason={setReason}
+                    />
+                  );
+                }}
               />
               {form.formState.errors.purpose && (
                 <span className="text-destructive text-sm flex items-center gap-1">

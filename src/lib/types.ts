@@ -25,8 +25,8 @@ export interface IEvent {
   image?: string | StaticImageData;
 }
 
-export interface IItems {
-  id: number;
+
+interface IItems {
   income: string;
   religion: string;
   type: string;
@@ -35,6 +35,16 @@ export interface IItems {
   quality: string;
   weight: string;
 }
+
+export interface GoldIItems extends IItems {
+  goldId: string;
+}
+
+export interface CashIItems extends IItems {
+  cashId: string;
+}
+
+
 
 export interface ISects {
   sect: string;
@@ -46,6 +56,7 @@ export interface IIncome {
 
 export interface ISetup {
   startDate: string;
+  generic : string
   year: string;
   religion: string;
 }

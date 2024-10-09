@@ -64,10 +64,16 @@ const TopNavbar = ({
         <div className="w-full hidden lg:flex pr-7 gap-x-2">
           <span className="font-medium text-lg">Zakat Pay Date:</span>
           <div className="flex flex-col justify-between items-start">
-            <span className="text-xs font-medium leading-5">
-              15 Ramadan, 144 Hijri
+            <span className="text-sm mt-1 font-medium leading-5">
+              {selector.startDate ? (
+                selector.startDate
+              ) : (
+                <span>10 October 2024</span>
+              )}
             </span>
-            <span className="font-medium text-[8px]">(14-March-2024)</span>
+            <span className="font-medium text-[8px]">
+              {selector.year === 'lunar' ? `(${selector.generic})` : ''}
+            </span>
           </div>
         </div>
       </div>

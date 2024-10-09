@@ -1,6 +1,6 @@
 'use client';
 import React from 'react';
-import { useDispatch, UseDispatch } from 'react-redux';
+import { useDispatch, UseDispatch, useSelector } from 'react-redux';
 import { useForm, Controller } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
 import { z } from 'zod';
@@ -19,7 +19,7 @@ import { ErrorIcon } from '@/assets/svgs';
 
 import { useCreateItemMutation } from '@/store/features/items/itemsApi';
 import CustomToast from '@/components/common/CustomToast';
-import { addItems } from '@/store/features/items/golditemsSlice';
+import { addCashItems } from '@/store/features/cash-items/cashSlice';
 import { zakatCal } from '@/store/features/zakat/zakatSlice';
 
 import Spinner from '@/components/common/Spinner';
@@ -29,7 +29,7 @@ interface ItemDetailsProps {}
 
 const ItemDetailsSchema = z.object({
   item: z.string().min(1, { message: 'Purpose is required' }),
-  amount: z.string().min(1, { message: 'Acount is required' }),
+  quantity: z.string().min(1, { message: 'Amount is required' }),
 });
 
 type FormFields = z.infer<typeof ItemDetailsSchema>;
@@ -37,6 +37,8 @@ type FormFields = z.infer<typeof ItemDetailsSchema>;
 const ItemDetailsForm: React.FC<ItemDetailsProps> = () => {
   const dispatch = useDispatch();
   const router = useRouter();
+  const religion = useSelector((state: any) => state.sect.sect);
+  const income = useSelector((state: any) => state.income.income);
   const [item, setItem] = React.useState<string>('');
   const [payableAmount, setPayableAmount] = React.useState<number | null>(null);
   const [reason, setReason] = React.useState<string>('');
@@ -46,46 +48,51 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = () => {
     resolver: zodResolver(ItemDetailsSchema),
     defaultValues: {
       item: '',
-      amount: '',
+      quantity: '',
     },
   });
 
   const onSubmit = async (itemsData: FormFields) => {
-    const zakatAmount = calculateZakat(Number(itemsData.amount));
+    const zakatAmount = calculateZakat(Number(itemsData.quantity));
     const zakatCalData = {
-      value: zakatAmount | 0,
+      value: zakatAmount || 0, // Use logical OR for fallback
     };
+
+    // Generate a unique goldId (using Date.now for simplicity, you might want to use a better method)
+    const cashId = `cash-${Date.now()}`;
 
     const itemData = {
       item: itemsData.item,
-      amount: itemsData.amount,
+      quantity: itemsData.quantity,
       zakat: zakatAmount,
+      income: income,
+      religion: religion,
+      cashId: cashId, // Add the unique goldId to the itemData
     };
 
     const formData = new FormData();
 
     Object.keys(itemsData).forEach((key) => {
       const value = itemsData[key as keyof FormFields];
-      console.log(value);
       if (value !== undefined && value !== null) {
         formData.append(key, value as any); // Type assertion for `value` to `any`
       }
     });
 
     try {
-      // const response = await createItem(formData);
-      dispatch(addItems(itemData));
+      // const response = await createItem(formData); // Uncomment if needed
+      dispatch(addCashItems(itemData));
       dispatch(zakatCal(zakatCalData));
 
       form.reset();
 
       toast.custom((t) => (
-        <CustomToast t={t} title={`${itemsData.item} ${itemsData.amount}`} />
+        <CustomToast t={t} title={`${itemsData.item} ${itemsData.quantity}`} />
       ));
       router.push('/income/income-details/add-items');
     } catch (error) {
       console.error('Error creating event:', error);
-      toast.error('Failed to Create event');
+      toast.error('Failed to create event');
     }
   };
 
@@ -94,13 +101,13 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = () => {
   }, [item]);
 
   React.useEffect(() => {
-    if (form.watch('amount')) {
-      const zakat = calculateZakat(Number(form.watch('amount')));
+    if (form.watch('quantity')) {
+      const zakat = calculateZakat(Number(form.watch('quantity')));
       setPayableAmount(zakat);
     } else {
       setPayableAmount(null);
     }
-  }, [form.watch('amount')]);
+  }, [form.watch('quantity')]);
 
   return (
     <div className="flex flex-col w-full max-w-[960px] justify-center items-center gap-12 rounded-3xl mt-6">
@@ -162,7 +169,7 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = () => {
               <div className="flex w-full">
                 <FormField
                   control={form.control}
-                  name="amount"
+                  name="quantity"
                   render={({ field }) => (
                     <div className="w-full flex flex-col">
                       <FormControl>
@@ -173,16 +180,16 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = () => {
                           aria-label="amount"
                           placeholder="Enter amount"
                           className="bg-inputBg rounded-lg h-[45px] border-inputBorder py-1.5 text-black"
-                          error={!!form.formState.errors.amount}
+                          error={!!form.formState.errors.quantity}
                           data-cy="amount"
                           data-testid="amount"
                         />
                       </FormControl>
 
-                      {form.formState.errors.amount && (
+                      {form.formState.errors.quantity && (
                         <span className="text-destructive text-sm flex items-center gap-1 mt-2">
                           <ErrorIcon />
-                          {form.formState.errors.amount.message}
+                          {form.formState.errors.quantity.message}
                         </span>
                       )}
                     </div>

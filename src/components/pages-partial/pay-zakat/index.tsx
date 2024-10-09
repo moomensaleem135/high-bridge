@@ -18,6 +18,6 @@ export default function PartialPayZakat() {
         </div>
         <ComingSoon />
       </div>
-    </AppLayout>
+  </AppLayout>
   );
 }

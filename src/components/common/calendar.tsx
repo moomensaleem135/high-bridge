@@ -72,19 +72,64 @@ const locales: Record<CalendarType, any> = {
 interface CalendarProps {
   year: string;
   onDateChange?: (date: Date) => void;
-  dateVal?: DateObject;
+  dateVal?: string;
 }
 
 const Calendar: React.FC<CalendarProps> = ({ year, onDateChange, dateVal }) => {
   const [calendarType, setCalendarType] = useState<CalendarType | string>(
     'solar'
   );
+
   const [value, setValue] = useState<DateObject | null>(null);
+  console.log('dateVal in calendar', dateVal);
   const datePickerRef = useRef<any>(null);
 
   useEffect(() => {
     setCalendarType(year);
   }, [year]);
+
+  useEffect(() => {
+    if (dateVal) {
+      const parts = dateVal.split(' ');
+      const day = parseInt(parts[0], 10);
+      const yearStr = parseInt(parts[parts.length - 1], 10);
+
+      const monthString = parts.slice(1, parts.length - 1).join(' ');
+      let monthIndex: number | undefined;
+
+      if (locales.solar.months.some((month: any) => month[0] === monthString)) {
+        monthIndex = locales.solar.months.findIndex(
+          (month: any) => month[0] === monthString
+        );
+        if (monthIndex !== -1) {
+          const dateObject = new DateObject({
+            day,
+            month: monthIndex ? monthIndex + 1 : 0,
+            year: yearStr,
+            calendar: gregorian,
+          });
+          handleDateChange(dateObject);
+        }
+      } else if (
+        locales.lunar.months.some((month: any) => month[0] === monthString)
+      ) {
+        monthIndex = locales.lunar.months.findIndex(
+          (month: any) => month[0] === monthString
+        );
+        if (monthIndex !== -1) {
+          const dateObject = new DateObject({
+            day,
+            month: monthIndex ? monthIndex + 1 : 0,
+            year: yearStr,
+            calendar: hijri,
+          });
+          handleDateChange(dateObject);
+        }
+      } else {
+        console.error(`Unknown month "${monthString}" in date: ${dateVal}`);
+      }
+    }
+  }, [dateVal]);
 
   const handleIconClick = () => {
     if (datePickerRef.current) {
@@ -93,10 +138,12 @@ const Calendar: React.FC<CalendarProps> = ({ year, onDateChange, dateVal }) => {
   };
 
   const handleDateChange = (date: DateObject) => {
-    console.log(date);
-
+    console.log('handle dat change here', date.toDate());
     setValue(date);
-    if (onDateChange) onDateChange(date.toDate());
+    if (onDateChange) {
+      console.log('in date change');
+      onDateChange(date.toDate());
+    }
   };
 
   return (

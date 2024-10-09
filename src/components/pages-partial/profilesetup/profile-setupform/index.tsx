@@ -25,6 +25,7 @@ import IslamicCalendar from '@/components/ui/islamic-calendar';
 import ReligionDropdown from './religionDropdown';
 import Calendar from '@/components/common/calendar';
 import { handleDateChange } from '@/lib/helpers';
+
 import moment from 'moment';
 
 interface ProfileSetupProps {}
@@ -214,6 +215,12 @@ const ProfileSetup: React.FC<ProfileSetupProps> = () => {
                     />
                   )}
                 />
+                {form.formState.errors.startDate && (
+                  <span className="text-destructive text-sm flex items-center gap-1 mt-2">
+                    <ErrorIcon />
+                    {form.formState.errors.startDate.message}
+                  </span>
+                )}
               </div>
             </div>
           </div>

@@ -21,7 +21,7 @@ const zakatSlice = createSlice({
       state.zakat.quantity = action.payload.quantity;
       state.zakat.weight = action.payload.weight;
 
-      state.zakat.value = action.payload.value;
+      state.zakat.value += action.payload.value;
     },
   },
 });

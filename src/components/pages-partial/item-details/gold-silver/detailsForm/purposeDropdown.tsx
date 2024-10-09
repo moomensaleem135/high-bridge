@@ -24,13 +24,18 @@ const PurposeDropdown: React.FC<PurposeDropdownProps> = ({
   >(initialValue);
 
   React.useEffect(() => {
-    setSelectedPurpose(initialValue);
+    if (initialValue !== '') {
+      setSelectedPurpose(initialValue);
+      console.log({ initialValue });
+    }
   }, [initialValue]);
 
   const handleChange = (purpose: string) => {
-    setSelectedPurpose(purpose);
-    onPurposeChange(purpose);
-    setReason(purpose);
+    if (purpose) {
+      setSelectedPurpose(purpose);
+      onPurposeChange(purpose);
+      setReason(purpose);
+    }
   };
 
   return (
