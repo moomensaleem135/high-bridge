@@ -88,3 +88,7 @@ export function formatDate(dateString: string) {
     return `${day}-${month}-${year}`;
   }
 }
+
+export const calculateZakat = (amount: number) => {
+  return (amount * 2.5) / 100; // 2.5% of the total amount
+};

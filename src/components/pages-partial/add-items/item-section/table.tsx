@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import AgGridTable from '@/components/ui/ag-table';
 import 'ag-grid-community/styles/ag-grid.css';
@@ -7,27 +7,50 @@ import '../../../../styles/globals.css';
 import CustomOptions from './customOption';
 import { deleteItem } from '@/store/features/items/golditemsSlice';
 
-const GridSection = () => {
+// Define types for columns and row data
+interface ColumnDef {
+  headerName: string;
+  field: string;
+  cellRenderer?: any;
+}
+
+interface Item {
+  item: string;
+  amount?: number;
+  weight?: number;
+  quantity?: string;
+  quality?: string;
+  usage?: string;
+}
+
+interface RowDataDef {
+  id: number;
+  item: string;
+  amount?: string;
+  zakat: string;
+  quantity?: string;
+  quality?: string;
+}
+
+const GridSection: React.FC = () => {
   const dispatch = useDispatch();
-  const items = useSelector((state: any) => state.items.items) || [];
+
+  const items: Item[] = useSelector((state: any) => state.items.items) || [];
   const zakatVal = useSelector((state: any) => state.zakat.zakat.value);
-  console.log('zakat', zakatVal);
+  const income = useSelector((state: any) => state.income.income) || [];
+
+  // Height configurations for the grid
   const rowHeight = 92;
   const maxHeight = 400;
   const minHeight = 100;
-  const [gridHeight, setGridHeight] = useState(maxHeight);
 
-  const handleEdit = (id: string) => {
-    console.log('Edit clicked for:', id);
-    // Implement your edit logic here
-  };
+  // State variables for grid height, columns, and row data
+  const [gridHeight, setGridHeight] = useState<number>(maxHeight);
+  const [columns, setColumns] = useState<ColumnDef[]>([]);
+  const [rowData, setRowData] = useState<RowDataDef[]>([]);
 
-  const handleDelete = (id: string) => {
-    console.log('Delete clicked for:', id);
-    dispatch(deleteItem(id)); // Dispatch your delete action here
-  };
-
-  React.useEffect(() => {
+  // Dynamically update the grid height based on the number of items
+  useEffect(() => {
     if (items.length !== 0) {
       const numberOfRows = items.length;
       const calculatedHeight = Math.min(numberOfRows * rowHeight, maxHeight);
@@ -37,47 +60,68 @@ const GridSection = () => {
     }
   }, [items.length]);
 
-  const columns = [
-    {
-      headerName: 'Item',
-      field: 'item',
-    },
-    // {
-    //   headerName: 'Purpose',
-    //   field: 'purpose',
-    // },
-    // {
-    //   headerName: 'Used Before',
-    //   field: 'usedbefore',
-    // },
-    {
-      headerName: 'Quantity',
-      field: 'quantity',
-    },
-    {
-      headerName: 'Quality',
-      field: 'quality',
-    },
-    {
-      headerName: 'Zakat',
-      field: 'Zakat',
-    },
+  useEffect(() => {
+    if (items.length === 0 || income.length === 0) {
+      return;
+    }
 
-    {
-      headerName: 'Option',
-      field: 'option',
-      cellRenderer: CustomOptions,
-    },
-  ];
+    let updatedColumns: ColumnDef[] = [];
+    let updatedRowData: RowDataDef[] = [];
 
-  const rowData = items.map((item: any, index: number) => ({
-    id: index,
-    item: item.item,
-    Zakat: `$${zakatVal}`,
-    usedbefore: item.usage,
-    quantity: `${item.weight} ${item.quantity}`,
-    quality: item.quality,
-  }));
+    // Set columns and data for cash-based income
+    if (income.includes('Cash') || income.includes('Checking')) {
+      updatedColumns = [
+        { headerName: 'Item', field: 'item' },
+        { headerName: 'Amount', field: 'amount' },
+        { headerName: 'Zakat', field: 'zakat' },
+        { headerName: 'Option', field: 'option', cellRenderer: CustomOptions },
+      ];
+
+      updatedRowData = items.map((item, index) => ({
+        id: index,
+        item: item.item,
+        amount: `$${item.amount ?? 0}`,
+        zakat: `$${zakatVal}`,
+      }));
+    }
+
+    // Set columns and data for gold-based income
+    if (income.includes('Gold')) {
+      updatedColumns = [
+        { headerName: 'Item', field: 'item' },
+        { headerName: 'Quantity', field: 'quantity' },
+        { headerName: 'Quality', field: 'quality' },
+        { headerName: 'Zakat', field: 'zakat' },
+        { headerName: 'Option', field: 'option', cellRenderer: CustomOptions },
+      ];
+
+      updatedRowData = items.map((item, index) => ({
+        id: index,
+        item: item.item,
+        quantity: `${item.weight ?? 0} ${item.quantity ?? ''}`,
+        quality: item.quality ?? '',
+        zakat: `$${zakatVal}`,
+      }));
+    }
+
+    if (updatedColumns.length > 0 && updatedRowData.length > 0) {
+      setColumns(updatedColumns);
+      setRowData(updatedRowData);
+    } else {
+      console.warn(
+        'Updated Columns or RowData are empty, skipping state update.'
+      );
+    }
+  }, [income, items, zakatVal]);
+
+  const handleEdit = (id: number) => {
+    console.log('Edit clicked for:', id);
+  };
+
+  const handleDelete = (id: number) => {
+    console.log('Delete clicked for:', id);
+    dispatch(deleteItem(id));
+  };
 
   const totalRows = rowData.length;
 

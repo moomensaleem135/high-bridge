@@ -93,8 +93,10 @@ const Calendar: React.FC<CalendarProps> = ({ year, onDateChange, dateVal }) => {
   };
 
   const handleDateChange = (date: DateObject) => {
+    console.log(date);
+    
     setValue(date);
-    if (onDateChange) onDateChange(date.toDate());
+    if (onDateChange) onDateChange(date.toDate(), calendarType);
   };
 
   return (

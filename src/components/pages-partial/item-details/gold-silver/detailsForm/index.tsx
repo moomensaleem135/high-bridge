@@ -27,17 +27,18 @@ import { addItems } from '@/store/features/items/golditemsSlice';
 import { zakatCal } from '@/store/features/zakat/zakatSlice';
 
 import Spinner from '@/components/common/Spinner';
+import { calculateZakat } from '@/lib/helpers';
 
 interface ItemDetailsProps {}
 
 const ItemDetailsSchema = z.object({
-  item: z.string().min(1, { message: 'purpose is required' }),
-  purpose: z.string().min(1, { message: 'purpose is required' }),
-  usage: z.string().min(0, { message: 'usage is required' }),
-  quality: z.string().min(1, { message: 'quality is required' }),
-  quantity: z.string().min(1, { message: 'quantity is required' }),
-  weight: z.string().min(1, { message: 'weight is required' }),
-  price: z.string().min(1, { message: 'price is required' }),
+  item: z.string().min(1, { message: 'Item is required' }),
+  purpose: z.string().min(1, { message: 'Purpose is required' }),
+  usage: z.string().min(0, { message: 'Usage is required' }),
+  quality: z.string().min(1, { message: 'Quality is required' }),
+  quantity: z.string().min(1, { message: 'Quantity is required' }),
+  weight: z.string().min(1, { message: 'Weight is required' }),
+  price: z.string().min(1, { message: 'Price is required' }),
 });
 
 type FormFields = z.infer<typeof ItemDetailsSchema>;
@@ -65,7 +66,7 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = () => {
   });
 
   const onSubmit = async (itemsData: FormFields) => {
-    console.log('in submit');
+    const zakatAmount = calculateZakat(Number(itemsData.price));
 
     const usage = itemsData.usage ? itemsData.usage : '';
     console.log(usage);
@@ -85,6 +86,7 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = () => {
     const zakatCalData = {
       quantity: itemsData.quantity,
       weight: itemsData.weight,
+      value: zakatAmount | 0,
     };
 
     const formData = new FormData();

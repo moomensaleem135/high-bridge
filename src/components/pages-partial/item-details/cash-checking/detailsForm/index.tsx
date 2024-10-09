@@ -23,6 +23,7 @@ import { addItems } from '@/store/features/items/golditemsSlice';
 import { zakatCal } from '@/store/features/zakat/zakatSlice';
 
 import Spinner from '@/components/common/Spinner';
+import { calculateZakat } from '@/lib/helpers';
 
 interface ItemDetailsProps {}
 
@@ -37,6 +38,7 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = () => {
   const dispatch = useDispatch();
   const router = useRouter();
   const [item, setItem] = React.useState<string>('');
+  const [payableAmount, setPayableAmount] = React.useState<number | null>(null);
   const [reason, setReason] = React.useState<string>('');
   const [createItem, { isLoading }] = useCreateItemMutation();
 
@@ -48,14 +50,15 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = () => {
     },
   });
 
+
+
   const onSubmit = async (itemsData: FormFields) => {
+    const zakatAmount = calculateZakat(Number(itemsData.amount));
+
     const itemData = {
       item: itemsData.item,
       amount: itemsData.amount,
-    };
-
-    const zakatCalData = {
-      amount: itemsData.amount,
+      zakat: zakatAmount,
     };
 
     const formData = new FormData();
@@ -71,7 +74,7 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = () => {
     try {
       // const response = await createItem(formData);
       dispatch(addItems(itemData));
-      dispatch(zakatCal(zakatCalData));
+      dispatch(zakatCal(zakatAmount));
 
       form.reset();
 
@@ -88,6 +91,13 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = () => {
   React.useEffect(() => {
     console.log(item);
   }, [item]);
+
+  React.useEffect(() => {
+    if (form.watch('amount')) {
+      const zakat = calculateZakat(Number(form.watch('amount')));
+      setPayableAmount(zakat);
+    }
+  }, [form.watch('amount')]);
 
   return (
     <div className="flex flex-col w-full max-w-[960px] justify-center items-center gap-12 rounded-3xl mt-6">
@@ -182,7 +192,11 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = () => {
             <span className="font-medium text-xl">
               Your payable zakat for this item is:
             </span>
-            <span className="font-semibold text-2xl text-zakatText">$0.00</span>
+            <span className="font-semibold text-2xl text-zakatText">
+              {payableAmount !== null
+                ? `$${payableAmount.toFixed(2)}`
+                : '$0.00'}
+            </span>
           </div>
 
           <div className="flex flex-col justify-evenly items-center w-full gap-5">
