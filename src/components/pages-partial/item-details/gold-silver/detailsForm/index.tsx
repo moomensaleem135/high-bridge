@@ -3,8 +3,6 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useForm, Controller } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
-import { useSearchParams } from 'next/navigation';
-
 import { z } from 'zod';
 import Link from 'next/link';
 import toast from 'react-hot-toast';
@@ -27,49 +25,34 @@ import CustomToast from '@/components/common/CustomToast';
 import { addItemssUrl } from '@/configs/constants';
 import { addItems } from '@/store/features/items/golditemsSlice';
 import { zakatCal } from '@/store/features/zakat/zakatSlice';
-import { updateItem } from '@/store/features/items/golditemsSlice';
 
 import Spinner from '@/components/common/Spinner';
 
-interface Items {
-  id: number;
-  item: string;
-  purpose: string;
-  usage: string;
-  quality: string;
-  weight: string;
-  quantity: string;
-}
+interface ItemDetailsProps {}
 
-interface EditDetailsProps {}
-
-const EditDetailsSchema = z.object({
+const ItemDetailsSchema = z.object({
   item: z.string().min(1, { message: 'purpose is required' }),
   purpose: z.string().min(1, { message: 'purpose is required' }),
   usage: z.string().min(0, { message: 'usage is required' }),
   quality: z.string().min(1, { message: 'quality is required' }),
   quantity: z.string().min(1, { message: 'quantity is required' }),
   weight: z.string().min(1, { message: 'weight is required' }),
+  price: z.string().min(1, { message: 'price is required' }),
 });
 
-type FormFields = z.infer<typeof EditDetailsSchema>;
+type FormFields = z.infer<typeof ItemDetailsSchema>;
 
-const EditDetailsForm: React.FC<EditDetailsProps> = () => {
+const ItemDetailsForm: React.FC<ItemDetailsProps> = () => {
   const dispatch = useDispatch();
-  const items = useSelector((state: any) => state.items.items);
-  const zakatVal = useSelector((state: any) => state.zakat.zakat.value);
   const router = useRouter();
-  const searchParams = useSearchParams();
-
-  const editId = searchParams.get('editId');
-
+  const religion = useSelector((state: any) => state.sect.sect);
+  const income = useSelector((state: any) => state.income.income);
   const [item, setItem] = React.useState<string>('');
-  const [itemToEdit, setItemToEdit] = React.useState<Items>();
   const [reason, setReason] = React.useState<string>('');
   const [createItem, { isLoading }] = useCreateItemMutation();
 
   const form = useForm<FormFields>({
-    resolver: zodResolver(EditDetailsSchema),
+    resolver: zodResolver(ItemDetailsSchema),
     defaultValues: {
       item: '',
       purpose: '',
@@ -77,11 +60,15 @@ const EditDetailsForm: React.FC<EditDetailsProps> = () => {
       quality: '',
       quantity: '',
       weight: '',
+      price: '',
     },
   });
 
   const onSubmit = async (itemsData: FormFields) => {
+    console.log('in submit');
+
     const usage = itemsData.usage ? itemsData.usage : '';
+    console.log(usage);
 
     const itemData = {
       item: itemsData.item,
@@ -90,6 +77,9 @@ const EditDetailsForm: React.FC<EditDetailsProps> = () => {
       quality: itemsData.quality,
       weight: itemsData.weight,
       quantity: itemsData.quantity,
+      price: itemsData.price,
+      income: income,
+      religion: religion,
     };
 
     const zakatCalData = {
@@ -101,6 +91,7 @@ const EditDetailsForm: React.FC<EditDetailsProps> = () => {
 
     Object.keys(itemsData).forEach((key) => {
       const value = itemsData[key as keyof FormFields];
+      console.log(value);
       if (value !== undefined && value !== null) {
         formData.append(key, value as any); // Type assertion for `value` to `any`
       }
@@ -108,7 +99,7 @@ const EditDetailsForm: React.FC<EditDetailsProps> = () => {
 
     try {
       // const response = await createItem(formData);
-      dispatch(updateItem({ id: Number(editId), updatedData: itemData }));
+      dispatch(addItems(itemData));
       dispatch(zakatCal(zakatCalData));
 
       form.reset();
@@ -119,7 +110,8 @@ const EditDetailsForm: React.FC<EditDetailsProps> = () => {
           title={`${itemsData.item} ${itemsData.purpose} ${itemsData.usage} ${itemsData.quality}`}
         />
       ));
-      router.push('/add-items');
+
+      router.push('/income/income-details/add-items');
     } catch (error) {
       console.error('Error creating event:', error);
       toast.error('Failed to Create event');
@@ -127,23 +119,8 @@ const EditDetailsForm: React.FC<EditDetailsProps> = () => {
   };
 
   React.useEffect(() => {
-    if (editId) {
-      setItemToEdit(items?.find((item: any) => item.id === Number(editId)));
-    }
-  }, [editId, items, form]);
-
-  React.useEffect(() => {
-    if (editId) {
-      const itemToEdit = items?.find((item: any) => item.id === Number(editId));
-      if (itemToEdit) {
-        form.reset({
-          item: itemToEdit.item,
-          weight: itemToEdit.weight,
-          usage: itemToEdit.usage,
-        });
-      }
-    }
-  }, [editId, items, form]);
+    console.log(item);
+  }, [item]);
 
   return (
     <div className="flex flex-col w-full max-w-[960px] justify-center items-center gap-12 rounded-3xl mt-6">
@@ -206,7 +183,7 @@ const EditDetailsForm: React.FC<EditDetailsProps> = () => {
                 name="purpose"
                 render={({ field }) => (
                   <PurposeDropdown
-                    initialValue={itemToEdit ? itemToEdit.purpose : field.value}
+                    initialValue={field.value}
                     onPurposeChange={(purposeVal) => field.onChange(purposeVal)}
                     setReason={setReason}
                   />
@@ -224,7 +201,7 @@ const EditDetailsForm: React.FC<EditDetailsProps> = () => {
           {reason === 'personal' && (
             <>
               <Label>
-                3 . Did you use this item at least once in the last one year??
+                3 . Did you use this item at least once in the last one year?
               </Label>
               <div className="w-full items-center flex justify-start gap-8 pl-4">
                 <div className="flex justify-center items-center gap-4">
@@ -267,8 +244,8 @@ const EditDetailsForm: React.FC<EditDetailsProps> = () => {
                 name="quality"
                 render={({ field }) => (
                   <QualityDropdown
-                    initialValue={itemToEdit ? itemToEdit.quality : field.value}
-                    item={itemToEdit ? itemToEdit.item : item}
+                    initialValue={field.value}
+                    item={item}
                     onQualityChange={(qualityVal) => field.onChange(qualityVal)}
                   />
                 )}
@@ -321,9 +298,7 @@ const EditDetailsForm: React.FC<EditDetailsProps> = () => {
                       name="quantity"
                       render={({ field }) => (
                         <WeightDropdown
-                          initialValue={
-                            itemToEdit ? itemToEdit.quantity : field.value
-                          }
+                          initialValue={field.value}
                           onWeightChange={(quantityVal) =>
                             field.onChange(quantityVal)
                           }
@@ -335,13 +310,47 @@ const EditDetailsForm: React.FC<EditDetailsProps> = () => {
               </div>
             </div>
           </div>
+
+          <div className="w-full items-center">
+            <div className="flex flex-col justify-start gap-x-6 gap-y-2 items-start">
+              <Label>6 . What is the price to buy this item?</Label>
+              <div className="flex w-full">
+                <FormField
+                  control={form.control}
+                  name="price"
+                  render={({ field }) => (
+                    <div className="w-full flex flex-col">
+                      <FormControl>
+                        <IconInput
+                          {...field}
+                          type="text"
+                          id="price"
+                          aria-label="price"
+                          placeholder="Enter price"
+                          className="bg-inputBg rounded-r-none rounded-lg h-[45px] border-inputBorder py-1.5 text-black"
+                          error={!!form.formState.errors.price}
+                          data-cy="price"
+                          data-testid="price"
+                        />
+                      </FormControl>
+
+                      {form.formState.errors.price && (
+                        <span className="text-destructive text-sm flex items-center gap-1 mt-2">
+                          <ErrorIcon />
+                          {form.formState.errors.price.message}
+                        </span>
+                      )}
+                    </div>
+                  )}
+                />
+              </div>
+            </div>
+          </div>
           <div className="flex justify-between items-center">
             <span className="font-medium text-xl">
               Your payable zakat for this item is:
             </span>
-            <span className="font-semibold text-2xl text-zakatText">
-              {zakatVal ? `$${zakatVal}.00` : '$0.00'}
-            </span>
+            <span className="font-semibold text-2xl text-zakatText">$0.00</span>
           </div>
 
           <div className="flex flex-col justify-evenly items-center w-full gap-5">
@@ -349,14 +358,15 @@ const EditDetailsForm: React.FC<EditDetailsProps> = () => {
             <div className="flex justify-between items-center w-full md:flex-row md:justify-between md:items-center xs:flex-col-reverse xs:gap-y-4 xs:justify-start xs:items-start">
               <Link
                 className="flex justify-start items-center "
-                href={addItemssUrl}
+                href={''}
+                onClick={() => router.back()}
               >
                 <ArrowLeftIcon />
                 Back
               </Link>
 
               <Button className="bg-detailsBtn text-btnText font-normal hover:bg-btnHover">
-                Update Item
+                Add Item
               </Button>
             </div>
           </div>
@@ -366,4 +376,4 @@ const EditDetailsForm: React.FC<EditDetailsProps> = () => {
   );
 };
 
-export default EditDetailsForm;
+export default ItemDetailsForm;

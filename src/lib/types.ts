@@ -28,6 +28,8 @@ export interface IEvent {
 export interface IItems {
   id: number;
   item: string;
+  income: string;
+  religion: string;
   purpose: string;
   usage: string;
   quality: string;

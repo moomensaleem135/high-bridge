@@ -18,7 +18,7 @@ const MainSection = () => {
         <div
           className="cursor-pointer"
           onClick={() => {
-            router.push('/item-details');
+            router.push('add-items/item-details');
           }}
         >
           <AddIcon />

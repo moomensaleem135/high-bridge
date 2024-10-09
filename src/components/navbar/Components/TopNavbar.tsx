@@ -21,7 +21,7 @@ const TopNavbar = ({
   const selector = useSelector((state: any) => state.setup.setup);
   const zakatVal = useSelector((state: any) => state.zakat.zakat.value);
   const selectedDate = formatDate(selector.startDate);
-  console.log(selectedDate);
+
   return (
     <div className="px-2 min-h-[70px] xs:min-h-[45px] sm:min-h-[70px] flex w-full items-center justify-between xs:hidden lg:flex">
       <div className="flex items-center gap-x-2 w-3/5">

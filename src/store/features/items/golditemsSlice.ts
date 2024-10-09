@@ -11,8 +11,8 @@ const initialState: IInitialState = {
   nextId: 1,
 };
 
-const itemSlice = createSlice({
-  name: 'items',
+const golditemSlice = createSlice({
+  name: 'golditems',
   initialState,
   reducers: {
     addItems: (state, action) => {
@@ -43,6 +43,6 @@ const itemSlice = createSlice({
   },
 });
 
-export const { addItems, deleteItem, updateItem } = itemSlice.actions;
+export const { addItems, deleteItem, updateItem } = golditemSlice.actions;
 
-export default itemSlice.reducer;
+export default golditemSlice.reducer;

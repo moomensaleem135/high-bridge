@@ -15,18 +15,19 @@ import { IconInput } from '@/components/ui/icon-input';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Label } from '@/components/ui/label';
-import PurposeDropdown from './purposeDropdown';
-import QualityDropdown from './qualityDropdown';
-import WeightDropdown from './weightDropdown';
+
 import { ErrorIcon } from '@/assets/svgs';
 
 import { useCreateItemMutation } from '@/store/features/items/itemsApi';
 import CustomToast from '@/components/common/CustomToast';
 import { addItemssUrl } from '@/configs/constants';
-import { addItems } from '@/store/features/items/itemsSlice';
+import { addItems } from '@/store/features/items/golditemsSlice';
 import { zakatCal } from '@/store/features/zakat/zakatSlice';
 
 import Spinner from '@/components/common/Spinner';
+import PurposeDropdown from '../gold-silver/detailsForm/purposeDropdown';
+import QualityDropdown from '../gold-silver/detailsForm/qualityDropdown';
+import WeightDropdown from '../gold-silver/detailsForm/weightDropdown';
 
 interface ItemDetailsProps {}
 

@@ -23,6 +23,7 @@ import Spinner from '@/components/common/Spinner';
 import { profileData } from '@/store/features/setup/setupSlice';
 import IslamicCalendar from '@/components/ui/islamic-calendar';
 import ReligionDropdown from './religionDropdown';
+import Calendar from '../../profile-details/detailsForm/calendar';
 
 interface ProfileSetupProps {}
 
@@ -56,10 +57,21 @@ const ProfileSetup: React.FC<ProfileSetupProps> = () => {
   const onYearChange = (yearVal: string) => {
     form.setValue('year', yearVal);
     setYear(yearVal);
+    // Clear error when the year is set
+    form.clearErrors('year');
   };
 
   const onReligionChange = (religionVal: string) => {
     form.setValue('religion', religionVal);
+    // Clear error when the religion is set
+    form.clearErrors('religion');
+  };
+
+  const handleDateChange = (date: Date) => {
+    form.setValue('startDate', date.toISOString().split('T')[0]); // Save date as string in YYYY-MM-DD format
+    setStartDate(date.toISOString().split('T')[0]);
+    // Clear error when the date is set
+    form.clearErrors('startDate');
   };
 
   const onSubmit = async (setupData: FormFields) => {
@@ -185,64 +197,22 @@ const ProfileSetup: React.FC<ProfileSetupProps> = () => {
               <div className="col-span-12 w-full">
                 <Label>Which date to pay Zakat?</Label>
               </div>
-              {year === 'lunar' ? (
-                <div
-                  className="col-span-6 w-full"
-                  onFocus={() => setShow(true)}
-                >
-                  <Controller
-                    name="startDate"
-                    control={form.control}
-                    render={({ field }) => (
-                      <IslamicCalendar
-                        initialValue={field.value}
-                        setStartDate={setStartDate}
-                        onDateChange={(date) => {
-                          field.onChange(date);
-                        }}
-                        show={show}
-                        isEndDate={false}
-                        setShow={setShow}
-                      />
-                    )}
-                  />
-                  {form.formState.errors.startDate && (
-                    <span className="text-destructive text-sm flex items-center gap-1 mt-2">
-                      <ErrorIcon />
-                      {form.formState.errors.startDate.message}
-                    </span>
+
+              <div className="col-span-6 w-full" onFocus={() => setShow(true)}>
+                <Controller
+                  name="startDate"
+                  control={form.control}
+                  render={({ field }) => (
+                    <Calendar year={year} onDateChange={handleDateChange} />
                   )}
-                </div>
-              ) : (
-                <div
-                  className="col-span-6 w-full"
-                  onFocus={() => setShow(true)}
-                >
-                  <Controller
-                    name="startDate"
-                    control={form.control}
-                    render={({ field }) => (
-                      <DatePicker
-                        initialValue={field.value}
-                        setStartDate={setStartDate}
-                        onDateChange={(date) => {
-                          field.onChange(date);
-                        }}
-                        show={show}
-                        isEndDate={false}
-                        year={year}
-                        setShow={setShow}
-                      />
-                    )}
-                  />
-                  {form.formState.errors.startDate && (
-                    <span className="text-destructive text-sm flex items-center gap-1 mt-2">
-                      <ErrorIcon />
-                      {form.formState.errors.startDate.message}
-                    </span>
-                  )}
-                </div>
-              )}
+                />
+                {form.formState.errors.startDate && (
+                  <span className="text-destructive text-sm flex items-center gap-1 mt-2">
+                    <ErrorIcon />
+                    {form.formState.errors.startDate.message}
+                  </span>
+                )}
+              </div>
             </div>
           </div>
 
