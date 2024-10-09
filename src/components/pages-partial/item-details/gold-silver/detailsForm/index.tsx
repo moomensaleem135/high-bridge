@@ -48,6 +48,7 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = () => {
   const router = useRouter();
   const religion = useSelector((state: any) => state.sect.sect);
   const income = useSelector((state: any) => state.income.income);
+  const [payableAmount, setPayableAmount] = React.useState<number | null>(null);
   const [item, setItem] = React.useState<string>('');
   const [reason, setReason] = React.useState<string>('');
   const [createItem, { isLoading }] = useCreateItemMutation();
@@ -59,7 +60,7 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = () => {
       purpose: '',
       usage: '',
       quality: '',
-      quantity: '',
+      quantity: 'Grams',
       weight: '',
       price: '',
     },
@@ -120,9 +121,16 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = () => {
     }
   };
 
+  React.useEffect(() => {}, [item]);
+
   React.useEffect(() => {
-    console.log(item);
-  }, [item]);
+    if (form.watch('price').length > 0) {
+      const zakat = calculateZakat(Number(form.watch('price')));
+      setPayableAmount(zakat);
+    } else {
+      setPayableAmount(null);
+    }
+  }, [form.watch('price')]);
 
   return (
     <div className="flex flex-col w-full max-w-[960px] justify-center items-center gap-12 rounded-3xl mt-6">
@@ -352,7 +360,11 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = () => {
             <span className="font-medium text-xl">
               Your payable zakat for this item is:
             </span>
-            <span className="font-semibold text-2xl text-zakatText">$0.00</span>
+            <span className="font-semibold text-2xl text-zakatText">
+              {payableAmount !== null
+                ? `$${payableAmount.toFixed(2)}`
+                : '$0.00'}
+            </span>
           </div>
 
           <div className="flex flex-col justify-evenly items-center w-full gap-5">

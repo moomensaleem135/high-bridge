@@ -4,6 +4,8 @@ import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { useSelector } from 'react-redux';
 import { ArrowLeftIcon } from '@/assets/svgs';
+import { payZakatUrl } from '@/configs/constants';
+import { useRouter } from 'next/navigation';
 
 const personalText = [
   'Gold & Silver',
@@ -24,8 +26,7 @@ const commercialText = [
 
 const ZakatCard = () => {
   const items = useSelector((state: any) => state.items.items) || [];
-  console.log(items);
-
+  const router = useRouter();
   const categorizedItems = items.reduce((acc: any, item: any) => {
     const category = personalText.includes(item.income)
       ? 'personal'
@@ -80,7 +81,7 @@ const ZakatCard = () => {
                           $100.00
                         </span>
                         <Link
-                          href={'income-details'}
+                          href={'/income/income-details/add-items'}
                           className="flex justify-center items-center"
                         >
                           <Button className="bg-black text-white font-medium text-base hover:bg-[#5e5f5d] h-8 p-3">
@@ -159,10 +160,9 @@ const ZakatCard = () => {
             <div>
               <Button
                 className="bg-detailsBtn text-btnText font-normal w-6/6 hover:bg-btnHover"
-                //   onClick={handleClick}
+                onClick={() => router.push(payZakatUrl)}
               >
-                {/* {religion ? 'Next' : 'Select to proceed'} */}
-                {'Pay Zakat'}
+                Pay Zakat
               </Button>
             </div>
           </div>

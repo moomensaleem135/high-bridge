@@ -4,6 +4,8 @@ import { formatDate } from '@/lib/helpers';
 import { ArrowLeftIcon } from '@/assets/svgs';
 import { ILayoutProps } from '@/lib/types';
 import { cn } from '@/lib/cn';
+import { useRouter } from 'next/navigation';
+import { reviewZakatUrl } from '@/configs/constants';
 
 interface ITopNavbar extends ILayoutProps {
   open: boolean;
@@ -21,6 +23,7 @@ const TopNavbar = ({
   const selector = useSelector((state: any) => state.setup.setup);
   const zakatVal = useSelector((state: any) => state.zakat.zakat.value);
   const selectedDate = formatDate(selector.startDate);
+  const router = useRouter();
 
   return (
     <div className="px-2 min-h-[70px] xs:min-h-[45px] sm:min-h-[70px] flex w-full items-center justify-between xs:hidden lg:flex">
@@ -45,7 +48,12 @@ const TopNavbar = ({
         <div className="hidden lg:flex pl-7">
           <span className="text-lg font-medium">
             Zakat Due:{' '}
-            <span className="text-zakatText font-bold text-xl">
+            <span
+              className="text-zakatText font-bold text-xl cursor-pointer"
+              onClick={() => {
+                router.push(reviewZakatUrl);
+              }}
+            >
               {`$${zakatVal}`}
             </span>
           </span>

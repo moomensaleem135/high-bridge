@@ -50,10 +50,11 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = () => {
     },
   });
 
-
-
   const onSubmit = async (itemsData: FormFields) => {
     const zakatAmount = calculateZakat(Number(itemsData.amount));
+    const zakatCalData = {
+      value: zakatAmount | 0,
+    };
 
     const itemData = {
       item: itemsData.item,
@@ -74,7 +75,7 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = () => {
     try {
       // const response = await createItem(formData);
       dispatch(addItems(itemData));
-      dispatch(zakatCal(zakatAmount));
+      dispatch(zakatCal(zakatCalData));
 
       form.reset();
 
@@ -96,6 +97,8 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = () => {
     if (form.watch('amount')) {
       const zakat = calculateZakat(Number(form.watch('amount')));
       setPayableAmount(zakat);
+    } else {
+      setPayableAmount(null);
     }
   }, [form.watch('amount')]);
 
@@ -168,7 +171,7 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = () => {
                           type="text"
                           id="amount"
                           aria-label="amount"
-                          placeholder=""
+                          placeholder="Enter amount"
                           className="bg-inputBg rounded-lg h-[45px] border-inputBorder py-1.5 text-black"
                           error={!!form.formState.errors.amount}
                           data-cy="amount"
