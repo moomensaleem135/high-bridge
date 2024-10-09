@@ -23,12 +23,15 @@ import Spinner from '@/components/common/Spinner';
 import { profileData } from '@/store/features/setup/setupSlice';
 import IslamicCalendar from '@/components/ui/islamic-calendar';
 import ReligionDropdown from './religionDropdown';
+import Calendar from '@/components/common/calendar';
+import { handleDateChange } from '@/lib/helpers';
+import moment from 'moment';
 
 interface ProfileSetupProps {}
 
 const ProfileSetupSchema = z.object({
   year: z.string().min(1, { message: 'Year is required' }),
-  startDate: z.string().min(1, { message: 'Start date is required' }),
+  startDate: z.string().min(0, { message: 'Start date is required' }),
   religion: z.string().min(1, { message: 'Religion is required' }),
 });
 
@@ -41,6 +44,7 @@ const ProfileSetup: React.FC<ProfileSetupProps> = () => {
   const [startDate, setStartDate] = useState<string>('');
   const [endDate, setEndDate] = useState<string>('');
   const [show, setShow] = React.useState<boolean>(false);
+  const [selectedDate, setSelectedDate] = useState<string | null>(null);
 
   const dispatch = useDispatch();
 
@@ -56,27 +60,33 @@ const ProfileSetup: React.FC<ProfileSetupProps> = () => {
   const onYearChange = (yearVal: string) => {
     form.setValue('year', yearVal);
     setYear(yearVal);
+    form.trigger('year');
   };
 
   const onReligionChange = (religionVal: string) => {
     form.setValue('religion', religionVal);
+    form.trigger('religion');
   };
 
   const onSubmit = async (setupData: FormFields) => {
-    const formData = new FormData();
-    console.log(formData);
+    const finalStartDate = setupData.startDate || startDate;
 
-    Object.keys(setupData).forEach((key) => {
-      const value = setupData[key as keyof FormFields];
-      console.log(value);
+    const formData = new FormData();
+
+    const submissionData = {
+      ...setupData,
+      startDate: finalStartDate,
+    };
+
+    Object.keys(submissionData).forEach((key) => {
+      const value = submissionData[key as keyof FormFields];
       if (value !== undefined && value !== null) {
-        formData.append(key, value as any); // Type assertion for `value` to `any`
+        formData.append(key, value as any);
       }
     });
 
     try {
-      // const response = await login(formData);
-      dispatch(profileData({ setupData }));
+      dispatch(profileData({ setupData: submissionData }));
       form.reset();
       setYear('');
       setStartDate('');
@@ -85,9 +95,10 @@ const ProfileSetup: React.FC<ProfileSetupProps> = () => {
       toast.custom((t) => (
         <CustomToast
           t={t}
-          title={`${setupData.year} ${setupData.religion} ${setupData.startDate} `}
+          title={`${submissionData.year} ${submissionData.religion} ${submissionData.startDate} `}
         />
       ));
+
       router.push('/signin');
     } catch (error) {
       console.error('Error creating event:', error);
@@ -185,64 +196,25 @@ const ProfileSetup: React.FC<ProfileSetupProps> = () => {
               <div className="col-span-12 w-full">
                 <Label>Which date to pay Zakat?</Label>
               </div>
-              {year === 'lunar' ? (
-                <div
-                  className="col-span-6 w-full"
-                  onFocus={() => setShow(true)}
-                >
-                  <Controller
-                    name="startDate"
-                    control={form.control}
-                    render={({ field }) => (
-                      <IslamicCalendar
-                        initialValue={field.value}
-                        setStartDate={setStartDate}
-                        onDateChange={(date) => {
-                          field.onChange(date);
-                        }}
-                        show={show}
-                        isEndDate={false}
-                        setShow={setShow}
-                      />
-                    )}
-                  />
-                  {form.formState.errors.startDate && (
-                    <span className="text-destructive text-sm flex items-center gap-1 mt-2">
-                      <ErrorIcon />
-                      {form.formState.errors.startDate.message}
-                    </span>
+              <div className="col-span-6 w-full" onFocus={() => setShow(true)}>
+                <Controller
+                  name="startDate"
+                  control={form.control}
+                  render={({ field }) => (
+                    <Calendar
+                      year={year}
+                      onDateChange={(date) => {
+                        handleDateChange(
+                          date,
+                          year,
+                          setSelectedDate,
+                          setStartDate
+                        );
+                      }}
+                    />
                   )}
-                </div>
-              ) : (
-                <div
-                  className="col-span-6 w-full"
-                  onFocus={() => setShow(true)}
-                >
-                  <Controller
-                    name="startDate"
-                    control={form.control}
-                    render={({ field }) => (
-                      <DatePicker
-                        initialValue={field.value}
-                        setStartDate={setStartDate}
-                        onDateChange={(date) => {
-                          field.onChange(date);
-                        }}
-                        show={show}
-                        isEndDate={false}
-                        year={year}
-                        setShow={setShow}
-                      />
-                    )}
-                  />
-                  {form.formState.errors.startDate && (
-                    <span className="text-destructive text-sm flex items-center gap-1 mt-2">
-                      <ErrorIcon />
-                      {form.formState.errors.startDate.message}
-                    </span>
-                  )}
-                </div>
-              )}
+                />
+              </div>
             </div>
           </div>
 

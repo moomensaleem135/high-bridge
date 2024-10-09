@@ -1,3 +1,6 @@
+import moment from 'moment-hijri';
+import { Dispatch, SetStateAction } from 'react';
+
 export const getRandomInt = (min: number = 1, max: number = 10000000) => {
   min = Math.ceil(min);
   max = Math.floor(max);
@@ -91,4 +94,55 @@ export function formatDate(dateString: string) {
 
 export const calculateZakat = (amount: number) => {
   return (amount * 2.5) / 100; // 2.5% of the total amount
+};
+
+export const formatHijriDate = (date: moment.Moment): string => {
+  const day = date.iDate().toString().padStart(2, '0');
+  const month = date.iMonth() + 1;
+  const year = date.iYear();
+  const hijriMonths: string[] = [
+    'Muharram',
+    'Safar',
+    "Rabi' al-Awwal",
+    "Rabi' al-Thani",
+    'Jumada al-Awwal',
+    'Jumada al-Thani',
+    'Rajab',
+    "Sha'ban",
+    'Ramadan',
+    'Shawwal',
+    "Dhul-Qi'dah",
+    'Dhul-Hijjah',
+  ];
+  const monthName = hijriMonths[month - 1];
+  return `${day} ${monthName} ${year}`;
+};
+
+export const handleDateChange = (
+  date: Date,
+  calendarType: string,
+  setSelectedDate: Dispatch<SetStateAction<string | null>>,
+  setStartDate: Dispatch<SetStateAction<string>>
+) => {
+  const momentDate = moment(date); // Convert to moment date for handling
+
+  // Format dates based on the selected calendar type
+  const selectedDateFormatted =
+    calendarType === 'solar'
+      ? momentDate.format('DD MMMM YYYY') // Format Gregorian date
+      : formatHijriDate(momentDate); // Format Hijri date
+
+  // Calculate start date (1 year before)
+  const startDateMoment =
+    calendarType === 'solar'
+      ? momentDate.subtract(1, 'years') // Subtract 1 Gregorian year
+      : momentDate.subtract(1, 'iYear'); // Subtract 1 Hijri year
+
+  const startDateFormatted =
+    calendarType === 'solar'
+      ? startDateMoment.format('DD MMMM YYYY') // Format Gregorian date
+      : formatHijriDate(startDateMoment); // Format Hijri date
+
+  setSelectedDate(selectedDateFormatted);
+  setStartDate(startDateFormatted);
 };

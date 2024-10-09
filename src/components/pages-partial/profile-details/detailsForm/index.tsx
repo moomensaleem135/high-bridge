@@ -29,8 +29,9 @@ import CustomToast from '@/components/common/CustomToast';
 import { addItemssUrl } from '@/configs/constants';
 import { addItems } from '@/store/features/items/golditemsSlice';
 
-import Calendar from './calendar';
+import Calendar from '../../../common/calendar';
 import ReligionDropdown from '../../profilesetup/profile-setupform/religionDropdown';
+import { handleDateChange } from '@/lib/helpers';
 
 interface ProfileDetailsProps {}
 
@@ -39,28 +40,6 @@ const ProfileDetailsSchema = z.object({
   religion: z.string().min(1, { message: 'Religion is required' }),
   startDate: z.string().min(1, { message: 'Start date is required' }),
 });
-
-const formatHijriDate = (date: moment.Moment): string => {
-  const day = date.iDate().toString().padStart(2, '0');
-  const month = date.iMonth() + 1;
-  const year = date.iYear();
-  const hijriMonths: string[] = [
-    'Muharram',
-    'Safar',
-    "Rabi' al-Awwal",
-    "Rabi' al-Thani",
-    'Jumada al-Awwal',
-    'Jumada al-Thani',
-    'Rajab',
-    "Sha'ban",
-    'Ramadan',
-    'Shawwal',
-    "Dhul-Qi'dah",
-    'Dhul-Hijjah',
-  ];
-  const monthName = hijriMonths[month - 1];
-  return `${day} ${monthName} ${year}`;
-};
 
 type FormFields = z.infer<typeof ProfileDetailsSchema>;
 
@@ -140,32 +119,6 @@ const ProfileDetailsForm: React.FC<ProfileDetailsProps> = () => {
   //   setStartDate(startDateFormatted);
   // };
 
-  const handleDateChange = (date: Date, calendarType: string) => {
-    const momentDate = moment(date); // Convert to moment date for handling
-
-    // Format dates based on the selected calendar type
-    const selectedDateFormatted =
-      calendarType === 'solar'
-        ? momentDate.format('DD MMMM YYYY') // Format Gregorian date
-        : formatHijriDate(momentDate); // Format Hijri date
-
-    // Calculate start date (1 year before)
-    const startDateMoment =
-      calendarType === 'solar'
-        ? momentDate.subtract(1, 'years') // Subtract 1 Gregorian year
-        : momentDate.subtract(1, 'iYear'); // Subtract 1 Hijri year
-
-    const startDateFormatted =
-      calendarType === 'solar'
-        ? startDateMoment.format('DD MMMM YYYY') // Format Gregorian date
-        : formatHijriDate(startDateMoment); // Format Hijri date
-    console.log(startDateFormatted);
-    console.log(selectedDateFormatted);
-
-    setSelectedDate(selectedDateFormatted);
-    setStartDate(startDateFormatted);
-  };
-
   return (
     <div className="flex flex-col w-full max-w-[950px] justify-center items-center gap-12 rounded-3xl mt-6">
       <Form {...form}>
@@ -243,7 +196,14 @@ const ProfileDetailsForm: React.FC<ProfileDetailsProps> = () => {
                       render={({ field }) => (
                         <Calendar
                           year={year}
-                          onDateChange={(date) => handleDateChange(date, year)}
+                          onDateChange={(date) =>
+                            handleDateChange(
+                              date,
+                              year,
+                              setSelectedDate,
+                              setStartDate
+                            )
+                          }
                         />
                       )}
                     />
