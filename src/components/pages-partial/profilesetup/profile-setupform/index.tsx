@@ -222,6 +222,16 @@ const ProfileSetup: React.FC<ProfileSetupProps> = () => {
                   </span>
                 )}
               </div>
+              <div  className='font-light text-xs'>
+                {startDate && selectedDate && (
+                  <>
+                    The Zakat period starts on{' '}
+                    <span className="font-semibold">{startDate}</span> and ends
+                    on <span className="font-semibold">{selectedDate}</span> of
+                    the following year.
+                  </>
+                )}
+              </div>
             </div>
           </div>
 

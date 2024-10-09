@@ -36,7 +36,7 @@ const CalendarDropdown: React.FC<CalendarDropdownProps> = ({
   return (
     <Select onValueChange={handleChange} value={selectedYear}>
       <SelectTrigger>
-        <SelectValue placeholder="Select year" />
+        <SelectValue placeholder="Select calendar" />
       </SelectTrigger>
       <SelectContent>
         <SelectGroup>

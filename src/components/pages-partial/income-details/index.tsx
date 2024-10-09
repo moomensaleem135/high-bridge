@@ -74,7 +74,7 @@ export default function PartialIncome() {
             </section>
             <div className="flex flex-col justify-evenly items-center w-full gap-5 ">
               <hr className="w-full max-lg:w-[75%] border-[1px] border-solid border-underline" />
-              <div className="flex flex-row justify-between items-center w-full max-lg:w-[70%] ">
+              <div className="flex flex-row justify-between items-center w-full max-lg:w-[70%] pb-4">
                 <Link
                   className="flex justify-start items-center "
                   href={''}
