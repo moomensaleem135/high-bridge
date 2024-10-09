@@ -29,8 +29,9 @@ import CustomToast from '@/components/common/CustomToast';
 import { addItemssUrl } from '@/configs/constants';
 import { addItems } from '@/store/features/items/golditemsSlice';
 
-import Calendar from './calendar';
+import Calendar from '../../../common/calendar';
 import ReligionDropdown from '../../profilesetup/profile-setupform/religionDropdown';
+import { handleDateChange } from '@/lib/helpers';
 
 interface ProfileDetailsProps {}
 
@@ -52,6 +53,7 @@ const ProfileDetailsForm: React.FC<ProfileDetailsProps> = () => {
     date: new Date(years, month - 1, day),
     calendar: hijri,
   });
+
   console.log('islamic date', hijriDate);
   console.log('converted value', value);
   console.log(selector);
@@ -106,14 +108,16 @@ const ProfileDetailsForm: React.FC<ProfileDetailsProps> = () => {
     }
   };
 
-  const handleDateChange = (date: Date) => {
-    const selectedDateFormatted = date.toDateString();
-    const startDateFormatted = new Date(
-      date.setFullYear(date.getFullYear() - 1)
-    ).toDateString();
-    setSelectedDate(selectedDateFormatted);
-    setStartDate(startDateFormatted);
-  };
+  // const handleDateChange = (date: Date) => {
+  //   console.log(date);
+
+  //   const selectedDateFormatted = date.toDateString();
+  //   const startDateFormatted = new Date(
+  //     date.setFullYear(date.getFullYear() - 1)
+  //   ).toDateString();
+  //   setSelectedDate(selectedDateFormatted);
+  //   setStartDate(startDateFormatted);
+  // };
 
   return (
     <div className="flex flex-col w-full max-w-[950px] justify-center items-center gap-12 rounded-3xl mt-6">
@@ -190,7 +194,17 @@ const ProfileDetailsForm: React.FC<ProfileDetailsProps> = () => {
                       name="startDate"
                       control={form.control}
                       render={({ field }) => (
-                        <Calendar year={year} onDateChange={handleDateChange} />
+                        <Calendar
+                          year={year}
+                          onDateChange={(date) =>
+                            handleDateChange(
+                              date,
+                              year,
+                              setSelectedDate,
+                              setStartDate
+                            )
+                          }
+                        />
                       )}
                     />
                   </div>

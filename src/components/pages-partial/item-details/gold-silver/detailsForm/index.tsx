@@ -27,17 +27,18 @@ import { addItems } from '@/store/features/items/golditemsSlice';
 import { zakatCal } from '@/store/features/zakat/zakatSlice';
 
 import Spinner from '@/components/common/Spinner';
+import { calculateZakat } from '@/lib/helpers';
 
 interface ItemDetailsProps {}
 
 const ItemDetailsSchema = z.object({
-  item: z.string().min(1, { message: 'purpose is required' }),
-  purpose: z.string().min(1, { message: 'purpose is required' }),
-  usage: z.string().min(0, { message: 'usage is required' }),
-  quality: z.string().min(1, { message: 'quality is required' }),
-  quantity: z.string().min(1, { message: 'quantity is required' }),
-  weight: z.string().min(1, { message: 'weight is required' }),
-  price: z.string().min(1, { message: 'price is required' }),
+  item: z.string().min(1, { message: 'Item is required' }),
+  purpose: z.string().min(1, { message: 'Purpose is required' }),
+  usage: z.string().min(0, { message: 'Usage is required' }),
+  quality: z.string().min(1, { message: 'Quality is required' }),
+  quantity: z.string().min(1, { message: 'Quantity is required' }),
+  weight: z.string().min(1, { message: 'Weight is required' }),
+  price: z.string().min(1, { message: 'Price is required' }),
 });
 
 type FormFields = z.infer<typeof ItemDetailsSchema>;
@@ -47,6 +48,7 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = () => {
   const router = useRouter();
   const religion = useSelector((state: any) => state.sect.sect);
   const income = useSelector((state: any) => state.income.income);
+  const [payableAmount, setPayableAmount] = React.useState<number | null>(null);
   const [item, setItem] = React.useState<string>('');
   const [reason, setReason] = React.useState<string>('');
   const [createItem, { isLoading }] = useCreateItemMutation();
@@ -58,14 +60,14 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = () => {
       purpose: '',
       usage: '',
       quality: '',
-      quantity: '',
+      quantity: 'Grams',
       weight: '',
       price: '',
     },
   });
 
   const onSubmit = async (itemsData: FormFields) => {
-    console.log('in submit');
+    const zakatAmount = calculateZakat(Number(itemsData.price));
 
     const usage = itemsData.usage ? itemsData.usage : '';
     console.log(usage);
@@ -85,6 +87,7 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = () => {
     const zakatCalData = {
       quantity: itemsData.quantity,
       weight: itemsData.weight,
+      value: zakatAmount | 0,
     };
 
     const formData = new FormData();
@@ -118,9 +121,16 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = () => {
     }
   };
 
+  React.useEffect(() => {}, [item]);
+
   React.useEffect(() => {
-    console.log(item);
-  }, [item]);
+    if (form.watch('price').length > 0) {
+      const zakat = calculateZakat(Number(form.watch('price')));
+      setPayableAmount(zakat);
+    } else {
+      setPayableAmount(null);
+    }
+  }, [form.watch('price')]);
 
   return (
     <div className="flex flex-col w-full max-w-[960px] justify-center items-center gap-12 rounded-3xl mt-6">
@@ -350,7 +360,11 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = () => {
             <span className="font-medium text-xl">
               Your payable zakat for this item is:
             </span>
-            <span className="font-semibold text-2xl text-zakatText">$0.00</span>
+            <span className="font-semibold text-2xl text-zakatText">
+              {payableAmount !== null
+                ? `$${payableAmount.toFixed(2)}`
+                : '$0.00'}
+            </span>
           </div>
 
           <div className="flex flex-col justify-evenly items-center w-full gap-5">
