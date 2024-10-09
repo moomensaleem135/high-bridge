@@ -1,8 +1,8 @@
 import React from 'react';
-import PartialReviews from '@/components/pages-partial/reviews';
+import PartialPayZakat from '@/components/pages-partial/pay-zakat';
 
 const PayZakatPage = () => {
-  return <PartialReviews />;
+  return <PartialPayZakat />;
 };
 
 export default PayZakatPage;

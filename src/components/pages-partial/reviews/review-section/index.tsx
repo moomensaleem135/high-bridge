@@ -52,11 +52,11 @@ const ZakatCard = () => {
       {categorizedItems.personal &&
         Object.keys(categorizedItems.personal).length > 0 && (
           <div>
-            <h2 className="font-medium text-2xl mb-2">Personal Property</h2>
+            <h2 className="font-medium text-2xl mb-2">Personal Property:</h2>
             {Object.keys(categorizedItems.personal).map((incomeKey) => (
               <div
                 key={incomeKey}
-                className="p-5 bg-cardbg rounded-xl border-cardBorder border-[1px] mb-4"
+                className="p-4 bg-cardbg rounded-xl border-cardBorder border-[1px] mb-4"
               >
                 <div className="font-medium text-2xl flex gap-2">
                   {incomeKey}
@@ -101,7 +101,7 @@ const ZakatCard = () => {
       {categorizedItems.commercial &&
         Object.keys(categorizedItems.commercial).length > 0 && (
           <div>
-            <h2 className="font-medium text-2xl mb-2">Commercial Property</h2>
+            <h2 className="font-medium text-2xl mb-2">Commercial Property:</h2>
             {Object.keys(categorizedItems.commercial).map((incomeKey) => (
               <div
                 key={incomeKey}
