@@ -29,11 +29,13 @@ export interface IEvent {
 interface IItems {
   income: string;
   religion: string;
-  type: string;
+  item: string;
   purpose: string;
   usage: string;
   quality: string;
   weight: string;
+  price: string
+  quantity : string
 }
 
 export interface GoldIItems extends IItems {
@@ -62,9 +64,10 @@ export interface ISetup {
 }
 
 export interface IZakat {
-  quantity: number;
-  weight: string;
-  value: number;
+  id: string,
+  quantity?: number;
+  weight?: string;
+  value?: number;
 }
 
 export interface ITimezone {

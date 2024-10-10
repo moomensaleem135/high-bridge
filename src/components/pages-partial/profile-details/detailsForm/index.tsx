@@ -39,8 +39,8 @@ import { handleDateChange } from '@/lib/helpers';
 interface ProfileDetailsProps {}
 
 const ProfileDetailsSchema = z.object({
-  year: z.string().min(1, { message: 'Year is required' }),
-  religion: z.string().min(1, { message: 'Religion is required' }),
+  year: z.string().min(0, { message: 'Year is required' }),
+  religion: z.string().min(0, { message: 'Religion is required' }),
   startDate: z.string().min(0, { message: 'Start date is required' }),
 });
 
@@ -50,15 +50,19 @@ const ProfileDetailsForm: React.FC<ProfileDetailsProps> = () => {
   const dispatch = useDispatch();
   const selector = useSelector((state: any) => state.setup.setup);
   const date = selector.startDate;
+  let hijriDate;
+  let value;
   console.log('date', date);
   console.log(typeof date);
 
-  const hijriDate = moment(date).format('iYYYY iM iD');
-  const [years, month, day] = hijriDate.split(' ').map(Number);
-  const value = new DateObject({
-    date: new Date(years, month - 1, day),
-    calendar: hijri,
-  });
+  if (selector.year === 'lunar') {
+    hijriDate = moment(date).format('iYYYY iM iD');
+    const [years, month, day] = hijriDate.split(' ').map(Number);
+    value = new DateObject({
+      date: new Date(years, month - 1, day),
+      calendar: hijri,
+    });
+  }
 
   console.log('islamic date', hijriDate);
   console.log('converted value', value);
@@ -94,6 +98,10 @@ const ProfileDetailsForm: React.FC<ProfileDetailsProps> = () => {
 
   const onSubmit = async (setupData: FormFields) => {
     const finalStartDate = setupData.startDate || startDate;
+    console.log(selector);
+    console.log(setupData.religion);
+    console.log(setupData.year);
+    console.log(startDate);
 
     const formData = new FormData();
 
@@ -101,6 +109,16 @@ const ProfileDetailsForm: React.FC<ProfileDetailsProps> = () => {
       ...setupData,
       startDate: finalStartDate,
     };
+
+    if (
+      selector.religion === submissionData.religion &&
+      selector.year === submissionData.year &&
+      selector.startDate === submissionData.startDate
+    ) {
+      console.log('in same values');
+    }
+
+    console.log('submit data', submissionData);
 
     Object.keys(submissionData).forEach((key) => {
       const value = submissionData[key as keyof FormFields];
@@ -111,9 +129,6 @@ const ProfileDetailsForm: React.FC<ProfileDetailsProps> = () => {
 
     try {
       dispatch(profileData({ setupData: submissionData }));
-      form.reset();
-      setYear('');
-      setStartDate('');
 
       toast.custom((t) => (
         <CustomToast

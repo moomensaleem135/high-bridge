@@ -21,9 +21,14 @@ const TopNavbar = ({
   setCollapseNav,
 }: ITopNavbar) => {
   const selector = useSelector((state: any) => state.setup.setup);
-  const zakatVal = useSelector((state: any) => state.zakat.zakat.value);
+  const zakatVal = useSelector((state: any) => state.zakat.zakat);
+  console.log(zakatVal);
   const selectedDate = formatDate(selector.startDate);
   const router = useRouter();
+
+  const totalZakatValue = zakatVal.reduce((total: any, entry: any) => {
+    return total + (entry.value || 0); // Add value of each entry, default to 0 if undefined
+  }, 0);
 
   return (
     <div className="px-2 min-h-[70px] xs:min-h-[45px] sm:min-h-[70px] flex w-full items-center justify-between xs:hidden lg:flex">
@@ -54,7 +59,7 @@ const TopNavbar = ({
                 router.push(reviewZakatUrl);
               }}
             >
-              {`$${zakatVal}`}
+              {`$${totalZakatValue.toFixed(2)}`}
             </span>
           </span>
         </div>
@@ -71,7 +76,7 @@ const TopNavbar = ({
                 <span>10 October 2024</span>
               )}
             </span>
-            <span className="font-medium text-[8px]">
+            <span className="font-medium text-[10px]">
               {selector.year === 'lunar' ? `(${selector.generic})` : ''}
             </span>
           </div>

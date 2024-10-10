@@ -24,11 +24,13 @@ import { useCreateItemMutation } from '@/store/features/items/itemsApi';
 import CustomToast from '@/components/common/CustomToast';
 import { addItemssUrl } from '@/configs/constants';
 import { addItems } from '@/store/features/items/golditemsSlice';
+import { updateItem } from '@/store/features/items/golditemsSlice';
 import { zakatCal } from '@/store/features/zakat/zakatSlice';
 
 import Spinner from '@/components/common/Spinner';
 import { calculateZakat } from '@/lib/helpers';
 import { GoldItem } from '@/components/pages-partial/add-items/item-section/table';
+import { editZakat } from '@/store/features/zakat/zakatSlice';
 import { GoldIItems } from '@/lib/types';
 
 interface ItemDetailsProps {}
@@ -51,6 +53,7 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = () => {
   const params = useParams();
   const searchparams = useSearchParams();
   const id = searchparams.get('id');
+
   const religion = useSelector((state: any) => state.sect.sect);
   const items: GoldIItems[] =
     useSelector((state: any) => state.items.items) || [];
@@ -73,33 +76,39 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = () => {
     },
   });
 
-  // useEffect(() => {
-  //   console.log(id);
-  //   if (id) {
-  //     const data = items.filter((item) => item.goldId === id);
-  //     console.log(data, items);
-  //     setItem(data[0].item as string);
-  //     setReason(data[0].purpose);
-  //     form.reset({
-  //       item: data[0].item,
-  //       price: data[0].price,
-  //       weight: data[0].weight,
-  //       quantity: data[0].quantity,
-  //       quality: data[0].quality,
-  //       usage: data[0].usage,
-  //       purpose: data[0].purpose,
-  //     });
-  //     console.log({ data: form.getValues() });
-  //   }
-  // }, [id]);
+  useEffect(() => {
+    console.log(id);
+    if (id) {
+      const data = items.filter((item) => item.goldId === id);
+      console.log('in use effect', data, items);
+      setItem(data[0].item as string);
+      setReason(data[0].purpose);
+      form.reset({
+        item: data[0].item,
+        price: data[0].price,
+        weight: data[0].weight,
+        quantity: data[0].quantity,
+        quality: data[0].quality,
+        usage: data[0].usage,
+        purpose: data[0].purpose,
+      });
+      console.log({ data: form.getValues() });
+    }
+  }, [id]);
 
   const onSubmit = async (itemsData: FormFields) => {
     const zakatAmount = calculateZakat(Number(itemsData.price));
+    let goldId;
 
     const usage = itemsData.usage ? itemsData.usage : '';
     console.log(usage);
 
-    const goldId = `gold-${Date.now()}`;
+    if (!id) {
+      console.log('in to set id');
+      goldId = `gold-${Date.now()}`;
+    } else {
+      goldId = id;
+    }
 
     const itemData = {
       item: itemsData.item,
@@ -116,9 +125,10 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = () => {
     };
 
     const zakatCalData = {
+      id: goldId,
       quantity: itemsData.quantity,
       weight: itemsData.weight,
-      value: zakatAmount | 0,
+      value: zakatAmount || 0,
     };
 
     const formData = new FormData();
@@ -133,8 +143,13 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = () => {
 
     try {
       // const response = await createItem(formData);
-      dispatch(addItems(itemData));
-      dispatch(zakatCal(zakatCalData));
+      if (id) {
+        dispatch(updateItem(itemData));
+        dispatch(editZakat(zakatCalData));
+      } else {
+        dispatch(addItems(itemData));
+        dispatch(zakatCal(zakatCalData));
+      }
 
       form.reset();
 
@@ -415,10 +430,15 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = () => {
                 <ArrowLeftIcon />
                 Back
               </Link>
-
-              <Button className="bg-detailsBtn text-btnText font-normal hover:bg-btnHover">
-                Add Item
-              </Button>
+              {id ? (
+                <Button className="bg-detailsBtn text-btnText font-normal hover:bg-btnHover">
+                  Update Item
+                </Button>
+              ) : (
+                <Button className="bg-detailsBtn text-btnText font-normal hover:bg-btnHover">
+                  Add Item
+                </Button>
+              )}
             </div>
           </div>
         </form>

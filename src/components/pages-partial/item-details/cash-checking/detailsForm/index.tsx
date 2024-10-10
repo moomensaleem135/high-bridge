@@ -2,7 +2,7 @@
 import React from 'react';
 import { useDispatch, UseDispatch, useSelector } from 'react-redux';
 import { useForm, Controller } from 'react-hook-form';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { z } from 'zod';
 import Link from 'next/link';
 import toast from 'react-hot-toast';
@@ -21,9 +21,12 @@ import { useCreateItemMutation } from '@/store/features/items/itemsApi';
 import CustomToast from '@/components/common/CustomToast';
 import { addCashItems } from '@/store/features/cash-items/cashSlice';
 import { zakatCal } from '@/store/features/zakat/zakatSlice';
+import { updateCashItem } from '@/store/features/cash-items/cashSlice';
+import { editZakat } from '@/store/features/zakat/zakatSlice';
 
 import Spinner from '@/components/common/Spinner';
 import { calculateZakat } from '@/lib/helpers';
+import { CashIItems } from '@/lib/types';
 
 interface ItemDetailsProps {}
 
@@ -37,6 +40,9 @@ type FormFields = z.infer<typeof ItemDetailsSchema>;
 const ItemDetailsForm: React.FC<ItemDetailsProps> = () => {
   const dispatch = useDispatch();
   const router = useRouter();
+  const searchparams = useSearchParams();
+  const id = searchparams.get('id');
+  const cash: CashIItems[] = useSelector((state: any) => state.cash.cash) || [];
   const religion = useSelector((state: any) => state.sect.sect);
   const income = useSelector((state: any) => state.income.income);
   const [item, setItem] = React.useState<string>('');
@@ -52,14 +58,35 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = () => {
     },
   });
 
+  React.useEffect(() => {
+    console.log(id);
+    if (id) {
+      const data = cash.filter((item) => item.cashId === id);
+      console.log('in use effect', data, cash);
+      form.reset({
+        item: data[0].item,
+        quantity: data[0].quantity,
+      });
+      console.log({ data: form.getValues() });
+    }
+  }, [id]);
+
   const onSubmit = async (itemsData: FormFields) => {
     const zakatAmount = calculateZakat(Number(itemsData.quantity));
-    const zakatCalData = {
-      value: zakatAmount || 0, // Use logical OR for fallback
-    };
+    let cashId;
 
     // Generate a unique goldId (using Date.now for simplicity, you might want to use a better method)
-    const cashId = `cash-${Date.now()}`;
+    if (!id) {
+      console.log('in to set id');
+      cashId = `cash-${Date.now()}`;
+    } else {
+      cashId = id;
+    }
+
+    const zakatCalData = {
+      id: cashId,
+      value: zakatAmount || 0, // Use logical OR for fallback
+    };
 
     const itemData = {
       item: itemsData.item,
@@ -81,8 +108,13 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = () => {
 
     try {
       // const response = await createItem(formData); // Uncomment if needed
-      dispatch(addCashItems(itemData));
-      dispatch(zakatCal(zakatCalData));
+      if (id) {
+        dispatch(updateCashItem(itemData));
+        dispatch(editZakat(zakatCalData));
+      } else {
+        dispatch(addCashItems(itemData));
+        dispatch(zakatCal(zakatCalData));
+      }
 
       form.reset();
 
@@ -220,10 +252,15 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = () => {
                 <ArrowLeftIcon />
                 Back
               </Link>
-
-              <Button className="bg-detailsBtn text-btnText font-normal hover:bg-btnHover">
-                Add Item
-              </Button>
+              {id ? (
+                <Button className="bg-detailsBtn text-btnText font-normal hover:bg-btnHover">
+                  Update Item
+                </Button>
+              ) : (
+                <Button className="bg-detailsBtn text-btnText font-normal hover:bg-btnHover">
+                  Add Item
+                </Button>
+              )}
             </div>
           </div>
         </form>

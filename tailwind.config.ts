@@ -27,6 +27,7 @@ const config: Config = {
       // => @media (min-width: 1440px) { ... }
     },
     extend: {
+      
       colors: {
         'custom-gray': 'rgba(102, 102, 102, 0.35)',
         bodyColor: 'var(--body)',
@@ -114,6 +115,7 @@ const config: Config = {
         event: {
           heading: 'var(--event-heading)',
         },
+        
       },
       animation: {
         first: 'moveVertical 30s ease infinite',
@@ -122,6 +124,7 @@ const config: Config = {
         fourth: 'moveHorizontal 40s ease infinite',
         fifth: 'moveInCircle 20s ease infinite',
       },
+      
       keyframes: {
         moveHorizontal: {
           '0%': {

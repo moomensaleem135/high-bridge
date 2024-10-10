@@ -100,18 +100,18 @@ const ZakatCard = () => {
                       className="flex flex-col justify-start items-center gap-2 pl-7 pr-7 pt-1 pb-1 bg-white rounded border border-gray-300 w-full mt-2"
                     >
                       <div className="flex justify-between items-center w-full h-10">
-                        <h2 className="text-cardHeading font-normal text-base text-start text-nowrap w-20">
+                        <h2 className="text-cardHeading font-normal text-base text-start text-nowrap w-20 flex-1">
                           {item.item}
                         </h2>
-                        <span className="text-center font-normal text-base text-cardText text-wrap line-clamp-3 w-44">
+                        <span className="text-center font-normal text-base text-cardText text-wrap line-clamp-3 flex-1">
                           {item.quality}, {item.weight} {item.quantity}
                         </span>
-                        <span className="font-medium text-base text-zakatText w-20">
+                        <span className="font-medium text-base text-zakatText w-20 flex-1 text-center">
                           ${item.zakat}
                         </span>
                         <Link
                           href={'/income/income-details/add-items'}
-                          className="flex justify-center items-center"
+                          className="flex justify-end items-center flex-1"
                         >
                           <Button
                             className="bg-black text-white font-medium text-xs hover:bg-[#5e5f5d] h-8 p-3"
@@ -146,18 +146,18 @@ const ZakatCard = () => {
                       className="flex flex-col justify-start items-center gap-2 pl-7 pr-7 pt-1 pb-1 bg-white rounded border border-gray-300 w-full mt-2"
                     >
                       <div className="flex justify-between items-center w-full h-10">
-                        <h2 className="text-cardHeading font-normal text-base text-start text-nowrap w-20">
+                        <h2 className="text-cardHeading font-normal text-base text-start text-nowrap w-20 flex-1">
                           {item.item}
                         </h2>
-                        <span className="text-center font-normal text-base text-cardText text-wrap line-clamp-3 w-44">
+                        <span className="text-center font-normal text-base text-cardText text-wrap line-clamp-3 w-fit-content flex-1">
                           ${item.quantity}.00
                         </span>
-                        <span className="font-medium text-base text-zakatText w-20">
+                        <span className="font-medium text-base text-zakatText w-20 flex-1 text-center">
                           ${item.zakat}
                         </span>
                         <Link
                           href={'/income/income-details/add-items'}
-                          className="flex justify-center items-center"
+                          className="flex justify-end items-center flex-1"
                         >
                           <Button
                             className="bg-black text-white font-medium text-xs hover:bg-[#5e5f5d] h-8 p-3"

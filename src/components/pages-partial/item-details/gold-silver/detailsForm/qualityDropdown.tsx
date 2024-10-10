@@ -29,8 +29,11 @@ const QualityDropdown: React.FC<QualityDropdownProps> = ({
   }, [item]);
 
   React.useEffect(() => {
+    console.log('in use effect of initial value');
     if (initialValue !== '') {
+      console.log('in use effect of initial value');
       setSelectedQuality(initialValue);
+      handleChange(initialValue);
     }
   }, [initialValue]);
 

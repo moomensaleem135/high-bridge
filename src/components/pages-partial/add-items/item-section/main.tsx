@@ -12,7 +12,7 @@ const MainSection = () => {
   return (
     <div className="flex flex-col self-stretch w-[75%] max-w-[850px] bg-tableBg border-[1px] border-tableBorder rounded-lg ">
       <div className="flex justify-between items-center w-full pt-3 pb-3 pl-4 pr-4">
-        <span>
+        <span className="font-medium text-lg">
           {income ? income : 'Gold & Silver'} ({selector ? selector : 'Hanafi'})
         </span>
         <div

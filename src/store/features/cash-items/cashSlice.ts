@@ -34,9 +34,24 @@ const cashitemSlice = createSlice({
 
       }
     },
+    updateCashItem: (state, action) => {
+      console.log('in update cash item');
+      console.log('payload', action.payload);
+      console.log('id', action.payload.cashId);
+      console.log('Current State:', JSON.stringify(state.cash, null, 2));
+
+      if (state.cash) {
+        const index = state.cash.findIndex((item) => item.cashId === action.payload.cashId);
+        console.log('index', index);
+        if (index !== -1) {
+          // Update the existing item with the new data
+          state.cash[index] = { ...state.cash[index], ...action.payload };
+        }
+      }
+    },
   },
 });
 
-export const { addCashItems, deleteCashItem } = cashitemSlice.actions;
+export const { addCashItems, deleteCashItem, updateCashItem } = cashitemSlice.actions;
 
 export default cashitemSlice.reducer;
