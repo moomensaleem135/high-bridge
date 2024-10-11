@@ -43,6 +43,7 @@ const ProfileSetup: React.FC<ProfileSetupProps> = () => {
   const [login, { isLoading }] = useCreateEventMutation();
   const [year, setYear] = useState<string>('');
   const [startDate, setStartDate] = useState<string>('');
+  const [genericDate, setGenericDate] = useState<string>('');
   const [endDate, setEndDate] = useState<string>('');
   const [show, setShow] = React.useState<boolean>(false);
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
@@ -70,7 +71,7 @@ const ProfileSetup: React.FC<ProfileSetupProps> = () => {
   };
 
   const onSubmit = async (setupData: FormFields) => {
-    const finalStartDate = setupData.startDate || startDate;
+    const finalStartDate = setupData.startDate || selectedDate;
 
     const formData = new FormData();
 
@@ -91,7 +92,6 @@ const ProfileSetup: React.FC<ProfileSetupProps> = () => {
       form.reset();
       setYear('');
       setStartDate('');
-      setEndDate('');
 
       toast.custom((t) => (
         <CustomToast
@@ -222,13 +222,13 @@ const ProfileSetup: React.FC<ProfileSetupProps> = () => {
                   </span>
                 )}
               </div>
-              <div  className='font-light text-xs'>
-                {startDate && selectedDate && (
+              <div className="font-light text-xs">
+                {selectedDate && startDate && (
                   <>
                     The Zakat period starts on{' '}
-                    <span className="font-semibold">{startDate}</span> and ends
-                    on <span className="font-semibold">{selectedDate}</span> of
-                    the following year.
+                    <span className="font-semibold">{selectedDate}</span> and
+                    ends on <span className="font-semibold">{startDate}</span>{' '}
+                    of the following year.
                   </>
                 )}
               </div>

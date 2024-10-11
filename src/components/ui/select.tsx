@@ -104,7 +104,7 @@ const SelectItem = React.forwardRef<
       <CheckboxDropdown
         checked={isChecked}
         //onCheckedChange={handleServerCheck}
-        className="absolute left-2 flex w-4 h-4 my-[0.1rem] items-center justify-center rounded-sm border-[#a8adb3]" // Optional custom class
+        className="absolute left-2 flex w-4 h-4 my-[0.1rem] items-center justify-center rounded-sm border-black" // Optional custom class
       />
       <SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText>
     </div>

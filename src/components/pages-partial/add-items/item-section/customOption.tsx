@@ -56,15 +56,15 @@ const CustomOptions: React.FC<CustomOptionsProps> = ({
   onDelete,
 }) => {
   return (
-    <div className="flex justify-center items-center xl:gap-1 mt-1.5 w-50 gap-5">
+    <div className="flex justify-center items-center gap-1 mt-1.5 w-50 ">
       <div
         className="flex justify-evenly items-center bg-white gap-1 pl-1.5 pr-1.5 pt-0.5 pb-0.5 rounded border-[#DFE3E6] border-[1px] cursor-pointer hover:bg-zakatText hover:border-[#DFE3E6] hover:text-white"
         onClick={() => onEdit(id)}
       >
         <button aria-label="Edit" className="flex items-center">
-          <EditIcon className="transition-colors" />
+          <EditIcon className="transition-colors xs:w-10 xl:w-5" />
         </button>
-        <span className="text-sm font-normal xs:hidden xl:block">Edit</span>
+        <span className="text-xs font-normal xs:hidden xl:block">Edit</span>
       </div>
 
       <div
@@ -72,9 +72,9 @@ const CustomOptions: React.FC<CustomOptionsProps> = ({
         onClick={() => onDelete(id)}
       >
         <button aria-label="Delete" className="flex items-center">
-          <DeleteIcon className="transition-colors" />
+          <DeleteIcon className="transition-colors xs:w-10 xl:w-5" />
         </button>
-        <span className="text-sm font-normal xs:hidden xl:block">Delete</span>
+        <span className="text-xs font-normal xs:hidden xl:block">Delete</span>
       </div>
     </div>
   );

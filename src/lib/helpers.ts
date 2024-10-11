@@ -122,15 +122,17 @@ export const handleDateChange = (
   date: Date,
   calendarType: string,
   setSelectedDate: Dispatch<SetStateAction<string | null>>,
-  setStartDate: Dispatch<SetStateAction<string>>
+  setStartDate: Dispatch<SetStateAction<string>>,
+  //setEndDate : Dispatch<SetStateAction<string>>,
 ) => {
   const momentDate = moment(date); // Convert to moment date for handling
+  console.log('helper date',date)
 
   // Format dates based on the selected calendar type
   const selectedDateFormatted =
     calendarType === 'solar'
       ? momentDate.format('DD MMMM YYYY') // Format Gregorian date
-      : formatHijriDate(momentDate); // Format Hijri date
+      : formatHijriDate(momentDate.subtract(1, 'day')); // Format Hijri date
 
   // Calculate start date (1 year before)
   const startDateMoment =
@@ -138,11 +140,30 @@ export const handleDateChange = (
       ? momentDate// Subtract 1 Gregorian year
       : momentDate; // Subtract 1 Hijri year
 
+  const endDateMoment = 
+    calendarType === 'solar' 
+      ?
+        momentDate.add(1, 'years') : 
+        momentDate.add(1, 'iYear')
+    
+
   const startDateFormatted =
     calendarType === 'solar'
       ? startDateMoment.format('DD MMMM YYYY') // Format Gregorian date
       : formatHijriDate(startDateMoment); // Format Hijri date
 
+  const endDateFormatted = 
+  calendarType === 'solar' 
+  ? endDateMoment.format('DD MMMM YYYY')
+  : formatHijriDate(endDateMoment)
+
+ 
+  
+  console.log('helper select',selectedDateFormatted)
+  console.log('helper start', startDateFormatted)
+  console.log('helper end', endDateFormatted)
+
   setSelectedDate(selectedDateFormatted);
   setStartDate(startDateFormatted);
+  //setEndDate(endDateFormatted)
 };

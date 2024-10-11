@@ -7,6 +7,12 @@ import { ArrowLeftIcon } from '@/assets/svgs';
 import { payZakatUrl } from '@/configs/constants';
 import { useRouter } from 'next/navigation';
 import { IncomeChoice } from '@/store/features/income/incomeSlice';
+import { Inter } from 'next/font/google';
+
+const inter = Inter({
+  subsets: ['latin'],
+  weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
+});
 
 const personalText = [
   'Gold & Silver',
@@ -28,6 +34,8 @@ const commercialText = [
 const ZakatCard = () => {
   const items = useSelector((state: any) => state.items.items) || [];
   const cash = useSelector((state: any) => state.cash.cash) || [];
+  console.log(inter);
+
   const router = useRouter();
   const dispatch = useDispatch();
 
@@ -100,26 +108,36 @@ const ZakatCard = () => {
                       className="flex flex-col justify-start items-center gap-2 pl-7 pr-7 pt-1 pb-1 bg-white rounded border border-gray-300 w-full mt-2"
                     >
                       <div className="flex justify-between items-center w-full h-10">
-                        <h2 className="text-cardHeading font-normal text-base text-start text-nowrap w-20 flex-1">
+                        <h2
+                          className={`text-cardHeading font-normal text-base text-start text-nowrap w-20 flex-1 ${inter.className}`}
+                        >
                           {item.item}
                         </h2>
-                        <span className="text-center font-normal text-base text-cardText text-wrap line-clamp-3 flex-1">
+                        <span
+                          className={`text-start font-normal text-base text-cardText text-wrap line-clamp-3 flex-1 xs:hidden md:block ${inter.className}`}
+                        >
                           {item.quality}, {item.weight} {item.quantity}
                         </span>
-                        <span className="font-medium text-base text-zakatText w-20 flex-1 text-center">
-                          ${item.zakat}
+                        <span
+                          className={`font-medium text-base text-zakatText w-20 flex-1 text-center xs:hidden md:block ${inter.className}`}
+                        >
+                          ${item.zakat.toFixed(2)}
                         </span>
                         <Link
                           href={'/income/income-details/add-items'}
                           className="flex justify-end items-center flex-1"
                         >
                           <Button
-                            className="bg-black text-white font-medium text-xs hover:bg-[#5e5f5d] h-8 p-3"
+                            className="bg-black text-white font-medium text-xs hover:bg-[#5e5f5d] h-7 rounded-md pl-4 pr-4 pt-1 pb-1 "
                             onClick={() => {
                               dispatch(IncomeChoice(item.income));
                             }}
                           >
-                            Preview
+                            <span
+                              className={`text-sm font-medium ${inter.className}`}
+                            >
+                              Preview
+                            </span>
                           </Button>
                         </Link>
                       </div>
@@ -146,26 +164,36 @@ const ZakatCard = () => {
                       className="flex flex-col justify-start items-center gap-2 pl-7 pr-7 pt-1 pb-1 bg-white rounded border border-gray-300 w-full mt-2"
                     >
                       <div className="flex justify-between items-center w-full h-10">
-                        <h2 className="text-cardHeading font-normal text-base text-start text-nowrap w-20 flex-1">
+                        <h2
+                          className={`text-cardHeading font-normal text-base text-start text-nowrap w-20 flex-1 ${inter.className}`}
+                        >
                           {item.item}
                         </h2>
-                        <span className="text-center font-normal text-base text-cardText text-wrap line-clamp-3 w-fit-content flex-1">
+                        <span
+                          className={`text-start font-normal text-base text-cardText text-wrap line-clamp-3 w-fit-content flex-1  xs:hidden md:block ${inter.className}`}
+                        >
                           ${item.quantity}.00
                         </span>
-                        <span className="font-medium text-base text-zakatText w-20 flex-1 text-center">
-                          ${item.zakat}
+                        <span
+                          className={`font-medium text-base text-zakatText w-20 flex-1 text-center  xs:hidden md:block ${inter.className}`}
+                        >
+                          ${item.zakat.toFixed(2)}
                         </span>
                         <Link
                           href={'/income/income-details/add-items'}
                           className="flex justify-end items-center flex-1"
                         >
                           <Button
-                            className="bg-black text-white font-medium text-xs hover:bg-[#5e5f5d] h-8 p-3"
+                            className="bg-black text-white flex justify-center items-center hover:bg-[#5e5f5d] h-7 rounded-md pl-4 pr-4 pt-1 pb-1"
                             onClick={() => {
                               dispatch(IncomeChoice(item.income));
                             }}
                           >
-                            Preview
+                            <span
+                              className={`text-sm font-medium ${inter.className}`}
+                            >
+                              Preview
+                            </span>
                           </Button>
                         </Link>
                       </div>
@@ -214,13 +242,13 @@ const ZakatCard = () => {
                         {item.quality}, {item.weight} Grams
                       </span>
                       <span className="font-medium text-base text-zakatText">
-                        {item.zakat}
+                        ${item.zakat.toFixed(2)}
                       </span>
                       <Link
                         href={'income-details'}
                         className="flex justify-center items-center"
                       >
-                        <Button className="bg-black text-white font-medium text-xs hover:bg-[#5e5f5d] h-8 p-3">
+                        <Button className="bg-black text-white font-medium text-xs hover:bg-[#5e5f5d]">
                           Preview
                         </Button>
                       </Link>
@@ -236,11 +264,7 @@ const ZakatCard = () => {
       {items.length !== 0 && (
         <div className="flex flex-col justify-evenly items-center w-full gap-5 mt-12">
           <hr className="w-full border-[1px] border-solid border-underline" />
-          <div className="flex flex-row justify-between items-center w-full">
-            <Link className="flex justify-start items-center" href={''}>
-              <ArrowLeftIcon />
-              Back
-            </Link>
+          <div className="flex flex-row justify-end items-center w-full">
             <div>
               <Button
                 className="bg-detailsBtn text-btnText font-medium text-base w-6/6 hover:bg-btnHover"

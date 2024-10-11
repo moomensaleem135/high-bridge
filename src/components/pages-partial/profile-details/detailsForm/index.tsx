@@ -97,7 +97,7 @@ const ProfileDetailsForm: React.FC<ProfileDetailsProps> = () => {
   };
 
   const onSubmit = async (setupData: FormFields) => {
-    const finalStartDate = setupData.startDate || startDate;
+    const finalStartDate = setupData.startDate || selectedDate;
     console.log(selector);
     console.log(setupData.religion);
     console.log(setupData.year);
@@ -259,9 +259,9 @@ const ProfileDetailsForm: React.FC<ProfileDetailsProps> = () => {
                 {startDate && selectedDate && (
                   <>
                     The Zakat period starts on{' '}
-                    <span className="font-semibold">{startDate}</span> and ends
-                    on <span className="font-semibold">{selectedDate}</span> of
-                    the following year.
+                    <span className="font-semibold">{selectedDate}</span> and
+                    ends on <span className="font-semibold">{startDate}</span>{' '}
+                    of the following year.
                   </>
                 )}
               </div>

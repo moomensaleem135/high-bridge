@@ -353,7 +353,7 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = () => {
                     </div>
                   )}
                 />
-                <div className="w-1/6 items-center">
+                <div className="xs:w-2/6 md:w-1/6 items-center">
                   <div className="flex flex-col justify-start gap-x-6 gap-y-2 items-start">
                     <FormField
                       control={form.control}
@@ -423,7 +423,7 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = () => {
             <hr className="w-full border-[1px] border-solid border-underline" />
             <div className="flex justify-between items-center w-full md:flex-row md:justify-between md:items-center xs:flex-col-reverse xs:gap-y-4 xs:justify-start xs:items-start">
               <Link
-                className="flex justify-start items-center "
+                className="flex justify-start items-center text-base font-medium"
                 href={''}
                 onClick={() => router.back()}
               >

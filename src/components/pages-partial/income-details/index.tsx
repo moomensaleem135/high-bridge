@@ -76,7 +76,7 @@ export default function PartialIncome() {
               <hr className="w-full max-lg:w-[75%] border-[1px] border-solid border-underline" />
               <div className="flex flex-row justify-between items-center w-full max-lg:w-[70%] pb-4">
                 <Link
-                  className="flex justify-start items-center "
+                  className="flex justify-start items-center text-base font-medium"
                   href={''}
                   onClick={() => router.back()}
                 >

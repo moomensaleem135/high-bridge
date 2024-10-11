@@ -22,6 +22,7 @@ const TopNavbar = ({
 }: ITopNavbar) => {
   const selector = useSelector((state: any) => state.setup.setup);
   const zakatVal = useSelector((state: any) => state.zakat.zakat);
+  console.log({ selector });
   console.log(zakatVal);
   const selectedDate = formatDate(selector.startDate);
   const router = useRouter();
@@ -67,16 +68,20 @@ const TopNavbar = ({
 
       <div className="flex items-center gap-x-4">
         <div className="w-full hidden lg:flex pr-7 gap-x-2">
-          <span className="font-medium text-lg">Zakat Pay Date:</span>
+          <span className="flex justify-center items-center font-medium text-lg">
+            Zakat Pay Date:
+          </span>
           <div className="flex flex-col justify-between items-start">
             <span className="text-sm mt-1 font-medium leading-5">
               {selector.startDate ? (
                 selector.startDate
               ) : (
-                <span>10 October 2024</span>
+                <span>
+                  {`${new Date().getDate()} ${new Date().toLocaleString('default', { month: 'long' })} ${new Date().getFullYear()}`}
+                </span>
               )}
             </span>
-            <span className="font-medium text-[10px]">
+            <span className="font-medium text-[10.5px]">
               {selector.year === 'lunar' ? `(${selector.generic})` : ''}
             </span>
           </div>

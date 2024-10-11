@@ -253,11 +253,15 @@ const Calendar: React.FC<CalendarProps> = ({ year, onDateChange, dateVal }) => {
   const datePickerRef = useRef<any>(null);
 
   useEffect(() => {
+    console.log('value', value);
+    console.log('dateVal', dateVal);
     setCalendarType(year);
+    handleDateChange(value); //added this line 10/11/24
   }, [year]);
 
   useEffect(() => {
     if (dateVal && !value) {
+      console.log('dateVal', dateVal);
       const parts = dateVal.split(' ');
       const day = parseInt(parts[0], 10);
       const yearStr = parseInt(parts[parts.length - 1], 10);
@@ -305,9 +309,10 @@ const Calendar: React.FC<CalendarProps> = ({ year, onDateChange, dateVal }) => {
     }
   };
 
-  const handleDateChange = (date: DateObject) => {
+  const handleDateChange = (date: DateObject | null) => {
+    //added | null 10/11/24
     setValue(date);
-    if (onDateChange) {
+    if (onDateChange && date) {
       onDateChange(date.toDate());
     }
   };

@@ -24,10 +24,10 @@ const CalendarSelect: React.FC<CalendarDropdownProps> = ({
   );
 
   React.useEffect(() => {
-    console.log('initials', initialValue)
+    console.log('initials', initialValue);
     setSelectedYear(initialValue);
-    if(initialValue !== ''){
-      handleChange(initialValue)
+    if (initialValue !== '') {
+      handleChange(initialValue);
     }
   }, [initialValue]);
 
@@ -45,10 +45,10 @@ const CalendarSelect: React.FC<CalendarDropdownProps> = ({
       <SelectContent>
         <SelectGroup>
           <SelectItem value="lunar" isChecked={selectedYear === 'lunar'}>
-            Lunar
+            Hijri Calendar (Lunar)
           </SelectItem>
           <SelectItem value="solar" isChecked={selectedYear === 'solar'}>
-            Solar
+            Gregorian Calendar (Solar)
           </SelectItem>
         </SelectGroup>
       </SelectContent>

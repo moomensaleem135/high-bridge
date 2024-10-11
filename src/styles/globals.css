@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+
 @layer utilities {
   .gridscrollbar::-webkit-scrollbar {
     width: 18px;
@@ -128,6 +129,20 @@
 
 .ag-theme-alpine .ag-cell {
   font-weight: 400 !important;
+}
+
+.ag-theme-alpine .ag-header-cell-text{
+  font-size: 16px !important;
+  font-weight: 500 !important;
+}
+
+.ag-theme-alpine .ag-cell{
+  font-size: 14px !important;
+  font-weight: 400 !important;
+}
+
+.ag-theme-alpine {
+  --ag-font-family : 
 }
 
 .row-even {

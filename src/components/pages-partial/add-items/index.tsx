@@ -38,7 +38,7 @@ export default function PartialAddItems() {
               <hr className="w-full border-[1px] border-solid border-underline max-w-[850px]" />
               <div className="flex justify-between items-center w-full max-w-[850px] md:flex-row md:justify-between md:items-center xs:flex-col-reverse xs:gap-y-4 xs:justify-start xs:items-start">
                 <Link
-                  className="flex justify-start items-center "
+                  className="flex justify-start items-center font-medium text-base"
                   onClick={() => router.back()}
                   href={''}
                 >
