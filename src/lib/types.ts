@@ -52,6 +52,10 @@ export interface ISects {
   sect: string;
 }
 
+export interface ISelection{
+  selection : string
+}
+
 export interface IIncome {
   income: string;
 }

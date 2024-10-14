@@ -137,14 +137,14 @@ export const handleDateChange = (
   // Calculate start date (1 year before)
   const startDateMoment =
     calendarType === 'solar'
-      ? momentDate// Subtract 1 Gregorian year
-      : momentDate; // Subtract 1 Hijri year
+      ? momentDate.subtract(1,'years')// Subtract 1 Gregorian year
+      : momentDate.subtract(1,'iYear'); // Subtract 1 Hijri year
 
   const endDateMoment = 
     calendarType === 'solar' 
       ?
-        momentDate.add(1, 'years') : 
-        momentDate.add(1, 'iYear')
+        momentDate: 
+        momentDate
     
 
   const startDateFormatted =

@@ -4,6 +4,11 @@ import React from 'react';
 import AppLayout from '@/components/common/layout/AppLayout';
 import IncomeAccordion from './income-cards/IncomeAccordion';
 import IncomeSection from '@/components/common/incomeSection';
+import { useSelector, UseSelector } from 'react-redux';
+import { useRouter } from 'next/navigation';
+import CustomToast from '@/components/common/CustomToast';
+import toast from 'react-hot-toast';
+import { Button } from '@/components/ui/button';
 
 const personalText = [
   {

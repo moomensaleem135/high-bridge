@@ -19,7 +19,7 @@ import { useCreateEventMutation } from '@/store/features/events/eventsApi';
 import CustomToast from '@/components/common/CustomToast';
 
 import Spinner from '@/components/common/Spinner';
-import { forgetUrl, signupUrl } from '@/configs/constants';
+import { forgetUrl, signupUrl, selectionUrl } from '@/configs/constants';
 
 interface LoginProps {}
 
@@ -56,7 +56,8 @@ const Login: React.FC<LoginProps> = () => {
     try {
       //const response = await login(formData);
       form.reset();
-      toast.custom((t) => <CustomToast t={t} title={loginData.email} />);
+      toast.success(`${loginData.email}`);
+
       router.push('/income');
     } catch (error) {
       console.error('Error creating event:', error);
@@ -80,7 +81,7 @@ const Login: React.FC<LoginProps> = () => {
           data-testid="page-description"
         >
           Don’t have an account?{' '}
-          <Link href={signupUrl}>
+          <Link href={selectionUrl}>
             <u>Sign up</u>
           </Link>
         </p>

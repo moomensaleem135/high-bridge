@@ -1,14 +1,23 @@
 import React from 'react';
 import { toast, Toast } from 'react-hot-toast';
 import { CloseIcon } from '@/assets/svgs';
+import { useRouter } from 'next/navigation';
+import { Button } from '@mui/material';
 
 interface CustomToastProps {
   t: Toast;
   title: string;
   onClickEdit?: () => void;
+  setup?: boolean;
 }
 
-const CustomToast: React.FC<CustomToastProps> = ({ t, title, onClickEdit }) => {
+const CustomToast: React.FC<CustomToastProps> = ({
+  t,
+  title,
+  onClickEdit,
+  setup,
+}) => {
+  const router = useRouter();
   return (
     <div
       className={`${
@@ -24,11 +33,12 @@ const CustomToast: React.FC<CustomToastProps> = ({ t, title, onClickEdit }) => {
           >
             {title}
           </p>
+
           <p
             className="text-base font-medium text-primary"
             onClick={() => onClickEdit && onClickEdit()}
           >
-            Edit Event
+            <span>Edit Event</span>
           </p>
         </div>
       </div>

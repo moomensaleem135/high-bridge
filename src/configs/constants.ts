@@ -11,6 +11,7 @@ export const helpUrl = '/help/';
 export const signoutUrl = '/logout/';
 export const signupUrl = '/signup/';
 export const signinUrl = '/signin/';
+export const selectionUrl = '/storage-selection/';
 export const forgetUrl = '/forgot-password/';
 export const resetUrl = '/reset-password/';
 export const verifyUrl = '/verify/';

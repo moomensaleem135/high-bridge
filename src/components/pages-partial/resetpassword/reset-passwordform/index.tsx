@@ -61,8 +61,8 @@ const ResetPassword: React.FC<ResetProps> = () => {
     try {
       const response = await login(formData);
       form.reset();
+      toast.success(`${resetData.password}`);
 
-      toast.custom((t) => <CustomToast t={t} title={resetData.password} />);
       router.push('/signin');
     } catch (error) {
       console.error('Error creating event:', error);

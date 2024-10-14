@@ -129,13 +129,9 @@ const ProfileDetailsForm: React.FC<ProfileDetailsProps> = () => {
 
     try {
       dispatch(profileData({ setupData: submissionData }));
-
-      toast.custom((t) => (
-        <CustomToast
-          t={t}
-          title={`${submissionData.year} ${submissionData.religion} ${submissionData.startDate} `}
-        />
-      ));
+      toast.success(
+        `${submissionData.year} ${submissionData.religion} ${submissionData.startDate}  `
+      );
     } catch (error) {
       console.error('Error creating event:', error);
       toast.error('Failed to Create event');

@@ -56,7 +56,7 @@ const VerifyCode: React.FC<VerifyProps> = () => {
     try {
       const response = await verify(formData);
       form.reset();
-      toast.custom((t) => <CustomToast t={t} title={`${verifyData.otp}`} />);
+      toast.success(`${verifyData.otp}`);
       router.push('/reset-password');
     } catch (error) {
       console.error('Error creating event:', error);

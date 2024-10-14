@@ -54,7 +54,8 @@ const ForgotPassword: React.FC<ForgotPasswordProps> = () => {
     try {
       const response = await login(formData);
       form.reset();
-      toast.custom((t) => <CustomToast t={t} title={forgotPassData.email} />);
+      toast.success(`${forgotPassData.email}`);
+
       router.push('/verify');
     } catch (error) {
       console.error('Error creating event:', error);

@@ -65,12 +65,15 @@
 
 'use client';
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { cn } from '@/lib/cn';
 import { Button } from '../ui/button';
 import Link from 'next/link';
 import { IncomeChoice } from '@/store/features/income/incomeSlice';
 import { Inter } from 'next/font/google';
+import { useAppSelector } from '@/store/hooks';
+import CustomToast from './CustomToast';
+import toast from 'react-hot-toast';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -91,6 +94,7 @@ const IncomeSection: React.FC<IncomeSectionProps> = ({
   titleClassName,
 }) => {
   const dispatch = useDispatch();
+  const selector = useSelector((state: any) => state.setup.setup);
 
   return (
     <div className="lg:flex flex-col justify-evenly">
@@ -106,6 +110,14 @@ const IncomeSection: React.FC<IncomeSectionProps> = ({
             const handleClick = (e: React.MouseEvent) => {
               if (isDisabled) {
                 e.preventDefault(); // Prevent navigation if disabled
+              } else if (selector.year === '' || selector.religion === '') {
+                e.preventDefault(); // Prevent navigation
+                toast.custom((t) => (
+                  <CustomToast
+                    t={t}
+                    title={`You need to set up your profile before proceeding.`}
+                  />
+                ));
               } else {
                 dispatch(IncomeChoice(text.text));
               }
@@ -114,6 +126,7 @@ const IncomeSection: React.FC<IncomeSectionProps> = ({
             return (
               <div key={index} className={containerClassName}>
                 <span>{text.text}</span>
+
                 <Link
                   href={'income/income-details'}
                   onClick={handleClick}
