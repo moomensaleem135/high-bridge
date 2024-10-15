@@ -28,7 +28,14 @@ export default function RootLayout({
       <ThemeProvider attribute="class">
         <StoreProvider>
           <body className={poppins.className}>
-            <Toaster position="top-right" />
+            <Toaster
+              position="top-right"
+              toastOptions={{
+                style: {
+                  marginTop: '40px',
+                },
+              }}
+            />
             <NextTopLoader
               color="#000000"
               initialPosition={0.08}

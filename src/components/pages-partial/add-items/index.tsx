@@ -15,17 +15,26 @@ export default function PartialAddItems() {
   const router = useRouter();
   const items = useSelector((state: any) => state.items.items) || [];
   const income = useSelector((state: any) => state.income.income);
+  console.log('income', income);
   return (
     <AppLayout>
-      <div className="flex flex-col self-stretch w-full gap-y-4 xs:my-0 md:my-5 overflow-y-auto overflow-x-hidden">
+      <div className="flex flex-col self-stretch w-full gap-y-4 xs:my-0 md:my-5 overflow-y-auto overflow-x-hidden pb-10">
         <div className="flex flex-col justify-center items-center">
           <h1 className="text-center px-4 text-3xl font-semibold">
             Add {income ? income : 'Gold & Sliver'} Items
           </h1>
-          <span className="text-center px-4 font-normal text-base mt-2 leading-6 mb-2">
-            Here’s what you have so far. Please add your gold and silver items
-            such as tola, grams, or ounces.
-          </span>
+          {income === 'Gold & Silver' ? (
+            <span className="text-center px-4 font-normal text-base mt-2 leading-6 mb-2">
+              Here’s what you have so far. Please add your gold and silver items
+              such as tola, grams, or ounces.
+            </span>
+          ) : (
+            <span className="text-center px-4 font-normal text-base mt-2 leading-6 mb-2">
+              Here’s what you have so far. Please add your cash and checking
+              account balances for accurate zakat calculation
+            </span>
+          )}
+
           <hr className="w-full border-[1px] border-underlineTop" />
         </div>
         <div className="flex flex-col justify-center items-center gap-y-3">

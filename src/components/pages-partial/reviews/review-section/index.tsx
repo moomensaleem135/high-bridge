@@ -85,7 +85,7 @@ const ZakatCard = () => {
     Object.keys(categorizedItems.commercial || {}).length > 0;
 
   return (
-    <div>
+    <div className="mb-8">
       {/* Render Personal Items */}
       {hasPersonalItems && (
         <div>
@@ -105,7 +105,7 @@ const ZakatCard = () => {
                   (item: any, index: any) => (
                     <div
                       key={index}
-                      className="flex flex-col justify-start items-center gap-2 pl-7 pr-7 pt-1 pb-1 bg-white rounded border border-gray-300 w-full mt-2"
+                      className="flex flex-col justify-start items-center gap-2 pl-6 pr-6 pt-1 pb-1 bg-white rounded border border-gray-300 w-full mt-2"
                     >
                       <div className="flex justify-between items-center w-full h-10">
                         <h2
@@ -161,7 +161,7 @@ const ZakatCard = () => {
                   (item: any, index: any) => (
                     <div
                       key={index}
-                      className="flex flex-col justify-start items-center gap-2 pl-7 pr-7 pt-1 pb-1 bg-white rounded border border-gray-300 w-full mt-2"
+                      className="flex flex-col justify-start items-center gap-2 pl-6 pr-6 pt-1 pb-1 bg-white rounded border border-gray-300 w-full mt-2"
                     >
                       <div className="flex justify-between items-center w-full h-10">
                         <h2
@@ -232,7 +232,7 @@ const ZakatCard = () => {
                 (item: any, index: any) => (
                   <div
                     key={index}
-                    className="flex flex-col justify-start items-center gap-2 pl-7 pr-7 pt-1 pb-1 bg-white rounded border border-gray-300 w-full mt-2"
+                    className="flex flex-col justify-start items-center gap-2 pl-6 pr-6 pt-1 pb-1 bg-white rounded border border-gray-300 w-full mt-2"
                   >
                     <div className="flex justify-between items-center w-full h-10">
                       <span className="text-cardHeading font-normal text-base text-center text-nowrap w-52">

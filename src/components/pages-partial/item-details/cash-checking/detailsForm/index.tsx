@@ -45,6 +45,7 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = () => {
   const cash: CashIItems[] = useSelector((state: any) => state.cash.cash) || [];
   const religion = useSelector((state: any) => state.sect.sect);
   const income = useSelector((state: any) => state.income.income);
+  const setup = useSelector((state: any) => state.setup.setup);
   const [item, setItem] = React.useState<string>('');
   const [payableAmount, setPayableAmount] = React.useState<number | null>(null);
   const [reason, setReason] = React.useState<string>('');
@@ -72,7 +73,11 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = () => {
   }, [id]);
 
   const onSubmit = async (itemsData: FormFields) => {
-    const zakatAmount = calculateZakat(Number(itemsData.quantity));
+    const zakatAmount = calculateZakat(
+      Number(itemsData.quantity),
+      setup.year,
+      setup.generic
+    );
     let cashId;
 
     // Generate a unique goldId (using Date.now for simplicity, you might want to use a better method)
@@ -118,13 +123,16 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = () => {
 
       form.reset();
 
-      toast.custom((t) => (
-        <CustomToast t={t} title={`${itemsData.item} ${itemsData.quantity}`} />
-      ));
+      toast.success(`${itemsData.item} ${itemsData.quantity}`, {
+        position: 'top-right',
+      });
+
       router.push('/income/income-details/add-items');
     } catch (error) {
       console.error('Error creating event:', error);
-      toast.error('Failed to create event');
+      toast.error('Failed to create event', {
+        position: 'top-right',
+      });
     }
   };
 
@@ -134,7 +142,11 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = () => {
 
   React.useEffect(() => {
     if (form.watch('quantity')) {
-      const zakat = calculateZakat(Number(form.watch('quantity')));
+      const zakat = calculateZakat(
+        Number(form.watch('quantity')),
+        setup.year,
+        setup.generic
+      );
       setPayableAmount(zakat);
     } else {
       setPayableAmount(null);
@@ -243,7 +255,7 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = () => {
 
           <div className="flex flex-col justify-evenly items-center w-full gap-5">
             <hr className="w-full border-[1px] border-solid border-underline" />
-            <div className="flex justify-between items-center w-full md:flex-row md:justify-between md:items-center xs:flex-col-reverse xs:gap-y-4 xs:justify-start xs:items-start">
+            <div className="flex justify-between items-center w-full md:flex-row md:justify-between md:items-center">
               <Link
                 className="flex justify-start items-center text-base font-medium"
                 href={''}

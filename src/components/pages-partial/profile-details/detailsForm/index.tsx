@@ -39,8 +39,8 @@ import { handleDateChange } from '@/lib/helpers';
 interface ProfileDetailsProps {}
 
 const ProfileDetailsSchema = z.object({
-  year: z.string().min(0, { message: 'Year is required' }),
-  religion: z.string().min(0, { message: 'Religion is required' }),
+  year: z.string().min(1, { message: 'Year is required' }),
+  religion: z.string().min(1, { message: 'Religion is required' }),
   startDate: z.string().min(0, { message: 'Start date is required' }),
 });
 
@@ -52,8 +52,6 @@ const ProfileDetailsForm: React.FC<ProfileDetailsProps> = () => {
   const date = selector.startDate;
   let hijriDate;
   let value;
-  console.log('date', date);
-  console.log(typeof date);
 
   if (selector.year === 'lunar') {
     hijriDate = moment(date).format('iYYYY iM iD');
@@ -63,10 +61,6 @@ const ProfileDetailsForm: React.FC<ProfileDetailsProps> = () => {
       calendar: hijri,
     });
   }
-
-  console.log('islamic date', hijriDate);
-  console.log('converted value', value);
-  console.log(selector);
 
   const router = useRouter();
   const [login, { isLoading }] = useCreateEventMutation();
@@ -98,10 +92,6 @@ const ProfileDetailsForm: React.FC<ProfileDetailsProps> = () => {
 
   const onSubmit = async (setupData: FormFields) => {
     const finalStartDate = setupData.startDate || selectedDate;
-    console.log(selector);
-    console.log(setupData.religion);
-    console.log(setupData.year);
-    console.log(startDate);
 
     const formData = new FormData();
 
@@ -109,14 +99,6 @@ const ProfileDetailsForm: React.FC<ProfileDetailsProps> = () => {
       ...setupData,
       startDate: finalStartDate,
     };
-
-    if (
-      selector.religion === submissionData.religion &&
-      selector.year === submissionData.year &&
-      selector.startDate === submissionData.startDate
-    ) {
-      console.log('in same values');
-    }
 
     console.log('submit data', submissionData);
 
@@ -129,12 +111,19 @@ const ProfileDetailsForm: React.FC<ProfileDetailsProps> = () => {
 
     try {
       dispatch(profileData({ setupData: submissionData }));
+
       toast.success(
-        `${submissionData.year} ${submissionData.religion} ${submissionData.startDate}  `
+        `${submissionData.year} ${submissionData.religion} ${submissionData.startDate}  `,
+        {
+          position: 'top-right',
+        }
       );
+      // router.push('income');
     } catch (error) {
       console.error('Error creating event:', error);
-      toast.error('Failed to Create event');
+      toast.error('Failed to Create event', {
+        position: 'top-right',
+      });
     }
   };
 
@@ -154,7 +143,7 @@ const ProfileDetailsForm: React.FC<ProfileDetailsProps> = () => {
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="flex flex-col w-[82%] gap-5 mb-10"
+          className="flex flex-col w-[82%] gap-5 mb-10 "
           data-testid="event-form"
         >
           <div className="w-full items-center">

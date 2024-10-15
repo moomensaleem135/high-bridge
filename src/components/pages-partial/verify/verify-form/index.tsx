@@ -56,11 +56,15 @@ const VerifyCode: React.FC<VerifyProps> = () => {
     try {
       const response = await verify(formData);
       form.reset();
-      toast.success(`${verifyData.otp}`);
+      toast.success(`${verifyData.otp}`, {
+        position: 'top-right',
+      });
       router.push('/reset-password');
     } catch (error) {
       console.error('Error creating event:', error);
-      toast.error('Failed to Create event');
+      toast.error('Failed to Create event', {
+        position: 'top-right',
+      });
     }
   };
 
@@ -75,7 +79,7 @@ const VerifyCode: React.FC<VerifyProps> = () => {
           Verify Code
         </p>
         <p
-          className="font-medium text-sm text-slate-900"
+          className="font-normal text-sm text-slate-900"
           data-cy="page-description"
           data-testid="page-description"
         >

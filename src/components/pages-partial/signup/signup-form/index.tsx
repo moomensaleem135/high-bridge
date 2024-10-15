@@ -117,13 +117,17 @@ const SignUp: React.FC<SignUpProps> = () => {
 
     try {
       //const response = await signup(formData);
-      toast.success(`${sinupData.email} `);
+      toast.success(`${sinupData.email} `, {
+        position: 'top-right',
+      });
 
       router.push('/profilesetup');
       setActiveStep((prev: any) => prev + 1);
     } catch (error) {
       console.error('Error creating event:', error);
-      toast.error('Failed to Create event');
+      toast.error('Failed to Create event', {
+        position: 'top-right',
+      });
     }
   };
 
@@ -135,7 +139,7 @@ const SignUp: React.FC<SignUpProps> = () => {
           alternativeLabel
           sx={{
             display: 'flex',
-            width: '95%',
+            width: '90%',
             marginTop: '30px',
           }}
         >
@@ -202,13 +206,13 @@ const SignUp: React.FC<SignUpProps> = () => {
               Create an account
             </p>
             <p
-              className="font-normal text-sm text-slate-900 max-lg:mb-4"
+              className="font-normal text-sm text-slate-900 max-lg:mb-4 text-center"
               data-cy="page-description"
               data-testid="page-description"
             >
               Already have an account?{' '}
               <Link href={signinUrl}>
-                <u>Log in</u>
+                <u className="font-medium">Log in</u>
               </Link>
             </p>
           </div>

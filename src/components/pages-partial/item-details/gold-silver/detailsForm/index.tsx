@@ -58,6 +58,7 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = () => {
   const items: GoldIItems[] =
     useSelector((state: any) => state.items.items) || [];
   const income = useSelector((state: any) => state.income.income);
+  const setup = useSelector((state: any) => state.setup.setup);
   const [payableAmount, setPayableAmount] = React.useState<number | null>(null);
   const [item, setItem] = React.useState<string>('');
   const [reason, setReason] = React.useState<string>('');
@@ -97,7 +98,12 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = () => {
   }, [id]);
 
   const onSubmit = async (itemsData: FormFields) => {
-    const zakatAmount = calculateZakat(Number(itemsData.price));
+    console.log('setup data', setup);
+    const zakatAmount = calculateZakat(
+      Number(itemsData.price),
+      setup.year,
+      setup.generic
+    );
     let goldId;
 
     const usage = itemsData.usage ? itemsData.usage : '';
@@ -152,26 +158,32 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = () => {
       }
 
       form.reset();
-
-      toast.custom((t) => (
-        <CustomToast
-          t={t}
-          title={`${itemsData.item} ${itemsData.purpose} ${itemsData.usage} ${itemsData.quality}`}
-        />
-      ));
+      toast.success(
+        `${itemsData.item} ${itemsData.purpose} ${itemsData.usage} ${itemsData.quality}`,
+        {
+          position: 'top-right',
+        }
+      );
 
       router.push('/income/income-details/add-items');
     } catch (error) {
       console.error('Error creating event:', error);
-      toast.error('Failed to Create event');
+      toast.error('Failed to Create event', {
+        position: 'top-right',
+      });
     }
   };
 
   React.useEffect(() => {}, [item]);
 
   React.useEffect(() => {
+    console.log('setup', setup);
     if (form.watch('price').length > 0) {
-      const zakat = calculateZakat(Number(form.watch('price')));
+      const zakat = calculateZakat(
+        Number(form.watch('price')),
+        setup.year,
+        setup.generic
+      );
       setPayableAmount(zakat);
     } else {
       setPayableAmount(null);
@@ -421,7 +433,7 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = () => {
 
           <div className="flex flex-col justify-evenly items-center w-full gap-5">
             <hr className="w-full border-[1px] border-solid border-underline" />
-            <div className="flex justify-between items-center w-full md:flex-row md:justify-between md:items-center xs:flex-col-reverse xs:gap-y-4 xs:justify-start xs:items-start">
+            <div className="flex justify-between items-center w-full md:flex-row md:justify-between md:items-center">
               <Link
                 className="flex justify-start items-center text-base font-medium"
                 href={''}

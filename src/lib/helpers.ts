@@ -92,8 +92,28 @@ export function formatDate(dateString: string) {
   }
 }
 
-export const calculateZakat = (amount: number) => {
-  return (amount * 2.5) / 100; // 2.5% of the total amount
+export const calculateZakat = (amount: number, year? : string, date? : string) => {
+  const yearVal = date?.split(" ")
+  console.log('year val',yearVal)
+  let leap;
+  if(yearVal){
+    leap = Number(yearVal[2]) % 4;
+  }
+
+  if(year !== 'lunar'){
+    if(leap === 0){
+      console.log('in leap')
+      console.log((amount * 2.5775) / 100);
+      return (amount * 2.5775) / 100; //calculate leap year zakat 
+    } else {
+      return (amount * 2.577) / 100;  //calculate non-leap year zakat
+    }
+  }
+  else {
+    console.log('in lunar value here')
+    console.log((amount * 2.5) / 100)
+    return (amount * 2.5) / 100; // 2.5% of the total amount
+  }
 };
 
 export const formatHijriDate = (date: moment.Moment): string => {

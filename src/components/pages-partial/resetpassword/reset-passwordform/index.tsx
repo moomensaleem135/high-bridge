@@ -61,12 +61,16 @@ const ResetPassword: React.FC<ResetProps> = () => {
     try {
       const response = await login(formData);
       form.reset();
-      toast.success(`${resetData.password}`);
+      toast.success(`${resetData.password}`, {
+        position: 'top-right',
+      });
 
       router.push('/signin');
     } catch (error) {
       console.error('Error creating event:', error);
-      toast.error('Failed to Create event');
+      toast.error('Failed to Create event', {
+        position: 'top-right',
+      });
     }
   };
 
@@ -81,7 +85,7 @@ const ResetPassword: React.FC<ResetProps> = () => {
           Set a Password
         </p>
         <p
-          className="font-medium text-sm text-slate-900 text-center"
+          className="font-normal text-sm text-slate-900 text-center"
           data-cy="page-description"
           data-testid="page-description"
         >

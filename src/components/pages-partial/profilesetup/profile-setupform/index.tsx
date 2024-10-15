@@ -141,32 +141,30 @@ const ProfileSetup: React.FC<ProfileSetupProps> = () => {
       setYear('');
       setStartDate('');
       toast.success(
-        `${submissionData.year} ${submissionData.religion} ${submissionData.startDate} `
+        `${submissionData.year} ${submissionData.religion} ${submissionData.startDate} `,
+        {
+          position: 'top-right',
+        }
       );
-
-      // toast.custom((t) => (
-      //   <CustomToast
-      //     t={t}
-      //     title={`${submissionData.year} ${submissionData.religion} ${submissionData.startDate} `}
-      //   />
-      // ));
 
       router.push('/signin');
       setActiveStep((prev) => prev + 1);
     } catch (error) {
       console.error('Error creating event:', error);
-      toast.error('Failed to Create event');
+      toast.error('Failed to Create event', {
+        position: 'top-right',
+      });
     }
   };
 
   return (
-    <div className="flex flex-col w-full justify-center items-center bg-formBg gap-12 xl:gap-5 xl:w-5/5 rounded-3xl border-solid border-[1px] border-formBorder">
+    <div className="flex flex-col w-full justify-center items-center bg-formBg xl:w-5/5 rounded-3xl border-solid border-[1px] border-formBorder">
       <Stepper
         activeStep={activeStep}
         alternativeLabel
         sx={{
           display: 'flex',
-          width: '95%',
+          width: '90%',
           marginTop: '30px',
         }}
       >
@@ -221,9 +219,9 @@ const ProfileSetup: React.FC<ProfileSetupProps> = () => {
       </Stepper>
 
       <>
-        <div className="flex flex-col w-full justify-center items-center py-3">
+        <div className="flex flex-col w-full justify-center items-center mt-5 mb-2.5">
           <p
-            className="font-medium text-3xl text-headingColor"
+            className="font-medium text-[32px] text-headingColor max-lg:mt-6 text-center"
             data-cy="page-title"
             data-testid="page-title"
           >
@@ -241,7 +239,7 @@ const ProfileSetup: React.FC<ProfileSetupProps> = () => {
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
-            className="flex flex-col w-[82%] gap-12 xl:gap-6 mb-12 xl:mb-6"
+            className="flex flex-col w-[82%] gap-5 py-4 xl:gap-6 xl:mb-2"
             data-testid="event-form"
           >
             <div className="w-full items-center">

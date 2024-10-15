@@ -40,7 +40,7 @@ const ReligionDropdown: React.FC<ReligionDropdownProps> = ({
   return (
     <Select onValueChange={handleChange} value={selectedReligion}>
       <SelectTrigger className={className}>
-        <SelectValue placeholder="Select religion" />
+        <SelectValue placeholder="Select madhab" />
       </SelectTrigger>
       <SelectContent>
         <SelectGroup>

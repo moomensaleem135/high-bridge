@@ -11,6 +11,7 @@ import { deleteCashItem } from '@/store/features/cash-items/cashSlice';
 import { useRouter } from 'next/navigation';
 import { zakatCal } from '@/store/features/zakat/zakatSlice';
 import { subtractVal } from '@/store/features/zakat/zakatSlice';
+import toast from 'react-hot-toast';
 
 // Define types for columns and row data
 interface ColumnDef {
@@ -218,9 +219,15 @@ const GridSection: React.FC = () => {
     if (income.includes('Gold')) {
       dispatch(deleteItem(id));
       dispatch(subtractVal(id));
+      toast.success('Item deleted', {
+        position: 'top-right',
+      });
     } else if (income.includes('Cash')) {
       dispatch(deleteCashItem(id));
       dispatch(subtractVal(id));
+      toast.success('Item deleted', {
+        position: 'top-right',
+      });
     }
   };
 
@@ -234,7 +241,7 @@ const GridSection: React.FC = () => {
   // Placeholder message when no data is available
   const EmptyTable = `
   <div style="display : flex; flex-direction : column; justifyContent : center; alignItems : center; gap : 5px">
-    <div style="display : flex; justifyContent : center; alignItems : center; padding-left : 45px">
+    <div style="display : flex; justifyContent : center; alignItems : center; padding-left : 54px">
        <svg width="36" height="36"  viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M32.148 31.05L34.0886 29.2078C34.7355 28.589 34.7636 27.5765 34.1589 26.9156C33.5402 26.2687 32.5277 26.2406 31.8808 26.8453L29.9261 28.6875L28.1402 26.789C27.5214 26.1422 26.5089 26.114 25.8621 26.7187C25.2152 27.3375 25.1871 28.35 25.7917 28.9968L27.5777 30.8953L25.6371 32.7375C24.9902 33.3562 24.9621 34.3687 25.5667 35.0156C26.1855 35.6625 27.198 35.6906 27.8449 35.0859L29.7855 33.2437L31.6699 35.2406C32.2886 35.8875 33.3011 35.9156 33.948 35.3109C34.5949 34.6922 34.623 33.6797 34.0183 33.0328L32.148 31.05Z" fill="black"/>
         <path d="M9.2541 6.91882H9.45098C10.365 6.91882 11.1104 6.17351 11.1104 5.25945V1.89851C11.1104 0.984448 10.365 0.239136 9.45098 0.239136H9.2541C8.34004 0.239136 7.59473 0.984448 7.59473 1.89851V5.24539C7.59473 6.17351 8.34004 6.91882 9.2541 6.91882Z" fill="black"/>

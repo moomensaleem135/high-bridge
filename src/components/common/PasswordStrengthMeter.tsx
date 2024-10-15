@@ -16,7 +16,7 @@ const PasswordStrengthMeter = ({ password }: { password: string }) => {
       case 'Strong':
         return 'bg-green-500';
       case 'Very Strong':
-        return 'bg-green-500';
+        return 'bg-black';
       default:
         return '';
     }
@@ -34,7 +34,7 @@ const PasswordStrengthMeter = ({ password }: { password: string }) => {
           <div
             key={index}
             className={cn(
-              'shrink-0 h-1 rounded-lg w-[38px]',
+              'shrink-0 h-1 rounded-lg xs:w-[18px] sm:w-[38px]',
               strength.score > index
                 ? getStrengthColor(strength)
                 : 'bg-gray-300'

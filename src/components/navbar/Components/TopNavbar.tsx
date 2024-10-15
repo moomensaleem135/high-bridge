@@ -33,7 +33,7 @@ const TopNavbar = ({
 
   return (
     <div className="px-2 min-h-[70px] xs:min-h-[45px] sm:min-h-[70px] flex w-full items-center justify-between xs:hidden lg:flex">
-      <div className="flex items-center gap-x-2 w-3/5">
+      <div className="flex items-center gap-x-2 flex-1">
         {/* Back Icon */}
         <div
           onClick={() => setCollapseNav(!collapseNav)}
@@ -66,8 +66,8 @@ const TopNavbar = ({
         </div>
       </div>
 
-      <div className="flex items-center gap-x-4">
-        <div className="w-full hidden lg:flex pr-7 gap-x-2">
+      <div className="flex items-center gap-x-4 flex-1">
+        <div className="w-full hidden lg:flex lg:justify-end lg:items-center pr-7 gap-x-2">
           <span className="flex justify-center items-center font-medium text-lg">
             Zakat Pay Date:
           </span>

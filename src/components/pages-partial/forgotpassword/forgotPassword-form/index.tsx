@@ -54,12 +54,16 @@ const ForgotPassword: React.FC<ForgotPasswordProps> = () => {
     try {
       const response = await login(formData);
       form.reset();
-      toast.success(`${forgotPassData.email}`);
+      toast.success(`${forgotPassData.email}`, {
+        position: 'top-right',
+      });
 
       router.push('/verify');
     } catch (error) {
       console.error('Error creating event:', error);
-      toast.error('Failed to Create event');
+      toast.error('Failed to Create event', {
+        position: 'top-right',
+      });
     }
   };
 
@@ -87,7 +91,7 @@ const ForgotPassword: React.FC<ForgotPasswordProps> = () => {
           Forgot your password?
         </p>
         <p
-          className="font-medium text-sm text-slate-900 text-center"
+          className="font-normal text-sm text-slate-900 text-center"
           data-cy="page-description"
           data-testid="page-description"
         >

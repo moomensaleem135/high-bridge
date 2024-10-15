@@ -26,7 +26,7 @@ const IncomeCard: React.FC<IncomeCardProps> = ({
             <h2 className="text-cardHeading font-medium text-xl text-center text-nowrap">
               {card.title}
             </h2>
-            <p className="text-center font-light text-sm text-cardText text-wrap h-16 line-clamp-3">
+            <p className="text-center font-light text-sm text-cardText text-wrap h-16 ">
               {card.text}
             </p>
             <Link

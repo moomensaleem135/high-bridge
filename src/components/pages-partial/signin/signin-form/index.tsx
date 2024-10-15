@@ -56,12 +56,16 @@ const Login: React.FC<LoginProps> = () => {
     try {
       //const response = await login(formData);
       form.reset();
-      toast.success(`${loginData.email}`);
+      toast.success(`${loginData.email}`, {
+        position: 'top-right',
+      });
 
       router.push('/income');
     } catch (error) {
       console.error('Error creating event:', error);
-      toast.error('Failed to Create event');
+      toast.error('Failed to Create event', {
+        position: 'top-right',
+      });
     }
   };
 
@@ -76,13 +80,13 @@ const Login: React.FC<LoginProps> = () => {
           Log In
         </p>
         <p
-          className="font-medium text-sm text-slate-900 text-center"
+          className="font-normal text-sm text-slate-900 text-center"
           data-cy="page-description"
           data-testid="page-description"
         >
           Don’t have an account?{' '}
           <Link href={selectionUrl}>
-            <u>Sign up</u>
+            <u className="font-medium">Sign up</u>
           </Link>
         </p>
       </div>
@@ -174,7 +178,7 @@ const Login: React.FC<LoginProps> = () => {
           <div className="w-full flex flex-col gap-3">
             {/* <div className="flex items-center gap-x-2 "> */}
             <Link href={forgetUrl}>
-              <span className="underline">Forgot password ?</span>
+              <span className="underline text-sm">Forgot password ?</span>
             </Link>
             <div className="w-full bg-black h-full p-[6px] rounded-md ">
               <Button

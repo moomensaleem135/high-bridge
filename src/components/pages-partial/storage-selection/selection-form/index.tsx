@@ -81,7 +81,9 @@ const StorageSelection: React.FC = () => {
     console.log(data.storage);
     router.push('signup');
     dispatch(userSelection(data.storage));
-    toast.success(`${data.storage}`);
+    toast.success(`${data.storage}`, {
+      position: 'top-right',
+    });
     setActiveStep((prev) => prev + 1);
   };
 
@@ -94,7 +96,7 @@ const StorageSelection: React.FC = () => {
         alternativeLabel
         sx={{
           display: 'flex',
-          width: '95%',
+          width: '90%',
         }}
       >
         {steps.map((label, index) => (
@@ -157,7 +159,7 @@ const StorageSelection: React.FC = () => {
             Choose Your Storage
           </p>
           <p
-            className="font-normal text-sm text-slate-900 max-lg:mb-4"
+            className="font-normal text-sm text-slate-900 max-lg:mb-4 text-center"
             data-cy="page-description"
             data-testid="page-description"
           >
