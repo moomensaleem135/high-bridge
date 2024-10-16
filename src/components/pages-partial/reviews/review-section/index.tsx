@@ -96,7 +96,7 @@ const ZakatCard = () => {
             categorizedItems.personal['Gold & Silver'].length > 0 && (
               <div className="p-4 bg-cardbg rounded-xl border-cardBorder border-[1px] mb-4">
                 <div className="font-medium text-xl flex gap-2">
-                  Gold & Silver
+                  <div className="xs:text-base sm:text-xl">Gold & Silver</div>
                   <div className="font-medium text-sm flex justify-center items-center">
                     ({categorizedItems.personal['Gold & Silver'][0].religion})
                   </div>
@@ -152,8 +152,8 @@ const ZakatCard = () => {
             categorizedCash.personal['Cash & Checking'].length > 0 && (
               <div className="p-4 bg-cardbg rounded-xl border-cardBorder border-[1px] mb-4">
                 <div className="font-medium text-xl flex gap-2">
-                  Cash & Checking
-                  <div className="font-medium text-sm flex justify-center items-center">
+                  <div className="xs:text-base sm:text-xl">Cash & Checking</div>
+                  <div className="font-medium text-sm flex justify-center items-center ">
                     ({categorizedCash.personal['Cash & Checking'][0].religion})
                   </div>
                 </div>

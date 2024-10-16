@@ -243,10 +243,10 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = () => {
             </div>
           </div>
           <div className="flex justify-between items-center">
-            <span className="font-medium text-xl">
+            <span className="xs:text-base font-medium sm:text-xl flex-1">
               Your payable zakat for this item is:
             </span>
-            <span className="font-semibold text-2xl text-zakatText">
+            <span className="font-semibold text-2xl text-zakatText flex-1 text-end">
               {payableAmount !== null
                 ? `$${payableAmount.toFixed(2)}`
                 : '$0.00'}

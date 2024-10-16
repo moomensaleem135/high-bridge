@@ -70,16 +70,16 @@ const VerifyCode: React.FC<VerifyProps> = () => {
 
   return (
     <div className="flex flex-col w-full justify-center items-center bg-formBg gap-12 xl:gap-5 xl:w-5/5 rounded-3xl border-solid border-[1px] border-formBorder">
-      <div className="flex flex-col w-full justify-center items-center py-7">
+      <div className="flex flex-col w-full justify-center items-center pt-10 pb-3">
         <p
-          className="font-medium text-3xl text-headingColor"
+          className="font-medium text-3xl text-headingColor text-center"
           data-cy="page-title"
           data-testid="page-title"
         >
           Verify Code
         </p>
         <p
-          className="font-normal text-sm text-slate-900"
+          className="font-normal text-sm text-slate-900 text-center"
           data-cy="page-description"
           data-testid="page-description"
         >
@@ -89,7 +89,7 @@ const VerifyCode: React.FC<VerifyProps> = () => {
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="flex flex-col w-[85%] gap-12 xl:gap-5 mb-12 xl:mb-16"
+          className="flex flex-col w-[85%] gap-5 xl:gap-5 mb-12 xl:mb-16"
           data-testid="event-form"
         >
           <div className="flex flex-row gap-3 justify-center items-center">
@@ -133,7 +133,7 @@ const VerifyCode: React.FC<VerifyProps> = () => {
               </Button>
             </div>
           </div>
-          <div className="flex justify-between items-center flex-row max-md:flex-col">
+          <div className="flex justify-between items-center flex-row max-md:flex-col gap-3">
             <Link
               className="flex justify-start items-center gap-3 text-sm font-medium"
               href={signinUrl}
@@ -141,7 +141,7 @@ const VerifyCode: React.FC<VerifyProps> = () => {
               <img src={back.src} />
               Back to login
             </Link>
-            <span className="font-medium text-sm">
+            <span className="font-medium text-sm text-end">
               Didn’t receive a code?{' '}
               <span className="text-resendText font-[500] cursor-pointer">
                 Resend

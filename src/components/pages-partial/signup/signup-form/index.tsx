@@ -199,7 +199,7 @@ const SignUp: React.FC<SignUpProps> = () => {
         <>
           <div className="flex flex-col w-full justify-center items-center mt-5">
             <p
-              className="font-medium text-[32px] text-headingColor max-lg:mt-6 text-center"
+              className={`font-medium text-[32px] text-headingColor max-lg:mt-6 text-center`}
               data-cy="page-title"
               data-testid="page-title"
             >

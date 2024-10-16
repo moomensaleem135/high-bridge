@@ -89,7 +89,7 @@ interface IncomeSectionProps {
 
 const IncomeSection: React.FC<IncomeSectionProps> = ({
   texts,
-  containerClassName = 'bg-accordionBg tracking-tight border-[1px] border-accodionBorder text-xl font-medium text-accordionText flex justify-between items-center w-full max-w-[850px] p-3 pl-6 pr-6 rounded-md xs:flex-col xs:text-center xs:gap-y-2 min-[480px]:flex min-[480px]:flex-row',
+  containerClassName = 'bg-accordionBg tracking-tight border-[1px] border-accodionBorder text-xl font-medium text-accordionText flex justify-between items-center w-full max-w-[850px] p-3 pl-6 pr-6 rounded-md xs:flex-col xs:text-center xs:gap-y-2 min-[500px]:flex min-[500px]:flex-row',
   title,
   titleClassName,
 }) => {
@@ -134,7 +134,7 @@ const IncomeSection: React.FC<IncomeSectionProps> = ({
                 >
                   <Button
                     className={cn(
-                      'bg-transparent border-black border-[1px] min-[480px]:w-2/3 text-white font-normal h-8 bg-black hover:bg-btnHover pl-6 pr-6 xs:w-full',
+                      'bg-transparent border-black border-[1px] xs:w-full min-[500px]:w-2/3 text-white font-normal h-8 bg-black hover:bg-btnHover pl-6 pr-6 ',
                       isDisabled ? 'opacity-50 cursor-not-allowed' : '',
                       inter.className
                     )}

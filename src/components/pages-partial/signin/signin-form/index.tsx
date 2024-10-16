@@ -71,7 +71,7 @@ const Login: React.FC<LoginProps> = () => {
 
   return (
     <div className="flex flex-col w-full justify-center items-center pt-10 pb-4 bg-formBg gap-12 xl:gap-5 xl:w-5/5 rounded-3xl border-solid border-[1px] border-formBorder">
-      <div className="flex flex-col w-full justify-center items-center py-7">
+      <div className="flex flex-col w-full justify-center items-center pt-7 pb-4">
         <p
           className="font-medium text-[32px] text-headingColor text-center"
           data-cy="page-title"
@@ -93,7 +93,7 @@ const Login: React.FC<LoginProps> = () => {
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="flex flex-col w-[82%] gap-6 mb-12 xl:mb-10"
+          className="flex flex-col w-[82%] gap-5 mb-12 xl:mb-10"
           data-testid="event-form"
         >
           <div className="w-full items-center">

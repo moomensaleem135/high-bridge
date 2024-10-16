@@ -152,14 +152,14 @@ const StorageSelection: React.FC = () => {
       <>
         <div className="flex flex-col w-full justify-center items-center">
           <p
-            className="font-medium text-[32px] text-headingColor max-lg:mt-6 text-center"
+            className="font-medium text-[32px] text-headingColor lg:mt-2 text-center"
             data-cy="page-title"
             data-testid="page-title"
           >
             Choose Your Storage
           </p>
           <p
-            className="font-normal text-sm text-slate-900 max-lg:mb-4 text-center"
+            className="font-normal text-sm text-slate-900 lg:mb-4 text-center"
             data-cy="page-description"
             data-testid="page-description"
           >
@@ -169,7 +169,7 @@ const StorageSelection: React.FC = () => {
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
-            className="flex flex-col w-[82%] gap-6 mb-12 xl:mb-10"
+            className="flex flex-col w-[82%] gap-5 mb-12 xl:mb-6"
             data-testid="event-form"
           >
             <FormField

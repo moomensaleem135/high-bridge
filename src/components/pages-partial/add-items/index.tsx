@@ -18,7 +18,7 @@ export default function PartialAddItems() {
   console.log('income', income);
   return (
     <AppLayout>
-      <div className="flex flex-col self-stretch w-full gap-y-4 xs:my-0 md:my-5 overflow-y-auto overflow-x-hidden pb-10">
+      <div className="flex flex-col self-stretch w-full gap-y-4 xs:my-0 lg:my-5 overflow-y-auto overflow-x-hidden pb-10">
         <div className="flex flex-col justify-center items-center">
           <h1 className="text-center px-4 text-3xl font-semibold">
             Add {income ? income : 'Gold & Sliver'} Items

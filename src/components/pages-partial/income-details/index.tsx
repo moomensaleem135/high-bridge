@@ -63,8 +63,8 @@ export default function PartialIncome() {
           </span>
           <hr className="w-full border-[1px] border-underlineTop" />
         </div>
-        <div className="flex flex-col justify-evenly items-center gap-10 pt-5 mt-5">
-          <div className="flex flex-col justify-center items-center gap-12">
+        <div className="flex flex-col justify-evenly items-center gap-10 pt-5 mt-5 ">
+          <div className="flex flex-col justify-center items-center gap-12 ">
             <section className="flex flex-wrap justify-center items-center max-w-[830px] gap-6">
               <IncomeDetailsCard
                 cardData={cardData}
@@ -72,9 +72,9 @@ export default function PartialIncome() {
                 setReligion={setReligion}
               />
             </section>
-            <div className="flex flex-col justify-evenly items-center w-full gap-5">
-              <hr className="w-full max-lg:w-[75%] border-[1px] border-solid border-underline" />
-              <div className="flex flex-row justify-between items-center w-full max-lg:w-[70%] pb-4">
+            <div className="flex flex-col justify-evenly items-center gap-5 xl:w-full min-[1122px]:w-full max-[1279px]:w-full min-[1024px]:w-[75%] max-[1119px]:w-[75%] min-[834px]:w-full max-lg:w-full min-xs:w-[261px] max-[550px]:w-[261px] min-[551px]:w-[550px] max-[830px]:w-[550px]">
+              <hr className="flex border-[1px] border-solid border-underline w-full" />
+              <div className="flex flex-row justify-between items-center pb-4 w-full">
                 <Link
                   className="flex justify-start items-center text-base font-medium"
                   href={''}

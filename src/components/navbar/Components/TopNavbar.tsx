@@ -72,11 +72,11 @@ const TopNavbar = ({
             Zakat Pay Date:
           </span>
           <div className="flex flex-col justify-between items-start">
-            <span className="text-sm mt-1 font-medium leading-5">
+            <span className="text-sm font-medium leading-5">
               {selector.startDate ? (
                 selector.startDate
               ) : (
-                <span>
+                <span className="text-sm font-medium leading-5">
                   {`${new Date().getDate()} ${new Date().toLocaleString('default', { month: 'long' })} ${new Date().getFullYear()}`}
                 </span>
               )}

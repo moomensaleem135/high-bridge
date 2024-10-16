@@ -82,9 +82,9 @@ const ForgotPassword: React.FC<ForgotPasswordProps> = () => {
           ))}
         </div>
       )} */}
-      <div className="flex flex-col w-full justify-center items-center py-7 gap-y-1">
+      <div className="flex flex-col w-full justify-center items-center pt-7 pb-3 gap-y-1">
         <p
-          className="font-medium text-3xl text-headingColor"
+          className="font-medium text-3xl text-headingColor text-center"
           data-cy="page-title"
           data-testid="page-title"
         >
@@ -154,7 +154,7 @@ const ForgotPassword: React.FC<ForgotPasswordProps> = () => {
           </div>
 
           <Link
-            className="flex justify-start items-center gap-3 text-sm font-medium"
+            className="flex sm:justify-start items-center gap-3 text-sm font-medium xs:justify-center"
             href={signinUrl}
           >
             <img src={back.src} />

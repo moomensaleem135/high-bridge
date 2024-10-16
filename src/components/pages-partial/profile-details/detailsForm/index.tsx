@@ -143,7 +143,7 @@ const ProfileDetailsForm: React.FC<ProfileDetailsProps> = () => {
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="flex flex-col w-[82%] gap-5 mb-10 "
+          className="flex flex-col w-[82%] gap-5 xs:mb-10 md:mb-40"
           data-testid="event-form"
         >
           <div className="w-full items-center">
