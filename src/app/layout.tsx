@@ -27,7 +27,7 @@ export default function RootLayout({
     <html lang="en">
       <ThemeProvider attribute="class">
         <StoreProvider>
-          <body className={poppins.className}>
+          <body>
             <Toaster
               position="top-right"
               toastOptions={{

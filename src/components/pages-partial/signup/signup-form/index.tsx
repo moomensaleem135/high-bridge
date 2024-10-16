@@ -155,42 +155,7 @@ const SignUp: React.FC<SignUpProps> = () => {
                   },
                 }}
               >
-                <StepLabel
-                  StepIconComponent={StepIcon}
-                  sx={{
-                    '& .MuiStepLabel-label': {
-                      fontWeight: 700,
-                      fontSize: '14px',
-                      color: 'black',
-                      marginTop: '1px',
-                      fontFamily: inter.style.fontFamily,
-                    },
-                    '& .Mui-active .MuiStepLabel-label': {
-                      fontWeight: 700,
-                      fontSize: '14px',
-                      color: 'black',
-                      marginTop: '1px',
-                      fontFamily: inter.style.fontFamily,
-                    },
-                    '& .css-12eb3rq-MuiStepLabel-label.Mui-active': {
-                      fontWeight: 700,
-                      fontSize: '14px',
-                      color: 'black',
-                      marginTop: '1px',
-                      fontFamily: inter.style.fontFamily,
-                    },
-                    '& .css-12eb3rq-MuiStepLabel-label.MuiStepLabel-alternativeLabel':
-                      {
-                        fontWeight: 700,
-                        fontSize: '14px',
-                        color: 'black',
-                        marginTop: '1px',
-                        fontFamily: inter.style.fontFamily,
-                      },
-                  }}
-                >
-                  {label}
-                </StepLabel>
+                <StepLabel StepIconComponent={StepIcon}>{label}</StepLabel>
               </Step>
             );
           })}

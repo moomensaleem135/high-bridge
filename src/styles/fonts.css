@@ -1,0 +1,35 @@
+@font-face {
+    font-family: 'Poppins';
+    font-weight: 300; /* Regular */
+    src: url('../assets/fonts/Poppins/Poppins-Light.ttf') format('truetype');
+  }
+
+@font-face {
+    font-family: 'Poppins';
+    font-weight: 400; /* Regular */
+    src: url('../assets/fonts/Poppins/Poppins-Regular.ttf') format('truetype');
+  }
+  
+  @font-face {
+    font-family: 'Poppins';
+    font-weight: 500; /* Medium */
+    src: url('../assets/fonts/Poppins/Poppins-Medium.ttf') format('truetype');
+  }
+  
+  @font-face {
+    font-family: 'Poppins';
+    font-weight: 600; /* Semi-Bold */
+    src: url('../assets/fonts/Poppins/Poppins-SemiBold.ttf') format('woff');
+  }
+  
+  @font-face {
+    font-family: 'Poppins';
+    font-weight: 700; /* Bold */
+    src: url('../assets/fonts/Poppins/Poppins-Bold.woff') format('woff');
+  }
+  
+  @font-face {
+    font-family: 'Poppins';
+    font-weight: 800; /* Semi-Bold */
+    src: url('../assets/fonts/Poppins/Poppins-ExtraBold.ttf') format('woff');
+  }

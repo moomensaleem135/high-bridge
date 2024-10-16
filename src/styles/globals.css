@@ -1,4 +1,4 @@
-/* @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap'); */
+@import './fonts.css'; 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -135,6 +135,7 @@
 .ag-theme-alpine .ag-header-cell-text{
   font-size: 16px !important;
   font-weight: 500 !important;
+  
 }
 
 .ag-theme-alpine .ag-cell{
@@ -143,7 +144,7 @@
 }
 
 .ag-theme-alpine {
-  --ag-font-family : 'Poppins', sans-serif !important
+  font-family : 'Poppins', sans-serif !important
 }
 
 .row-even {
@@ -410,6 +411,40 @@ th {
   border-color: #0074d9 !important;
 }
 
+
+.MuiStepLabel-label{
+  font-weight: 700 !important;
+  font-size: '14px' !important;
+  color: black !important;
+  margin-top: 1px !important;
+  font-family: 'Inter', sans-serif !important;
+}
+
+.Mui-active .MuiStepLabel-label{
+  font-weight: 700 !important;
+  font-size: '14px' !important;
+  color: black !important;
+  margin-top: 1px !important;
+  font-family: 'Inter', sans-serif !important;
+}
+
+.css-12eb3rq-MuiStepLabel-label.Mui-active{
+  font-weight: 700 !important;
+  font-size: '14px' !important;
+  color: black !important;
+  margin-top: 1px !important;
+  font-family: 'Inter', sans-serif !important;
+}
+
+.css-12eb3rq-MuiStepLabel-label.MuiStepLabel-alternativeLabel{
+  font-weight: 700 !important;
+  font-size: '14px' !important;
+  color: black !important;
+  margin-top: 1px !important;
+  font-family: 'Inter', sans-serif !important;
+}
+
+
 @layer base {
   :root {
     --background: #ffffff;
@@ -543,7 +578,7 @@ th {
 body {
   height: 100%;
   overflow: hidden;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Poppins', sans-serif !important ;
 }
 
 .custom-date-picker:focus-within > button:first-of-type > svg {
