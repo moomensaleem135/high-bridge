@@ -144,6 +144,7 @@ const GridSection: React.FC = () => {
           cellRenderer: (params: any) =>
             CustomOptions({
               id: params.data.cashId,
+              item: params.data.item,
               onDelete: handleDelete,
               onEdit: handleEdit,
             }),
@@ -166,6 +167,7 @@ const GridSection: React.FC = () => {
           cellRenderer: (params: any) =>
             CustomOptions({
               id: params.data.goldId,
+              item: params.data.item,
               onDelete: handleDelete,
               onEdit: handleEdit,
             }),
@@ -205,7 +207,7 @@ const GridSection: React.FC = () => {
   }, [items.length, cash.length, zakatVal, income.length]);
 
   // Handle edit and delete actions
-  const handleEdit = (id: string) => {
+  const handleEdit = (id: string, item: string) => {
     router.push(`add-items/item-details?id=${id}`);
     // if (income.includes('Gold')) {
     //   dispatch(updateItem(id));
@@ -214,18 +216,18 @@ const GridSection: React.FC = () => {
     // }
   };
 
-  const handleDelete = (id: string) => {
+  const handleDelete = (id: string, item: string) => {
     console.log('Delete clicked for:', id);
     if (income.includes('Gold')) {
       dispatch(deleteItem(id));
       dispatch(subtractVal(id));
-      toast.success('Item deleted', {
+      toast.success(`${item} Item deleted successfully.`, {
         position: 'top-right',
       });
     } else if (income.includes('Cash')) {
       dispatch(deleteCashItem(id));
       dispatch(subtractVal(id));
-      toast.success('Item deleted', {
+      toast.success(`${item} Item deleted successfully.`, {
         position: 'top-right',
       });
     }

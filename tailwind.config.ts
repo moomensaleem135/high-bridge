@@ -20,6 +20,8 @@ const config: Config = {
       lg: '1024px',
       // => @media (min-width: 1024px) { ... }
 
+      custom : '1220px',
+
       xl: '1280px',
       // => @media (min-width: 1280px) { ... }
 
@@ -49,6 +51,11 @@ const config: Config = {
 
         formBg: 'var(--formBg)',
         formBorder: 'var(--formBorder)',
+        checkboxBg : 'var(--checkbox)',
+        dropdownBg : 'var(--dropdownBackground)',
+        dropdownIcon : 'var( --dropdownIcon)',
+
+        agTableTop : 'var(--agTabletopText)',
 
         underline: 'var(--underline)',
         underlineTop: 'var(--underlineTop)',

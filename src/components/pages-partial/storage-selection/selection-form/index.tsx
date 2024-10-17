@@ -81,7 +81,7 @@ const StorageSelection: React.FC = () => {
     console.log(data.storage);
     router.push('signup');
     dispatch(userSelection(data.storage));
-    toast.success(`${data.storage}`, {
+    toast.success(`Storage selection successful.`, {
       position: 'top-right',
     });
     setActiveStep((prev) => prev + 1);

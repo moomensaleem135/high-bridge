@@ -17,6 +17,7 @@ import { Label } from '@/components/ui/label';
 import { Checkbox } from '@/components/ui/checkbox';
 import { ErrorIcon } from '@/assets/svgs';
 import hide from '../../../../assets/pngs/hide.png';
+import { HideIcon, ShowIcon } from '@/assets/svgs';
 import { Stepper, Step, StepLabel } from '@mui/material';
 
 import { useCreateEventMutation } from '@/store/features/events/eventsApi';
@@ -117,7 +118,7 @@ const SignUp: React.FC<SignUpProps> = () => {
 
     try {
       //const response = await signup(formData);
-      toast.success(`${sinupData.email} `, {
+      toast.success(`Signup successful.`, {
         position: 'top-right',
       });
 
@@ -268,8 +269,17 @@ const SignUp: React.FC<SignUpProps> = () => {
                               console.log(showPassword);
                             }}
                           >
-                            <img src={hide.src} />
-                            {showPassword ? 'Hide' : 'Show'}
+                            {showPassword ? (
+                              <>
+                                <ShowIcon />
+                                Hide
+                              </>
+                            ) : (
+                              <>
+                                <HideIcon />
+                                Show
+                              </>
+                            )}
                           </span>
                         </div>
 
@@ -295,7 +305,7 @@ const SignUp: React.FC<SignUpProps> = () => {
                         )}
                         {field.name === 'password' &&
                           form.getValues('password') && (
-                            <div className="flex gap-2.5 justify-start mt-3 w-full">
+                            <div className="flex gap-2.5 justify-start mt-2 w-full">
                               <PasswordStrengthMeter
                                 password={form.getValues('password')}
                               />
@@ -322,8 +332,17 @@ const SignUp: React.FC<SignUpProps> = () => {
                               console.log(showConfirmPassword);
                             }}
                           >
-                            <img src={hide.src} />
-                            {showConfirmPassword ? 'Hide' : 'Show'}
+                            {showConfirmPassword ? (
+                              <>
+                                <ShowIcon />
+                                Hide
+                              </>
+                            ) : (
+                              <>
+                                <HideIcon />
+                                Show
+                              </>
+                            )}
                           </span>
                         </div>
 

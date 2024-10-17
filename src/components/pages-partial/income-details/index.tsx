@@ -52,7 +52,7 @@ export default function PartialIncome() {
   };
   return (
     <AppLayout>
-      <div className="flex flex-col self-stretch w-full gap-y-4 overflow-y-scroll overflow-x-hidden xs:mb-16 lg:my-5">
+      <div className="flex flex-col self-stretch w-full gap-y-4 overflow-y-scroll overflow-x-hidden xs:mb-16 lg:my-5 gridscrollbar">
         <div className="flex flex-col justify-center items-center">
           <h1 className="text-center px-4 text-3xl font-semibold">
             {selector ? selector : 'Gold & Silver'} Entry

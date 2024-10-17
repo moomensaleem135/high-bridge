@@ -13,7 +13,8 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { ErrorIcon } from '@/assets/svgs';
-import hide from '../../../../assets/pngs/hide.png';
+
+import { HideIcon, ShowIcon } from '@/assets/svgs';
 
 import { useCreateEventMutation } from '@/store/features/events/eventsApi';
 import CustomToast from '@/components/common/CustomToast';
@@ -56,7 +57,7 @@ const Login: React.FC<LoginProps> = () => {
     try {
       //const response = await login(formData);
       form.reset();
-      toast.success(`${loginData.email}`, {
+      toast.success(`Login successful.`, {
         position: 'top-right',
       });
 
@@ -144,8 +145,17 @@ const Login: React.FC<LoginProps> = () => {
                           setShowPaasword(!showPassword);
                         }}
                       >
-                        <img src={hide.src} />
-                        {showPassword ? 'Hide' : 'Show'}
+                        {showPassword ? (
+                          <>
+                            <ShowIcon />
+                            Hide
+                          </>
+                        ) : (
+                          <>
+                            <HideIcon />
+                            Show
+                          </>
+                        )}
                       </div>
                     </div>
 
@@ -178,7 +188,9 @@ const Login: React.FC<LoginProps> = () => {
           <div className="w-full flex flex-col gap-3">
             {/* <div className="flex items-center gap-x-2 "> */}
             <Link href={forgetUrl}>
-              <span className="underline text-sm">Forgot password ?</span>
+              <span className="underline text-sm font-medium">
+                Forgot password ?
+              </span>
             </Link>
             <div className="w-full bg-black h-full p-[6px] rounded-md ">
               <Button

@@ -116,16 +116,18 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = () => {
       if (id) {
         dispatch(updateCashItem(itemData));
         dispatch(editZakat(zakatCalData));
+        toast.success(`${itemsData.item} item edited successfully.`, {
+          position: 'top-right',
+        });
       } else {
         dispatch(addCashItems(itemData));
         dispatch(zakatCal(zakatCalData));
+        toast.success(`${itemsData.item} item added successfully.`, {
+          position: 'top-right',
+        });
       }
 
       form.reset();
-
-      toast.success(`${itemsData.item} ${itemsData.quantity}`, {
-        position: 'top-right',
-      });
 
       router.push('/income/income-details/add-items');
     } catch (error) {
@@ -175,7 +177,7 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = () => {
                         field.onChange('Cash');
                         setItem('Cash');
                       }}
-                      className="rounded-sm h-5 w-5 mt-0.5 border-[2px] border-detailsCheck data-[state=checked]:bg-detailsChecked"
+                      className="rounded-sm h-5 w-5 mt-0.5 border-[2px]"
                     />
                   )}
                 />
@@ -192,7 +194,7 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = () => {
                         field.onChange('Checking');
                         setItem('Checking');
                       }}
-                      className="rounded-sm h-5 w-5 mt-0.5 border-[2px] border-detailsCheck data-[state=checked]:bg-detailsChecked"
+                      className="rounded-sm h-5 w-5 mt-0.5 border-[2px]"
                     />
                   )}
                 />

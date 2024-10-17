@@ -6,7 +6,7 @@ import ZakatCard from './review-section';
 export default function PartialReviews() {
   return (
     <AppLayout>
-      <div className="flex flex-col self-stretch w-full gap-y-4 xs:mb-16 lg:my-7 overflow-y-auto overflow-x-hidden">
+      <div className="flex flex-col self-stretch w-full gap-y-4 xs:mb-16 lg:my-7 overflow-y-auto overflow-x-hidden gridscrollbar">
         <div className="flex flex-col justify-center items-center ">
           <h1 className="px-4 text-3xl font-semibold text-center tracking-tight">
             Review Zakat

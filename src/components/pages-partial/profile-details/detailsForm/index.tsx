@@ -112,12 +112,9 @@ const ProfileDetailsForm: React.FC<ProfileDetailsProps> = () => {
     try {
       dispatch(profileData({ setupData: submissionData }));
 
-      toast.success(
-        `${submissionData.year} ${submissionData.religion} ${submissionData.startDate}  `,
-        {
-          position: 'top-right',
-        }
-      );
+      toast.success(`Profile setup successful. `, {
+        position: 'top-right',
+      });
       // router.push('income');
     } catch (error) {
       console.error('Error creating event:', error);

@@ -140,12 +140,9 @@ const ProfileSetup: React.FC<ProfileSetupProps> = () => {
       form.reset();
       setYear('');
       setStartDate('');
-      toast.success(
-        `${submissionData.year} ${submissionData.religion} ${submissionData.startDate} `,
-        {
-          position: 'top-right',
-        }
-      );
+      toast.success(`Profile setup successful.`, {
+        position: 'top-right',
+      });
 
       router.push('/signin');
       setActiveStep((prev) => prev + 1);

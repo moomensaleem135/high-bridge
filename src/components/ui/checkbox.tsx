@@ -11,7 +11,7 @@ const Checkbox = React.forwardRef<
   <CheckboxPrimitive.Root
     ref={ref}
     className={cn(
-      'relative shrink-0 self-start peer rounded-md border border-brand border-solid h-[22px] w-[22px]  focus-visible:outline-none  disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-black data-[state=checked]:text-primary-foreground',
+      'relative shrink-0 self-start peer rounded-md border border-checkboxBg border-solid h-[22px] w-[22px]  focus-visible:outline-none  disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-checkboxBg data-[state=checked]:text-primary-foreground',
       className
     )}
     {...props}
@@ -33,7 +33,7 @@ const CheckboxDropdown = React.forwardRef<
   <CheckboxPrimitive.Root
     ref={ref}
     className={cn(
-      'relative shrink-0 self-start peer rounded-md border border-brand border-solid h-[22px] w-[22px]  focus-visible:outline-none  disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-black data-[state=checked]:text-primary-foreground',
+      'relative shrink-0 self-start peer rounded-md border border-checkboxBg border-solid h-[22px] w-[22px]  focus-visible:outline-none  disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-checkboxBg data-[state=checked]:text-primary-foreground',
       className
     )}
     {...props}

@@ -8,6 +8,7 @@ import { payZakatUrl } from '@/configs/constants';
 import { useRouter } from 'next/navigation';
 import { IncomeChoice } from '@/store/features/income/incomeSlice';
 import { Inter } from 'next/font/google';
+import { ArrowRightIcon } from 'lucide-react';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -96,8 +97,10 @@ const ZakatCard = () => {
             categorizedItems.personal['Gold & Silver'].length > 0 && (
               <div className="p-4 bg-cardbg rounded-xl border-cardBorder border-[1px] mb-4">
                 <div className="font-medium text-xl flex gap-2">
-                  <div className="xs:text-base sm:text-xl">Gold & Silver</div>
-                  <div className="font-medium text-sm flex justify-center items-center">
+                  <div className="xs:text-base sm:text-xl text-agTableTop">
+                    Gold & Silver
+                  </div>
+                  <div className="font-medium text-sm flex justify-center items-center text-agTableTop">
                     ({categorizedItems.personal['Gold & Silver'][0].religion})
                   </div>
                 </div>
@@ -128,7 +131,7 @@ const ZakatCard = () => {
                           className="flex justify-end items-center flex-1"
                         >
                           <Button
-                            className="bg-black text-white font-medium text-xs hover:bg-[#5e5f5d] h-7 rounded-md pl-4 pr-4 pt-1 pb-1 "
+                            className="bg-black text-white font-medium text-xs hover:bg-[#5e5f5d] h-7 rounded-md pl-4 pr-4 pt-1 pb-1 xs:hidden sm:flex"
                             onClick={() => {
                               dispatch(IncomeChoice(item.income));
                             }}
@@ -139,6 +142,14 @@ const ZakatCard = () => {
                               Preview
                             </span>
                           </Button>
+                          <span
+                            className="xs:flex sm:hidden"
+                            onClick={() => {
+                              dispatch(IncomeChoice(item.income));
+                            }}
+                          >
+                            <ArrowLeftIcon className="rotate-180 h-6" />
+                          </span>
                         </Link>
                       </div>
                     </div>
@@ -152,8 +163,10 @@ const ZakatCard = () => {
             categorizedCash.personal['Cash & Checking'].length > 0 && (
               <div className="p-4 bg-cardbg rounded-xl border-cardBorder border-[1px] mb-4">
                 <div className="font-medium text-xl flex gap-2">
-                  <div className="xs:text-base sm:text-xl">Cash & Checking</div>
-                  <div className="font-medium text-sm flex justify-center items-center ">
+                  <div className="xs:text-base sm:text-xl text-agTableTop">
+                    Cash & Checking
+                  </div>
+                  <div className="font-medium text-sm flex justify-center items-center text-agTableTop">
                     ({categorizedCash.personal['Cash & Checking'][0].religion})
                   </div>
                 </div>
@@ -184,7 +197,7 @@ const ZakatCard = () => {
                           className="flex justify-end items-center flex-1"
                         >
                           <Button
-                            className="bg-black text-white flex justify-center items-center hover:bg-[#5e5f5d] h-7 rounded-md pl-4 pr-4 pt-1 pb-1"
+                            className="bg-black text-white flex justify-center items-center hover:bg-[#5e5f5d] h-7 rounded-md pl-4 pr-4 pt-1 pb-1 xs:hidden sm:flex"
                             onClick={() => {
                               dispatch(IncomeChoice(item.income));
                             }}
@@ -195,6 +208,14 @@ const ZakatCard = () => {
                               Preview
                             </span>
                           </Button>
+                          <span
+                            className="xs:flex sm:hidden"
+                            onClick={() => {
+                              dispatch(IncomeChoice(item.income));
+                            }}
+                          >
+                            <ArrowLeftIcon className="rotate-180 h-6" />
+                          </span>
                         </Link>
                       </div>
                     </div>

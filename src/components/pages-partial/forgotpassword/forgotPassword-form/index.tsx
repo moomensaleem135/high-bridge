@@ -54,7 +54,7 @@ const ForgotPassword: React.FC<ForgotPasswordProps> = () => {
     try {
       const response = await login(formData);
       form.reset();
-      toast.success(`${forgotPassData.email}`, {
+      toast.success(`Verification code sent on the provided email`, {
         position: 'top-right',
       });
 

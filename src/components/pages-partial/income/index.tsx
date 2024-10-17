@@ -2,13 +2,7 @@
 
 import React from 'react';
 import AppLayout from '@/components/common/layout/AppLayout';
-import IncomeAccordion from './income-cards/IncomeAccordion';
 import IncomeSection from '@/components/common/incomeSection';
-import { useSelector, UseSelector } from 'react-redux';
-import { useRouter } from 'next/navigation';
-import CustomToast from '@/components/common/CustomToast';
-import toast from 'react-hot-toast';
-import { Button } from '@/components/ui/button';
 
 const personalText = [
   {
@@ -52,7 +46,7 @@ const commercialText = [
 export default function Income() {
   return (
     <AppLayout>
-      <div className="flex flex-col self-stretch w-full gap-y-4 pb-16 overflow-y-scroll xs:mb-16 lg:my-5 scrollbar">
+      <div className="flex flex-col self-stretch w-full gap-y-4 pb-16 overflow-y-scroll xs:mb-16 lg:my-5 gridscrollbar">
         <div className="w-full flex flex-col justify-center items-center">
           <h1 className="px-4 text-3xl font-semibold text-center tracking-tight">
             Zakat on Various Income Sources

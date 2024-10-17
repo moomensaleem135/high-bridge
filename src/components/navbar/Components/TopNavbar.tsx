@@ -81,7 +81,7 @@ const TopNavbar = ({
                 </span>
               )}
             </span>
-            <span className="font-medium text-[10.5px]">
+            <span className="font-medium text-[11px]">
               {selector.year === 'lunar' ? `(${selector.generic})` : ''}
             </span>
           </div>

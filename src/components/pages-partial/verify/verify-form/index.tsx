@@ -56,7 +56,7 @@ const VerifyCode: React.FC<VerifyProps> = () => {
     try {
       const response = await verify(formData);
       form.reset();
-      toast.success(`${verifyData.otp}`, {
+      toast.success(`Verification successful.`, {
         position: 'top-right',
       });
       router.push('/reset-password');

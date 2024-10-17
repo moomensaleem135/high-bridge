@@ -5,44 +5,24 @@
 
 @layer utilities {
   .gridscrollbar::-webkit-scrollbar {
-    width: 18px;
-    height: 10px;
+    width: 8px !important;
   }
 
   .gridscrollbar::-webkit-scrollbar-track {
     border-radius: 100vh;
-    background: #f8f8f8;
-  }
-
-  .gridscrollbar::-webkit-scrollbar-thumb {
-    background: #dfe3e6;
-    border-radius: 100vh;
-    height: 1px;
+    width: 9px !important;
+    height: 10px !important;
   }
 
   .gridscrollbar::-webkit-scrollbar-thumb:hover {
-    background: #a9acaf;
+    background: #7a7a7a !important;
+    width: 9px !important;
   }
 
-  .scrollbar::-webkit-scrollbar {
-    width: 18px;
-    height: 18px;
-  }
-
-  .scrollbar::-webkit-scrollbar-track {
-    border-radius: 100vh;
-    background: #ffffff;
-  }
-
-  .scrollbar::-webkit-scrollbar-thumb {
-    background: #dfe3e6;
-    border-radius: 100vh;
-    height: 2px;
-    border: 5px solid #f6f7ed;
-  }
-
-  .scrollbar::-webkit-scrollbar-thumb:hover {
-    background: #a9acaf;
+  .gridscrollbar::-webkit-scrollbar-thumb {
+    background: #a9acaf !important;
+    border-radius: 100vh !important;
+    width: 9px !important;
   }
 }
 
@@ -450,10 +430,18 @@ th {
     --background: #ffffff;
     --backcolor: #f8f8f8;
 
+
+    --checkbox: #000000;
+    --dropdownBackground : #ffffff;
+    --dropdownIcon : #1d211c;
+
+
     --navBorder: #dfe3e6;
 
     --formBg: #f8f8f8;
     --formBorder: #66666659;
+
+    --agTabletopText : #000000;
 
     --cardbg: #f8f8f8;
     --cardheading: #000000;
@@ -519,6 +507,13 @@ th {
     --backcolor: #111210;
 
     --navBorder: #dfe3e6;
+
+    --checkbox: #8c8c91;
+    --dropdownBackground : #ffffff;
+    --dropdownIcon : #1d211c;
+
+    --agTabletopText : #000000;
+
 
     --formBg: #f8f8f8;
     --formBorder: #666666;

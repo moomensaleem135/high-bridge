@@ -152,18 +152,18 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = () => {
       if (id) {
         dispatch(updateItem(itemData));
         dispatch(editZakat(zakatCalData));
+        toast.success(`${itemsData.item} item edited successfully.`, {
+          position: 'top-right',
+        });
       } else {
         dispatch(addItems(itemData));
         dispatch(zakatCal(zakatCalData));
+        toast.success(`${itemsData.item} item added successfully.`, {
+          position: 'top-right',
+        });
       }
 
       form.reset();
-      toast.success(
-        `${itemsData.item} ${itemsData.purpose} ${itemsData.usage} ${itemsData.quality}`,
-        {
-          position: 'top-right',
-        }
-      );
 
       router.push('/income/income-details/add-items');
     } catch (error) {
@@ -212,7 +212,7 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = () => {
                         field.onChange('Gold');
                         setItem('Gold');
                       }}
-                      className="rounded-sm h-5 w-5 mt-0.5 border-[2px] border-detailsCheck data-[state=checked]:bg-detailsChecked"
+                      className="rounded-sm h-5 w-5 mt-0.5 border-[2px]"
                     />
                   )}
                 />
@@ -229,7 +229,7 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = () => {
                         field.onChange('Silver');
                         setItem('Silver');
                       }}
-                      className="rounded-sm h-5 w-5 mt-0.5 border-[2px] border-detailsCheck data-[state=checked]:bg-detailsChecked"
+                      className="rounded-sm h-5 w-5 mt-0.5 border-[2px]"
                     />
                   )}
                 />
@@ -286,7 +286,7 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = () => {
                       <Checkbox
                         checked={field.value === 'Yes'}
                         onCheckedChange={() => field.onChange('Yes')}
-                        className="rounded-sm h-5 w-5 mt-0.5 border-[2px] border-detailsCheck data-[state=checked]:bg-detailsChecked"
+                        className="rounded-sm h-5 w-5 mt-0.5 border-[2px]"
                       />
                     )}
                   />
@@ -300,7 +300,7 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = () => {
                       <Checkbox
                         checked={field.value === 'No'}
                         onCheckedChange={() => field.onChange('No')}
-                        className="rounded-sm h-5 w-5 mt-0.5 border-[2px] border-detailsCheck data-[state=checked]:bg-detailsChecked"
+                        className="rounded-sm h-5 w-5 mt-0.5 border-[2px]"
                       />
                     )}
                   />

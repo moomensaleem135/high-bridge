@@ -13,7 +13,7 @@ interface CarouselTextProps {
 const CarouselText: React.FC<CarouselTextProps> = ({
   textParas,
   interval = 4000,
-  containerClassName = 'w-full h-11/12 flex flex-col justify-betweens',
+  containerClassName = 'w-full h-11/12 flex flex-col justify-between',
   title,
   titleClassName = 'text-4xl font-[700] w-full',
 }) => {

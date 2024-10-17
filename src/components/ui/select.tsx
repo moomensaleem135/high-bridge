@@ -33,7 +33,7 @@ const SelectTrigger = React.forwardRef<
     {children}
     <SelectPrimitive.Icon asChild>
       <ArrowDownIcon
-        className={`w-4 h-4 text-headingColor ml-3 ${iconColor}`}
+        className={`w-4 h-4 text-dropdownIcon ml-3 ${iconColor}`}
       />
     </SelectPrimitive.Icon>
   </SelectPrimitive.Trigger>
@@ -48,7 +48,7 @@ const SelectContent = React.forwardRef<
     <SelectPrimitive.Content
       ref={ref}
       className={cn(
-        'relative z-50 min-w-[8rem] overflow-hidden rounded-md  bg-background text-popover-foreground shadow-md animate-in fade-in-80',
+        'relative z-50 min-w-[8rem] overflow-hidden rounded-md  bg-dropdownBg text-popover-foreground shadow-md animate-in fade-in-80',
         position === 'popper' && 'translate-y-1',
         className
       )}
@@ -104,7 +104,7 @@ const SelectItem = React.forwardRef<
       <CheckboxDropdown
         checked={isChecked}
         //onCheckedChange={handleServerCheck}
-        className="absolute left-2 flex w-4 h-4 my-[0.1rem] items-center justify-center rounded-sm border-black" // Optional custom class
+        className="absolute left-2 flex w-4 h-4 my-[0.1rem] items-center justify-center rounded-sm" // Optional custom class
       />
       <SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText>
     </div>

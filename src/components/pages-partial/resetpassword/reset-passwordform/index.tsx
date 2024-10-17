@@ -14,7 +14,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { ErrorIcon } from '@/assets/svgs';
-import hide from '../../../../assets/pngs/hide.png';
+import { ShowIcon, HideIcon } from '@/assets/svgs';
 
 import { useCreateEventMutation } from '@/store/features/events/eventsApi';
 import CustomToast from '@/components/common/CustomToast';
@@ -61,7 +61,7 @@ const ResetPassword: React.FC<ResetProps> = () => {
     try {
       const response = await login(formData);
       form.reset();
-      toast.success(`${resetData.password}`, {
+      toast.success(`Password reset successful.`, {
         position: 'top-right',
       });
 
@@ -117,8 +117,17 @@ const ResetPassword: React.FC<ResetProps> = () => {
                           console.log(showPassword);
                         }}
                       >
-                        <img src={hide.src} />
-                        {showPassword ? 'Hide' : 'Show'}
+                        {showPassword ? (
+                          <>
+                            <ShowIcon />
+                            Hide
+                          </>
+                        ) : (
+                          <>
+                            <HideIcon />
+                            Show
+                          </>
+                        )}
                       </span>
                     </div>
 
@@ -144,7 +153,7 @@ const ResetPassword: React.FC<ResetProps> = () => {
                     )}
                     {field.name === 'password' &&
                       form.getValues('password') && (
-                        <div className="flex gap-2.5 justify-start mt-3 w-full">
+                        <div className="flex gap-2.5 justify-start mt-2 w-full">
                           <PasswordStrengthMeter
                             password={form.getValues('password')}
                           />
@@ -174,8 +183,17 @@ const ResetPassword: React.FC<ResetProps> = () => {
                           console.log(showConfirmPassword);
                         }}
                       >
-                        <img src={hide.src} />
-                        {showConfirmPassword ? 'Hide' : 'Show'}
+                        {showConfirmPassword ? (
+                          <>
+                            <ShowIcon />
+                            Hide
+                          </>
+                        ) : (
+                          <>
+                            <HideIcon />
+                            Show
+                          </>
+                        )}
                       </span>
                     </div>
 
