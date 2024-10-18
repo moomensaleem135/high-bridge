@@ -25,7 +25,7 @@ import OtpField from './verifyotp-field';
 interface VerifyProps {}
 
 const VerifySchema = z.object({
-  otp: z.string().min(1, { message: 'verification code is required' }),
+  otp: z.string().min(5, { message: 'verification code is required' }),
 });
 
 type FormFields = z.infer<typeof VerifySchema>;
@@ -94,7 +94,7 @@ const VerifyCode: React.FC<VerifyProps> = () => {
         >
           <div className="flex flex-row gap-3 justify-center items-center">
             <div className="w-full items-center">
-              <div className="flex flex-row gap-x-6 items-center">
+              <div className="flex flex-col gap-x-6 items-center">
                 <Controller
                   control={form.control}
                   name="otp"
@@ -106,15 +106,17 @@ const VerifyCode: React.FC<VerifyProps> = () => {
                           onChange={field.onChange}
                         />
                       </FormControl>
-                      {form.formState.errors.otp && (
-                        <span className="text-destructive text-sm flex items-center gap-1">
-                          <ErrorIcon />
-                          {form.formState.errors.otp.message}
-                        </span>
-                      )}
                     </div>
                   )}
                 />
+                <div className="flex justify-start items-start w-full">
+                  {form.formState.errors.otp && (
+                    <span className="text-destructive text-sm flex items-center gap-1">
+                      <ErrorIcon />
+                      {form.formState.errors.otp.message}
+                    </span>
+                  )}
+                </div>
               </div>
             </div>
           </div>
