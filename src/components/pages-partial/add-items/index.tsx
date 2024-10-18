@@ -42,7 +42,7 @@ export default function PartialAddItems() {
             <MainSection />
           </div>
 
-          <div className="flex justify-center items-center w-full xs:pb-20 md:pb-0">
+          <div className="flex justify-center items-center w-full xs:pb-20 md:pb-10">
             <div className="flex flex-col justify-evenly items-center w-[75%] gap-5 mt-6">
               <hr className="w-full border-[1px] border-solid border-underline max-w-[850px]" />
               <div className="flex justify-between items-center w-full max-w-[850px] md:flex-row md:justify-between md:items-center xs:flex-col-reverse xs:gap-y-4 xs:justify-start xs:items-start">
