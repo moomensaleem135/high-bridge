@@ -127,6 +127,8 @@ const ProfileSetup: React.FC<ProfileSetupProps> = () => {
       ...setupData,
       startDate: finalStartDate,
     };
+    console.log(setupData);
+    console.log(submissionData);
 
     Object.keys(submissionData).forEach((key) => {
       const value = submissionData[key as keyof FormFields];
@@ -136,13 +138,17 @@ const ProfileSetup: React.FC<ProfileSetupProps> = () => {
     });
 
     try {
+      console.log(setupData);
       dispatch(profileData({ setupData: submissionData }));
       form.reset();
       setYear('');
       setStartDate('');
-      toast.success(`Profile setup successful.`, {
-        position: 'top-right',
-      });
+
+      if (setupData.religion !== '' && setupData.year !== '') {
+        toast.success(`Profile setup successful.`, {
+          position: 'top-right',
+        });
+      }
 
       router.push('/signin');
       setActiveStep((prev) => prev + 1);
