@@ -7,7 +7,6 @@ import toast from 'react-hot-toast';
 import Link from 'next/link';
 
 import { Form, FormControl, FormField } from '@/components/ui/form';
-import { IconInput } from '@/components/ui/icon-input';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import { Button } from '@/components/ui/button';
@@ -16,7 +15,6 @@ import { ErrorIcon } from '@/assets/svgs';
 import back from '../../../../assets/pngs/backArrow.png';
 
 import { useCreateEventMutation } from '@/store/features/events/eventsApi';
-import CustomToast from '@/components/common/CustomToast';
 
 import Spinner from '@/components/common/Spinner';
 import { signinUrl } from '@/configs/constants';
@@ -54,7 +52,7 @@ const VerifyCode: React.FC<VerifyProps> = () => {
     });
 
     try {
-      const response = await verify(formData);
+      // const response = await verify(formData);
       form.reset();
       toast.success(`Verification successful.`, {
         position: 'top-right',

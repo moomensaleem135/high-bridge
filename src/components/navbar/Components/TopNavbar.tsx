@@ -22,9 +22,6 @@ const TopNavbar = ({
 }: ITopNavbar) => {
   const selector = useSelector((state: any) => state.setup.setup);
   const zakatVal = useSelector((state: any) => state.zakat.zakat);
-  console.log({ selector });
-  console.log(zakatVal);
-  const selectedDate = formatDate(selector.startDate);
   const router = useRouter();
 
   const totalZakatValue = zakatVal.reduce((total: any, entry: any) => {
@@ -81,9 +78,11 @@ const TopNavbar = ({
                 </span>
               )}
             </span>
-            <span className="font-medium text-[11px]">
-              {selector.year === 'lunar' ? `(${selector.generic})` : ''}
-            </span>
+            {selector.generic !== null ? (
+              <span className="font-medium text-[11px]">
+                {selector.year === 'lunar' ? `(${selector.generic})` : ''}
+              </span>
+            ) : null}
           </div>
         </div>
       </div>

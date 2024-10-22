@@ -7,15 +7,13 @@ import AppLayout from '@/components/common/layout/AppLayout';
 import MainSection from './item-section/main';
 import Link from 'next/link';
 import { ArrowLeftIcon } from '@/assets/svgs';
-import { Button } from '@/components/ui/button';
-import { Router } from 'next/router';
 import { useRouter } from 'next/navigation';
 
 export default function PartialAddItems() {
   const router = useRouter();
   const items = useSelector((state: any) => state.items.items) || [];
   const income = useSelector((state: any) => state.income.income);
-  console.log('income', income);
+
   return (
     <AppLayout>
       <div className="flex flex-col self-stretch w-full gap-y-4 xs:my-0 lg:my-5 overflow-y-auto overflow-x-hidden pb-10 gridscrollbar">

@@ -4,31 +4,26 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useForm, Controller } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
 import { z } from 'zod';
-import Link from 'next/link';
 import toast from 'react-hot-toast';
 
-import { Form, FormControl, FormField } from '@/components/ui/form';
-import { ArrowLeftIcon } from '@/assets/svgs';
+import { Form, FormField } from '@/components/ui/form';
+
 import { zodResolver } from '@hookform/resolvers/zod';
-import { IconInput } from '@/components/ui/icon-input';
 
 import { Button } from '@/components/ui/button';
-import DatePicker from '@/components/ui/datepicker';
+
 import { Label } from '@/components/ui/label';
 import CalendarSelect from './calendarSelect';
-import MonthSelect from './monthSelect';
+
 import moment from 'moment-hijri';
 import { DateObject } from 'react-multi-date-picker';
 import hijri from 'react-date-object/calendars/arabic';
-import gregorian from 'react-date-object/calendars/gregorian';
+
 import { useCreateEventMutation } from '@/store/features/events/eventsApi';
 
 import { ErrorIcon } from '@/assets/svgs';
 
 import { useCreateItemMutation } from '@/store/features/items/itemsApi';
-import CustomToast from '@/components/common/CustomToast';
-import { addItemssUrl } from '@/configs/constants';
-import { addItems } from '@/store/features/items/golditemsSlice';
 import { profileData } from '@/store/features/setup/setupSlice';
 import Spinner from '@/components/common/Spinner';
 
@@ -41,7 +36,7 @@ interface ProfileDetailsProps {}
 const ProfileDetailsSchema = z.object({
   year: z.string().min(1, { message: 'Year is required' }),
   religion: z.string().min(1, { message: 'Religion is required' }),
-  startDate: z.string().min(0, { message: 'Start date is required' }),
+  startDate: z.string().min(1, { message: 'Start date is required' }),
 });
 
 type FormFields = z.infer<typeof ProfileDetailsSchema>;
@@ -68,7 +63,6 @@ const ProfileDetailsForm: React.FC<ProfileDetailsProps> = () => {
   const [startDate, setStartDate] = useState<string>('');
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
   const [showStart, setShowStart] = React.useState<boolean>(false);
-  const [showEnd, setShowEnd] = React.useState<boolean>(false);
 
   const form = useForm<FormFields>({
     resolver: zodResolver(ProfileDetailsSchema),
@@ -90,6 +84,11 @@ const ProfileDetailsForm: React.FC<ProfileDetailsProps> = () => {
     form.trigger('religion');
   };
 
+  const DateChange = (dateVal: string) => {
+    form.setValue('startDate', dateVal);
+    form.trigger('startDate');
+  };
+
   const onSubmit = async (setupData: FormFields) => {
     const finalStartDate = setupData.startDate || selectedDate;
 
@@ -99,8 +98,6 @@ const ProfileDetailsForm: React.FC<ProfileDetailsProps> = () => {
       ...setupData,
       startDate: finalStartDate,
     };
-
-    console.log('submit data', submissionData);
 
     Object.keys(submissionData).forEach((key) => {
       const value = submissionData[key as keyof FormFields];
@@ -115,7 +112,6 @@ const ProfileDetailsForm: React.FC<ProfileDetailsProps> = () => {
       toast.success(`Profile setup successful. `, {
         position: 'top-right',
       });
-      // router.push('income');
     } catch (error) {
       console.error('Error creating event:', error);
       toast.error('Failed to Create event', {
@@ -123,17 +119,6 @@ const ProfileDetailsForm: React.FC<ProfileDetailsProps> = () => {
       });
     }
   };
-
-  // const handleDateChange = (date: Date) => {
-  //   console.log(date);
-
-  //   const selectedDateFormatted = date.toDateString();
-  //   const startDateFormatted = new Date(
-  //     date.setFullYear(date.getFullYear() - 1)
-  //   ).toDateString();
-  //   setSelectedDate(selectedDateFormatted);
-  //   setStartDate(startDateFormatted);
-  // };
 
   return (
     <div className="flex flex-col w-full max-w-[950px] justify-center items-center gap-12 rounded-3xl mt-6">
@@ -158,7 +143,7 @@ const ProfileDetailsForm: React.FC<ProfileDetailsProps> = () => {
                 )}
               />
               {form.formState.errors.religion && (
-                <span className="text-destructive text-sm flex items-center gap-1 mt-2">
+                <span className="text-destructive text-sm flex items-center gap-1">
                   <ErrorIcon />
                   {form.formState.errors.religion.message}
                 </span>
@@ -180,30 +165,13 @@ const ProfileDetailsForm: React.FC<ProfileDetailsProps> = () => {
                 )}
               />
               {form.formState.errors.year && (
-                <span className="text-destructive text-sm flex items-center gap-1 mt-2">
+                <span className="text-destructive text-sm flex items-center gap-1">
                   <ErrorIcon />
                   {form.formState.errors.year.message}
                 </span>
               )}
             </div>
           </div>
-
-          {/* <div className="w-full items-center">
-            <div className="flex flex-col justify-start gap-x-6 gap-y-2 items-start">
-              <Label>Which month do you pay zakat?</Label>
-              <FormField
-                control={form.control}
-                name="month"
-                render={({ field }) => (
-                  <MonthSelect
-                    onMonthChange={(month) => field.onChange(month)}
-                    year={year}
-                    initialValue={selector.month}
-                  />
-                )}
-              />
-            </div>
-          </div> */}
 
           <div className="w-full items-center">
             <div className="flex flex-col justify-start gap-x-6 items-start">
@@ -228,12 +196,21 @@ const ProfileDetailsForm: React.FC<ProfileDetailsProps> = () => {
                               date,
                               year,
                               setSelectedDate,
-                              setStartDate
+                              setStartDate,
+                              DateChange
                             )
                           }
                         />
                       )}
                     />
+                  </div>
+                  <div className="flex justify-start items-start w-full">
+                    {form.formState.errors.startDate && (
+                      <span className="text-destructive text-sm flex items-center gap-1">
+                        <ErrorIcon />
+                        {form.formState.errors.startDate.message}
+                      </span>
+                    )}
                   </div>
                 </div>
               </div>

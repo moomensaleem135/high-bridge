@@ -9,7 +9,6 @@ import CashItemDetails from './cash-checking';
 
 export default function PartialItemDetails() {
   const income = useAppSelector((state: any) => state.income.income);
-  console.log('income', income);
 
   const renderItemDetails = () => {
     if (income?.toLowerCase().includes('gold')) {

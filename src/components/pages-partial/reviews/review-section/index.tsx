@@ -8,7 +8,6 @@ import { payZakatUrl } from '@/configs/constants';
 import { useRouter } from 'next/navigation';
 import { IncomeChoice } from '@/store/features/income/incomeSlice';
 import { Inter } from 'next/font/google';
-import { ArrowRightIcon } from 'lucide-react';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -35,7 +34,6 @@ const commercialText = [
 const ZakatCard = () => {
   const items = useSelector((state: any) => state.items.items) || [];
   const cash = useSelector((state: any) => state.cash.cash) || [];
-  console.log(inter);
 
   const router = useRouter();
   const dispatch = useDispatch();

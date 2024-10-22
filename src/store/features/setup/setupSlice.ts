@@ -50,39 +50,43 @@ const setupSlice = createSlice({
 
         // Convert lunar date to solar date if necessary
         if (data.year === 'lunar') {
+        
           
-          const parts = data.startDate.split(' ');
-          const day = parseInt(parts[0], 10);
-          const yearHijri = parseInt(parts[parts.length - 1], 10); // Always take the last part as year
-
-          // Join the month parts in case they are multiple words
-          const monthStr = parts.slice(1, parts.length - 1).join(' ').trim(); // Combine middle parts for the month
-
-          const monthIndex = locales.lunar.months.findIndex((month: any) => month[0] === monthStr);
-
-          if (monthIndex !== -1) {
-           
-            // Create a DateObject with the lunar date
-            const lunarDate = new DateObject({
-              day,
-              month: monthIndex + 1, // months are 1-indexed in DateObject
-              year: yearHijri,
-              calendar: hijri,
-            });
-
-            // Convert to Gregorian date
-            const solarDate = lunarDate.toDate();
-            const formattedDate = `${solarDate.getDate()} ${solarDate.toLocaleString('default', { month: 'long' })} ${solarDate.getFullYear()}`;
-
-            // Store converted date in generic
-            state.setup.generic = formattedDate; // Only update generic with the converted date
-          
+          if(data.startDate !== null){
+            const parts = data.startDate.split(' ');
+            const day = parseInt(parts[0], 10);
+            const yearHijri = parseInt(parts[parts.length - 1], 10); // Always take the last part as year
+  
+            // Join the month parts in case they are multiple words
+            const monthStr = parts.slice(1, parts.length - 1).join(' ').trim(); // Combine middle parts for the month
+  
+            const monthIndex = locales.lunar.months.findIndex((month: any) => month[0] === monthStr);
+  
+            if (monthIndex !== -1) {
+             
+              // Create a DateObject with the lunar date
+              const lunarDate = new DateObject({
+                day,
+                month: monthIndex + 1, // months are 1-indexed in DateObject
+                year: yearHijri,
+                calendar: hijri,
+              });
+  
+              // Convert to Gregorian date
+              const solarDate = lunarDate.toDate();
+              const formattedDate = `${solarDate.getDate()} ${solarDate.toLocaleString('default', { month: 'long' })} ${solarDate.getFullYear()}`;
+  
+              // Store converted date in generic
+              state.setup.generic = formattedDate; // Only update generic with the converted date
+            
+            } else {
+              console.error(`Month "${monthStr}" not found in lunar months.`);
+            }
           } else {
-            console.error(`Month "${monthStr}" not found in lunar months.`);
+            state.setup.generic = data.startDate
           }
-        } else {
-          state.setup.generic = data.startDate
-        }
+          }
+        
       }
     },
   },

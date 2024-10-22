@@ -9,7 +9,6 @@ import { deleteItem, updateItem } from '@/store/features/items/golditemsSlice';
 import { deleteCashItem } from '@/store/features/cash-items/cashSlice';
 
 import { useRouter } from 'next/navigation';
-import { zakatCal } from '@/store/features/zakat/zakatSlice';
 import { subtractVal } from '@/store/features/zakat/zakatSlice';
 import toast from 'react-hot-toast';
 
@@ -67,17 +66,6 @@ const GridSection: React.FC = () => {
   const [columns, setColumns] = useState<ColumnDef[]>([]);
   const [rowData, setRowData] = useState<RowDataDef[]>([]);
 
-  // Dynamically update the grid height based on the number of items
-  // useEffect(() => {
-  //   if (items.length !== 0) {
-  //     const numberOfRows = items.length;
-  //     const calculatedHeight = Math.min(numberOfRows * rowHeight, maxHeight);
-  //     setGridHeight(calculatedHeight);
-  //   } else {
-  //     setGridHeight(maxHeight);
-  //   }
-  // }, [items.length]);
-
   useEffect(() => {
     if (
       (income.length != 0 && income.includes('Cash')) ||
@@ -105,25 +93,6 @@ const GridSection: React.FC = () => {
       setGridHeight(maxHeight);
     }
   }, [items.length, cash.length, income.length]);
-  // useEffect(() => {
-  //   if (income.includes('Cash') || income.includes('Checking')) {
-  //     if (cash.length > 0) {
-  //       const calculatedHeight = Math.min(cash.length * rowHeight, maxHeight);
-  //       setGridHeight(calculatedHeight);
-  //     } else {
-  //       setGridHeight(maxHeight);
-  //     }
-  //   } else if (income.includes('Gold')) {
-  //     if (items.length > 0) {
-  //       const calculatedHeight = Math.min(items.length * rowHeight, maxHeight);
-  //       setGridHeight(calculatedHeight);
-  //     } else {
-  //       setGridHeight(maxHeight);
-  //     }
-  //   } else {
-  //     setGridHeight(maxHeight);
-  //   }
-  // }, [items.length, cash.length, income]);
 
   // Set columns based on the income type (runs when income changes)
   useEffect(() => {
@@ -209,15 +178,9 @@ const GridSection: React.FC = () => {
   // Handle edit and delete actions
   const handleEdit = (id: string, item: string) => {
     router.push(`add-items/item-details?id=${id}`);
-    // if (income.includes('Gold')) {
-    //   dispatch(updateItem(id));
-    // } else if (income.includes('Cash')) {
-    //   dispatch(deleteCashItem(id));
-    // }
   };
 
   const handleDelete = (id: string, item: string) => {
-    console.log('Delete clicked for:', id);
     if (income.includes('Gold')) {
       dispatch(deleteItem(id));
       dispatch(subtractVal(id));

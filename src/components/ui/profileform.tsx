@@ -14,17 +14,13 @@ const Form: React.FC = () => {
 
   const ref = useRef(null);
 
-  const handleCalendarChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log('in change');
-  };
+  const handleCalendarChange = (e: React.ChangeEvent<HTMLInputElement>) => {};
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log('in submit');
   };
 
   useEffect(() => {
-    console.log('in effect');
     setMonth('');
   }, [calendar]);
 

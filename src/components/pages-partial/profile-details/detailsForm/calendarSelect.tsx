@@ -24,7 +24,6 @@ const CalendarSelect: React.FC<CalendarDropdownProps> = ({
   );
 
   React.useEffect(() => {
-    console.log('initials', initialValue);
     setSelectedYear(initialValue);
     if (initialValue !== '') {
       handleChange(initialValue);

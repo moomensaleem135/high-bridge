@@ -62,10 +62,7 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = () => {
   });
 
   const onSubmit = async (itemsData: FormFields) => {
-    console.log('in submit');
-
     const usage = itemsData.usage ? itemsData.usage : '';
-    console.log(usage);
 
     const itemData = {
       item: itemsData.item,
@@ -85,7 +82,7 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = () => {
 
     Object.keys(itemsData).forEach((key) => {
       const value = itemsData[key as keyof FormFields];
-      console.log(value);
+
       if (value !== undefined && value !== null) {
         formData.append(key, value as any); // Type assertion for `value` to `any`
       }
@@ -111,9 +108,7 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = () => {
     }
   };
 
-  React.useEffect(() => {
-    console.log(item);
-  }, [item]);
+  React.useEffect(() => {}, [item]);
 
   return (
     <div className="flex flex-col w-full max-w-[960px] justify-center items-center gap-12 rounded-3xl mt-6">

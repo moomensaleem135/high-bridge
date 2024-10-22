@@ -118,6 +118,11 @@ const ProfileSetup: React.FC<ProfileSetupProps> = () => {
     form.trigger('religion');
   };
 
+  const DateChange = (dateVal: string) => {
+    form.setValue('startDate', dateVal);
+    form.trigger('startDate');
+  };
+
   const onSubmit = async (setupData: FormFields) => {
     const finalStartDate = setupData.startDate || selectedDate;
 
@@ -127,24 +132,26 @@ const ProfileSetup: React.FC<ProfileSetupProps> = () => {
       ...setupData,
       startDate: finalStartDate,
     };
-    console.log(setupData);
-    console.log(submissionData);
 
     Object.keys(submissionData).forEach((key) => {
       const value = submissionData[key as keyof FormFields];
+
       if (value !== undefined && value !== null) {
         formData.append(key, value as any);
       }
     });
 
     try {
-      console.log(setupData);
       dispatch(profileData({ setupData: submissionData }));
       form.reset();
       setYear('');
       setStartDate('');
 
-      if (setupData.religion !== '' && setupData.year !== '') {
+      if (
+        setupData.religion !== '' &&
+        setupData.year !== '' &&
+        setupData.startDate !== ''
+      ) {
         toast.success(`Profile setup successful.`, {
           position: 'top-right',
         });
@@ -254,30 +261,6 @@ const ProfileSetup: React.FC<ProfileSetupProps> = () => {
               </div>
             </div>
 
-            {/* <div className="w-full items-center">
-            <div className="flex flex-col justify-start gap-x-6 gap-y-2 items-start">
-              <Label>Which month do you pay zakat?</Label>
-              <FormField
-                control={form.control}
-                name="month"
-                render={({ field }) => (
-                  <MonthDropdown
-                    onMonthChange={(month) => field.onChange(month)}
-                    year={year}
-                    initialValue={field.value}
-                    disabled={year === '' ? true : false}
-                  />
-                )}
-              />
-              {form.formState.errors.month && (
-                <span className="text-destructive text-sm flex items-center gap-1 mt-2">
-                  <ErrorIcon />
-                  {form.formState.errors.month.message}
-                </span>
-              )}
-            </div>
-          </div> */}
-
             <div className="w-full flex justify-evenly items-center gap-4">
               <div className="flex flex-col gap-y-2  items-center w-full">
                 <div className="col-span-12 w-full">
@@ -298,7 +281,8 @@ const ProfileSetup: React.FC<ProfileSetupProps> = () => {
                             date,
                             year,
                             setSelectedDate,
-                            setStartDate
+                            setStartDate,
+                            DateChange
                           );
                         }}
                       />
@@ -325,8 +309,6 @@ const ProfileSetup: React.FC<ProfileSetupProps> = () => {
             </div>
 
             <div className="w-full flex flex-col gap-4">
-              {/* <div className="flex items-center gap-x-2 "> */}
-
               <div className="w-full bg-black h-[6vh] rounded-md">
                 <Button
                   className="text-white text-center w-full h-full font-[400]"

@@ -46,7 +46,6 @@ const CustomToast: React.FC<CustomToastProps> = ({
         <button
           onClick={() => {
             toast.dismiss(t.id);
-            console.log('clicked toast');
           }}
           className="w-full p-4 flex items-center justify-center"
         >

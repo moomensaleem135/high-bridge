@@ -14,7 +14,7 @@ const selectionSlice = createSlice({
   initialState,
   reducers: {
     userSelection: (state, action) => {
-        console.log('in sellect slice', action.payload)
+       
       state.selection = action.payload;
     },
   },

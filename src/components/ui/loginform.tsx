@@ -16,9 +16,6 @@ const Form: React.FC = () => {
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log('in submit of login form ');
-    console.log(email);
-    console.log(password);
 
     setEmail('');
     setPassword('');

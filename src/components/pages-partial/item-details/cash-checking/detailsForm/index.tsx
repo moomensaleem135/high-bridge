@@ -18,7 +18,6 @@ import { Label } from '@/components/ui/label';
 import { ErrorIcon } from '@/assets/svgs';
 
 import { useCreateItemMutation } from '@/store/features/items/itemsApi';
-import CustomToast from '@/components/common/CustomToast';
 import { addCashItems } from '@/store/features/cash-items/cashSlice';
 import { zakatCal } from '@/store/features/zakat/zakatSlice';
 import { updateCashItem } from '@/store/features/cash-items/cashSlice';
@@ -60,15 +59,13 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = () => {
   });
 
   React.useEffect(() => {
-    console.log(id);
     if (id) {
       const data = cash.filter((item) => item.cashId === id);
-      console.log('in use effect', data, cash);
+
       form.reset({
         item: data[0].item,
         quantity: data[0].quantity,
       });
-      console.log({ data: form.getValues() });
     }
   }, [id]);
 
@@ -82,7 +79,6 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = () => {
 
     // Generate a unique goldId (using Date.now for simplicity, you might want to use a better method)
     if (!id) {
-      console.log('in to set id');
       cashId = `cash-${Date.now()}`;
     } else {
       cashId = id;
@@ -138,9 +134,7 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = () => {
     }
   };
 
-  React.useEffect(() => {
-    console.log(item);
-  }, [item]);
+  React.useEffect(() => {}, [item]);
 
   React.useEffect(() => {
     if (form.watch('quantity')) {

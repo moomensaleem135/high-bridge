@@ -20,10 +20,6 @@ const Form: React.FC = () => {
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log('in submit of sign up form');
-    console.log(name);
-    console.log(checkedLocal);
-    console.log(checkedServer);
 
     if (password !== confirm) {
       throw new Error('Password dont match');

@@ -4,7 +4,6 @@ import { useForm, Controller } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
 import { z } from 'zod';
 import toast from 'react-hot-toast';
-import Link from 'next/link';
 
 import { Form, FormControl, FormField } from '@/components/ui/form';
 import PasswordStrengthMeter from '@/components/common/PasswordStrengthMeter';
@@ -17,10 +16,8 @@ import { ErrorIcon } from '@/assets/svgs';
 import { ShowIcon, HideIcon } from '@/assets/svgs';
 
 import { useCreateEventMutation } from '@/store/features/events/eventsApi';
-import CustomToast from '@/components/common/CustomToast';
 
 import Spinner from '@/components/common/Spinner';
-import { signupUrl } from '@/configs/constants';
 
 interface ResetProps {}
 
@@ -59,7 +56,7 @@ const ResetPassword: React.FC<ResetProps> = () => {
     });
 
     try {
-      const response = await login(formData);
+      // const response = await login(formData);
       form.reset();
       toast.success(`Password reset successful.`, {
         position: 'top-right',
@@ -114,7 +111,6 @@ const ResetPassword: React.FC<ResetProps> = () => {
                         className="flex items-center justify-between gap-1 cursor-pointer"
                         onClick={(e) => {
                           setShowPassword(!showPassword);
-                          console.log(showPassword);
                         }}
                       >
                         {showPassword ? (
@@ -180,7 +176,6 @@ const ResetPassword: React.FC<ResetProps> = () => {
                         className="flex items-center justify-between gap-1 cursor-pointer"
                         onClick={(e) => {
                           setShowConfirmPaasword(!showConfirmPassword);
-                          console.log(showConfirmPassword);
                         }}
                       >
                         {showConfirmPassword ? (

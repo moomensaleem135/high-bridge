@@ -21,15 +21,12 @@ import WeightDropdown from './weightDropdown';
 import { ErrorIcon } from '@/assets/svgs';
 
 import { useCreateItemMutation } from '@/store/features/items/itemsApi';
-import CustomToast from '@/components/common/CustomToast';
-import { addItemssUrl } from '@/configs/constants';
 import { addItems } from '@/store/features/items/golditemsSlice';
 import { updateItem } from '@/store/features/items/golditemsSlice';
 import { zakatCal } from '@/store/features/zakat/zakatSlice';
 
 import Spinner from '@/components/common/Spinner';
 import { calculateZakat } from '@/lib/helpers';
-import { GoldItem } from '@/components/pages-partial/add-items/item-section/table';
 import { editZakat } from '@/store/features/zakat/zakatSlice';
 import { GoldIItems } from '@/lib/types';
 
@@ -78,10 +75,9 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = () => {
   });
 
   useEffect(() => {
-    console.log(id);
     if (id) {
       const data = items.filter((item) => item.goldId === id);
-      console.log('in use effect', data, items);
+
       setItem(data[0].item as string);
       setReason(data[0].purpose);
       form.reset({
@@ -93,12 +89,10 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = () => {
         usage: data[0].usage,
         purpose: data[0].purpose,
       });
-      console.log({ data: form.getValues() });
     }
   }, [id]);
 
   const onSubmit = async (itemsData: FormFields) => {
-    console.log('setup data', setup);
     const zakatAmount = calculateZakat(
       Number(itemsData.price),
       setup.year,
@@ -107,10 +101,8 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = () => {
     let goldId;
 
     const usage = itemsData.usage ? itemsData.usage : '';
-    console.log(usage);
 
     if (!id) {
-      console.log('in to set id');
       goldId = `gold-${Date.now()}`;
     } else {
       goldId = id;
@@ -141,7 +133,7 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = () => {
 
     Object.keys(itemsData).forEach((key) => {
       const value = itemsData[key as keyof FormFields];
-      console.log(value);
+
       if (value !== undefined && value !== null) {
         formData.append(key, value as any); // Type assertion for `value` to `any`
       }
@@ -177,7 +169,6 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = () => {
   React.useEffect(() => {}, [item]);
 
   React.useEffect(() => {
-    console.log('setup', setup);
     if (form.watch('price').length > 0) {
       const zakat = calculateZakat(
         Number(form.watch('price')),
@@ -250,8 +241,6 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = () => {
                 control={form.control}
                 name="purpose"
                 render={({ field }) => {
-                  console.log({ field });
-
                   return (
                     <PurposeDropdown
                       initialValue={field.value}

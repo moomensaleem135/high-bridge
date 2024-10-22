@@ -7,8 +7,6 @@ const Form: React.FC = () => {
   const [email, setEmail] = useState<string>('');
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log('in submit of provide email for reset password');
-    console.log(e.target);
 
     setEmail('');
   };

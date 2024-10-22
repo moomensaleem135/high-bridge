@@ -1,9 +1,6 @@
 'use client';
 import React from 'react';
 import ProfileSetup from './profile-setupform';
-import { LogoIcon } from '@/assets/svgs';
-
-import { useState } from 'react';
 import AuthLayout from '@/components/layouts/AuthLayout';
 
 const PartialProfileSetup = () => {

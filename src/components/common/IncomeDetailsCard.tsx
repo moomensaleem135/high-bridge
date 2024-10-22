@@ -24,7 +24,6 @@ const IncomeDetailsCard: React.FC<IncomeDetailsCardProps> = ({
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
   const dispatch = useDispatch();
   const selector = useSelector((state: any) => state.setup.setup);
-  console.log(selector.religion);
 
   React.useEffect(() => {
     const matchingIndex = cardData.findIndex(

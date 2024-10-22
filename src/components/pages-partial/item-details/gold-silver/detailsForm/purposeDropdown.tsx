@@ -26,7 +26,6 @@ const PurposeDropdown: React.FC<PurposeDropdownProps> = ({
   React.useEffect(() => {
     if (initialValue !== '') {
       setSelectedPurpose(initialValue);
-      console.log({ initialValue });
     }
   }, [initialValue]);
 

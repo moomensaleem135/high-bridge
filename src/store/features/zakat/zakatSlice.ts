@@ -17,7 +17,7 @@ const zakatSlice = createSlice({
   initialState,
   reducers: {
     zakatCal: (state, action) => {
-      console.log('in zakat slice', action.payload);
+     
       const newEntry = action.payload;
 
       // Add new entry to the array
@@ -28,11 +28,10 @@ const zakatSlice = createSlice({
     },
     subtractVal: (state, action) => {
       const { id } = action.payload;
-      console.log('in subtract', action.payload);
-      console.log(id)
+     
       // Find the index of the entry by id
       const index = state.zakat.findIndex(zakatItem => zakatItem.id === action.payload);
-      console.log('index',index)
+     
       
       if (index !== -1) {
         const entryToRemove = state.zakat[index];
@@ -49,16 +48,14 @@ const zakatSlice = createSlice({
       }
     },
     editZakat: (state, action) => {
-      console.log('in edit', action.payload)
-   
+    
     
 
       // Find the index of the entry by id
       const index = state.zakat.findIndex((zakatItem : any) => zakatItem.id === action.payload.id);
-      console.log(index)
-
+   
       if (index !== -1) {
-        console.log('in if')
+      
         const previousValue = state.zakat[index].value;
 
         // Check if previousValue is defined

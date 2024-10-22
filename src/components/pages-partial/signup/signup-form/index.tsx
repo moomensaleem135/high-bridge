@@ -16,22 +16,13 @@ import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { Checkbox } from '@/components/ui/checkbox';
 import { ErrorIcon } from '@/assets/svgs';
-import hide from '../../../../assets/pngs/hide.png';
 import { HideIcon, ShowIcon } from '@/assets/svgs';
 import { Stepper, Step, StepLabel } from '@mui/material';
 
 import { useCreateEventMutation } from '@/store/features/events/eventsApi';
-import CustomToast from '@/components/common/CustomToast';
-import { userSelection } from '@/store/features/selection/selectionSlice';
 
 import Spinner from '@/components/common/Spinner';
 import { signinUrl } from '@/configs/constants';
-import { Inter } from 'next/font/google';
-
-const inter = Inter({
-  subsets: ['latin'],
-  weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
-});
 
 interface SignUpProps {}
 
@@ -266,7 +257,6 @@ const SignUp: React.FC<SignUpProps> = () => {
                             className="flex items-center justify-between gap-1 cursor-pointer text-iconText"
                             onClick={(e) => {
                               setShowPassword(!showPassword);
-                              console.log(showPassword);
                             }}
                           >
                             {showPassword ? (
@@ -329,7 +319,6 @@ const SignUp: React.FC<SignUpProps> = () => {
                             className="flex items-center justify-between gap-1 cursor-pointer text-iconText"
                             onClick={(e) => {
                               setShowConfirmPaasword(!showConfirmPassword);
-                              console.log(showConfirmPassword);
                             }}
                           >
                             {showConfirmPassword ? (

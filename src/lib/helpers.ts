@@ -94,7 +94,7 @@ export function formatDate(dateString: string) {
 
 export const calculateZakat = (amount: number, year? : string, date? : string) => {
   const yearVal = date?.split(" ")
-  console.log('year val',yearVal)
+
   let leap;
   if(yearVal){
     leap = Number(yearVal[2]) % 4;
@@ -102,16 +102,14 @@ export const calculateZakat = (amount: number, year? : string, date? : string) =
 
   if(year !== 'lunar'){
     if(leap === 0){
-      console.log('in leap')
-      console.log((amount * 2.5775) / 100);
+     
       return (amount * 2.5775) / 100; //calculate leap year zakat 
     } else {
       return (amount * 2.577) / 100;  //calculate non-leap year zakat
     }
   }
   else {
-    console.log('in lunar value here')
-    console.log((amount * 2.5) / 100)
+   
     return (amount * 2.5) / 100; // 2.5% of the total amount
   }
 };
@@ -143,10 +141,11 @@ export const handleDateChange = (
   calendarType: string,
   setSelectedDate: Dispatch<SetStateAction<string | null>>,
   setStartDate: Dispatch<SetStateAction<string>>,
-  //setEndDate : Dispatch<SetStateAction<string>>,
+  DateChange: (dateVal :  string) => void
+ 
 ) => {
   const momentDate = moment(date); // Convert to moment date for handling
-  console.log('helper date',date)
+
 
   // Format dates based on the selected calendar type
   const selectedDateFormatted =
@@ -177,13 +176,10 @@ export const handleDateChange = (
   ? endDateMoment.format('DD MMMM YYYY')
   : formatHijriDate(endDateMoment)
 
- 
-  
-  console.log('helper select',selectedDateFormatted)
-  console.log('helper start', startDateFormatted)
-  console.log('helper end', endDateFormatted)
-
   setSelectedDate(selectedDateFormatted);
   setStartDate(startDateFormatted);
+  DateChange(selectedDateFormatted)
+  
+  
   //setEndDate(endDateFormatted)
 };

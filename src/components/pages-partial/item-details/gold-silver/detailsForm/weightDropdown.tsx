@@ -20,9 +20,7 @@ const WeightDropdown: React.FC<WeightDropdownProps> = ({
   const [selectedWeight, setSelectedWeight] = useState(initialValue || 'Grams');
 
   React.useEffect(() => {
-    console.log('in use effect of initial value quantity');
     if (initialValue !== '') {
-      console.log('in use effect of initial value');
       setSelectedWeight(initialValue);
       handleChange(initialValue);
     }

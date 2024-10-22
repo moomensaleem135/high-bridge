@@ -16,7 +16,6 @@ import { ErrorIcon } from '@/assets/svgs';
 import back from '../../../../assets/pngs/backArrow.png';
 
 import { useCreateEventMutation } from '@/store/features/events/eventsApi';
-import CustomToast from '@/components/common/CustomToast';
 
 import Spinner from '@/components/common/Spinner';
 import { signinUrl } from '@/configs/constants';
@@ -52,7 +51,7 @@ const ForgotPassword: React.FC<ForgotPasswordProps> = () => {
     });
 
     try {
-      const response = await login(formData);
+      // const response = await login(formData);
       form.reset();
       toast.success(`Verification code sent on the provided email`, {
         position: 'top-right',
@@ -69,19 +68,6 @@ const ForgotPassword: React.FC<ForgotPasswordProps> = () => {
 
   return (
     <div className="flex flex-col w-full justify-center items-center pt-4 pb-1 bg-formBg gap-12 xl:gap-5 xl:w-5/5 rounded-3xl border-solid border-[1px] border-formBorder">
-      {/* {Object.keys(form.formState.errors).length > 0 && (
-        <div className=" mt-2 p-1">
-          {Object.values(form.formState.errors).map((error, index) => (
-            <div
-              key={'error-' + index}
-              className="bg-red-100 text-red-700 p-2 rounded-lg flex gap-3 mt-2 "
-            >
-              <ErrorIcon />
-              <p className="text-sm">{error?.message?.toString()}</p>{' '}
-            </div>
-          ))}
-        </div>
-      )} */}
       <div className="flex flex-col w-full justify-center items-center pt-7 pb-3 gap-y-1">
         <p
           className="font-medium text-3xl text-headingColor text-center"

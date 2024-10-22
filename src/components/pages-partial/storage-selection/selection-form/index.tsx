@@ -78,7 +78,6 @@ const StorageSelection: React.FC = () => {
   };
 
   const onSubmit = async (data: FormFields) => {
-    console.log(data.storage);
     router.push('signup');
     dispatch(userSelection(data.storage));
     toast.success(`Storage selection successful.`, {

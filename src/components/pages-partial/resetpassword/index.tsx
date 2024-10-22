@@ -1,9 +1,7 @@
 'use client';
 import React from 'react';
 import ResetPassword from './reset-passwordform';
-import { LogoIcon } from '@/assets/svgs';
 
-import { useState } from 'react';
 import AuthLayout from '@/components/layouts/AuthLayout';
 
 const PartialResetPassword = () => {

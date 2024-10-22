@@ -7,7 +7,6 @@ import IncomeDetailsCard from '@/components/common/IncomeDetailsCard';
 import AppLayout from '@/components/common/layout/AppLayout';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-import { incomeUrl } from '@/configs/constants';
 import { ArrowLeftIcon } from '@/assets/svgs';
 
 const cardData = [
@@ -39,7 +38,6 @@ const cardData = [
 
 export default function PartialIncome() {
   const [religion, setReligion] = useState<string | undefined>('');
-  const [checked, setChecked] = useState<boolean>(false);
   const router = useRouter();
 
   const selector = useSelector((state: any) => state.income.income);
@@ -89,7 +87,6 @@ export default function PartialIncome() {
                     className="bg-detailsBtn text-btnText font-normal w-6/6 hover:bg-btnHover"
                     onClick={handleClick}
                   >
-                    {/* {religion ? 'Next' : 'Select to proceed'} */}
                     {'Next'}
                   </Button>
                 </div>

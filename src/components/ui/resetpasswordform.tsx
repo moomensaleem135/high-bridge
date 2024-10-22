@@ -14,7 +14,7 @@ const Form: React.FC = () => {
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log('in submit of resetpassword created now');
+
     setCreatePassword('');
     setreEnter('');
   };

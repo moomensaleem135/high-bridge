@@ -50,8 +50,6 @@ const IslamicCalendar = ({
   const [date, setDate] = useState<string | undefined>(initialValue);
 
   const handleDateChange = (args: any) => {
-    console.log('at change in Islamic calendar', args);
-
     const formatDate = globalize.formatDate(args.value, {
       type: 'date',
       format: 'ddMMMyyyy',
@@ -82,7 +80,6 @@ const IslamicCalendar = ({
 
   useEffect(() => {
     if (endDate) {
-      console.log('end date Islamic', endDate);
       const islamicDate = globalize.parseDate(endDate, {
         type: 'date',
         format: 'ddMMMyyyy',
@@ -94,11 +91,10 @@ const IslamicCalendar = ({
         calendar: 'gregorian',
       });
 
-      console.log(gregorianDate);
       const value = new Date(gregorianDate);
-      console.log('value', value);
+
       value.setFullYear(value.getFullYear() + 1);
-      console.log('value', value);
+
       setDate(
         globalize.formatDate(value, {
           type: 'date',

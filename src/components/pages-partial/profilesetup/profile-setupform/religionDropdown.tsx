@@ -24,7 +24,6 @@ const ReligionDropdown: React.FC<ReligionDropdownProps> = ({
   >(initialValue);
 
   React.useEffect(() => {
-    console.log('initials', initialValue);
     setSelectedReligion(initialValue);
     if (initialValue !== '') {
       handleChange(initialValue);
@@ -32,7 +31,6 @@ const ReligionDropdown: React.FC<ReligionDropdownProps> = ({
   }, [initialValue]);
 
   const handleChange = (religion: string) => {
-    console.log('handle change religion', religion);
     setSelectedReligion(religion);
     onReligionChange(religion);
   };
