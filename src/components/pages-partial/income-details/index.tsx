@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useRouter } from 'next/navigation';
 import IncomeDetailsCard from '@/components/common/IncomeDetailsCard';
-import AppLayout from '@/components/common/layout/AppLayout';
+import AppLayout from '@/components/layouts/AppLayout';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { ArrowLeftIcon } from '@/assets/svgs';

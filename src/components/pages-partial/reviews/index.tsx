@@ -1,6 +1,6 @@
 'use client';
 import React from 'react';
-import AppLayout from '@/components/common/layout/AppLayout';
+import AppLayout from '@/components/layouts/AppLayout';
 import ZakatCard from './review-section';
 
 export default function PartialReviews() {

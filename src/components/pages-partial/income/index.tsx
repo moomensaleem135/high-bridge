@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import AppLayout from '@/components/common/layout/AppLayout';
+import AppLayout from '@/components/layouts/AppLayout';
 import IncomeSection from '@/components/common/incomeSection';
 
 const personalText = [

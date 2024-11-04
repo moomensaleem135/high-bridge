@@ -3,7 +3,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 
-import AppLayout from '@/components/common/layout/AppLayout';
+import AppLayout from '@/components/layouts/AppLayout';
 import MainSection from './item-section/main';
 import Link from 'next/link';
 import { ArrowLeftIcon } from '@/assets/svgs';

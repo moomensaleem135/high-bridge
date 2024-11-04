@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-import AppLayout from '@/components/common/layout/AppLayout';
+import AppLayout from '@/components/layouts/AppLayout';
 import GoldItemDetails from './gold-silver';
 import { useAppSelector } from '@/store/hooks';
 import CashItemDetails from './cash-checking';

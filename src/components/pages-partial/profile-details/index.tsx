@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-import AppLayout from '@/components/common/layout/AppLayout';
+import AppLayout from '@/components/layouts/AppLayout';
 import ProfileDetailsForm from './detailsForm';
 
 export default function PartialProfileDetails() {

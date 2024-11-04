@@ -1,5 +1,5 @@
 import React from 'react';
-import AppLayout from '@/components/common/layout/AppLayout';
+import AppLayout from '@/components/layouts/AppLayout';
 import ComingSoon from '@/components/common/ComingSoon';
 
 export default function PartialSettings() {
