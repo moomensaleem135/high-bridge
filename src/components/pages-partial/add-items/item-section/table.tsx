@@ -34,6 +34,7 @@ export interface GoldItem extends Item {
 }
 export interface CashItem extends Item {
   cashId: string;
+  name: string;
 }
 
 interface RowDataDef {
@@ -107,6 +108,7 @@ const GridSection: React.FC = () => {
         { headerName: 'Item', field: 'item' },
         { headerName: 'Amount', field: 'quantity' },
         { headerName: 'Zakat', field: 'zakat' },
+        { headerName: 'Item Name', field: 'name' },
         {
           headerName: '',
           field: 'option',
@@ -156,6 +158,7 @@ const GridSection: React.FC = () => {
         id: index,
         item: item.item,
         quantity: `$${item.quantity ?? 0}`,
+        name: `${item.name}`,
         zakat: `$${item.zakat}`,
         cashId: item.cashId,
       }));

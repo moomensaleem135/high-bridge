@@ -36,14 +36,17 @@ interface IItems {
   weight: string;
   price: string
   quantity : string
+ 
 }
 
 export interface GoldIItems extends IItems {
   goldId: string;
+  amount : string
 }
 
 export interface CashIItems extends IItems {
   cashId: string;
+  name:string
 }
 
 

@@ -34,6 +34,7 @@ const commercialText = [
 const ZakatCard = () => {
   const items = useSelector((state: any) => state.items.items) || [];
   const cash = useSelector((state: any) => state.cash.cash) || [];
+  const setup = useSelector((state: any) => state.setup.setup);
 
   const router = useRouter();
   const dispatch = useDispatch();
@@ -99,7 +100,8 @@ const ZakatCard = () => {
                     Gold & Silver
                   </div>
                   <div className="font-medium text-sm flex justify-center items-center text-agTableTop">
-                    ({categorizedItems.personal['Gold & Silver'][0].religion})
+                    {/* ({categorizedItems.personal['Gold & Silver'][0].religion}) */}
+                    ({setup.religion})
                   </div>
                 </div>
                 {categorizedItems.personal['Gold & Silver'].map(
@@ -165,7 +167,8 @@ const ZakatCard = () => {
                     Cash & Checking
                   </div>
                   <div className="font-medium text-sm flex justify-center items-center text-agTableTop">
-                    ({categorizedCash.personal['Cash & Checking'][0].religion})
+                    {/* ({categorizedCash.personal['Cash & Checking'][0].religion}) */}
+                    ({setup.religion})
                   </div>
                 </div>
                 {categorizedCash.personal['Cash & Checking'].map(

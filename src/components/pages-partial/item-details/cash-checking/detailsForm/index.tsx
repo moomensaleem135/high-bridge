@@ -32,6 +32,7 @@ interface ItemDetailsProps {}
 const ItemDetailsSchema = z.object({
   item: z.string().min(1, { message: 'Purpose is required' }),
   quantity: z.string().min(1, { message: 'Amount is required' }),
+  name: z.string().min(1, { message: 'Name of entered item is required' }),
 });
 
 type FormFields = z.infer<typeof ItemDetailsSchema>;
@@ -55,6 +56,7 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = () => {
     defaultValues: {
       item: '',
       quantity: '',
+      name: '',
     },
   });
 
@@ -65,6 +67,7 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = () => {
       form.reset({
         item: data[0].item,
         quantity: data[0].quantity,
+        name: data[0].name,
       });
     }
   }, [id]);
@@ -94,6 +97,7 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = () => {
       quantity: itemsData.quantity,
       zakat: zakatAmount,
       income: income,
+      name: itemsData.name,
       religion: religion,
       cashId: cashId, // Add the unique goldId to the itemData
     };
@@ -157,7 +161,7 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = () => {
           className="flex flex-col w-[82%] gap-5 mb-10"
           data-testid="event-form"
         >
-          <Label>1. Which item do you have?</Label>
+          <Label>1. Which kind of liquid assest are you entering?</Label>
           <div>
             <div className="w-full items-center flex justify-start gap-8 pl-4">
               <div className="flex justify-center items-center gap-4">
@@ -194,6 +198,23 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = () => {
                 />
                 <label htmlFor="myCheckbox">Checking</label>
               </div>
+              <div className="flex justify-center items-center gap-4">
+                <Controller
+                  name="item"
+                  control={form.control}
+                  render={({ field }) => (
+                    <Checkbox
+                      checked={field.value === 'Saving'}
+                      onCheckedChange={() => {
+                        field.onChange('Saving');
+                        setItem('Saving');
+                      }}
+                      className="rounded-sm h-5 w-5 mt-0.5 border-[2px]"
+                    />
+                  )}
+                />
+                <label htmlFor="myCheckbox">Saving</label>
+              </div>
             </div>
             {form.formState.errors.item && (
               <span className="text-destructive text-sm flex items-center gap-1 mt-2">
@@ -205,7 +226,46 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = () => {
 
           <div className="w-full items-center">
             <div className="flex flex-col justify-start gap-x-6 gap-y-2 items-start">
-              <Label>2. What is the total amount you have?</Label>
+              <Label>2. What is the the name for the entered item?</Label>
+              <div className="flex w-full">
+                <FormField
+                  control={form.control}
+                  name="name"
+                  render={({ field }) => (
+                    <div className="w-full flex flex-col">
+                      <FormControl>
+                        <IconInput
+                          {...field}
+                          type="text"
+                          id="name"
+                          aria-label="name"
+                          placeholder="Enter item name"
+                          className="bg-inputBg rounded-lg h-[45px] border-inputBorder py-1.5 text-black"
+                          error={!!form.formState.errors.quantity}
+                          data-cy="name"
+                          data-testid="name"
+                        />
+                      </FormControl>
+
+                      {form.formState.errors.name && (
+                        <span className="text-destructive text-sm flex items-center gap-1 mt-2">
+                          <ErrorIcon />
+                          {form.formState.errors.name.message}
+                        </span>
+                      )}
+                    </div>
+                  )}
+                />
+              </div>
+            </div>
+          </div>
+
+          <div className="w-full items-center">
+            <div className="flex flex-col justify-start gap-x-6 gap-y-2 items-start">
+              <Label>
+                2. What is the total balance of this account on the date when
+                your zakat is due?
+              </Label>
               <div className="flex w-full">
                 <FormField
                   control={form.control}

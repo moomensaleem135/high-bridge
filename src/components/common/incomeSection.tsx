@@ -67,7 +67,7 @@ const IncomeSection: React.FC<IncomeSectionProps> = ({
                 <span>{text.text}</span>
 
                 <Link
-                  href={'income/income-details'}
+                  href={'income/income-details/add-items'}
                   onClick={handleClick}
                   className="flex justify-end items-center"
                 >
