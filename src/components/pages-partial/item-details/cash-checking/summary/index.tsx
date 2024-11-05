@@ -26,32 +26,36 @@ import { editZakat } from '@/store/features/zakat/zakatSlice';
 import Spinner from '@/components/common/Spinner';
 import { calculateZakat } from '@/lib/helpers';
 import { CashIItems } from '@/lib/types';
+import { useAppSelector } from '@/store/hooks';
 
-interface ItemDetailsProps {
+interface SummaryProps {
   setValue: (value: number) => void;
   value: number;
-  setName: (value: string) => void;
-  setPrice: (value: string) => void;
+  name: string;
+  price: string;
   cashId: string;
-  setZakat: (value: any) => void;
+  item: string;
+  zakatVal: number;
 }
 
-const ItemDetailsSchema = z.object({
-  //   item: z.string().min(1, { message: 'Purpose is required' }),
-  quantity: z.string().min(1, { message: 'Amount is required' }),
-  name: z.string().min(1, { message: 'Name of entered item is required' }),
+const SummarySchema = z.object({
+  item: z.string().min(0, { message: 'Purpose is required' }),
+  quantity: z.string().min(0, { message: 'Amount is required' }),
+  name: z.string().min(0, { message: 'Name of entered item is required' }),
 });
 
-type FormFields = z.infer<typeof ItemDetailsSchema>;
+type FormFields = z.infer<typeof SummarySchema>;
 
-const ItemDetailsForm: React.FC<ItemDetailsProps> = ({
+const SummaryForm: React.FC<SummaryProps> = ({
   setValue,
   value,
-  setName,
-  setPrice,
+  name,
+  price,
   cashId,
-  setZakat,
+  item,
+  zakatVal,
 }) => {
+  console.log('cash id passed to summary through prop :', cashId);
   const dispatch = useDispatch();
   const router = useRouter();
   const searchparams = useSearchParams();
@@ -60,28 +64,24 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = ({
   const religion = useSelector((state: any) => state.sect.sect);
   const income = useSelector((state: any) => state.income.income);
   const setup = useSelector((state: any) => state.setup.setup);
-  const [item, setItem] = React.useState<string>('');
   const [payableAmount, setPayableAmount] = React.useState<number | null>(null);
-  const [reason, setReason] = React.useState<string>('');
   const [createItem, { isLoading }] = useCreateItemMutation();
 
   const form = useForm<FormFields>({
-    resolver: zodResolver(ItemDetailsSchema),
+    resolver: zodResolver(SummarySchema),
     defaultValues: {
+      item: '',
       quantity: '',
       name: '',
     },
   });
 
   React.useEffect(() => {
-    const storedFormData = localStorage.getItem('itemDetailsForm');
-    if (storedFormData) {
-      form.reset(JSON.parse(storedFormData));
-    }
     if (id) {
       const data = cash.filter((item) => item.cashId === id);
 
       form.reset({
+        item: data[0].item,
         quantity: data[0].quantity,
         name: data[0].name,
       });
@@ -95,12 +95,19 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = ({
       setup.generic
     );
 
-    const zakatCalData = {
-      id: cashId,
-      value: zakatAmount || 0, // Use logical OR for fallback
+    const itemData = {
+      item: item,
+      quantity: price,
+      zakat: zakatVal,
+      income: income,
+      name: name,
+      religion: religion,
+      cashId: cashId, // Add the unique goldId to the itemData
     };
 
     const formData = new FormData();
+
+    console.log('itemsData', itemsData);
 
     Object.keys(itemsData).forEach((key) => {
       const value = itemsData[key as keyof FormFields];
@@ -110,26 +117,23 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = ({
     });
 
     try {
+      localStorage.clear();
       // const response = await createItem(formData); // Uncomment if needed
-      localStorage.setItem('itemDetailsForm', JSON.stringify(itemsData));
       if (id) {
-        console.log('id in details form', id);
-        dispatch(editZakat(zakatCalData));
-        setName(itemsData.name);
-        setPrice(itemsData.quantity);
-        setValue(value + 1);
+        console.log(id);
+        dispatch(updateCashItem(itemData));
         toast.success(`${itemsData.name} item edited successfully.`, {
           position: 'top-right',
         });
       } else {
-        dispatch(zakatCal(zakatCalData));
-        setName(itemsData.name);
-        setPrice(itemsData.quantity);
-        setValue(value + 1);
+        dispatch(addCashItems(itemData));
         toast.success(`${itemsData.name} item added successfully.`, {
           position: 'top-right',
         });
       }
+
+      form.reset();
+      router.push('/income/income-details/add-items');
     } catch (error) {
       console.error('Error creating event:', error);
       toast.error('Failed to create event', {
@@ -147,7 +151,6 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = ({
         setup.year,
         setup.generic
       );
-      setZakat(zakat);
       setPayableAmount(zakat);
     } else {
       setPayableAmount(null);
@@ -162,6 +165,17 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = ({
           className="flex flex-col w-[82%] gap-5 mb-10"
           data-testid="event-form"
         >
+          <div className="flex flex-col gap-y-2">
+            <Label className="font-medium text-xl">
+              Which item do you have?
+            </Label>
+
+            <div className="w-full items-center flex justify-start">
+              <div className="flex justify-center items-center">
+                <span className="font-normal text-base">{item}</span>
+              </div>
+            </div>
+          </div>
           <div className="w-full items-center">
             <div className="flex flex-col justify-start gap-x-6 gap-y-2 items-start">
               <Label className="font-medium text-lg">
@@ -173,19 +187,7 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = ({
                   name="name"
                   render={({ field }) => (
                     <div className="w-full flex flex-col">
-                      <FormControl>
-                        <IconInput
-                          {...field}
-                          type="text"
-                          id="name"
-                          aria-label="name"
-                          placeholder="Enter item name"
-                          className="bg-inputBg rounded-lg h-[45px] border-inputBorder py-1.5 text-black"
-                          error={!!form.formState.errors.quantity}
-                          data-cy="name"
-                          data-testid="name"
-                        />
-                      </FormControl>
+                      <span className="font-normal text-base">{name}</span>
 
                       {form.formState.errors.name && (
                         <span className="text-destructive text-sm flex items-center gap-1 mt-2">
@@ -211,19 +213,7 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = ({
                   name="quantity"
                   render={({ field }) => (
                     <div className="w-full flex flex-col">
-                      <FormControl>
-                        <IconInput
-                          {...field}
-                          type="text"
-                          id="amount"
-                          aria-label="amount"
-                          placeholder="Enter amount"
-                          className="bg-inputBg rounded-lg h-[45px] border-inputBorder py-1.5 text-black"
-                          error={!!form.formState.errors.quantity}
-                          data-cy="amount"
-                          data-testid="amount"
-                        />
-                      </FormControl>
+                      <span>${price}</span>
 
                       {form.formState.errors.quantity && (
                         <span className="text-destructive text-sm flex items-center gap-1 mt-2">
@@ -242,9 +232,7 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = ({
               Your payable zakat for this item is:
             </span>
             <span className="font-semibold text-2xl text-zakatText flex-1 text-end">
-              {payableAmount !== null
-                ? `$${payableAmount.toFixed(2)}`
-                : '$0.00'}
+              {zakatVal !== null ? `$${zakatVal.toFixed(2)}` : '$0.00'}
             </span>
           </div>
 
@@ -261,11 +249,11 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = ({
               </Link>
               {id ? (
                 <Button className="bg-detailsBtn text-btnText font-normal hover:bg-btnHover">
-                  Next
+                  Update Item
                 </Button>
               ) : (
                 <Button className="bg-detailsBtn text-btnText font-normal hover:bg-btnHover">
-                  Next
+                  Add Item
                 </Button>
               )}
             </div>
@@ -276,4 +264,4 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = ({
   );
 };
 
-export default ItemDetailsForm;
+export default SummaryForm;

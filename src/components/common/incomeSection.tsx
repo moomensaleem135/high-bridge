@@ -40,7 +40,8 @@ const IncomeSection: React.FC<IncomeSectionProps> = ({
         <div className="flex flex-col w-full justify-center items-center gap-y-3">
           {texts.map((text, index) => {
             const isDisabled =
-              text.text !== 'Gold & Silver' && text.text !== 'Cash & Checking';
+              text.text !== 'Gold & Silver' &&
+              text.text !== 'Liquid Assets (Cash, Checking, Saving, Loan)';
 
             const handleClick = (e: React.MouseEvent) => {
               if (isDisabled) {

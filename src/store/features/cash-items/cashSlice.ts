@@ -15,8 +15,10 @@ const cashitemSlice = createSlice({
   initialState,
   reducers: {
     addCashItems: (state, action) => {
+      console.log('in slice to add')
      
       const data = {...action.payload}
+      console.log(data)
       
       if (state.cash) {
         state.cash.push(data);
@@ -33,12 +35,16 @@ const cashitemSlice = createSlice({
       }
     },
     updateCashItem: (state, action) => {
-     
+      console.log('updating cash item')
+      console.log(action.payload)
       console.log('Current State:', JSON.stringify(state.cash, null, 2));
 
       if (state.cash) {
+        console.log('in editing cash item')
+        console.log('id in payload',action.payload.cashId)
         const index = state.cash.findIndex((item) => item.cashId === action.payload.cashId);
      
+         console.log('index val',index)
         if (index !== -1) {
           // Update the existing item with the new data
           state.cash[index] = { ...state.cash[index], ...action.payload };

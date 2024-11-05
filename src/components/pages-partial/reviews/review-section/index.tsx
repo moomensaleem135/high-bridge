@@ -16,7 +16,7 @@ const inter = Inter({
 
 const personalText = [
   'Gold & Silver',
-  'Cash & Checking',
+  'Liquid Assets (Cash, Checking, Saving, Loan)',
   'Savings & Stock',
   'Retirement Accounts',
   'House',
@@ -159,8 +159,12 @@ const ZakatCard = () => {
             )}
 
           {/* Render Cash & Checking if present */}
-          {categorizedCash.personal?.['Cash & Checking'] &&
-            categorizedCash.personal['Cash & Checking'].length > 0 && (
+          {categorizedCash.personal?.[
+            'Liquid Assets (Cash, Checking, Saving, Loan)'
+          ] &&
+            categorizedCash.personal[
+              'Liquid Assets (Cash, Checking, Saving, Loan)'
+            ].length > 0 && (
               <div className="p-4 bg-cardbg rounded-xl border-cardBorder border-[1px] mb-4">
                 <div className="font-medium text-xl flex gap-2">
                   <div className="xs:text-base sm:text-xl text-agTableTop">
@@ -171,57 +175,57 @@ const ZakatCard = () => {
                     ({setup.religion})
                   </div>
                 </div>
-                {categorizedCash.personal['Cash & Checking'].map(
-                  (item: any, index: any) => (
-                    <div
-                      key={index}
-                      className="flex flex-col justify-start items-center gap-2 pl-6 pr-6 pt-1 pb-1 bg-white rounded border border-gray-300 w-full mt-2"
-                    >
-                      <div className="flex justify-between items-center w-full h-10">
-                        <h2
-                          className={`text-cardHeading font-normal text-base text-start text-nowrap w-20 flex-1 ${inter.className}`}
+                {categorizedCash.personal[
+                  'Liquid Assets (Cash, Checking, Saving, Loan)'
+                ].map((item: any, index: any) => (
+                  <div
+                    key={index}
+                    className="flex flex-col justify-start items-center gap-2 pl-6 pr-6 pt-1 pb-1 bg-white rounded border border-gray-300 w-full mt-2"
+                  >
+                    <div className="flex justify-between items-center w-full h-10">
+                      <h2
+                        className={`text-cardHeading font-normal text-base text-start text-nowrap w-20 flex-1 ${inter.className}`}
+                      >
+                        {item.item}
+                      </h2>
+                      <span
+                        className={`text-start font-normal text-base text-cardText text-wrap line-clamp-3 w-fit-content flex-1  xs:hidden md:block ${inter.className}`}
+                      >
+                        ${item.quantity}.00
+                      </span>
+                      <span
+                        className={`font-medium text-base text-zakatText w-20 flex-1 text-center  xs:hidden md:block ${inter.className}`}
+                      >
+                        ${item.zakat.toFixed(2)}
+                      </span>
+                      <Link
+                        href={'/income/income-details/add-items'}
+                        className="flex justify-end items-center flex-1"
+                      >
+                        <Button
+                          className="bg-black text-white flex justify-center items-center hover:bg-[#5e5f5d] h-7 rounded-md pl-4 pr-4 pt-1 pb-1 xs:hidden sm:flex"
+                          onClick={() => {
+                            dispatch(IncomeChoice(item.income));
+                          }}
                         >
-                          {item.item}
-                        </h2>
-                        <span
-                          className={`text-start font-normal text-base text-cardText text-wrap line-clamp-3 w-fit-content flex-1  xs:hidden md:block ${inter.className}`}
-                        >
-                          ${item.quantity}.00
-                        </span>
-                        <span
-                          className={`font-medium text-base text-zakatText w-20 flex-1 text-center  xs:hidden md:block ${inter.className}`}
-                        >
-                          ${item.zakat.toFixed(2)}
-                        </span>
-                        <Link
-                          href={'/income/income-details/add-items'}
-                          className="flex justify-end items-center flex-1"
-                        >
-                          <Button
-                            className="bg-black text-white flex justify-center items-center hover:bg-[#5e5f5d] h-7 rounded-md pl-4 pr-4 pt-1 pb-1 xs:hidden sm:flex"
-                            onClick={() => {
-                              dispatch(IncomeChoice(item.income));
-                            }}
-                          >
-                            <span
-                              className={`text-sm font-medium ${inter.className}`}
-                            >
-                              Preview
-                            </span>
-                          </Button>
                           <span
-                            className="xs:flex sm:hidden"
-                            onClick={() => {
-                              dispatch(IncomeChoice(item.income));
-                            }}
+                            className={`text-sm font-medium ${inter.className}`}
                           >
-                            <ArrowLeftIcon className="rotate-180 h-6" />
+                            Preview
                           </span>
-                        </Link>
-                      </div>
+                        </Button>
+                        <span
+                          className="xs:flex sm:hidden"
+                          onClick={() => {
+                            dispatch(IncomeChoice(item.income));
+                          }}
+                        >
+                          <ArrowLeftIcon className="rotate-180 h-6" />
+                        </span>
+                      </Link>
                     </div>
-                  )
-                )}
+                  </div>
+                ))}
               </div>
             )}
 

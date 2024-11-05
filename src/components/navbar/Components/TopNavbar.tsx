@@ -24,6 +24,8 @@ const TopNavbar = ({
   const zakatVal = useSelector((state: any) => state.zakat.zakat);
   const router = useRouter();
 
+  console.log(selector);
+
   const totalZakatValue = zakatVal.reduce((total: any, entry: any) => {
     return total + (entry.value || 0); // Add value of each entry, default to 0 if undefined
   }, 0);

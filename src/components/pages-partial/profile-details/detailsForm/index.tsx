@@ -85,6 +85,7 @@ const ProfileDetailsForm: React.FC<ProfileDetailsProps> = () => {
   };
 
   const DateChange = (dateVal: string) => {
+    console.log(dateVal);
     form.setValue('startDate', dateVal);
     form.trigger('startDate');
   };

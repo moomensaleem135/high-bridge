@@ -3,9 +3,16 @@
 import React from 'react';
 import ItemDetailsForm from './detailsForm';
 import { useSearchParams } from 'next/navigation';
+import GoldChoiceForm from './choiceForm';
+import ExcessScreen from './excessScreen';
 
 export default function GoldItemDetails() {
   const searchparams = useSearchParams();
+  const [value, setValue] = React.useState<number>(0);
+  const [item, setUserItem] = React.useState('');
+  const [purpose, setPurpose] = React.useState('');
+  const [goldId, setGoldId] = React.useState('');
+  const [selection, setSelection] = React.useState('');
   const id = searchparams.get('id');
   return (
     <div className="flex flex-col self-stretch w-full gap-y-4 overflow-y-scroll xs:mb-16 lg:my-5 gridscrollbar">
@@ -28,7 +35,23 @@ export default function GoldItemDetails() {
       </div>
 
       <div className="flex justify-center items-center mt-2 flex-col ">
-        <ItemDetailsForm />
+        {value === 0 && (
+          <GoldChoiceForm
+            setUserItem={setUserItem}
+            setPurpose={setPurpose}
+            setGoldId={setGoldId}
+            setValue={setValue}
+            value={value}
+          />
+        )}
+        {value === 1 && (
+          <ExcessScreen
+            setSelection={setSelection}
+            setValue={setValue}
+            value={value}
+          />
+        )}
+        {value === 2 && selection === 'Yes' && <ItemDetailsForm />}
       </div>
     </div>
   );

@@ -9,16 +9,16 @@ const personalText = [
     text: 'Gold & Silver',
   },
   {
-    text: 'Cash & Checking',
-  },
-  {
-    text: 'Savings & Stock',
-  },
-  {
-    text: 'Retirement Accounts',
+    text: 'Liquid Assets (Cash, Checking, Saving, Loan)',
   },
   {
     text: 'House',
+  },
+  {
+    text: 'Stocks',
+  },
+  {
+    text: 'Retirement Accounts',
   },
 ];
 
