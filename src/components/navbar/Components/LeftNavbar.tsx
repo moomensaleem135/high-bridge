@@ -72,7 +72,7 @@ const NavItem = memo(
     const currentPathNormalized = normalizePath(currentPath);
     const toNormalized = normalizePath(to);
 
-    const active = currentPathNormalized.includes(toNormalized);
+    const active = currentPathNormalized?.includes(toNormalized);
 
     useEffect(() => {
       const handleResize = () => {

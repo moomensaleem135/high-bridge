@@ -79,30 +79,30 @@ const GridSection: React.FC = () => {
 
   useEffect(() => {
     if (
-      (income.length != 0 && income.includes('Cash')) ||
-      income.includes('Checking')
+      (income?.length != 0 && income?.includes('Cash')) ||
+      income?.includes('Checking')
     ) {
-      if (cash && cash.length !== 0) {
-        const numberOfRows = cash.length;
+      if (cash && cash?.length !== 0) {
+        const numberOfRows = cash?.length;
         const calculatedHeight = Math.min(numberOfRows * rowHeight, maxHeight);
         setGridHeight(calculatedHeight);
       } else {
         setGridHeight(maxHeight);
       }
-    } else if (income.length != 0 && income.includes('House')) {
-      if (house && house.length !== 0) {
-        const numberOfRows = house.length;
+    } else if (income?.length != 0 && income?.includes('House')) {
+      if (house && house?.length !== 0) {
+        const numberOfRows = house?.length;
         const calculatedHeight = Math.min(numberOfRows * rowHeight, maxHeight);
         setGridHeight(calculatedHeight);
       } else {
         setGridHeight(maxHeight);
       }
     } else if (
-      (income.length != 0 && income.includes('Gold')) ||
-      income.includes('Silver')
+      (income?.length != 0 && income?.includes('Gold')) ||
+      income?.includes('Silver')
     ) {
-      if (items && items.length !== 0) {
-        const numberOfRows = items.length;
+      if (items && items?.length !== 0) {
+        const numberOfRows = items?.length;
         const calculatedHeight = Math.min(numberOfRows * rowHeight, maxHeight);
         setGridHeight(calculatedHeight);
       } else {
@@ -111,7 +111,7 @@ const GridSection: React.FC = () => {
     } else {
       setGridHeight(maxHeight);
     }
-  }, [items.length, cash.length, income.length]);
+  }, [items?.length, cash?.length, income?.length]);
 
   // Set columns based on the income type (runs when income changes)
   useEffect(() => {
@@ -119,8 +119,8 @@ const GridSection: React.FC = () => {
 
     // Determine columns based on income type
     if (
-      (income.length != 0 && income.includes('Cash')) ||
-      income.includes('Checking')
+      (income?.length != 0 && income?.includes('Cash')) ||
+      income?.includes('Checking')
     ) {
       updatedColumns = [
         { headerName: 'Item', field: 'item' },
@@ -142,8 +142,8 @@ const GridSection: React.FC = () => {
     }
 
     if (
-      (income.length != 0 && income.includes('Gold')) ||
-      income.includes('Silver')
+      (income?.length != 0 && income?.includes('Gold')) ||
+      income?.includes('Silver')
     ) {
       updatedColumns = [
         { headerName: 'Item', field: 'item' },
@@ -164,7 +164,7 @@ const GridSection: React.FC = () => {
       ];
     }
 
-    if (income.length != 0 && income.includes('House')) {
+    if (income?.length != 0 && income?.includes('House')) {
       updatedColumns = [
         { headerName: 'Item', field: 'item' },
         { headerName: 'Title', field: 'name' },
@@ -183,12 +183,12 @@ const GridSection: React.FC = () => {
       ];
     }
     setColumns(updatedColumns);
-  }, [income.length]);
+  }, [income?.length]);
 
   useEffect(() => {
     let updatedRowData: RowDataDef[] = [];
 
-    if (income.includes('Cash') || income.includes('Checking')) {
+    if (income?.includes('Cash') || income?.includes('Checking')) {
       updatedRowData = cash.map((item, index) => ({
         id: index,
         item: item.item,
@@ -199,7 +199,7 @@ const GridSection: React.FC = () => {
       }));
     }
 
-    if (income.includes('Gold')) {
+    if (income?.includes('Gold')) {
       updatedRowData = items.map((item, index) => ({
         id: index,
         item: item.item,
@@ -210,7 +210,7 @@ const GridSection: React.FC = () => {
       }));
     }
 
-    if (income.includes('House')) {
+    if (income?.includes('House')) {
       updatedRowData = house.map((item: any, index: any) => ({
         id: index,
         item: item.item,
@@ -221,7 +221,7 @@ const GridSection: React.FC = () => {
     }
 
     setRowData(updatedRowData);
-  }, [items.length, cash.length, house.length, zakatVal, income.length]);
+  }, [items?.length, cash?.length, house?.length, zakatVal, income?.length]);
 
   // Handle edit and delete actions
   const handleEdit = (id: string, item: string) => {
@@ -229,21 +229,21 @@ const GridSection: React.FC = () => {
   };
 
   const handleDelete = async (id: string, item: string) => {
-    if (income.includes('Gold')) {
+    if (income?.includes('Gold')) {
       await dispatch(deleteItem(id));
       await dispatch(subtractVal(id));
 
       toast.success(`${item} Item deleted successfully.`, {
         position: 'top-right',
       });
-    } else if (income.includes('House')) {
+    } else if (income?.includes('House')) {
       await dispatch(deleteHouseItem(id));
       await dispatch(subtractVal(id));
 
       toast.success(`${item} Item deleted successfully.`, {
         position: 'top-right',
       });
-    } else if (income.includes('Cash')) {
+    } else if (income?.includes('Cash')) {
       await dispatch(deleteCashItem(id));
       await dispatch(subtractVal(id));
 
@@ -254,7 +254,7 @@ const GridSection: React.FC = () => {
     router.push('/income');
   };
 
-  const totalRows = rowData.length;
+  const totalRows = rowData?.length;
 
   // Alternate row styling
   const getRowClass = (params: any) => {

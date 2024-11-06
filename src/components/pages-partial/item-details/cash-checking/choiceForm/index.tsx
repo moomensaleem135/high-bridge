@@ -211,7 +211,7 @@ const ItemChoiceForm: React.FC<ItemChoiceProps> = ({
                 className="flex justify-start items-center text-base font-medium cursor-pointer"
                 // href={''}
                 onClick={() => {
-                  if (cash.length === 0) {
+                  if (cash?.length === 0) {
                     localStorage.clear();
                     router.push('/income');
                   } else {

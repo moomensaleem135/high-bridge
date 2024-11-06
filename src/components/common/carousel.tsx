@@ -21,11 +21,11 @@ const CarouselText: React.FC<CarouselTextProps> = ({
 
   React.useEffect(() => {
     const autoplay = setInterval(() => {
-      setCurrent((prev) => (prev === textParas.length - 1 ? 0 : prev + 1));
+      setCurrent((prev) => (prev === textParas?.length - 1 ? 0 : prev + 1));
     }, interval);
 
     return () => clearInterval(autoplay);
-  }, [textParas.length, interval]);
+  }, [textParas?.length, interval]);
 
   return (
     <div className="lg:flex flex-col justify-evenly h-4/6 w-full hidden">

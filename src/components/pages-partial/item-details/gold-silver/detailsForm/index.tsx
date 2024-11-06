@@ -197,7 +197,7 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = ({
   React.useEffect(() => {}, [item]);
 
   React.useEffect(() => {
-    if (form.watch('price').length > 0) {
+    if (form.watch('price')?.length > 0) {
       const zakat = calculateZakat(
         Number(form.watch('price')),
         setup.year,

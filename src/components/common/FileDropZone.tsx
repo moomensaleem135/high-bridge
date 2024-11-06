@@ -16,7 +16,7 @@ const FileDropzone: React.FC<FileDropzoneProps> = ({ onFileUpload, error }) => {
 
   const onDrop = useCallback(
     (acceptedFiles: File[]) => {
-      if (acceptedFiles.length > 0) {
+      if (acceptedFiles?.length > 0) {
         const file = acceptedFiles[0];
 
         // Validation: Check if the file is not empty
@@ -31,7 +31,7 @@ const FileDropzone: React.FC<FileDropzoneProps> = ({ onFileUpload, error }) => {
           'image/jpeg',
           'image/gif',
         ];
-        if (!validFileTypes.includes(file.type)) {
+        if (!validFileTypes?.includes(file.type)) {
           return; // Early return on invalid file type
         }
 

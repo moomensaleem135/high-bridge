@@ -23,24 +23,24 @@ export default function PartialAddItems() {
 
   React.useEffect(() => {
     if (
-      (income.length != 0 && income.includes('Cash')) ||
-      income.includes('Checking')
+      (income?.length != 0 && income?.includes('Cash')) ||
+      income?.includes('Checking')
     ) {
-      if (cash.length === 0) {
+      if (cash?.length === 0) {
         router.push('add-items/item-details');
       }
     } else if (
-      (income.length != 0 && income.includes('Gold')) ||
-      income.includes('Silver')
+      (income?.length != 0 && income?.includes('Gold')) ||
+      income?.includes('Silver')
     ) {
-      if (items.length === 0) {
+      if (items?.length === 0) {
         router.push('add-items/item-details');
       }
     } else if (
-      (income.length != 0 && income.includes('House')) ||
-      income.includes('Silver')
+      (income?.length != 0 && income?.includes('House')) ||
+      income?.includes('Silver')
     ) {
-      if (house.length === 0) {
+      if (house?.length === 0) {
         router.push('add-items/item-details');
       }
     }

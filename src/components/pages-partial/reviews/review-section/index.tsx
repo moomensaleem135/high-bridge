@@ -42,9 +42,9 @@ const ZakatCard = () => {
   const dispatch = useDispatch();
 
   const categorizedItems = items.reduce((acc: any, item: any) => {
-    const category = personalText.includes(item.income)
+    const category = personalText?.includes(item.income)
       ? 'personal'
-      : commercialText.includes(item.income)
+      : commercialText?.includes(item.income)
         ? 'commercial'
         : null;
 
@@ -61,9 +61,9 @@ const ZakatCard = () => {
   }, {});
 
   const houseItems = house.reduce((acc: any, item: any) => {
-    const category = personalText.includes(item.income)
+    const category = personalText?.includes(item.income)
       ? 'personal'
-      : commercialText.includes(item.income)
+      : commercialText?.includes(item.income)
         ? 'commercial'
         : null;
 
@@ -81,9 +81,9 @@ const ZakatCard = () => {
 
   // Categorize cash items
   const categorizedCash = cash.reduce((acc: any, item: any) => {
-    const category = personalText.includes(item.income)
+    const category = personalText?.includes(item.income)
       ? 'personal'
-      : commercialText.includes(item.income)
+      : commercialText?.includes(item.income)
         ? 'commercial'
         : null;
 
@@ -100,11 +100,11 @@ const ZakatCard = () => {
   }, {});
 
   const hasPersonalItems =
-    Object.keys(categorizedItems.personal || {}).length > 0 ||
-    Object.keys(categorizedCash.personal || {}).length > 0 ||
-    Object.keys(houseItems.personal || {}).length > 0;
+    Object.keys(categorizedItems.personal || {})?.length > 0 ||
+    Object.keys(categorizedCash.personal || {})?.length > 0 ||
+    Object.keys(houseItems.personal || {})?.length > 0;
   const hasCommercialItems =
-    Object.keys(categorizedItems.commercial || {}).length > 0;
+    Object.keys(categorizedItems.commercial || {})?.length > 0;
 
   return (
     <div className="mb-8">
@@ -115,7 +115,7 @@ const ZakatCard = () => {
 
           {/* Render Gold & Silver if present */}
           {categorizedItems.personal?.['Gold & Silver'] &&
-            categorizedItems.personal['Gold & Silver'].length > 0 && (
+            categorizedItems.personal['Gold & Silver']?.length > 0 && (
               <div className="p-4 bg-cardbg rounded-xl border-cardBorder border-[1px] mb-4">
                 <div className="font-medium text-xl flex gap-2">
                   <div className="xs:text-base sm:text-xl text-agTableTop">
@@ -182,7 +182,7 @@ const ZakatCard = () => {
 
           {/* Render Cash & Checking if present */}
           {houseItems.personal?.['House'] &&
-            houseItems.personal['House'].length > 0 && (
+            houseItems.personal['House']?.length > 0 && (
               <div className="p-4 bg-cardbg rounded-xl border-cardBorder border-[1px] mb-4">
                 <div className="font-medium text-xl flex gap-2">
                   <div className="xs:text-base sm:text-xl text-agTableTop">
@@ -377,7 +377,7 @@ const ZakatCard = () => {
         </div>
       )}
 
-      {items.length !== 0 || cash.length !== 0 ? (
+      {items?.length !== 0 || cash?.length !== 0 ? (
         <div className="flex flex-col justify-evenly items-center w-full gap-5 mt-12">
           <hr className="w-full border-[1px] border-solid border-underline" />
           <div className="flex flex-row justify-end items-center w-full">

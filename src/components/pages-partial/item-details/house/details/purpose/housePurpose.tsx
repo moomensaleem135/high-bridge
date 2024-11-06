@@ -183,6 +183,7 @@ export const HousePurposeForm: React.FC<HousePurposeFormProps> = ({
                   control={form.control}
                   render={({ field }) => (
                     <Checkbox
+                      disabled
                       checked={field.value === 'Saving'}
                       onCheckedChange={() => {
                         field.onChange('Saving');

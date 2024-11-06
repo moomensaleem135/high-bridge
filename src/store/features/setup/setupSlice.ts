@@ -55,10 +55,10 @@ const setupSlice = createSlice({
           if(data.startDate !== null){
             const parts = data.startDate.split(' ');
             const day = parseInt(parts[0], 10);
-            const yearHijri = parseInt(parts[parts.length - 1], 10); // Always take the last part as year
+            const yearHijri = parseInt(parts[parts?.length - 1], 10); // Always take the last part as year
   
             // Join the month parts in case they are multiple words
-            const monthStr = parts.slice(1, parts.length - 1).join(' ').trim(); // Combine middle parts for the month
+            const monthStr = parts.slice(1, parts?.length - 1).join(' ').trim(); // Combine middle parts for the month
   
             const monthIndex = locales.lunar.months.findIndex((month: any) => month[0] === monthStr);
   

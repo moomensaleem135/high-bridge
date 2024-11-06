@@ -91,8 +91,8 @@ const Calendar: React.FC<CalendarProps> = ({ year, onDateChange, dateVal }) => {
     if (dateVal && !value) {
       const parts = dateVal.split(' ');
       const day = parseInt(parts[0], 10);
-      const yearStr = parseInt(parts[parts.length - 1], 10);
-      const monthString = parts.slice(1, parts.length - 1).join(' ');
+      const yearStr = parseInt(parts[parts?.length - 1], 10);
+      const monthString = parts.slice(1, parts?.length - 1).join(' ');
 
       let monthIndex: number | undefined;
 

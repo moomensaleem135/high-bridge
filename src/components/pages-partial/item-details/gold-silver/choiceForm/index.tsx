@@ -239,7 +239,7 @@ const GoldChoiceForm: React.FC<GoldChoiceProps> = ({
                 // href={''}
                 // onClick={() => router.back()}
                 onClick={() => {
-                  if (gold.length === 0) {
+                  if (gold?.length === 0) {
                     router.push('/income');
                     localStorage.removeItem('GoldChoiceForm');
                   } else {

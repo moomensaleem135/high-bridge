@@ -7,7 +7,7 @@ export const getRandomInt = (min: number = 1, max: number = 10000000) => {
   return Math.floor(Math.random() * (max - min)) + min;
 };
 export const getRandomElement = (arr: Array<any>) =>
-  arr[Math.floor(Math.random() * arr.length)];
+  arr[Math.floor(Math.random() * arr?.length)];
 
 export const formatAmount = (amount: string | number): string => {
   let num: number;
@@ -56,7 +56,7 @@ export function evaluatePasswordStrength(password: string): EvaluateType {
   if (!password) return { type: 'Weak', score: score };
 
   // Check password length
-  if (password.length > 8) score += 1;
+  if (password?.length > 8) score += 1;
   // Contains lowercase
   if (/[a-z]/.test(password)) score += 1;
   // Contains uppercase

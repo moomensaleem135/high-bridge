@@ -12,11 +12,11 @@ export default function PartialItemDetails() {
   const income = useAppSelector((state: any) => state.income.income);
 
   const renderItemDetails = () => {
-    if (income?.toLowerCase().includes('gold')) {
+    if (income?.toLowerCase()?.includes('gold')) {
       return <GoldItemDetails />;
-    } else if (income?.toLowerCase().includes('cash')) {
+    } else if (income?.toLowerCase()?.includes('cash')) {
       return <CashItemDetails />;
-    } else if (income?.toLowerCase().includes('house')) {
+    } else if (income?.toLowerCase()?.includes('house')) {
       return <HouseDetails />;
     } else {
       return <GoldItemDetails />;

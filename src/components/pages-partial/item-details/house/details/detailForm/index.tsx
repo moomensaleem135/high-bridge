@@ -161,14 +161,14 @@ const HouseItemDetailsForm: React.FC<ItemDetailsProps> = ({
             control={form.control}
             name="itemName"
             label="What Should the Title for this Item be?"
-            placeholder="Enter item name"
+            placeholder="Enter Item Name"
             error={form.formState.errors.itemName}
           />
           <GenericFormField
             control={form.control}
             name="itemQuantity"
             label="What is the balance of this account on the zakat pay date?"
-            placeholder="Enter amount"
+            placeholder="Enter Amount"
             error={form.formState.errors.itemQuantity}
           />
           <div className="flex justify-between items-center">

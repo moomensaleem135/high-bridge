@@ -90,7 +90,7 @@ const AgGridTable: React.FC<AgGridTableProps> = ({
       <div
         className="ag-theme-alpine"
         style={{
-          height: rowData.length === 0 ? customHeight : 'fit-content',
+          height: rowData?.length === 0 ? customHeight : 'fit-content',
           maxHeight: customHeight,
           overflowY: 'auto',
           overflowX: 'hidden',
