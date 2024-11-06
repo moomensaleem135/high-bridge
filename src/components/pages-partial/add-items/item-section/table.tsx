@@ -7,10 +7,12 @@ import '../../../../styles/globals.css';
 import CustomOptions from './customOption';
 import { deleteItem, updateItem } from '@/store/features/items/golditemsSlice';
 import { deleteCashItem } from '@/store/features/cash-items/cashSlice';
+import { deleteHouseItem } from '@/store/features/house-items/houseSlice';
 
 import { useRouter } from 'next/navigation';
 import { subtractVal } from '@/store/features/zakat/zakatSlice';
 import toast from 'react-hot-toast';
+import { useAppSelector } from '@/store/hooks';
 
 // Define types for columns and row data
 interface ColumnDef {
@@ -37,6 +39,11 @@ export interface CashItem extends Item {
   name: string;
 }
 
+export interface HouseItem extends Item {
+  houseId: string;
+  name: string;
+}
+
 interface RowDataDef {
   id: number;
   item: string;
@@ -52,7 +59,10 @@ const GridSection: React.FC = () => {
   const items: GoldItem[] =
     useSelector((state: any) => state.items.items) || [];
   const cash: CashItem[] = useSelector((state: any) => state.cash.cash) || [];
-  console.log({items});
+  console.log({ items });
+
+  const house: HouseItem[] = useAppSelector((state: any) => state.house.house);
+  console.log('house', house);
 
   const zakatVal = useSelector((state: any) => state.zakat.zakat.value);
   const income: string[] =
@@ -74,6 +84,14 @@ const GridSection: React.FC = () => {
     ) {
       if (cash && cash.length !== 0) {
         const numberOfRows = cash.length;
+        const calculatedHeight = Math.min(numberOfRows * rowHeight, maxHeight);
+        setGridHeight(calculatedHeight);
+      } else {
+        setGridHeight(maxHeight);
+      }
+    } else if (income.length != 0 && income.includes('House')) {
+      if (house && house.length !== 0) {
+        const numberOfRows = house.length;
         const calculatedHeight = Math.min(numberOfRows * rowHeight, maxHeight);
         setGridHeight(calculatedHeight);
       } else {
@@ -146,6 +164,24 @@ const GridSection: React.FC = () => {
       ];
     }
 
+    if (income.length != 0 && income.includes('House')) {
+      updatedColumns = [
+        { headerName: 'Item', field: 'item' },
+        { headerName: 'Title', field: 'name' },
+        { headerName: 'Zakat', field: 'zakat' },
+        {
+          headerName: '',
+          field: 'option',
+          cellRenderer: (params: any) =>
+            CustomOptions({
+              id: params.data.houseId,
+              item: params.data.item,
+              onDelete: handleDelete,
+              onEdit: handleEdit,
+            }),
+        },
+      ];
+    }
     setColumns(updatedColumns);
   }, [income.length]);
 
@@ -174,28 +210,48 @@ const GridSection: React.FC = () => {
       }));
     }
 
+    if (income.includes('House')) {
+      updatedRowData = house.map((item: any, index: any) => ({
+        id: index,
+        item: item.item,
+        name: item.name,
+        zakat: `$${item.zakat}`,
+        houseId: item.houseId,
+      }));
+    }
+
     setRowData(updatedRowData);
-  }, [items.length, cash.length, zakatVal, income.length]);
+  }, [items.length, cash.length, house.length, zakatVal, income.length]);
 
   // Handle edit and delete actions
   const handleEdit = (id: string, item: string) => {
     router.push(`add-items/item-details?id=${id}`);
   };
 
-  const handleDelete = (id: string, item: string) => {
+  const handleDelete = async (id: string, item: string) => {
     if (income.includes('Gold')) {
-      dispatch(deleteItem(id));
-      dispatch(subtractVal(id));
+      await dispatch(deleteItem(id));
+      await dispatch(subtractVal(id));
+
+      toast.success(`${item} Item deleted successfully.`, {
+        position: 'top-right',
+      });
+    } else if (income.includes('House')) {
+      await dispatch(deleteHouseItem(id));
+      await dispatch(subtractVal(id));
+
       toast.success(`${item} Item deleted successfully.`, {
         position: 'top-right',
       });
     } else if (income.includes('Cash')) {
-      dispatch(deleteCashItem(id));
-      dispatch(subtractVal(id));
+      await dispatch(deleteCashItem(id));
+      await dispatch(subtractVal(id));
+
       toast.success(`${item} Item deleted successfully.`, {
         position: 'top-right',
       });
     }
+    router.push('/income');
   };
 
   const totalRows = rowData.length;

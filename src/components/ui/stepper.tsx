@@ -1,13 +1,12 @@
 import React from 'react';
 import { Stepper, Step, StepLabel, StepConnector } from '@mui/material';
 import { styled } from '@mui/system';
-import CheckTickIcon from '@mui/icons-material/Check'; // Import Check icon (without circle)
+import CheckTickIcon from '@mui/icons-material/Check';
 
 interface Props {
   activeStep: number;
 }
 
-// Custom StepIcon to style the dots and show a tick for completed steps
 const CustomStepIcon = ({
   active,
   completed,
@@ -15,16 +14,13 @@ const CustomStepIcon = ({
   active: boolean;
   completed: boolean;
 }) => {
-  // Set a fixed size for both the dot and the tick to ensure they don't cause layout shift
-  // Set a consistent size for the icon
-
   if (completed) {
     return (
       <CheckTickIcon
         style={{
-          color: '#000000', // Color of the tick for completed steps
-          fontSize: 16, // Set fontSize to the fixed size
-          verticalAlign: 'middle', // Ensures the tick is vertically aligned with the dots
+          color: '#000000',
+          fontSize: 16,
+          verticalAlign: 'middle',
           marginTop: '5px',
         }}
       />
@@ -34,10 +30,10 @@ const CustomStepIcon = ({
   return (
     <div
       style={{
-        width: 11, // Same width as the tick icon
-        height: 11, // Same height as the tick icon
-        borderRadius: '50%', // Circle shape
-        backgroundColor: active ? '#000000' : '#BDBDBD', // Active dot in blue, default in gray
+        width: 11,
+        height: 11,
+        borderRadius: '50%',
+        backgroundColor: active ? '#000000' : '#BDBDBD',
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
@@ -47,20 +43,19 @@ const CustomStepIcon = ({
   );
 };
 
-// Custom StepConnector for changing connector color based on activeStep
 const CustomConnector = styled(StepConnector)(({ theme }) => ({
   '& .MuiStepConnector-line': {
     borderWidth: 2,
     transition: 'border-color 0.3s ease',
   },
   '&.Mui-active .MuiStepConnector-line': {
-    borderColor: '#000000', // Blue for the connector of the active step
+    borderColor: '#000000',
   },
   '&.Mui-completed .MuiStepConnector-line': {
-    borderColor: '#000000', // Blue for completed steps
+    borderColor: '#000000',
   },
   '&.Mui-disabled .MuiStepConnector-line': {
-    borderColor: '#BDBDBD', // Gray for non-active steps
+    borderColor: '#BDBDBD',
   },
 }));
 
@@ -70,8 +65,8 @@ const StepperComponent: React.FC<Props> = ({ activeStep }) => {
   return (
     <Stepper
       alternativeLabel
-      activeStep={activeStep} // Set active step dynamically
-      connector={<CustomConnector />} // Apply custom connector
+      activeStep={activeStep}
+      connector={<CustomConnector />}
       sx={{ width: '100%' }}
     >
       {steps.map((label, index) => (
@@ -79,8 +74,8 @@ const StepperComponent: React.FC<Props> = ({ activeStep }) => {
           <StepLabel
             StepIconComponent={(props) => (
               <CustomStepIcon
-                active={props.active ?? false} // Default active to false if undefined
-                completed={props.completed ?? false} // Default completed to false if undefined
+                active={props.active ?? false}
+                completed={props.completed ?? false}
               />
             )}
           >

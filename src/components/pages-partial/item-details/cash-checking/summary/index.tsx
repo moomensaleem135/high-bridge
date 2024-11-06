@@ -97,6 +97,11 @@ const CashSummaryForm: React.FC<SummaryProps> = ({
       setup.generic
     );
 
+    const zakatCalData = {
+      id: cashId,
+      value: zakatVal || 0,
+    };
+
     const itemData = {
       item: item,
       quantity: price,
@@ -124,16 +129,18 @@ const CashSummaryForm: React.FC<SummaryProps> = ({
       if (id) {
         console.log(id);
         dispatch(updateCashItem(itemData));
-        toast.success(`${itemsData.name} item edited successfully.`, {
+        dispatch(editZakat(zakatCalData));
+        toast.success(`${itemsData.item} item edited successfully.`, {
           position: 'top-right',
         });
       } else {
         dispatch(addCashItems(itemData));
-        toast.success(`${itemsData.name} item added successfully.`, {
+        dispatch(zakatCal(zakatCalData));
+        toast.success(`${itemsData.item} item added successfully.`, {
           position: 'top-right',
         });
       }
-
+      localStorage.clear();
       form.reset();
       router.push('/income/income-details/add-items');
     } catch (error) {

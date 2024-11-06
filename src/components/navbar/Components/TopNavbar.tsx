@@ -25,10 +25,13 @@ const TopNavbar = ({
   const router = useRouter();
 
   console.log(selector);
+  console.log('zakatVal', zakatVal);
 
   const totalZakatValue = zakatVal.reduce((total: any, entry: any) => {
-    return total + (entry.value || 0); // Add value of each entry, default to 0 if undefined
+    return total + (entry.value || 0);
   }, 0);
+
+  console.log(totalZakatValue);
 
   return (
     <div className="px-2 min-h-[70px] xs:min-h-[45px] sm:min-h-[70px] flex w-full items-center justify-between xs:hidden lg:flex">

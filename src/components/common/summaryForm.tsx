@@ -49,9 +49,9 @@ const SummaryForm: React.FC<SummaryProps> = ({
     try {
       await onSubmit(data); // Call the onSubmit callback
       form.reset();
-      toast.success(`${data.name} item processed successfully.`, {
-        position: 'top-right',
-      });
+      // toast.success(`${data.name} item processed successfully.`, {
+      //   position: 'top-right',
+      // });
     } catch (error) {
       console.error('Error processing item:', error);
       toast.error('Failed to process item', { position: 'top-right' });

@@ -115,21 +115,21 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = ({
       localStorage.setItem('itemDetailsForm', JSON.stringify(itemsData));
       if (id) {
         console.log('id in details form', id);
-        dispatch(editZakat(zakatCalData));
+        //dispatch(editZakat(zakatCalData));
         setName(itemsData.name);
         setPrice(itemsData.quantity);
         setValue(value + 1);
-        toast.success(`${itemsData.name} item edited successfully.`, {
-          position: 'top-right',
-        });
+        // toast.success(`${itemsData.name} item edited successfully.`, {
+        //   position: 'top-right',
+        // });
       } else {
-        dispatch(zakatCal(zakatCalData));
+        //dispatch(zakatCal(zakatCalData));
         setName(itemsData.name);
         setPrice(itemsData.quantity);
         setValue(value + 1);
-        toast.success(`${itemsData.name} item added successfully.`, {
-          position: 'top-right',
-        });
+        // toast.success(`${itemsData.name} item added successfully.`, {
+        //   position: 'top-right',
+        // });
       }
     } catch (error) {
       console.error('Error creating event:', error);
@@ -194,7 +194,10 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = ({
               <Link
                 className="flex justify-start items-center text-base font-medium"
                 href={''}
-                onClick={() => setValue(value - 1)}
+                onClick={() => {
+                  setValue(value - 1);
+                  localStorage.removeItem('itemDetailsForm');
+                }}
               >
                 <ArrowLeftIcon />
                 Back

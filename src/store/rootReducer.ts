@@ -9,6 +9,7 @@ import setup from './features/setup/setupSlice';
 import income from './features/income/incomeSlice';
 import zakat from './features/zakat/zakatSlice';
 import selection from './features/selection/selectionSlice'
+import house from "./features/house-items/houseSlice"
 
 const rootReducer = combineReducers({
   [apiSlice.reducerPath]: apiSlice.reducer,
@@ -19,7 +20,8 @@ const rootReducer = combineReducers({
   income,
   zakat,
   cash,
-  selection
+  selection,
+  house
 });
 
 export type AppState = ReturnType<typeof rootReducer>;

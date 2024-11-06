@@ -17,6 +17,7 @@ const zakatSlice = createSlice({
   initialState,
   reducers: {
     zakatCal: (state, action) => {
+      console.log('in zakat cal')
      
       const newEntry = action.payload;
 

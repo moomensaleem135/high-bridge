@@ -8,6 +8,7 @@ import { payZakatUrl } from '@/configs/constants';
 import { useRouter } from 'next/navigation';
 import { IncomeChoice } from '@/store/features/income/incomeSlice';
 import { Inter } from 'next/font/google';
+import { object } from 'zod';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -17,7 +18,7 @@ const inter = Inter({
 const personalText = [
   'Gold & Silver',
   'Liquid Assets (Cash, Checking, Saving, Loan)',
-  'Savings & Stock',
+  'Stock',
   'Retirement Accounts',
   'House',
 ];
@@ -34,12 +35,32 @@ const commercialText = [
 const ZakatCard = () => {
   const items = useSelector((state: any) => state.items.items) || [];
   const cash = useSelector((state: any) => state.cash.cash) || [];
+  const house = useSelector((state: any) => state.house.house);
   const setup = useSelector((state: any) => state.setup.setup);
 
   const router = useRouter();
   const dispatch = useDispatch();
 
   const categorizedItems = items.reduce((acc: any, item: any) => {
+    const category = personalText.includes(item.income)
+      ? 'personal'
+      : commercialText.includes(item.income)
+        ? 'commercial'
+        : null;
+
+    if (category) {
+      if (!acc[category]) {
+        acc[category] = {};
+      }
+      if (!acc[category][item.income]) {
+        acc[category][item.income] = [];
+      }
+      acc[category][item.income].push(item);
+    }
+    return acc;
+  }, {});
+
+  const houseItems = house.reduce((acc: any, item: any) => {
     const category = personalText.includes(item.income)
       ? 'personal'
       : commercialText.includes(item.income)
@@ -80,7 +101,8 @@ const ZakatCard = () => {
 
   const hasPersonalItems =
     Object.keys(categorizedItems.personal || {}).length > 0 ||
-    Object.keys(categorizedCash.personal || {}).length > 0;
+    Object.keys(categorizedCash.personal || {}).length > 0 ||
+    Object.keys(houseItems.personal || {}).length > 0;
   const hasCommercialItems =
     Object.keys(categorizedItems.commercial || {}).length > 0;
 
@@ -159,6 +181,71 @@ const ZakatCard = () => {
             )}
 
           {/* Render Cash & Checking if present */}
+          {houseItems.personal?.['House'] &&
+            houseItems.personal['House'].length > 0 && (
+              <div className="p-4 bg-cardbg rounded-xl border-cardBorder border-[1px] mb-4">
+                <div className="font-medium text-xl flex gap-2">
+                  <div className="xs:text-base sm:text-xl text-agTableTop">
+                    House
+                  </div>
+                  <div className="font-medium text-sm flex justify-center items-center text-agTableTop">
+                    {/* ({houseItems.personal['Cash & Checking'][0].religion}) */}
+                    ({setup.religion})
+                  </div>
+                </div>
+                {houseItems.personal['House'].map((item: any, index: any) => (
+                  <div
+                    key={index}
+                    className="flex flex-col justify-start items-center gap-2 pl-6 pr-6 pt-1 pb-1 bg-white rounded border border-gray-300 w-full mt-2"
+                  >
+                    <div className="flex justify-between items-center w-full h-10">
+                      <h2
+                        className={`text-cardHeading font-normal text-base text-start text-nowrap w-20 flex-1 ${inter.className}`}
+                      >
+                        {item.item}
+                      </h2>
+                      <span
+                        className={`text-start font-normal text-base text-cardText text-wrap line-clamp-3 w-fit-content flex-1  xs:hidden md:block ${inter.className}`}
+                      >
+                        ${item.quantity}.00
+                      </span>
+                      <span
+                        className={`font-medium text-base text-zakatText w-20 flex-1 text-center  xs:hidden md:block ${inter.className}`}
+                      >
+                        ${item.zakat.toFixed(2)}
+                      </span>
+                      <Link
+                        href={'/income/income-details/add-items'}
+                        className="flex justify-end items-center flex-1"
+                      >
+                        <Button
+                          className="bg-black text-white flex justify-center items-center hover:bg-[#5e5f5d] h-7 rounded-md pl-4 pr-4 pt-1 pb-1 xs:hidden sm:flex"
+                          onClick={() => {
+                            dispatch(IncomeChoice(item.income));
+                          }}
+                        >
+                          <span
+                            className={`text-sm font-medium ${inter.className}`}
+                          >
+                            Preview
+                          </span>
+                        </Button>
+                        <span
+                          className="xs:flex sm:hidden"
+                          onClick={() => {
+                            dispatch(IncomeChoice(item.income));
+                          }}
+                        >
+                          <ArrowLeftIcon className="rotate-180 h-6" />
+                        </span>
+                      </Link>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+
+          {/* Render Cash & Checking if present */}
           {categorizedCash.personal?.[
             'Liquid Assets (Cash, Checking, Saving, Loan)'
           ] &&
@@ -231,7 +318,10 @@ const ZakatCard = () => {
 
           {/* Check if both sections are empty */}
           {categorizedItems.personal?.['Gold & Silver']?.length === 0 &&
-            categorizedCash.personal?.['Cash & Checking']?.length === 0 && (
+            houseItems.personal?.['House']?.length === 0 &&
+            categorizedCash.personal?.[
+              'Liquid Assets (Cash, Checking, Saving, Loan)'
+            ]?.length === 0 && (
               <div className="text-gray-500">
                 No personal properties entered.
               </div>

@@ -16,9 +16,13 @@ import { editZakat } from '@/store/features/zakat/zakatSlice';
 
 import Spinner from '@/components/common/Spinner';
 import { calculateZakat } from '@/lib/helpers';
-import { CashIItems } from '@/lib/types';
+import { CashIItems, HouseIItems } from '@/lib/types';
 import { useAppSelector } from '@/store/hooks';
 import SummaryForm from '@/components/common/summaryForm';
+import {
+  addHouseItems,
+  updateHouseItem,
+} from '@/store/features/house-items/houseSlice';
 
 interface SummaryProps {
   name: string;
@@ -49,12 +53,17 @@ const HouseSummaryForm: React.FC<SummaryProps> = ({
   const router = useRouter();
   const searchparams = useSearchParams();
   const id = searchparams.get('id');
-  const cash: CashIItems[] = useSelector((state: any) => state.cash.cash) || [];
+  const house: HouseIItems[] = useAppSelector(
+    (state: any) => state.house.house
+  );
   const religion = useSelector((state: any) => state.sect.sect);
   const income = useSelector((state: any) => state.income.income);
   const setup = useSelector((state: any) => state.setup.setup);
   const [payableAmount, setPayableAmount] = React.useState<number>(0);
   const [createItem, { isLoading }] = useCreateItemMutation();
+
+  console.log('house id in house summary', houseId);
+  console.log(item, price);
 
   const form = useForm<FormFields>({
     resolver: zodResolver(SummarySchema),
@@ -67,7 +76,7 @@ const HouseSummaryForm: React.FC<SummaryProps> = ({
 
   React.useEffect(() => {
     if (id) {
-      const data = cash.filter((item) => item.cashId === id);
+      const data = house.filter((item) => item.houseId === id);
 
       form.reset({
         item: data[0].item,
@@ -83,6 +92,11 @@ const HouseSummaryForm: React.FC<SummaryProps> = ({
       setup.year,
       setup.generic
     );
+
+    const zakatCalData = {
+      id: houseId,
+      value: zakatVal || 0,
+    };
 
     const itemData = {
       item: item,
@@ -108,13 +122,15 @@ const HouseSummaryForm: React.FC<SummaryProps> = ({
       // const response = await createItem(formData); // Uncomment if needed
       if (id) {
         console.log(id);
-        dispatch(updateCashItem(itemData));
-        toast.success(`${itemsData.name} item edited successfully.`, {
+        dispatch(updateHouseItem(itemData));
+        dispatch(editZakat(zakatCalData));
+        toast.success(`${itemsData.item} item edited successfully.`, {
           position: 'top-right',
         });
       } else {
-        dispatch(addCashItems(itemData));
-        toast.success(`${itemsData.name} item added successfully.`, {
+        dispatch(addHouseItems(itemData));
+        dispatch(zakatCal(zakatCalData));
+        toast.success(`${itemsData.item} item added successfully.`, {
           position: 'top-right',
         });
       }

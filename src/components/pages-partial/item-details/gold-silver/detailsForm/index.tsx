@@ -101,6 +101,10 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = ({
   });
 
   useEffect(() => {
+    const storedFormData = localStorage.getItem('GoldItemDetailsForm');
+    if (storedFormData) {
+      form.reset(JSON.parse(storedFormData));
+    }
     if (id) {
       const data = items.filter((item) => item.goldId === id);
       console.log('data', data);
@@ -156,6 +160,7 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = ({
 
     try {
       // const response = await createItem(formData);
+      localStorage.setItem('GoldItemDetailsForm', JSON.stringify(itemsData));
       if (id) {
         //dispatch(updateItem(itemData));
 
@@ -165,7 +170,7 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = ({
         setQuantity(itemsData.quantity);
         setPrice(itemsData.price);
         setWeight(itemsData.weight);
-        dispatch(editZakat(zakatCalData));
+        //dispatch(editZakat(zakatCalData));
         // toast.success(`${itemsData.item} item edited successfully.`, {
         //   position: 'top-right',
         // });
@@ -176,7 +181,7 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = ({
         setQuantity(itemsData.quantity);
         setPrice(itemsData.price);
         setWeight(itemsData.weight);
-        dispatch(zakatCal(zakatCalData));
+        //dispatch(zakatCal(zakatCalData));
         // toast.success(`${itemsData.item} item added successfully.`, {
         //   position: 'top-right',
         // });
@@ -340,7 +345,10 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = ({
               <Link
                 className="flex justify-start items-center text-base font-medium"
                 href={''}
-                onClick={() => setValue(value - 1)}
+                onClick={() => {
+                  setValue(value - 1);
+                  localStorage.removeItem('GoldItemDetailsForm');
+                }}
               >
                 <ArrowLeftIcon />
                 Back

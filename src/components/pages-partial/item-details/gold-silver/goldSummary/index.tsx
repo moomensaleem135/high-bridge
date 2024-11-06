@@ -24,6 +24,8 @@ import { updateItem } from '@/store/features/items/golditemsSlice';
 import Spinner from '@/components/common/Spinner';
 import { calculateZakat } from '@/lib/helpers';
 import { GoldIItems } from '@/lib/types';
+import { zakatCal } from '@/store/features/zakat/zakatSlice';
+import { editZakat } from '@/store/features/zakat/zakatSlice';
 import { useAppSelector } from '@/store/hooks';
 
 interface GoldSummaryProps {
@@ -130,6 +132,13 @@ const GoldSummaryForm: React.FC<GoldSummaryProps> = ({
       goldId: goldId,
     };
 
+    const zakatCalData = {
+      id: goldId,
+      quantity: itemsData.quantity,
+      weight: itemsData.weight,
+      value: zakatVal || 0,
+    };
+
     const formData = new FormData();
 
     console.log('itemsData', itemsData);
@@ -147,17 +156,20 @@ const GoldSummaryForm: React.FC<GoldSummaryProps> = ({
         console.log(id);
         console.log('in updating item');
         dispatch(updateItem(itemData));
-        toast.success(`${itemsData.item} item edited successfully.`, {
+        dispatch(editZakat(zakatCalData));
+        toast.success(`${item} item edited successfully.`, {
           position: 'top-right',
         });
       } else {
         dispatch(addItems(itemData));
-        toast.success(`${itemsData.item} item added successfully.`, {
+        dispatch(zakatCal(zakatCalData));
+        toast.success(`${item} item added successfully.`, {
           position: 'top-right',
         });
       }
 
       form.reset();
+      localStorage.clear();
       router.push('/income/income-details/add-items');
     } catch (error) {
       console.error('Error creating event:', error);

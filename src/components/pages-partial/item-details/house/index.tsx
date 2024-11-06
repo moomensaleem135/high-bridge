@@ -94,6 +94,7 @@ export default function HouseDetails() {
             selectedPurpose={selectedPurpose}
             purposeOptions={purposeOptions}
             setSelectedPurpose={setSelectedPurpose}
+            setHouseId={setHouseId}
             handleNext={handleNext}
             handleBack={handleBack}
           />

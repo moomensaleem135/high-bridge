@@ -8,7 +8,8 @@ import MainSection from './item-section/main';
 import Link from 'next/link';
 import { ArrowLeftIcon } from '@/assets/svgs';
 import { useRouter } from 'next/navigation';
-import { CashIItems, GoldIItems } from '@/lib/types';
+import { CashIItems, GoldIItems, HouseIItems } from '@/lib/types';
+import { useAppSelector } from '@/store/hooks';
 
 export default function PartialAddItems() {
   const router = useRouter();
@@ -16,6 +17,9 @@ export default function PartialAddItems() {
   const income = useSelector((state: any) => state.income.income);
 
   const cash: CashIItems[] = useSelector((state: any) => state.cash.cash) || [];
+  const house: HouseIItems[] = useAppSelector(
+    (state: any) => state.house.house
+  );
 
   React.useEffect(() => {
     if (
@@ -30,6 +34,13 @@ export default function PartialAddItems() {
       income.includes('Silver')
     ) {
       if (items.length === 0) {
+        router.push('add-items/item-details');
+      }
+    } else if (
+      (income.length != 0 && income.includes('House')) ||
+      income.includes('Silver')
+    ) {
+      if (house.length === 0) {
         router.push('add-items/item-details');
       }
     }

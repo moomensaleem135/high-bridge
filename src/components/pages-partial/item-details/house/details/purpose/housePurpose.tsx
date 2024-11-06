@@ -2,17 +2,21 @@ import { ArrowLeftIcon, ErrorIcon } from '@/assets/svgs';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Label } from '@/components/ui/label';
+import { HouseIItems } from '@/lib/types';
+import { useAppSelector } from '@/store/hooks';
 import { zodResolver } from '@hookform/resolvers/zod';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import React from 'react';
 import { Controller, Form, useForm } from 'react-hook-form';
+import toast from 'react-hot-toast';
 import { z } from 'zod';
 
 interface HousePurposeFormProps {
   setSelectedPurpose: any;
   purposeOptions: any[];
   selectedPurpose: string | null;
+  setHouseId: (value: string) => void;
   handleNext: () => void;
   handleBack: () => void;
 }
@@ -27,10 +31,16 @@ export const HousePurposeForm: React.FC<HousePurposeFormProps> = ({
   setSelectedPurpose,
   purposeOptions,
   selectedPurpose,
+  setHouseId,
   handleNext,
   handleBack,
 }) => {
-
+  const searchparams = useSearchParams();
+  const id = searchparams.get('id');
+  const house: HouseIItems[] = useAppSelector(
+    (state: any) => state.house.house
+  );
+  console.log('house', house);
   const form = useForm<FormFields>({
     resolver: zodResolver(HouseChoiceSchema),
     defaultValues: {
@@ -38,46 +48,61 @@ export const HousePurposeForm: React.FC<HousePurposeFormProps> = ({
     },
   });
 
+  React.useEffect(() => {
+    const storedFormData = localStorage.getItem('itemChoiceForm');
+    if (storedFormData) {
+      form.reset(JSON.parse(storedFormData));
+    }
+    if (id) {
+      const data = house.filter((item) => item.houseId === id);
+
+      form.reset({
+        purpose: data[0].item,
+      });
+    }
+  }, [id]);
+
   const onSubmit = async (itemsData: FormFields) => {
-    // let cashId;
-    // if (!id) {
-    //   cashId = `gold-${Date.now()}`;
-    // } else {
-    //   cashId = id;
-    // }
-    // const formData = new FormData();
-    // Object.keys(itemsData).forEach((key) => {
-    //   const value = itemsData[key as keyof FormFields];
-    //   if (value !== undefined && value !== null) {
-    //     formData.append(key, value as any);
-    //   }
-    // });
-    // try {
-    //   // const response = await createItem(formData); // Uncomment if needed
-    //   if (id) {
-    //     console.log('id in Choice form', id);
-    //     setUserItem(itemsData.item);
-    //     setPurpose(itemsData.purpose);
-    //     setValue(value + 1);
-    //     setGoldId(id);
-    //     toast.success(`${itemsData.item} item edited successfully.`, {
-    //       position: 'top-right',
-    //     });
-    //   } else {
-    //     setUserItem(itemsData.item);
-    //     setPurpose(itemsData.purpose);
-    //     setGoldId(cashId);
-    //     setValue(value + 1);
-    //     toast.success(`${itemsData.item} item selection successful.`, {
-    //       position: 'top-right',
-    //     });
-    //   }
-    // } catch (error) {
-    //   console.error('Error creating event:', error);
-    //   toast.error('Failed to create event', {
-    //     position: 'top-right',
-    //   });
-    // }
+    console.log('in house submit');
+    let houseId;
+    if (!id) {
+      houseId = `house-${Date.now()}`;
+    } else {
+      houseId = id;
+    }
+
+    console.log(houseId);
+    const formData = new FormData();
+    Object.keys(itemsData).forEach((key) => {
+      const value = itemsData[key as keyof FormFields];
+      if (value !== undefined && value !== null) {
+        formData.append(key, value as any);
+      }
+    });
+    try {
+      // const response = await createItem(formData); // Uncomment if needed
+      if (id) {
+        console.log('id in Choice form', id);
+        setSelectedPurpose(itemsData.purpose);
+        handleNext();
+        setHouseId(id);
+        // toast.success(`${itemsData.purpose} item edited successfully.`, {
+        //   position: 'top-right',
+        // });
+      } else {
+        setSelectedPurpose(itemsData.purpose);
+        setHouseId(houseId);
+        handleNext();
+        // toast.success(`${itemsData.purpose} item selection successful.`, {
+        //   position: 'top-right',
+        // });
+      }
+    } catch (error) {
+      console.error('Error creating event:', error);
+      toast.error('Failed to create event', {
+        position: 'top-right',
+      });
+    }
   };
 
   return (
@@ -208,7 +233,7 @@ export const HousePurposeForm: React.FC<HousePurposeFormProps> = ({
               </Link>
               <Button
                 className="bg-detailsBtn text-btnText font-normal hover:bg-btnHover"
-                onClick={() => handleNext()}
+                onClick={form.handleSubmit(onSubmit)}
               >
                 Next
               </Button>

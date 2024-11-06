@@ -59,6 +59,9 @@ const ReturnScreen: React.FC<ReturnScreenProps> = ({ setValue, value }) => {
           <Link
             className="flex justify-start items-center text-base font-medium"
             href={'/income'}
+            onClick={() => {
+              localStorage.clear();
+            }}
           >
             <ArrowLeftIcon />
             Back
@@ -69,6 +72,7 @@ const ReturnScreen: React.FC<ReturnScreenProps> = ({ setValue, value }) => {
               className="bg-detailsBtn text-btnText font-normal hover:bg-btnHover"
               onClick={() => {
                 setValue(0);
+                localStorage.clear();
               }}
             >
               Add Another Item

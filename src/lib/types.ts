@@ -49,6 +49,10 @@ export interface CashIItems extends IItems {
   name:string
 }
 
+export interface HouseIItems extends IItems{
+  houseId: string;
+  name : string
+}
 
 
 export interface ISects {

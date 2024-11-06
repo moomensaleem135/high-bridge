@@ -65,7 +65,7 @@ const GoldChoiceForm: React.FC<GoldChoiceProps> = ({
   });
 
   React.useEffect(() => {
-    const storedFormData = localStorage.getItem('itemChoiceForm');
+    const storedFormData = localStorage.getItem('GoldChoiceForm');
     if (storedFormData) {
       form.reset(JSON.parse(storedFormData));
     }
@@ -80,12 +80,12 @@ const GoldChoiceForm: React.FC<GoldChoiceProps> = ({
   }, [id]);
 
   const onSubmit = async (itemsData: FormFields) => {
-    let cashId;
+    let goldId;
 
     if (!id) {
-      cashId = `gold-${Date.now()}`;
+      goldId = `gold-${Date.now()}`;
     } else {
-      cashId = id;
+      goldId = id;
     }
 
     const formData = new FormData();
@@ -99,23 +99,24 @@ const GoldChoiceForm: React.FC<GoldChoiceProps> = ({
 
     try {
       // const response = await createItem(formData); // Uncomment if needed
+      localStorage.setItem('GoldChoiceForm', JSON.stringify(itemsData));
       if (id) {
         console.log('id in Choice form', id);
         setUserItem(itemsData.item);
         setPurpose(itemsData.purpose);
         setValue(value + 1);
         setGoldId(id);
-        toast.success(`${itemsData.item} item edited successfully.`, {
-          position: 'top-right',
-        });
+        // toast.success(`${itemsData.item} item edited successfully.`, {
+        //   position: 'top-right',
+        // });
       } else {
         setUserItem(itemsData.item);
         setPurpose(itemsData.purpose);
-        setGoldId(cashId);
+        setGoldId(goldId);
         setValue(value + 1);
-        toast.success(`${itemsData.item} item selection successful.`, {
-          position: 'top-right',
-        });
+        // toast.success(`${itemsData.item} item selection successful.`, {
+        //   position: 'top-right',
+        // });
       }
     } catch (error) {
       console.error('Error creating event:', error);
@@ -240,8 +241,10 @@ const GoldChoiceForm: React.FC<GoldChoiceProps> = ({
                 onClick={() => {
                   if (gold.length === 0) {
                     router.push('/income');
+                    localStorage.removeItem('GoldChoiceForm');
                   } else {
                     router.back();
+                    localStorage.removeItem('GoldChoiceForm');
                   }
                 }}
               >

@@ -95,16 +95,16 @@ const ItemChoiceForm: React.FC<ItemChoiceProps> = ({
         setUserItem(itemsData.item);
         setValue(value + 1);
         setCashId(id);
-        toast.success(`${itemsData.item} item edited successfully.`, {
-          position: 'top-right',
-        });
+        // toast.success(`${itemsData.item} item edited successfully.`, {
+        //   position: 'top-right',
+        // });
       } else {
         setUserItem(itemsData.item);
         setCashId(cashId);
         setValue(value + 1);
-        toast.success(`${itemsData.item} item selection successful.`, {
-          position: 'top-right',
-        });
+        // toast.success(`${itemsData.item} item selection successful.`, {
+        //   position: 'top-right',
+        // });
       }
     } catch (error) {
       console.error('Error creating event:', error);
