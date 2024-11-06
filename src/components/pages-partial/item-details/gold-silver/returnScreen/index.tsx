@@ -22,54 +22,35 @@ import Spinner from '@/components/common/Spinner';
 import { CashIItems, GoldIItems } from '@/lib/types';
 import StepperComponent from '@/components/ui/stepper';
 
-interface ExcessScreenProps {
-  setSelection: (value: string) => void;
+interface ReturnScreenProps {
   setValue: (value: number) => void;
   value: number;
 }
 
-const ExcessScreen: React.FC<ExcessScreenProps> = ({
-  setSelection,
-  setValue,
-  value,
-}) => {
+const ReturnScreen: React.FC<ReturnScreenProps> = ({ setValue, value }) => {
   const router = useRouter();
   const searchparams = useSearchParams();
   const id = searchparams.get('id');
   const gold: GoldIItems[] =
     useSelector((state: any) => state.items.items) || [];
   const [item, setItem] = React.useState<string>('');
-  const [activeStep, setActiveStep] = React.useState(1);
+  const [activeStep, setActiveStep] = React.useState(2);
   const [createItem, { isLoading }] = useCreateItemMutation();
 
   React.useEffect(() => {}, [item]);
 
   return (
-    <div className="flex flex-col w-full max-w-[960px] justify-start items-center gap-8 rounded-3xl mt-6 pl-6 pr-6">
+    <div className="flex flex-col w-full max-w-[960px] justify-start items-center gap-8  rounded-3xl mt-6 pl-6 pr-6">
       <StepperComponent activeStep={activeStep} />
       <p className="font-medium text-xl w-full">
-        Does this accessible level in your society?
+        Your Zakat is not applicable to this item.
       </p>
       <div className="w-full flex flex-col gap-y-6">
         <p className="w-full font-normal text-base">
-          Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry.
+          Zakat is not applicable to this item, as personal belongings like
+          clothing, household items, and primary residence are generally exempt
+          from Zakat.
         </p>
-
-        <div className="w-full items-start flex flex-col justify-start pl-6 gap-y-3">
-          <p className="w-full font-normal text-base">
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry.
-          </p>
-          <p className="w-full font-normal text-base">
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry.
-          </p>
-          <p className="w-full font-normal text-base">
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry.
-          </p>
-        </div>
       </div>
 
       <div className="flex flex-col justify-evenly items-center w-full gap-5">
@@ -77,8 +58,7 @@ const ExcessScreen: React.FC<ExcessScreenProps> = ({
         <div className="flex justify-between items-center w-full md:flex-row md:justify-between md:items-center">
           <Link
             className="flex justify-start items-center text-base font-medium"
-            href={''}
-            onClick={() => setValue(value - 1)}
+            href={'/income'}
           >
             <ArrowLeftIcon />
             Back
@@ -88,20 +68,10 @@ const ExcessScreen: React.FC<ExcessScreenProps> = ({
             <Button
               className="bg-detailsBtn text-btnText font-normal hover:bg-btnHover"
               onClick={() => {
-                setSelection('No');
-                setValue(value + 1);
+                setValue(0);
               }}
             >
-              No
-            </Button>
-            <Button
-              className="bg-detailsBtn text-btnText font-normal hover:bg-btnHover"
-              onClick={() => {
-                setSelection('Yes');
-                setValue(value + 1);
-              }}
-            >
-              Yes
+              Add Another Item
             </Button>
           </div>
         </div>
@@ -110,4 +80,4 @@ const ExcessScreen: React.FC<ExcessScreenProps> = ({
   );
 };
 
-export default ExcessScreen;
+export default ReturnScreen;

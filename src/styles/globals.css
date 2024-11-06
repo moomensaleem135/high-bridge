@@ -135,6 +135,12 @@
   background-color: #f8f8f8 !important; /* White for odd rows */
 }
 
+
+/*stepper in gold item form*/
+.css-p8xe3-MuiStepLabel-labelContainer.MuiStepLabel-alternativeLabel{
+  margin-top: 8px !important;
+}
+
 /* lunar calendar */
 
 .e-control {

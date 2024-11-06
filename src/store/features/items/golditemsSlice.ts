@@ -15,6 +15,7 @@ const golditemSlice = createSlice({
   initialState,
   reducers: {
     addItems: (state, action) => {
+      console.log('in add items')
       const data = { ...action.payload };
       
       if (state.items) {

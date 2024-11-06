@@ -29,36 +29,45 @@ import Spinner from '@/components/common/Spinner';
 import { calculateZakat } from '@/lib/helpers';
 import { editZakat } from '@/store/features/zakat/zakatSlice';
 import { GoldIItems } from '@/lib/types';
+import StepperComponent from '@/components/ui/stepper';
 
-interface ItemDetailsProps {}
+interface ItemDetailsProps {
+  setValue: (value: number) => void;
+  value: number;
+  setQuality: (value: string) => void;
+  setQuantity: (value: string) => void;
+  setPrice: (value: string) => void;
+  setWeight: (value: string) => void;
+  setZakatVal: (value: number) => void;
+  setGoldId: (value: string) => void;
+  goldId: string;
+  userItem: string;
+}
 
-const ItemDetailsSchema = z
-  .object({
-    item: z.string().min(1, { message: 'Item is required' }),
-    purpose: z.string().min(1, { message: 'Purpose is required' }),
-    usage: z.string().min(0, { message: 'Usage is required' }),
-    quality: z.string().min(1, { message: 'Quality is required' }),
-    quantity: z.string().min(1, { message: 'Quantity is required' }),
-    totalAmount: z
-      .string()
-      .min(0, { message: 'Total amount is required' })
-      .optional(),
-    weight: z.string().min(1, { message: 'Weight is required' }),
-    price: z.string().min(1, { message: 'Price is required' }),
-  })
-  .refine(
-    (data) => {
-      return data.purpose === 'business' || data.totalAmount;
-    },
-    {
-      message: 'Total amount is required for personal purpose',
-      path: ['totalAmount'],
-    }
-  );
+const ItemDetailsSchema = z.object({
+  // item: z.string().min(1, { message: 'Item is required' }),
+  // purpose: z.string().min(1, { message: 'Purpose is required' }),
+  // usage: z.string().min(0, { message: 'Usage is required' }),
+  quality: z.string().min(1, { message: 'Quality is required' }),
+  quantity: z.string().min(1, { message: 'Quantity is required' }),
+  weight: z.string().min(1, { message: 'Weight is required' }),
+  price: z.string().min(1, { message: 'Price is required' }),
+});
 
 type FormFields = z.infer<typeof ItemDetailsSchema>;
 
-const ItemDetailsForm: React.FC<ItemDetailsProps> = () => {
+const ItemDetailsForm: React.FC<ItemDetailsProps> = ({
+  setValue,
+  setQuality,
+  setQuantity,
+  setPrice,
+  setWeight,
+  setZakatVal,
+  setGoldId,
+  goldId,
+  userItem,
+  value,
+}) => {
   const dispatch = useDispatch();
   const router = useRouter();
   const params = useParams();
@@ -71,7 +80,8 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = () => {
   const income = useSelector((state: any) => state.income.income);
   const setup = useSelector((state: any) => state.setup.setup);
   const [payableAmount, setPayableAmount] = React.useState<number | null>(null);
-  const [item, setItem] = React.useState<string>('');
+  const [item, setItem] = React.useState<string>(userItem);
+  const [activeStep, setActiveStep] = React.useState(2);
   const [reason, setReason] = React.useState<string>('');
   const [currentStep, setCurrentStep] = useState(1);
   const [createItem, { isLoading }] = useCreateItemMutation();
@@ -79,11 +89,11 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = () => {
   const form = useForm<FormFields>({
     resolver: zodResolver(ItemDetailsSchema),
     defaultValues: {
-      item: '',
-      purpose: '',
-      usage: '',
+      // item: '',
+      // purpose: '',
+      // usage: '',
       quality: '',
-      totalAmount: '',
+      // totalAmount: '',
       quantity: 'Grams',
       weight: '',
       price: '',
@@ -94,20 +104,20 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = () => {
     if (id) {
       const data = items.filter((item) => item.goldId === id);
       console.log('data', data);
-      setItem(data[0].item as string);
+      setItem(userItem);
       setReason(data[0].purpose);
       form.reset({
-        item: data[0].item,
+        // item: data[0].item,
         price: data[0].price,
         weight: data[0].weight,
         quantity: data[0].quantity,
-        quality: data[0].quality,
-        usage: data[0].usage,
-        purpose: data[0].purpose,
-        totalAmount: data[0].amount,
+        quality: userItem === data[0].item ? data[0].quality : '',
+        // usage: data[0].usage,
+        // purpose: data[0].purpose,
+        // totalAmount: data[0].amount,
       });
     }
-  }, [id]);
+  }, [id, item]);
 
   const onSubmit = async (itemsData: FormFields) => {
     const zakatAmount = calculateZakat(
@@ -115,30 +125,17 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = () => {
       setup.year,
       setup.generic
     );
-    let goldId;
 
-    const usage = itemsData.usage ? itemsData.usage : '';
+    setZakatVal(zakatAmount);
+    // let goldId;
 
-    if (!id) {
-      goldId = `gold-${Date.now()}`;
-    } else {
-      goldId = id;
-    }
+    // // const usage = itemsData.usage ? itemsData.usage : '';
 
-    const itemData = {
-      item: itemsData.item,
-      purpose: itemsData.purpose,
-      usage: usage,
-      quality: itemsData.quality,
-      weight: itemsData.weight,
-      quantity: itemsData.quantity,
-      price: itemsData.price,
-      amount: itemsData.totalAmount,
-      income: income,
-      religion: religion,
-      zakat: zakatAmount,
-      goldId: goldId,
-    };
+    // if (!id) {
+    //   goldId = `gold-${Date.now()}`;
+    // } else {
+    //   goldId = id;
+    // }
 
     const zakatCalData = {
       id: goldId,
@@ -160,22 +157,30 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = () => {
     try {
       // const response = await createItem(formData);
       if (id) {
-        dispatch(updateItem(itemData));
+        //dispatch(updateItem(itemData));
+
+        setGoldId(id);
+        setValue(value + 1);
+        setQuality(itemsData.quality);
+        setQuantity(itemsData.quantity);
+        setPrice(itemsData.price);
+        setWeight(itemsData.weight);
         dispatch(editZakat(zakatCalData));
-        toast.success(`${itemsData.item} item edited successfully.`, {
-          position: 'top-right',
-        });
+        // toast.success(`${itemsData.item} item edited successfully.`, {
+        //   position: 'top-right',
+        // });
       } else {
-        dispatch(addItems(itemData));
+        //dispatch(addItems(itemData));
+        setValue(value + 1);
+        setQuality(itemsData.quality);
+        setQuantity(itemsData.quantity);
+        setPrice(itemsData.price);
+        setWeight(itemsData.weight);
         dispatch(zakatCal(zakatCalData));
-        toast.success(`${itemsData.item} item added successfully.`, {
-          position: 'top-right',
-        });
+        // toast.success(`${itemsData.item} item added successfully.`, {
+        //   position: 'top-right',
+        // });
       }
-
-      form.reset();
-
-      router.push('/income/income-details/add-items');
     } catch (error) {
       console.error('Error creating event:', error);
       toast.error('Failed to Create event', {
@@ -199,309 +204,135 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = () => {
     }
   }, [form.watch('price')]);
 
-  const handleNextStep = () => {
-    if (currentStep === 1) {
-      const itemValue = form.getValues('item');
-      const purposeValue = form.getValues('purpose');
-
-      if (!itemValue) {
-        form.setError('item', { type: 'manual', message: 'Item is required' });
-      }
-      if (!purposeValue) {
-        form.setError('purpose', {
-          type: 'manual',
-          message: 'Purpose is required',
-        });
-      }
-
-      if (itemValue && purposeValue) {
-        setCurrentStep(purposeValue === 'business' ? 3 : 2);
-      }
-    } else if (currentStep === 2) {
-      const totalAmountValue = Number(form.getValues('totalAmount'));
-
-      if (!totalAmountValue && form.getValues('purpose') === 'personal') {
-        form.setError('totalAmount', {
-          type: 'manual',
-          message: 'Total amount is required',
-        });
-      } else {
-        setCurrentStep(3);
-      }
-    }
-
-    // Clear totalAmount if switching from personal to business
-    const purposeValue = form.getValues('purpose');
-    if (purposeValue === 'business') {
-      form.setValue('totalAmount', '');
-      form.clearErrors('totalAmount');
-    }
-  };
-
-  // Clear errors when the user fills in the fields
-  React.useEffect(() => {
-    const subscription = form.watch((value) => {
-      if (value.item) {
-        form.clearErrors('item');
-      }
-      if (value.purpose) {
-        form.clearErrors('purpose');
-      }
-      if (value.totalAmount) {
-        form.clearErrors('totalAmount');
-      }
-    });
-
-    return () => subscription.unsubscribe();
-  }, [form]);
-
   return (
     <div className="flex flex-col w-full max-w-[960px] justify-center items-center gap-12 rounded-3xl mt-6">
+      <StepperComponent activeStep={activeStep} />
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
           className="flex flex-col w-[82%] gap-5 mb-10"
           data-testid="event-form"
         >
-          {currentStep === 1 && (
-            <>
-              <Label>1 . Which item do you have?</Label>
-              <div>
-                <div className="w-full items-center flex justify-start gap-8 pl-4">
-                  <div className="flex justify-center items-center gap-4">
-                    <Controller
-                      name="item"
-                      control={form.control}
-                      render={({ field }) => (
-                        <Checkbox
-                          checked={field.value === 'Gold'}
-                          onCheckedChange={() => {
-                            field.onChange('Gold');
-                            setItem('Gold');
-                            form.setValue('quality', ''); // Reset quality when item changes
-                            form.clearErrors('quality');
-                          }}
-                          className="rounded-sm h-5 w-5 mt-0.5 border-[2px]"
-                        />
-                      )}
-                    />
-                    <label htmlFor="myCheckbox">Gold</label>
-                  </div>
-                  <div className="flex justify-center items-center gap-4">
-                    <Controller
-                      name="item"
-                      control={form.control}
-                      render={({ field }) => (
-                        <Checkbox
-                          checked={field.value === 'Silver'}
-                          onCheckedChange={() => {
-                            field.onChange('Silver');
-                            setItem('Silver');
-                            form.setValue('quality', ''); // Reset quality when item changes
-                            form.clearErrors('quality');
-                          }}
-                          className="rounded-sm h-5 w-5 mt-0.5 border-[2px]"
-                        />
-                      )}
-                    />
-                    <label htmlFor="myCheckbox">Silver</label>
-                  </div>
-                </div>
-                {form.formState.errors.item && (
-                  <span className="text-destructive text-sm flex items-center gap-1 mt-2">
-                    <ErrorIcon />
-                    {form.formState.errors.item.message}
-                  </span>
+          <div className="w-full items-center">
+            <div className="flex flex-col justify-start gap-x-6 gap-y-2 items-start">
+              <Label>4 . What is the purity of this item?</Label>
+              <FormField
+                control={form.control}
+                name="quality"
+                render={({ field }) => (
+                  <QualityDropdown
+                    initialValue={field.value}
+                    item={item}
+                    onQualityChange={(qualityVal) => field.onChange(qualityVal)}
+                  />
                 )}
-              </div>
-              <div className="w-full items-center">
-                <div className="flex flex-col justify-start gap-y-2 items-start">
-                  <Label>2 . What is the purpose of this item?</Label>
-                  <FormField
-                    control={form.control}
-                    name="purpose"
-                    render={({ field }) => {
-                      return (
-                        <PurposeDropdown
-                          initialValue={field.value}
-                          onPurposeChange={(purposeVal) => {
-                            field.onChange(purposeVal);
-                            form.setValue('totalAmount', '');
-                          }}
-                          setReason={setReason}
-                        />
-                      );
-                    }}
-                  />
-                  {form.formState.errors.purpose && (
-                    <span className="text-destructive text-sm flex items-center gap-1">
-                      <ErrorIcon />
-                      {form.formState.errors.purpose.message}
-                    </span>
-                  )}
-                </div>
-              </div>
-            </>
-          )}
-
-          {reason === 'personal' && (
-            <>
-              {currentStep === 2 && (
-                <>
-                  <Label>2. What is your total amount?</Label>
-                  <FormField
-                    control={form.control}
-                    name="totalAmount"
-                    render={({ field }) => (
-                      <IconInput
-                        {...field}
-                        type="text"
-                        id="price"
-                        aria-label="price"
-                        placeholder="Enter price"
-                        className="bg-inputBg rounded-r-none rounded-lg h-[45px] border-inputBorder py-1.5 text-black"
-                        error={!!form.formState.errors.price}
-                        data-cy="price"
-                        data-testid="price"
-                      />
-                    )}
-                  />
-                  {form.formState.errors.totalAmount && (
-                    <span className="text-destructive text-sm">
-                      {form.formState.errors.totalAmount.message}
-                    </span>
-                  )}
-                </>
+              />
+              {form.formState.errors.quality && (
+                <span className="text-destructive text-sm flex items-center gap-1 ">
+                  <ErrorIcon />
+                  {form.formState.errors.quality.message}
+                </span>
               )}
-            </>
-          )}
+            </div>
+          </div>
 
-          {currentStep === 3 && (
-            <>
-              <div className="w-full items-center">
-                <div className="flex flex-col justify-start gap-x-6 gap-y-2 items-start">
-                  <Label>4 . What is the purity of this item?</Label>
-                  <FormField
-                    control={form.control}
-                    name="quality"
-                    render={({ field }) => (
-                      <QualityDropdown
-                        initialValue={field.value}
-                        item={item}
-                        onQualityChange={(qualityVal) =>
-                          field.onChange(qualityVal)
-                        }
-                      />
-                    )}
-                  />
-                  {form.formState.errors.quality && (
-                    <span className="text-destructive text-sm flex items-center gap-1 ">
-                      <ErrorIcon />
-                      {form.formState.errors.quality.message}
-                    </span>
-                  )}
-                </div>
-              </div>
-
-              <div className="w-full items-center">
-                <div className="flex flex-col justify-start gap-x-6 gap-y-2 items-start">
-                  <Label>5 . What is the estimated weight of this item?</Label>
-                  <div className="flex w-full">
-                    <FormField
-                      control={form.control}
-                      name="weight"
-                      render={({ field }) => (
-                        <div className="w-full flex flex-col">
-                          <FormControl>
-                            <IconInput
-                              {...field}
-                              type="text"
-                              id="weight"
-                              aria-label="weight"
-                              placeholder=""
-                              className="bg-inputBg rounded-r-none rounded-l-lg h-[45px] border-inputBorder py-1.5 text-black"
-                              error={!!form.formState.errors.weight}
-                              data-cy="weight"
-                              data-testid="weight"
-                            />
-                          </FormControl>
-
-                          {form.formState.errors.weight && (
-                            <span className="text-destructive text-sm flex items-center gap-1 mt-2">
-                              <ErrorIcon />
-                              {form.formState.errors.weight.message}
-                            </span>
-                          )}
-                        </div>
-                      )}
-                    />
-                    <div className="xs:w-2/6 md:w-1/6 items-center">
-                      <div className="flex flex-col justify-start gap-x-6 gap-y-2 items-start">
-                        <FormField
-                          control={form.control}
-                          name="quantity"
-                          render={({ field }) => (
-                            <WeightDropdown
-                              initialValue={field.value}
-                              onWeightChange={(quantityVal) =>
-                                field.onChange(quantityVal)
-                              }
-                            />
-                          )}
+          <div className="w-full items-center">
+            <div className="flex flex-col justify-start gap-x-6 gap-y-2 items-start">
+              <Label>5 . What is the estimated weight of this item?</Label>
+              <div className="flex w-full">
+                <FormField
+                  control={form.control}
+                  name="weight"
+                  render={({ field }) => (
+                    <div className="w-full flex flex-col">
+                      <FormControl>
+                        <IconInput
+                          {...field}
+                          type="text"
+                          id="weight"
+                          aria-label="weight"
+                          placeholder=""
+                          className="bg-inputBg rounded-r-none rounded-l-lg h-[45px] border-inputBorder py-1.5 text-black"
+                          error={!!form.formState.errors.weight}
+                          data-cy="weight"
+                          data-testid="weight"
                         />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+                      </FormControl>
 
-              <div className="w-full items-center">
-                <div className="flex flex-col justify-start gap-x-6 gap-y-2 items-start">
-                  <Label>6 . What is the price to buy this item?</Label>
-                  <div className="flex w-full">
+                      {form.formState.errors.weight && (
+                        <span className="text-destructive text-sm flex items-center gap-1 mt-2">
+                          <ErrorIcon />
+                          {form.formState.errors.weight.message}
+                        </span>
+                      )}
+                    </div>
+                  )}
+                />
+                <div className="xs:w-2/6 md:w-1/6 items-center">
+                  <div className="flex flex-col justify-start gap-x-6 gap-y-2 items-start">
                     <FormField
                       control={form.control}
-                      name="price"
+                      name="quantity"
                       render={({ field }) => (
-                        <div className="w-full flex flex-col">
-                          <FormControl>
-                            <IconInput
-                              {...field}
-                              type="text"
-                              id="price"
-                              aria-label="price"
-                              placeholder="Enter price"
-                              className="bg-inputBg rounded-r-none rounded-lg h-[45px] border-inputBorder py-1.5 text-black"
-                              error={!!form.formState.errors.price}
-                              data-cy="price"
-                              data-testid="price"
-                            />
-                          </FormControl>
-
-                          {form.formState.errors.price && (
-                            <span className="text-destructive text-sm flex items-center gap-1 mt-2">
-                              <ErrorIcon />
-                              {form.formState.errors.price.message}
-                            </span>
-                          )}
-                        </div>
+                        <WeightDropdown
+                          initialValue={field.value}
+                          onWeightChange={(quantityVal) =>
+                            field.onChange(quantityVal)
+                          }
+                        />
                       )}
                     />
                   </div>
                 </div>
               </div>
-              <div className="flex justify-between items-center">
-                <span className="xs:text-base font-medium sm:text-xl flex-1">
-                  Your payable zakat for this item is:
-                </span>
-                <span className="font-semibold text-2xl text-zakatText flex-1 text-end">
-                  {payableAmount !== null
-                    ? `$${payableAmount.toFixed(2)}`
-                    : '$0.00'}
-                </span>
+            </div>
+          </div>
+
+          <div className="w-full items-center">
+            <div className="flex flex-col justify-start gap-x-6 gap-y-2 items-start">
+              <Label>6 . What is the price to buy this item?</Label>
+              <div className="flex w-full">
+                <FormField
+                  control={form.control}
+                  name="price"
+                  render={({ field }) => (
+                    <div className="w-full flex flex-col">
+                      <FormControl>
+                        <IconInput
+                          {...field}
+                          type="text"
+                          id="price"
+                          aria-label="price"
+                          placeholder="Enter price"
+                          className="bg-inputBg rounded-r-none rounded-lg h-[45px] border-inputBorder py-1.5 text-black"
+                          error={!!form.formState.errors.price}
+                          data-cy="price"
+                          data-testid="price"
+                        />
+                      </FormControl>
+
+                      {form.formState.errors.price && (
+                        <span className="text-destructive text-sm flex items-center gap-1 mt-2">
+                          <ErrorIcon />
+                          {form.formState.errors.price.message}
+                        </span>
+                      )}
+                    </div>
+                  )}
+                />
               </div>
-            </>
-          )}
+            </div>
+          </div>
+          <div className="flex justify-between items-center">
+            <span className="xs:text-base font-medium sm:text-xl flex-1">
+              Your payable zakat for this item is:
+            </span>
+            <span className="font-semibold text-2xl text-zakatText flex-1 text-end">
+              {payableAmount !== null
+                ? `$${payableAmount.toFixed(2)}`
+                : '$0.00'}
+            </span>
+          </div>
 
           <div className="flex flex-col justify-evenly items-center w-full gap-5">
             <hr className="w-full border-[1px] border-solid border-underline" />
@@ -509,21 +340,17 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = () => {
               <Link
                 className="flex justify-start items-center text-base font-medium"
                 href={''}
-                onClick={() => router.back()}
+                onClick={() => setValue(value - 1)}
               >
                 <ArrowLeftIcon />
                 Back
               </Link>
               <Button
                 className="bg-detailsBtn text-btnText font-normal hover:bg-btnHover"
-                onClick={
-                  currentStep === 3
-                    ? form.handleSubmit(onSubmit)
-                    : handleNextStep
-                }
+                onClick={form.handleSubmit(onSubmit)}
                 type="button"
               >
-                {currentStep === 3 ? (id ? 'Update Item' : 'Add Item') : 'Next'}
+                Next
               </Button>
             </div>
           </div>

@@ -126,8 +126,8 @@ const ItemChoiceForm: React.FC<ItemChoiceProps> = ({
         >
           <Label className="font-medium text-xl">Which item do you have?</Label>
           <div>
-            <div className="w-full items-center flex justify-start gap-x-28 pl-4">
-              <div className="flex justify-center items-center gap-4">
+            <div className="w-full xl:items-center xl:flex xl:flex-row xl:justify-start xl:gap-x-28 xs:flex-col xs:items-start xs:justify-start xs:gap-y-10 pl-4">
+              <div className="flex justify-start items-center gap-4">
                 <Controller
                   name="item"
                   control={form.control}
@@ -144,7 +144,7 @@ const ItemChoiceForm: React.FC<ItemChoiceProps> = ({
                 />
                 <label htmlFor="myCheckbox">Cash</label>
               </div>
-              <div className="flex justify-center items-center gap-4">
+              <div className="flex justify-start items-center gap-4">
                 <Controller
                   name="item"
                   control={form.control}
@@ -161,7 +161,7 @@ const ItemChoiceForm: React.FC<ItemChoiceProps> = ({
                 />
                 <label htmlFor="myCheckbox">Checking</label>
               </div>
-              <div className="flex justify-center items-center gap-4">
+              <div className="flex justify-start items-center gap-4">
                 <Controller
                   name="item"
                   control={form.control}
@@ -178,7 +178,7 @@ const ItemChoiceForm: React.FC<ItemChoiceProps> = ({
                 />
                 <label htmlFor="myCheckbox">Saving</label>
               </div>
-              <div className="flex justify-center items-center gap-4">
+              <div className="flex justify-start items-center gap-4">
                 <Controller
                   name="item"
                   control={form.control}
@@ -207,14 +207,22 @@ const ItemChoiceForm: React.FC<ItemChoiceProps> = ({
           <div className="flex flex-col justify-evenly items-center w-full gap-5">
             <hr className="w-full border-[1px] border-solid border-underline" />
             <div className="flex justify-between items-center w-full md:flex-row md:justify-between md:items-center">
-              <Link
-                className="flex justify-start items-center text-base font-medium"
-                href={''}
-                onClick={() => router.back()}
+              <div
+                className="flex justify-start items-center text-base font-medium cursor-pointer"
+                // href={''}
+                onClick={() => {
+                  if (cash.length === 0) {
+                    localStorage.clear();
+                    router.push('/income');
+                  } else {
+                    localStorage.clear();
+                    router.back();
+                  }
+                }}
               >
                 <ArrowLeftIcon />
                 Back
-              </Link>
+              </div>
               {id ? (
                 <Button className="bg-detailsBtn text-btnText font-normal hover:bg-btnHover">
                   Next

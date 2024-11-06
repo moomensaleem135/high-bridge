@@ -6,8 +6,11 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { z } from 'zod';
 import Link from 'next/link';
 import toast from 'react-hot-toast';
+import Stepper from '@mui/material/Stepper';
+import Step from '@mui/material/Step';
+import StepLabel from '@mui/material/StepLabel';
 
-import { Form, FormControl, FormField } from '@/components/ui/form';
+import { Form } from '@/components/ui/form';
 import { ArrowLeftIcon } from '@/assets/svgs';
 import { zodResolver } from '@hookform/resolvers/zod';
 
@@ -15,11 +18,12 @@ import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Label } from '@/components/ui/label';
 import { ErrorIcon } from '@/assets/svgs';
+import StepperComponent from '@/components/ui/stepper';
 
 import { useCreateItemMutation } from '@/store/features/items/itemsApi';
 
 import Spinner from '@/components/common/Spinner';
-import { CashIItems, GoldIItems } from '@/lib/types';
+import { GoldIItems } from '@/lib/types';
 
 interface GoldChoiceProps {
   setValue: (value: number) => void;
@@ -49,6 +53,7 @@ const GoldChoiceForm: React.FC<GoldChoiceProps> = ({
   const gold: GoldIItems[] =
     useSelector((state: any) => state.items.items) || [];
   const [item, setItem] = React.useState<string>('');
+  const [activeStep, setActiveStep] = React.useState(0);
   const [createItem, { isLoading }] = useCreateItemMutation();
 
   const form = useForm<FormFields>({
@@ -69,6 +74,7 @@ const GoldChoiceForm: React.FC<GoldChoiceProps> = ({
 
       form.reset({
         item: data[0].item,
+        purpose: data[0].purpose,
       });
     }
   }, [id]);
@@ -124,6 +130,7 @@ const GoldChoiceForm: React.FC<GoldChoiceProps> = ({
 
   return (
     <div className="flex flex-col w-full max-w-[960px] justify-center items-center gap-12 rounded-3xl mt-6">
+      <StepperComponent activeStep={activeStep} />
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
@@ -132,7 +139,7 @@ const GoldChoiceForm: React.FC<GoldChoiceProps> = ({
         >
           <Label className="font-medium text-xl">Which item do you have?</Label>
           <div>
-            <div className="w-full items-center flex justify-start gap-x-28 pl-4">
+            <div className="w-full items-center flex justify-start xs:gap-x-10 md:gap-x-28 pl-4">
               <div className="flex justify-center items-center gap-4">
                 <Controller
                   name="item"
@@ -180,7 +187,7 @@ const GoldChoiceForm: React.FC<GoldChoiceProps> = ({
             What is the purpose of this item?
           </Label>
           <div>
-            <div className="w-full items-center flex justify-start gap-x-20 pl-4">
+            <div className="w-full items-center flex justify-start xs:gap-x-10 md:gap-x-20 pl-4">
               <div className="flex justify-center items-center gap-4">
                 <Controller
                   name="purpose"
@@ -227,14 +234,21 @@ const GoldChoiceForm: React.FC<GoldChoiceProps> = ({
           <div className="flex flex-col justify-evenly items-center w-full gap-5">
             <hr className="w-full border-[1px] border-solid border-underline" />
             <div className="flex justify-between items-center w-full md:flex-row md:justify-between md:items-center">
-              <Link
-                className="flex justify-start items-center text-base font-medium"
-                href={''}
-                onClick={() => router.back()}
+              <div
+                className="flex justify-start items-center text-base font-medium cursor-pointer"
+                // href={''}
+                // onClick={() => router.back()}
+                onClick={() => {
+                  if (gold.length === 0) {
+                    router.push('/income');
+                  } else {
+                    router.back();
+                  }
+                }}
               >
                 <ArrowLeftIcon />
                 Back
-              </Link>
+              </div>
               {id ? (
                 <Button className="bg-detailsBtn text-btnText font-normal hover:bg-btnHover">
                   Next
