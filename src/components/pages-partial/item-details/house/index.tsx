@@ -4,7 +4,7 @@ import { HousePurposeForm } from './details/purpose/housePurpose';
 import { NotAcceptable } from './details/notAcceptable';
 import { HaveYouRecordedAssets } from './details/recorded';
 import HouseItemDetailsForm from './details/detailForm';
-import Summary from './details/summary';
+import HouseSummaryForm from './details/summary';
 
 const purposeOptions = [
   {
@@ -47,8 +47,7 @@ export default function HouseDetails() {
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const [name, setName] = React.useState('');
   const [price, setPrice] = React.useState('');
-  const [cashId, setCashId] = React.useState('');
-
+  const [houseId, setHouseId] = React.useState('');
   const [zakat, setZakat] = React.useState(0);
 
   const id = searchParams.get('id');
@@ -73,8 +72,8 @@ export default function HouseDetails() {
     }
   };
 
-  console.log(step);
-  console.log(selectedOption);
+  console.log(name);
+  console.log(price);
 
   return (
     <div className="flex flex-col self-stretch w-full gap-y-4 overflow-y-scroll xs:mb-16 lg:my-5 gridscrollbar">
@@ -101,7 +100,7 @@ export default function HouseDetails() {
         )}
         {step === 2 && selectedOption === 'No' && (
           <HouseItemDetailsForm
-            cashId={cashId}
+            houseId={houseId}
             setName={setName}
             setPrice={setPrice}
             setZakat={setZakat}
@@ -130,7 +129,16 @@ export default function HouseDetails() {
             handleBack={handleBack}
           />
         )}
-        {step === 3 && selectedPurpose === 'Rental' && <Summary />}
+        {step === 3 && selectedPurpose === 'Rental' && (
+          <HouseSummaryForm
+            name={name}
+            price={price}
+            houseId={houseId}
+            item={selectedPurpose}
+            zakatVal={zakat}
+            handleBack={handleBack}
+          />
+        )}
         {step === 1 && selectedPurpose === 'Rental' && (
           <HaveYouRecordedAssets
             options={options}

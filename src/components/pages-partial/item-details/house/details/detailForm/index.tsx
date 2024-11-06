@@ -24,7 +24,7 @@ import GenericFormField from '@/components/common/form';
 interface ItemDetailsProps {
   setName: (value: string) => void;
   setPrice: (value: string) => void;
-  cashId: string;
+  houseId: string;
   setZakat: (value: any) => void;
   handleBack: () => void;
   handleNext: () => void;
@@ -40,7 +40,7 @@ type FormFields = z.infer<typeof ItemDetailsSchema>;
 const HouseItemDetailsForm: React.FC<ItemDetailsProps> = ({
   setName,
   setPrice,
-  cashId,
+  houseId,
   setZakat,
   handleBack,
   handleNext,
@@ -63,77 +63,76 @@ const HouseItemDetailsForm: React.FC<ItemDetailsProps> = ({
     },
   });
 
-  //   React.useEffect(() => {
-  //     const storedFormData = localStorage.getItem('itemDetailsForm');
-  //     if (storedFormData) {
-  //       form.reset(JSON.parse(storedFormData));
-  //     }
-  //     if (id) {
-  //       const data = cash.filter((item) => item.cashId === id);
+  // React.useEffect(() => {
+  //   const storedFormData = localStorage.getItem('itemDetailsForm');
+  //   if (storedFormData) {
+  //     form.reset(JSON.parse(storedFormData));
+  //   }
+  //   if (id) {
+  //     const data = cash.filter((item) => item.houseId === id);
 
-  //       form.reset({
-  //         itemQuantity: data[0].quantity,
-  //         itemName: data[0].name,
-  //       });
-  //     }
-  //   }, [id]);
+  //     form.reset({
+  //       itemQuantity: data[0].quantity,
+  //       itemName: data[0].name,
+  //     });
+  //   }
+  // }, [id]);
 
   const onSubmit = async (itemsData: FormFields) => {
-    console.log('itemsData', itemsData);
+    // console.log('itemsData', itemsData);
 
-    const zakatAmount = calculateZakat(
-      Number(itemsData.itemQuantity),
-      setup.year,
-      setup.generic
-    );
+    // const zakatAmount = calculateZakat(
+    //   Number(itemsData.itemQuantity),
+    //   setup.year,
+    //   setup.generic
+    // );
 
-    const zakatCalData = {
-      id: cashId,
-      value: zakatAmount || 0,
-    };
+    // const zakatCalData = {
+    //   id: cashId,
+    //   value: zakatAmount || 0,
+    // };
 
-    const formData = new FormData();
+    // const formData = new FormData();
 
-    Object.keys(itemsData).forEach((key) => {
-      const value = itemsData[key as keyof FormFields];
-      if (value !== undefined && value !== null) {
-        formData.append(key, value as any);
-      }
-    });
+    // Object.keys(itemsData).forEach((key) => {
+    //   const value = itemsData[key as keyof FormFields];
+    //   if (value !== undefined && value !== null) {
+    //     formData.append(key, value as any);
+    //   }
+    // });
 
-    try {
-      // const response = await createItem(formData); // Uncomment if needed
-      localStorage.setItem('itemDetailsForm', JSON.stringify(itemsData));
-      if (id) {
-        console.log('id in details form', id);
-        dispatch(editZakat(zakatCalData));
-        setName(itemsData.itemName);
-        setPrice(itemsData.itemQuantity);
-        toast.success(`${itemsData.itemName} item edited successfully.`, {
-          position: 'top-right',
-        });
-      } else {
-        dispatch(zakatCal(zakatCalData));
-        setName(itemsData.itemName);
-        setPrice(itemsData.itemQuantity);
-        toast.success(`${itemsData.itemName} item added successfully.`, {
-          position: 'top-right',
-        });
-      }
-    } catch (error) {
-      console.error('Error creating event:', error);
-      toast.error('Failed to create event', {
-        position: 'top-right',
-      });
-    }
+    // try {
+    //   // const response = await createItem(formData); // Uncomment if needed
+    //   localStorage.setItem('itemDetailsForm', JSON.stringify(itemsData));
+    //   if (id) {
+    //     console.log('id in details form', id);
+    //     dispatch(editZakat(zakatCalData));
+    //     setName(itemsData.itemName);
+    //     setPrice(itemsData.itemQuantity);
+    //     toast.success(`${itemsData.itemName} item edited successfully.`, {
+    //       position: 'top-right',
+    //     });
+    //   } else {
+    //     dispatch(zakatCal(zakatCalData));
+    //     setName(itemsData.itemName);
+    //     setPrice(itemsData.itemQuantity);
+    //     toast.success(`${itemsData.itemName} item added successfully.`, {
+    //       position: 'top-right',
+    //     });
+    //   }
+    // } catch (error) {
+    //   console.error('Error creating event:', error);
+    //   toast.error('Failed to create event', {
+    //     position: 'top-right',
+    //   });
+    // }
   };
 
-  React.useEffect(() => {}, [item]);
-
   React.useEffect(() => {
-    if (form.watch('itemQuantity')) {
+    const itemQuantity = form.watch('itemQuantity');
+    if (itemQuantity) {
       const zakat = calculateZakat(
-        Number(form.watch('itemQuantity')),
+        Number(itemQuantity),
         setup.year,
         setup.generic
       );
@@ -190,6 +189,7 @@ const HouseItemDetailsForm: React.FC<ItemDetailsProps> = ({
               </Link>
               <Button
                 className="bg-detailsBtn text-btnText font-normal hover:bg-btnHover"
+                type="submit"
                 onClick={() => handleNext()}
               >
                 Next
