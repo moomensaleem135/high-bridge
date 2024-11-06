@@ -9,6 +9,7 @@ const MainSection = () => {
   const selector = useSelector((state: any) => state.sect.sect);
   const setup = useSelector((state: any) => state.setup.setup);
   const income = useSelector((state: any) => state.income.income);
+  const items = useSelector((state: any) => state.items.items) || [];
 
   return (
     <div className="flex flex-col self-stretch w-[76%] max-w-[850px] bg-tableBg border-[1px] border-tableBorder rounded-lg ">

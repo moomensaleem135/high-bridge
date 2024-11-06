@@ -82,7 +82,6 @@ const GoldChoiceForm: React.FC<GoldChoiceProps> = ({
   const onSubmit = async (itemsData: FormFields) => {
     let cashId;
 
-    // Generate a unique goldId (using Date.now for simplicity, you might want to use a better method)
     if (!id) {
       cashId = `gold-${Date.now()}`;
     } else {
@@ -94,7 +93,7 @@ const GoldChoiceForm: React.FC<GoldChoiceProps> = ({
     Object.keys(itemsData).forEach((key) => {
       const value = itemsData[key as keyof FormFields];
       if (value !== undefined && value !== null) {
-        formData.append(key, value as any); // Type assertion for `value` to `any`
+        formData.append(key, value as any);
       }
     });
 

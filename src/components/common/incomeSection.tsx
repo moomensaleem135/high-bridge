@@ -41,17 +41,18 @@ const IncomeSection: React.FC<IncomeSectionProps> = ({
           {texts.map((text, index) => {
             const isDisabled =
               text.text !== 'Gold & Silver' &&
-              text.text !== 'Liquid Assets (Cash, Checking, Saving, Loan)';
+              text.text !== 'Liquid Assets (Cash, Checking, Saving, Loan)' &&
+              text.text !== 'House';
 
             const handleClick = (e: React.MouseEvent) => {
               if (isDisabled) {
-                e.preventDefault(); // Prevent navigation if disabled
+                e.preventDefault();
               } else if (
                 selector.year === '' ||
                 selector.religion === '' ||
                 selector.startDate === null
               ) {
-                e.preventDefault(); // Prevent navigation
+                e.preventDefault();
                 toast.error(
                   `You have not setup your profile yet, please complete setup to proceed.`,
                   {

@@ -52,6 +52,7 @@ const GridSection: React.FC = () => {
   const items: GoldItem[] =
     useSelector((state: any) => state.items.items) || [];
   const cash: CashItem[] = useSelector((state: any) => state.cash.cash) || [];
+  console.log({items});
 
   const zakatVal = useSelector((state: any) => state.zakat.zakat.value);
   const income: string[] =
@@ -59,7 +60,6 @@ const GridSection: React.FC = () => {
 
   const router = useRouter();
 
-  // State variables for grid height, columns, and row data
   const rowHeight = 92;
   const maxHeight = 400;
   const minHeight = 100;
@@ -106,9 +106,9 @@ const GridSection: React.FC = () => {
     ) {
       updatedColumns = [
         { headerName: 'Item', field: 'item' },
+        { headerName: 'Title', field: 'name' },
         { headerName: 'Amount', field: 'quantity' },
         { headerName: 'Zakat', field: 'zakat' },
-        { headerName: 'Item Name', field: 'name' },
         {
           headerName: '',
           field: 'option',
@@ -146,10 +146,9 @@ const GridSection: React.FC = () => {
       ];
     }
 
-    setColumns(updatedColumns); // Set columns independently of rowData
+    setColumns(updatedColumns);
   }, [income.length]);
 
-  // Set row data based on items (runs when items or zakatVal changes)
   useEffect(() => {
     let updatedRowData: RowDataDef[] = [];
 
