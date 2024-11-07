@@ -217,7 +217,7 @@ const ProfileSetup: React.FC<ProfileSetupProps> = () => {
             className="flex flex-col w-[82%] gap-5 py-4 xl:gap-6 xl:mb-2"
             data-testid="event-form"
           >
-            <div className="w-full items-center">
+            {/* <div className="w-full items-center">
               <div className="flex flex-col justify-start gap-x-6 gap-y-2 items-start">
                 <Label>Which madhab do you follow by default?</Label>
                 <FormField
@@ -237,7 +237,7 @@ const ProfileSetup: React.FC<ProfileSetupProps> = () => {
                   </span>
                 )}
               </div>
-            </div>
+            </div> */}
             <div className="w-full items-center">
               <div className="flex flex-col justify-start gap-x-6 gap-y-2 items-start">
                 <Label>According to which calendar do you pay zakat?</Label>

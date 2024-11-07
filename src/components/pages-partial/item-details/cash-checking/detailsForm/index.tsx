@@ -166,12 +166,13 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = ({
           <GenericFormField
             control={form.control}
             name="name"
-            label="What Should the Title for this Item be?"
+            label="What should the title for this item be?"
             placeholder="Enter Item Name"
             error={form.formState.errors.name}
           />
           <GenericFormField
             control={form.control}
+            type='number'
             name="quantity"
             label="What is the balance of this account on the zakat pay date?"
             placeholder="Enter Amount"

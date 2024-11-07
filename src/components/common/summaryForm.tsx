@@ -77,7 +77,7 @@ const SummaryForm: React.FC<SummaryProps> = ({
           <div className="w-full items-center">
             <div className="flex flex-col justify-start gap-x-6 gap-y-2 items-start">
               <Label className="font-medium text-lg">
-                What Should the Title for this Item be?
+                What should the title for this item be?
               </Label>
               <div className="flex w-full">
                 <FormField

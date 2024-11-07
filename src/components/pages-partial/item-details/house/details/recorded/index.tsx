@@ -65,7 +65,7 @@ export const HaveYouRecordedAssets: React.FC<HaveYouRecordedAssetsProps> = ({
           data-testid="event-form"
         >
           <h2 className="xs:text-xl font-medium sm:text-2xl flex-1 mt-4">
-            Have you alread y recorded this amount in your liquid assets?
+            Have you already recorded this amount in your liquid assets?
           </h2>
           <div className="flex flex-col mt-2 w-full text-base text-black max-md:max-w-full">
             <ul className="flex flex-col pt-2.5 pl-6 mt-2.5 w-full max-md:pl-5 max-md:max-w-full">

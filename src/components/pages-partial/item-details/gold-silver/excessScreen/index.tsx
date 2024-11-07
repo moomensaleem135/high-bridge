@@ -48,7 +48,7 @@ const ExcessScreen: React.FC<ExcessScreenProps> = ({
     <div className="flex flex-col w-full max-w-[960px] justify-start items-center gap-8 rounded-3xl mt-6 pl-6 pr-6">
       <StepperComponent activeStep={activeStep} />
       <p className="font-medium text-xl w-full">
-        Does this accessible level in your society?
+        Does this exceed the normal personal usage quantity in your society?
       </p>
       <div className="w-full flex flex-col gap-y-6">
         <p className="w-full font-normal text-base">

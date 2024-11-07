@@ -1,4 +1,4 @@
-@import './fonts.css'; 
+@import './fonts.css';
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -95,7 +95,6 @@
 .ag-theme-alpine .ag-header {
   height: 49px !important;
   min-height: 49px !important;
-  
 }
 
 .ag-theme-alpine .ag-header-row {
@@ -112,19 +111,18 @@
   font-weight: 400 !important;
 }
 
-.ag-theme-alpine .ag-header-cell-text{
+.ag-theme-alpine .ag-header-cell-text {
   font-size: 16px !important;
   font-weight: 500 !important;
-  
 }
 
-.ag-theme-alpine .ag-cell{
+.ag-theme-alpine .ag-cell {
   font-size: 14px !important;
   font-weight: 400 !important;
 }
 
 .ag-theme-alpine {
-  font-family : 'Poppins', sans-serif !important
+  font-family: 'Poppins', sans-serif !important;
 }
 
 .row-even {
@@ -135,10 +133,20 @@
   background-color: #f8f8f8 !important; /* White for odd rows */
 }
 
-
 /*stepper in gold item form*/
-.css-p8xe3-MuiStepLabel-labelContainer.MuiStepLabel-alternativeLabel{
+.css-p8xe3-MuiStepLabel-labelContainer.MuiStepLabel-alternativeLabel {
   margin-top: 8px !important;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type='number'] {
+  -moz-appearance: textfield;
 }
 
 /* lunar calendar */
@@ -397,8 +405,7 @@ th {
   border-color: #0074d9 !important;
 }
 
-
-.MuiStepLabel-label{
+.MuiStepLabel-label {
   font-weight: 700 !important;
   font-size: '14px' !important;
   color: black !important;
@@ -406,7 +413,7 @@ th {
   font-family: 'Inter', sans-serif !important;
 }
 
-.Mui-active .MuiStepLabel-label{
+.Mui-active .MuiStepLabel-label {
   font-weight: 700 !important;
   font-size: '14px' !important;
   color: black !important;
@@ -414,7 +421,7 @@ th {
   font-family: 'Inter', sans-serif !important;
 }
 
-.css-12eb3rq-MuiStepLabel-label.Mui-active{
+.css-12eb3rq-MuiStepLabel-label.Mui-active {
   font-weight: 700 !important;
   font-size: '14px' !important;
   color: black !important;
@@ -422,32 +429,29 @@ th {
   font-family: 'Inter', sans-serif !important;
 }
 
-.css-12eb3rq-MuiStepLabel-label.MuiStepLabel-alternativeLabel{
+.css-12eb3rq-MuiStepLabel-label.MuiStepLabel-alternativeLabel {
   font-weight: 700 !important;
   font-size: '14px' !important;
   color: black !important;
   margin-top: 1px !important;
   font-family: 'Inter', sans-serif !important;
 }
-
 
 @layer base {
   :root {
     --background: #ffffff;
     --backcolor: #f8f8f8;
 
-
     --checkbox: #000000;
-    --dropdownBackground : #ffffff;
-    --dropdownIcon : #1d211c;
-
+    --dropdownBackground: #ffffff;
+    --dropdownIcon: #1d211c;
 
     --navBorder: #dfe3e6;
 
     --formBg: #f8f8f8;
     --formBorder: #66666659;
 
-    --agTabletopText : #000000;
+    --agTabletopText: #000000;
 
     --cardbg: #f8f8f8;
     --cardheading: #000000;
@@ -515,11 +519,10 @@ th {
     --navBorder: #dfe3e6;
 
     --checkbox: #8c8c91;
-    --dropdownBackground : #ffffff;
-    --dropdownIcon : #1d211c;
+    --dropdownBackground: #ffffff;
+    --dropdownIcon: #1d211c;
 
-    --agTabletopText : #000000;
-
+    --agTabletopText: #000000;
 
     --formBg: #f8f8f8;
     --formBorder: #666666;

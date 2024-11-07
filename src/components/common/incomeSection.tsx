@@ -97,9 +97,18 @@ const IncomeSection: React.FC<IncomeSectionProps> = ({
               [income, cash, items, house, item.text]
             );
 
+            const [mainText, bracketedText] = item.text.includes('(')
+              ? item.text.split(/(\(.*\))/)
+              : [item.text, ''];
+
             return (
               <div key={index} className={containerClassName}>
-                <span>{item.text}</span>
+                <span>
+                  {mainText}
+                  {bracketedText && (
+                    <span className="text-sm">{bracketedText}</span>
+                  )}
+                </span>
                 <Link
                   href={href}
                   onClick={(e) => handleClick(e, item.text, isDisabled)}

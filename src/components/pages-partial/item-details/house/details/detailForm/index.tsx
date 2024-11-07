@@ -160,13 +160,14 @@ const HouseItemDetailsForm: React.FC<ItemDetailsProps> = ({
           <GenericFormField
             control={form.control}
             name="itemName"
-            label="What Should the Title for this Item be?"
+            label="What should the title for this item be?"
             placeholder="Enter Item Name"
             error={form.formState.errors.itemName}
           />
           <GenericFormField
             control={form.control}
             name="itemQuantity"
+            type="number"
             label="What is the balance of this account on the zakat pay date?"
             placeholder="Enter Amount"
             error={form.formState.errors.itemQuantity}

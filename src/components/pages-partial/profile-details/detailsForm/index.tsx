@@ -35,7 +35,7 @@ interface ProfileDetailsProps {}
 
 const ProfileDetailsSchema = z.object({
   year: z.string().min(1, { message: 'Year is required' }),
-  religion: z.string().min(1, { message: 'Religion is required' }),
+  religion: z.string().min(0, { message: 'Religion is required' }),
   startDate: z.string().min(1, { message: 'Start date is required' }),
 });
 
@@ -129,7 +129,7 @@ const ProfileDetailsForm: React.FC<ProfileDetailsProps> = () => {
           className="flex flex-col w-[82%] gap-5 xs:mb-10 md:mb-40"
           data-testid="event-form"
         >
-          <div className="w-full items-center">
+          {/* <div className="w-full items-center">
             <div className="flex flex-col justify-start gap-y-2 items-start">
               <Label>Which madhab do you follow by default?</Label>
               <FormField
@@ -150,7 +150,7 @@ const ProfileDetailsForm: React.FC<ProfileDetailsProps> = () => {
                 </span>
               )}
             </div>
-          </div>
+          </div> */}
           <div className="w-full items-center">
             <div className="flex flex-col justify-start gap-y-2 items-start">
               <Label>According to which calendar do you pay zakat?</Label>
