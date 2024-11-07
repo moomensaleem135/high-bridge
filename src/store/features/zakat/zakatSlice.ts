@@ -1,10 +1,9 @@
-
 import { IZakat } from '@/lib/types';
 import { createSlice } from '@reduxjs/toolkit';
 
 interface IInitialState {
   zakat: IZakat[];
-  totalValue: number; // to keep track of the total zakat amount
+  totalValue: number;
 }
 
 const initialState: IInitialState = {
@@ -17,57 +16,45 @@ const zakatSlice = createSlice({
   initialState,
   reducers: {
     zakatCal: (state, action) => {
-      console.log('in zakat cal')
-     
       const newEntry = action.payload;
 
-      // Add new entry to the array
       state.zakat.push(newEntry);
-
-      // Update total value
-      state.totalValue += newEntry.value; // Assuming value is a numeric type
+      state.totalValue += newEntry.value;
     },
     subtractVal: (state, action) => {
       const { id } = action.payload;
-     
+
       // Find the index of the entry by id
-      const index = state.zakat.findIndex(zakatItem => zakatItem.id === action.payload);
-     
-      
+      const index = state.zakat.findIndex(
+        (zakatItem) => zakatItem.id === action.payload
+      );
+
       if (index !== -1) {
         const entryToRemove = state.zakat[index];
 
         if (entryToRemove.value !== undefined) {
-          // Update total value
-          state.totalValue -= entryToRemove.value; // Subtract the value of the entry being removed
+          state.totalValue -= entryToRemove.value;
 
-          // Remove the item with the specified id
-          state.zakat.splice(index, 1); // Remove the entry from the array
+          state.zakat.splice(index, 1);
         }
       } else {
         console.warn(`No entry found with id: ${id}`);
       }
     },
     editZakat: (state, action) => {
-    
-    
+      const index = state.zakat.findIndex(
+        (zakatItem: any) => zakatItem.id === action.payload.id
+      );
 
-      // Find the index of the entry by id
-      const index = state.zakat.findIndex((zakatItem : any) => zakatItem.id === action.payload.id);
-   
       if (index !== -1) {
-      
         const previousValue = state.zakat[index].value;
 
-        // Check if previousValue is defined
         if (previousValue !== undefined) {
-          // Update the existing entry with the new values
           state.zakat[index] = { ...state.zakat[index], ...action.payload };
 
-          // Update total value based on the difference
           state.totalValue += action.payload.value - previousValue;
-        } 
-      } 
+        }
+      }
     },
   },
 });

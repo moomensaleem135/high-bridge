@@ -4,30 +4,23 @@ import { useSelector } from 'react-redux';
 import { useForm, Controller } from 'react-hook-form';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { z } from 'zod';
-import Link from 'next/link';
 import toast from 'react-hot-toast';
-import Stepper from '@mui/material/Stepper';
-import Step from '@mui/material/Step';
-import StepLabel from '@mui/material/StepLabel';
 
 import { Form } from '@/components/ui/form';
 import { ArrowLeftIcon } from '@/assets/svgs';
 import { zodResolver } from '@hookform/resolvers/zod';
-
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Label } from '@/components/ui/label';
 import { ErrorIcon } from '@/assets/svgs';
 import StepperComponent from '@/components/ui/stepper';
-
-import { useCreateItemMutation } from '@/store/features/items/itemsApi';
-
-import Spinner from '@/components/common/Spinner';
 import { GoldIItems } from '@/lib/types';
 
 interface GoldChoiceProps {
   setValue: (value: number) => void;
   value: number;
+  item: string;
+  purpose: string;
   setUserItem: (value: string) => void;
   setPurpose: (value: string) => void;
   setGoldId: (value: string) => void;
@@ -46,29 +39,25 @@ const GoldChoiceForm: React.FC<GoldChoiceProps> = ({
   setUserItem,
   setPurpose,
   setGoldId,
+  purpose,
+  item,
 }) => {
   const router = useRouter();
   const searchparams = useSearchParams();
   const id = searchparams.get('id');
   const gold: GoldIItems[] =
     useSelector((state: any) => state.items.items) || [];
-  const [item, setItem] = React.useState<string>('');
   const [activeStep, setActiveStep] = React.useState(0);
-  const [createItem, { isLoading }] = useCreateItemMutation();
 
   const form = useForm<FormFields>({
     resolver: zodResolver(GoldChoiceSchema),
     defaultValues: {
-      item: '',
-      purpose: '',
+      item: item ? item : '',
+      purpose: purpose ? purpose : '',
     },
   });
 
   React.useEffect(() => {
-    const storedFormData = localStorage.getItem('GoldChoiceForm');
-    if (storedFormData) {
-      form.reset(JSON.parse(storedFormData));
-    }
     if (id) {
       const data = gold.filter((item) => item.goldId === id);
 
@@ -98,25 +87,16 @@ const GoldChoiceForm: React.FC<GoldChoiceProps> = ({
     });
 
     try {
-      // const response = await createItem(formData); // Uncomment if needed
-      localStorage.setItem('GoldChoiceForm', JSON.stringify(itemsData));
       if (id) {
-        console.log('id in Choice form', id);
         setUserItem(itemsData.item);
         setPurpose(itemsData.purpose);
         setValue(value + 1);
         setGoldId(id);
-        // toast.success(`${itemsData.item} item edited successfully.`, {
-        //   position: 'top-right',
-        // });
       } else {
         setUserItem(itemsData.item);
         setPurpose(itemsData.purpose);
         setGoldId(goldId);
         setValue(value + 1);
-        // toast.success(`${itemsData.item} item selection successful.`, {
-        //   position: 'top-right',
-        // });
       }
     } catch (error) {
       console.error('Error creating event:', error);
@@ -149,7 +129,7 @@ const GoldChoiceForm: React.FC<GoldChoiceProps> = ({
                       checked={field.value === 'Gold'}
                       onCheckedChange={() => {
                         field.onChange('Gold');
-                        setItem('Gold');
+                        setUserItem('Gold');
                       }}
                       className="rounded-sm h-5 w-5 mt-0.5 border-[2px]"
                     />
@@ -166,7 +146,7 @@ const GoldChoiceForm: React.FC<GoldChoiceProps> = ({
                       checked={field.value === 'Silver'}
                       onCheckedChange={() => {
                         field.onChange('Silver');
-                        setItem('Silver');
+                        setUserItem('Silver');
                       }}
                       className="rounded-sm h-5 w-5 mt-0.5 border-[2px]"
                     />
@@ -197,7 +177,7 @@ const GoldChoiceForm: React.FC<GoldChoiceProps> = ({
                       checked={field.value === 'Personal'}
                       onCheckedChange={() => {
                         field.onChange('Personal');
-                        setItem('Personal');
+                        setUserItem('Personal');
                       }}
                       className="rounded-sm h-5 w-5 mt-0.5 border-[2px]"
                     />
@@ -214,7 +194,7 @@ const GoldChoiceForm: React.FC<GoldChoiceProps> = ({
                       checked={field.value === 'Saving'}
                       onCheckedChange={() => {
                         field.onChange('Saving');
-                        setItem('Saving');
+                        setUserItem('Saving');
                       }}
                       className="rounded-sm h-5 w-5 mt-0.5 border-[2px]"
                     />
@@ -236,15 +216,11 @@ const GoldChoiceForm: React.FC<GoldChoiceProps> = ({
             <div className="flex justify-between items-center w-full md:flex-row md:justify-between md:items-center">
               <div
                 className="flex justify-start items-center text-base font-medium cursor-pointer"
-                // href={''}
-                // onClick={() => router.back()}
                 onClick={() => {
                   if (gold?.length === 0) {
                     router.push('/income');
-                    localStorage.removeItem('GoldChoiceForm');
                   } else {
                     router.back();
-                    localStorage.removeItem('GoldChoiceForm');
                   }
                 }}
               >

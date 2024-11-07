@@ -2,6 +2,7 @@
 import React from 'react';
 import ProfileSetup from './profile-setupform';
 import AuthLayout from '@/components/layouts/AuthLayout';
+import { usePathname } from 'next/navigation';
 
 const PartialProfileSetup = () => {
   return (

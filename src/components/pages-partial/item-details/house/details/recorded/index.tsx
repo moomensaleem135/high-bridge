@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { zodResolver } from '@hookform/resolvers/zod';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import React, { Dispatch, SetStateAction, useState } from 'react';
 import { Controller, Form, useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -40,12 +40,12 @@ export const HaveYouRecordedAssets: React.FC<HaveYouRecordedAssetsProps> = ({
   const form = useForm<FormFields>({
     resolver: zodResolver(HaveYouRecordedAssetsSchema),
     defaultValues: {
-      alreadyRecorded: '',
+      alreadyRecorded: selectedOption ? selectedOption : '',
     },
   });
 
   const onSubmit = (data: FormFields) => {
-    console.log(data);
+    handleNext();
   };
 
   return (
@@ -130,14 +130,16 @@ export const HaveYouRecordedAssets: React.FC<HaveYouRecordedAssetsProps> = ({
               <Link
                 className="flex justify-start items-center text-base font-medium"
                 href={''}
-                onClick={() => handleBack()}
+                onClick={() => {
+                  handleBack();
+                }}
               >
                 <ArrowLeftIcon />
                 Back
               </Link>
               <Button
                 className="bg-detailsBtn text-btnText font-normal hover:bg-btnHover px-4"
-                onClick={() => handleNext()}
+                onClick={form.handleSubmit(onSubmit)}
               >
                 Next
               </Button>

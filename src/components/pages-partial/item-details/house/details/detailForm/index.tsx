@@ -1,24 +1,20 @@
 'use client';
 import React from 'react';
-import { useDispatch, UseDispatch, useSelector } from 'react-redux';
-import { useForm, Controller } from 'react-hook-form';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useSelector } from 'react-redux';
+import { useForm } from 'react-hook-form';
+import { useSearchParams } from 'next/navigation';
 import { z } from 'zod';
 import Link from 'next/link';
 import toast from 'react-hot-toast';
 
-import { Form, FormControl, FormField } from '@/components/ui/form';
+import { Form } from '@/components/ui/form';
 import { ArrowLeftIcon } from '@/assets/svgs';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import { Button } from '@/components/ui/button';
 
-import { useCreateItemMutation } from '@/store/features/items/itemsApi';
-import { zakatCal } from '@/store/features/zakat/zakatSlice';
-import { editZakat } from '@/store/features/zakat/zakatSlice';
-
 import { calculateZakat } from '@/lib/helpers';
-import { CashIItems, HouseIItems } from '@/lib/types';
+import { HouseIItems } from '@/lib/types';
 import GenericFormField from '@/components/common/form';
 import { useAppSelector } from '@/store/hooks';
 
@@ -29,6 +25,8 @@ interface ItemDetailsProps {
   setZakat: (value: any) => void;
   handleBack: () => void;
   handleNext: () => void;
+  name: string;
+  price: string;
 }
 
 const ItemDetailsSchema = z.object({
@@ -45,33 +43,26 @@ const HouseItemDetailsForm: React.FC<ItemDetailsProps> = ({
   setZakat,
   handleBack,
   handleNext,
+  name,
+  price,
 }) => {
-  const dispatch = useDispatch();
   const searchparams = useSearchParams();
   const id = searchparams.get('id');
-  const cash: CashIItems[] = useSelector((state: any) => state.cash.cash) || [];
   const house: HouseIItems[] = useAppSelector(
     (state: any) => state.house.house
   );
   const setup = useSelector((state: any) => state.setup.setup);
-  const [item, setItem] = React.useState<string>('');
   const [payableAmount, setPayableAmount] = React.useState<number | null>(null);
-  const [reason, setReason] = React.useState<string>('');
-  const [createItem, { isLoading }] = useCreateItemMutation();
 
   const form = useForm<FormFields>({
     resolver: zodResolver(ItemDetailsSchema),
     defaultValues: {
-      itemQuantity: '',
-      itemName: '',
+      itemQuantity: price ? price : '',
+      itemName: name ? name : '',
     },
   });
 
   React.useEffect(() => {
-    const storedFormData = localStorage.getItem('itemDetailsForm');
-    if (storedFormData) {
-      form.reset(JSON.parse(storedFormData));
-    }
     if (id) {
       const data = house.filter((item) => item.houseId === id);
 
@@ -83,7 +74,6 @@ const HouseItemDetailsForm: React.FC<ItemDetailsProps> = ({
   }, [id]);
 
   const onSubmit = async (itemsData: FormFields) => {
-    console.log('itemsData', itemsData);
     const zakatAmount = calculateZakat(
       Number(itemsData.itemQuantity),
       setup.year,
@@ -105,26 +95,14 @@ const HouseItemDetailsForm: React.FC<ItemDetailsProps> = ({
       }
     });
     try {
-      // const response = await createItem(formData); // Uncomment if needed
-      // localStorage.setItem('itemDetailsForm', JSON.stringify(itemsData));
       if (id) {
-        console.log('id in details form', id);
-        //dispatch(editZakat(zakatCalData));
         setName(itemsData.itemName);
         setPrice(itemsData.itemQuantity);
         handleNext();
-        // toast.success(`${itemsData.itemName} item edited successfully.`, {
-        //   position: 'top-right',
-        // });
       } else {
-        //dispatch(zakatCal(zakatCalData));
-        console.log('in add');
         setName(itemsData.itemName);
         setPrice(itemsData.itemQuantity);
         handleNext();
-        // toast.success(`${itemsData.itemName} item added successfully.`, {
-        //   position: 'top-right',
-        // });
       }
     } catch (error) {
       console.error('Error creating event:', error);
@@ -189,7 +167,9 @@ const HouseItemDetailsForm: React.FC<ItemDetailsProps> = ({
               <Link
                 className="flex justify-start items-center text-base font-medium"
                 href={''}
-                onClick={() => handleBack()}
+                onClick={() => {
+                  handleBack();
+                }}
               >
                 <ArrowLeftIcon />
                 Back

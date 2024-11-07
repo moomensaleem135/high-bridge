@@ -1,34 +1,19 @@
 'use client';
 import React from 'react';
-import { useDispatch, UseDispatch, useSelector } from 'react-redux';
-import { useForm, Controller } from 'react-hook-form';
+import { useDispatch, useSelector } from 'react-redux';
+import { useForm } from 'react-hook-form';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { z } from 'zod';
-import Link from 'next/link';
 import toast from 'react-hot-toast';
 
-import { Form, FormControl, FormField } from '@/components/ui/form';
-import { ArrowLeftIcon } from '@/assets/svgs';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { IconInput } from '@/components/ui/icon-input';
-
-import { Button } from '@/components/ui/button';
-import { Checkbox } from '@/components/ui/checkbox';
-import { Label } from '@/components/ui/label';
-import { ErrorIcon } from '@/assets/svgs';
-
-import { useCreateItemMutation } from '@/store/features/items/itemsApi';
 import { addCashItems } from '@/store/features/cash-items/cashSlice';
 import { zakatCal } from '@/store/features/zakat/zakatSlice';
 import { updateCashItem } from '@/store/features/cash-items/cashSlice';
 import { editZakat } from '@/store/features/zakat/zakatSlice';
-
-import Spinner from '@/components/common/Spinner';
 import { calculateZakat } from '@/lib/helpers';
 import { CashIItems } from '@/lib/types';
-import { useAppSelector } from '@/store/hooks';
 import SummaryForm from '@/components/common/summaryForm';
-import GenericSummary from '@/components/common/summaryForm';
 
 interface SummaryProps {
   setValue: (value: number) => void;
@@ -57,7 +42,6 @@ const CashSummaryForm: React.FC<SummaryProps> = ({
   item,
   zakatVal,
 }) => {
-  console.log('cash id passed to summary through prop :', cashId);
   const dispatch = useDispatch();
   const router = useRouter();
   const searchparams = useSearchParams();
@@ -67,7 +51,6 @@ const CashSummaryForm: React.FC<SummaryProps> = ({
   const income = useSelector((state: any) => state.income.income);
   const setup = useSelector((state: any) => state.setup.setup);
   const [payableAmount, setPayableAmount] = React.useState<number>(0);
-  const [createItem, { isLoading }] = useCreateItemMutation();
 
   const form = useForm<FormFields>({
     resolver: zodResolver(SummarySchema),
@@ -114,8 +97,6 @@ const CashSummaryForm: React.FC<SummaryProps> = ({
 
     const formData = new FormData();
 
-    console.log('itemsData', itemsData);
-
     Object.keys(itemsData).forEach((key) => {
       const value = itemsData[key as keyof FormFields];
       if (value !== undefined && value !== null) {
@@ -125,9 +106,8 @@ const CashSummaryForm: React.FC<SummaryProps> = ({
 
     try {
       localStorage.clear();
-      // const response = await createItem(formData); // Uncomment if needed
+
       if (id) {
-        console.log(id);
         dispatch(updateCashItem(itemData));
         dispatch(editZakat(zakatCalData));
         toast.success(`${itemsData.item} item edited successfully.`, {
@@ -140,7 +120,7 @@ const CashSummaryForm: React.FC<SummaryProps> = ({
           position: 'top-right',
         });
       }
-      localStorage.clear();
+
       form.reset();
       router.push('/income/income-details/add-items');
     } catch (error) {
@@ -180,7 +160,7 @@ const CashSummaryForm: React.FC<SummaryProps> = ({
       value={1}
       name={name}
       price={price}
-      cashId={cashId}
+      Id={cashId}
       item={item}
       zakatVal={zakatVal}
       onSubmit={handleSubmit}

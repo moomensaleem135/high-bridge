@@ -1,3 +1,4 @@
+'use client';
 import React, { useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { HousePurposeForm } from './details/purpose/housePurpose';
@@ -51,7 +52,6 @@ export default function HouseDetails() {
   const [zakat, setZakat] = React.useState(0);
 
   const id = searchParams.get('id');
-  console.log(name, price);
 
   const handleNext = () => {
     if (selectedPurpose === 'rental' && step === 1) {
@@ -71,9 +71,6 @@ export default function HouseDetails() {
       setStep(step - 1);
     }
   };
-
-  console.log(name);
-  console.log(price);
 
   return (
     <div className="flex flex-col self-stretch w-full gap-y-4 overflow-y-scroll xs:mb-16 lg:my-5 gridscrollbar">
@@ -107,6 +104,8 @@ export default function HouseDetails() {
             setZakat={setZakat}
             handleBack={handleBack}
             handleNext={handleNext}
+            name={name}
+            price={price}
           />
         )}
         {step === 2 && selectedOption === 'Yes' && (

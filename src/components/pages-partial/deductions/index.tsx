@@ -1,3 +1,4 @@
+'use client';
 import React from 'react';
 import AppLayout from '@/components/layouts/AppLayout';
 import ComingSoon from '@/components/common/ComingSoon';

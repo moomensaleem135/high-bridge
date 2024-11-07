@@ -55,16 +55,11 @@ interface RowDataDef {
 
 const GridSection: React.FC = () => {
   const dispatch = useDispatch();
-
+  const cash: CashItem[] = useSelector((state: any) => state.cash.cash) || [];
+  const house: HouseItem[] = useAppSelector((state: any) => state.house.house);
+  const zakatVal = useSelector((state: any) => state.zakat.zakat.value);
   const items: GoldItem[] =
     useSelector((state: any) => state.items.items) || [];
-  const cash: CashItem[] = useSelector((state: any) => state.cash.cash) || [];
-  console.log({ items });
-
-  const house: HouseItem[] = useAppSelector((state: any) => state.house.house);
-  console.log('house', house);
-
-  const zakatVal = useSelector((state: any) => state.zakat.zakat.value);
   const income: string[] =
     useSelector((state: any) => state.income.income) || [];
 
@@ -113,11 +108,9 @@ const GridSection: React.FC = () => {
     }
   }, [items?.length, cash?.length, income?.length]);
 
-  // Set columns based on the income type (runs when income changes)
   useEffect(() => {
     let updatedColumns: ColumnDef[] = [];
 
-    // Determine columns based on income type
     if (
       (income?.length != 0 && income?.includes('Cash')) ||
       income?.includes('Checking')
@@ -223,7 +216,6 @@ const GridSection: React.FC = () => {
     setRowData(updatedRowData);
   }, [items?.length, cash?.length, house?.length, zakatVal, income?.length]);
 
-  // Handle edit and delete actions
   const handleEdit = (id: string, item: string) => {
     router.push(`add-items/item-details?id=${id}`);
   };
@@ -256,12 +248,10 @@ const GridSection: React.FC = () => {
 
   const totalRows = rowData?.length;
 
-  // Alternate row styling
   const getRowClass = (params: any) => {
     return params.rowIndex % 2 === 0 ? 'row-even' : 'row-odd';
   };
 
-  // Placeholder message when no data is available
   const EmptyTable = `
   <div style="display : flex; flex-direction : column; justifyContent : center; alignItems : center; gap : 5px">
     <div style="display : flex; justifyContent : center; alignItems : center; padding-left : 54px">
@@ -283,12 +273,12 @@ const GridSection: React.FC = () => {
   return (
     <div className="grid-container gridscrollbar">
       <AgGridTable
-        columns={columns} // Columns will always be displayed
-        rowData={rowData} // Row data will be empty or populated based on items
+        columns={columns}
+        rowData={rowData}
         getRowClass={getRowClass}
         totalRows={totalRows}
         customHeight={gridHeight}
-        overlayNoRowsTemplate={EmptyTable} // Show placeholder when no rows are present
+        overlayNoRowsTemplate={EmptyTable}
       />
     </div>
   );

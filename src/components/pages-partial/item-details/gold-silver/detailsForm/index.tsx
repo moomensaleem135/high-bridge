@@ -1,8 +1,8 @@
 'use client';
 import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useForm, Controller } from 'react-hook-form';
-import { useParams, useRouter, useSearchParams } from 'next/navigation';
+import { useSelector } from 'react-redux';
+import { useForm } from 'react-hook-form';
+import { useSearchParams } from 'next/navigation';
 import { z } from 'zod';
 import Link from 'next/link';
 import toast from 'react-hot-toast';
@@ -13,21 +13,11 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { IconInput } from '@/components/ui/icon-input';
 
 import { Button } from '@/components/ui/button';
-import { Checkbox } from '@/components/ui/checkbox';
 import { Label } from '@/components/ui/label';
-import PurposeDropdown from './purposeDropdown';
 import QualityDropdown from './qualityDropdown';
 import WeightDropdown from './weightDropdown';
 import { ErrorIcon } from '@/assets/svgs';
-
-import { useCreateItemMutation } from '@/store/features/items/itemsApi';
-import { addItems } from '@/store/features/items/golditemsSlice';
-import { updateItem } from '@/store/features/items/golditemsSlice';
-import { zakatCal } from '@/store/features/zakat/zakatSlice';
-
-import Spinner from '@/components/common/Spinner';
 import { calculateZakat } from '@/lib/helpers';
-import { editZakat } from '@/store/features/zakat/zakatSlice';
 import { GoldIItems } from '@/lib/types';
 import StepperComponent from '@/components/ui/stepper';
 
@@ -42,12 +32,13 @@ interface ItemDetailsProps {
   setGoldId: (value: string) => void;
   goldId: string;
   userItem: string;
+  quality: string;
+  quantity: string;
+  weight: string;
+  price: string;
 }
 
 const ItemDetailsSchema = z.object({
-  // item: z.string().min(1, { message: 'Item is required' }),
-  // purpose: z.string().min(1, { message: 'Purpose is required' }),
-  // usage: z.string().min(0, { message: 'Usage is required' }),
   quality: z.string().min(1, { message: 'Quality is required' }),
   quantity: z.string().min(1, { message: 'Quantity is required' }),
   weight: z.string().min(1, { message: 'Weight is required' }),
@@ -67,14 +58,14 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = ({
   goldId,
   userItem,
   value,
+  quality,
+  quantity,
+  weight,
+  price,
 }) => {
-  const dispatch = useDispatch();
-  const router = useRouter();
-  const params = useParams();
   const searchparams = useSearchParams();
   const id = searchparams.get('id');
 
-  const religion = useSelector((state: any) => state.sect.sect);
   const items: GoldIItems[] =
     useSelector((state: any) => state.items.items) || [];
   const income = useSelector((state: any) => state.income.income);
@@ -83,42 +74,27 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = ({
   const [item, setItem] = React.useState<string>(userItem);
   const [activeStep, setActiveStep] = React.useState(2);
   const [reason, setReason] = React.useState<string>('');
-  const [currentStep, setCurrentStep] = useState(1);
-  const [createItem, { isLoading }] = useCreateItemMutation();
 
   const form = useForm<FormFields>({
     resolver: zodResolver(ItemDetailsSchema),
     defaultValues: {
-      // item: '',
-      // purpose: '',
-      // usage: '',
-      quality: '',
-      // totalAmount: '',
-      quantity: 'Grams',
-      weight: '',
-      price: '',
+      quality: quality ? quality : '',
+      quantity: quantity ? quantity : 'Grams',
+      weight: weight ? weight : '',
+      price: price ? price : '',
     },
   });
 
   useEffect(() => {
-    const storedFormData = localStorage.getItem('GoldItemDetailsForm');
-    if (storedFormData) {
-      form.reset(JSON.parse(storedFormData));
-    }
     if (id) {
       const data = items.filter((item) => item.goldId === id);
-      console.log('data', data);
       setItem(userItem);
       setReason(data[0].purpose);
       form.reset({
-        // item: data[0].item,
         price: data[0].price,
         weight: data[0].weight,
         quantity: data[0].quantity,
         quality: userItem === data[0].item ? data[0].quality : '',
-        // usage: data[0].usage,
-        // purpose: data[0].purpose,
-        // totalAmount: data[0].amount,
       });
     }
   }, [id, item]);
@@ -131,15 +107,6 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = ({
     );
 
     setZakatVal(zakatAmount);
-    // let goldId;
-
-    // // const usage = itemsData.usage ? itemsData.usage : '';
-
-    // if (!id) {
-    //   goldId = `gold-${Date.now()}`;
-    // } else {
-    //   goldId = id;
-    // }
 
     const zakatCalData = {
       id: goldId,
@@ -154,37 +121,24 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = ({
       const value = itemsData[key as keyof FormFields];
 
       if (value !== undefined && value !== null) {
-        formData.append(key, value as any); // Type assertion for `value` to `any`
+        formData.append(key, value as any);
       }
     });
 
     try {
-      // const response = await createItem(formData);
-      localStorage.setItem('GoldItemDetailsForm', JSON.stringify(itemsData));
       if (id) {
-        //dispatch(updateItem(itemData));
-
         setGoldId(id);
         setValue(value + 1);
         setQuality(itemsData.quality);
         setQuantity(itemsData.quantity);
         setPrice(itemsData.price);
         setWeight(itemsData.weight);
-        //dispatch(editZakat(zakatCalData));
-        // toast.success(`${itemsData.item} item edited successfully.`, {
-        //   position: 'top-right',
-        // });
       } else {
-        //dispatch(addItems(itemData));
         setValue(value + 1);
         setQuality(itemsData.quality);
         setQuantity(itemsData.quantity);
         setPrice(itemsData.price);
         setWeight(itemsData.weight);
-        //dispatch(zakatCal(zakatCalData));
-        // toast.success(`${itemsData.item} item added successfully.`, {
-        //   position: 'top-right',
-        // });
       }
     } catch (error) {
       console.error('Error creating event:', error);
@@ -349,7 +303,6 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = ({
                 href={''}
                 onClick={() => {
                   setValue(value - 1);
-                  localStorage.removeItem('GoldItemDetailsForm');
                 }}
               >
                 <ArrowLeftIcon />

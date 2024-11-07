@@ -1,8 +1,9 @@
 'use client';
 
 import React from 'react';
-import ItemDetailsForm from './detailsForm';
 import { useSearchParams } from 'next/navigation';
+
+import ItemDetailsForm from './detailsForm';
 import GoldChoiceForm from './choiceForm';
 import ExcessScreen from './excessScreen';
 import GoldSummaryForm from './goldSummary';
@@ -21,6 +22,7 @@ export default function GoldItemDetails() {
   const [weight, setWeight] = React.useState('');
   const [zakatVal, setZakatVal] = React.useState(0);
   const id = searchparams.get('id');
+
   return (
     <div className="flex flex-col self-stretch w-full gap-y-4 overflow-y-scroll xs:mb-16 lg:my-5 gridscrollbar">
       <div className="flex flex-col justify-center items-center ">
@@ -49,6 +51,8 @@ export default function GoldItemDetails() {
             setGoldId={setGoldId}
             setValue={setValue}
             value={value}
+            item={item}
+            purpose={purpose}
           />
         )}
         {value === 1 && (
@@ -70,6 +74,10 @@ export default function GoldItemDetails() {
             setQuantity={setQuantity}
             setZakatVal={setZakatVal}
             userItem={item}
+            price={price}
+            quality={quality}
+            quantity={quantity}
+            weight={weight}
           />
         )}
         {value === 2 && selection === 'No' && (

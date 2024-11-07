@@ -25,14 +25,13 @@ export const NotAcceptable: React.FC<ZakatInfoProps> = ({
       <div className="flex flex-col justify-evenly items-center w-full gap-5">
         <hr className="w-full border-[1px] border-solid border-underline mt-10" />
         <div className="flex justify-between items-center w-full md:flex-row md:justify-between md:items-center">
-          <Link
-            className="flex justify-start items-center text-base font-medium"
-            href={''}
-            onClick={() => handleBack()}
+          <div
+            className="flex justify-start items-center text-base font-medium cursor-pointer"
+            onClick={() => router.push('/income')}
           >
             <ArrowLeftIcon />
             Back
-          </Link>
+          </div>
           <Button
             className="bg-detailsBtn text-btnText font-normal hover:bg-btnHover px-3"
             onClick={() => handleBack()}

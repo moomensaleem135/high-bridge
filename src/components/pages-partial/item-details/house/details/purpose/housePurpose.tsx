@@ -1,3 +1,8 @@
+import { useRouter, useSearchParams } from 'next/navigation';
+import React from 'react';
+import { Controller, Form, useForm } from 'react-hook-form';
+import toast from 'react-hot-toast';
+import { z } from 'zod';
 import { ArrowLeftIcon, ErrorIcon } from '@/assets/svgs';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
@@ -5,12 +10,6 @@ import { Label } from '@/components/ui/label';
 import { HouseIItems } from '@/lib/types';
 import { useAppSelector } from '@/store/hooks';
 import { zodResolver } from '@hookform/resolvers/zod';
-import Link from 'next/link';
-import { useRouter, useSearchParams } from 'next/navigation';
-import React from 'react';
-import { Controller, Form, useForm } from 'react-hook-form';
-import toast from 'react-hot-toast';
-import { z } from 'zod';
 
 interface HousePurposeFormProps {
   setSelectedPurpose: any;
@@ -37,22 +36,19 @@ export const HousePurposeForm: React.FC<HousePurposeFormProps> = ({
 }) => {
   const searchparams = useSearchParams();
   const id = searchparams.get('id');
+  const router = useRouter();
+
   const house: HouseIItems[] = useAppSelector(
     (state: any) => state.house.house
   );
-  console.log('house', house);
   const form = useForm<FormFields>({
     resolver: zodResolver(HouseChoiceSchema),
     defaultValues: {
-      purpose: '',
+      purpose: selectedPurpose ? selectedPurpose : '',
     },
   });
 
   React.useEffect(() => {
-    const storedFormData = localStorage.getItem('itemChoiceForm');
-    if (storedFormData) {
-      form.reset(JSON.parse(storedFormData));
-    }
     if (id) {
       const data = house.filter((item) => item.houseId === id);
 
@@ -63,7 +59,6 @@ export const HousePurposeForm: React.FC<HousePurposeFormProps> = ({
   }, [id]);
 
   const onSubmit = async (itemsData: FormFields) => {
-    console.log('in house submit');
     let houseId;
     if (!id) {
       houseId = `house-${Date.now()}`;
@@ -71,7 +66,6 @@ export const HousePurposeForm: React.FC<HousePurposeFormProps> = ({
       houseId = id;
     }
 
-    console.log(houseId);
     const formData = new FormData();
     Object.keys(itemsData).forEach((key) => {
       const value = itemsData[key as keyof FormFields];
@@ -80,22 +74,14 @@ export const HousePurposeForm: React.FC<HousePurposeFormProps> = ({
       }
     });
     try {
-      // const response = await createItem(formData); // Uncomment if needed
       if (id) {
-        console.log('id in Choice form', id);
         setSelectedPurpose(itemsData.purpose);
         handleNext();
         setHouseId(id);
-        // toast.success(`${itemsData.purpose} item edited successfully.`, {
-        //   position: 'top-right',
-        // });
       } else {
         setSelectedPurpose(itemsData.purpose);
         setHouseId(houseId);
         handleNext();
-        // toast.success(`${itemsData.purpose} item selection successful.`, {
-        //   position: 'top-right',
-        // });
       }
     } catch (error) {
       console.error('Error creating event:', error);
@@ -224,14 +210,15 @@ export const HousePurposeForm: React.FC<HousePurposeFormProps> = ({
           <div className="flex flex-col justify-evenly items-center w-full gap-5">
             <hr className="w-full border-[1px] border-solid border-underline" />
             <div className="flex justify-between items-center w-full md:flex-row md:justify-between md:items-center">
-              <Link
+              <div
                 className="flex justify-start items-center text-base font-medium"
-                href={''}
-                onClick={() => handleBack()}
+                onClick={() => {
+                  router.push('/income');
+                }}
               >
                 <ArrowLeftIcon />
                 Back
-              </Link>
+              </div>
               <Button
                 className="bg-detailsBtn text-btnText font-normal hover:bg-btnHover"
                 onClick={form.handleSubmit(onSubmit)}
@@ -244,35 +231,4 @@ export const HousePurposeForm: React.FC<HousePurposeFormProps> = ({
       </Form>
     </div>
   );
-  {
-    /* <form className="flex flex-col px-1 max-w-[807px]">
-      <section className="flex flex-col max-md:max-w-full px-8">
-        <h2 className="xs:text-xl font-medium sm:text-2xl flex-1 mb-4">
-          Please select the purpose of your house by choosing one of the options
-          below:
-        </h2>
-        <div>
-          <ul className="list-inside list-disc  pl-0">
-            {purposeOptions.map((option) => (
-              <li key={option.id} className="mb-2">
-                <span className="text-lg font-semibold leading-9">
-                  {option.label}:
-                </span>
-                <span className="text-lg font-regular leading-9">
-                  {' '}
-                  {option.description}
-                </span>
-              </li>
-            ))}
-          </ul>
-          <p className="mt-5 text-lg font-medium text-black max-md:max-w-full">
-            Select one option to proceed to the next step.
-          </p>
-          <div className="flex gap-20 items-center mt-5 max-md:max-w-full">
-            
-          </div>
-        </div>
-      </section>
-    </form> */
-  }
 };

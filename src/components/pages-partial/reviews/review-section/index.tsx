@@ -123,7 +123,7 @@ const ZakatCard = () => {
                   </div>
                   <div className="font-medium text-sm flex justify-center items-center text-agTableTop">
                     {/* ({categorizedItems.personal['Gold & Silver'][0].religion}) */}
-                    ({setup.religion})
+                    (Assembly of Muslim Jurists of America)
                   </div>
                 </div>
                 {categorizedItems.personal['Gold & Silver'].map(
@@ -190,7 +190,7 @@ const ZakatCard = () => {
                   </div>
                   <div className="font-medium text-sm flex justify-center items-center text-agTableTop">
                     {/* ({houseItems.personal['Cash & Checking'][0].religion}) */}
-                    ({setup.religion})
+                    (Assembly of Muslim Jurists of America)
                   </div>
                 </div>
                 {houseItems.personal['House'].map((item: any, index: any) => (
@@ -259,7 +259,7 @@ const ZakatCard = () => {
                   </div>
                   <div className="font-medium text-sm flex justify-center items-center text-agTableTop">
                     {/* ({categorizedCash.personal['Cash & Checking'][0].religion}) */}
-                    ({setup.religion})
+                    (Assembly of Muslim Jurists of America)
                   </div>
                 </div>
                 {categorizedCash.personal[

@@ -1,29 +1,16 @@
 'use client';
 import React from 'react';
-import { useDispatch, UseDispatch, useSelector } from 'react-redux';
-import { useForm, Controller } from 'react-hook-form';
-import { useRouter, useSearchParams } from 'next/navigation';
-import { z } from 'zod';
-import Link from 'next/link';
 import toast from 'react-hot-toast';
+import Link from 'next/link';
+import { z } from 'zod';
+import { useSelector } from 'react-redux';
+import { useForm } from 'react-hook-form';
+import { useSearchParams } from 'next/navigation';
 
-import { Form, FormControl, FormField } from '@/components/ui/form';
+import { Form } from '@/components/ui/form';
 import { ArrowLeftIcon } from '@/assets/svgs';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { IconInput } from '@/components/ui/icon-input';
-
 import { Button } from '@/components/ui/button';
-import { Checkbox } from '@/components/ui/checkbox';
-import { Label } from '@/components/ui/label';
-import { ErrorIcon } from '@/assets/svgs';
-
-import { useCreateItemMutation } from '@/store/features/items/itemsApi';
-import { addCashItems } from '@/store/features/cash-items/cashSlice';
-import { zakatCal } from '@/store/features/zakat/zakatSlice';
-import { updateCashItem } from '@/store/features/cash-items/cashSlice';
-import { editZakat } from '@/store/features/zakat/zakatSlice';
-
-import Spinner from '@/components/common/Spinner';
 import { calculateZakat } from '@/lib/helpers';
 import { CashIItems } from '@/lib/types';
 import GenericFormField from '@/components/common/form';
@@ -35,10 +22,11 @@ interface ItemDetailsProps {
   setPrice: (value: string) => void;
   cashId: string;
   setZakat: (value: any) => void;
+  name: string;
+  price: string;
 }
 
 const ItemDetailsSchema = z.object({
-  //   item: z.string().min(1, { message: 'Purpose is required' }),
   quantity: z.string().min(1, { message: 'Amount is required' }),
   name: z.string().min(1, { message: 'Name of entered item is required' }),
 });
@@ -52,33 +40,25 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = ({
   setPrice,
   cashId,
   setZakat,
+  name,
+  price,
 }) => {
-  const dispatch = useDispatch();
-  const router = useRouter();
   const searchparams = useSearchParams();
   const id = searchparams.get('id');
   const cash: CashIItems[] = useSelector((state: any) => state.cash.cash) || [];
-  const religion = useSelector((state: any) => state.sect.sect);
-  const income = useSelector((state: any) => state.income.income);
   const setup = useSelector((state: any) => state.setup.setup);
   const [item, setItem] = React.useState<string>('');
   const [payableAmount, setPayableAmount] = React.useState<number | null>(null);
-  const [reason, setReason] = React.useState<string>('');
-  const [createItem, { isLoading }] = useCreateItemMutation();
 
   const form = useForm<FormFields>({
     resolver: zodResolver(ItemDetailsSchema),
     defaultValues: {
-      quantity: '',
-      name: '',
+      quantity: price ? price : '',
+      name: name ? name : '',
     },
   });
 
   React.useEffect(() => {
-    const storedFormData = localStorage.getItem('itemDetailsForm');
-    if (storedFormData) {
-      form.reset(JSON.parse(storedFormData));
-    }
     if (id) {
       const data = cash.filter((item) => item.cashId === id);
 
@@ -111,25 +91,14 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = ({
     });
 
     try {
-      // const response = await createItem(formData); // Uncomment if needed
-      localStorage.setItem('itemDetailsForm', JSON.stringify(itemsData));
       if (id) {
-        console.log('id in details form', id);
-        //dispatch(editZakat(zakatCalData));
         setName(itemsData.name);
         setPrice(itemsData.quantity);
         setValue(value + 1);
-        // toast.success(`${itemsData.name} item edited successfully.`, {
-        //   position: 'top-right',
-        // });
       } else {
-        //dispatch(zakatCal(zakatCalData));
         setName(itemsData.name);
         setPrice(itemsData.quantity);
         setValue(value + 1);
-        // toast.success(`${itemsData.name} item added successfully.`, {
-        //   position: 'top-right',
-        // });
       }
     } catch (error) {
       console.error('Error creating event:', error);
@@ -172,7 +141,7 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = ({
           />
           <GenericFormField
             control={form.control}
-            type='number'
+            type="number"
             name="quantity"
             label="What is the balance of this account on the zakat pay date?"
             placeholder="Enter Amount"
@@ -197,7 +166,6 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = ({
                 href={''}
                 onClick={() => {
                   setValue(value - 1);
-                  localStorage.removeItem('itemDetailsForm');
                 }}
               >
                 <ArrowLeftIcon />

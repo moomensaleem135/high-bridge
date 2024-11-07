@@ -1,17 +1,14 @@
 'use client';
 
 import React from 'react';
+import { useSearchParams } from 'next/navigation';
+
 import ItemChoiceForm from './choiceForm';
 import ItemDetailsForm from './detailsForm';
-import { useSearchParams, useRouter } from 'next/navigation';
-import Link from 'next/link';
-import { ArrowLeftIcon } from 'lucide-react';
-import { Button } from '@/components/ui/button';
 import Summary from './summary';
 
 export default function CashItemDetails() {
   const searchparams = useSearchParams();
-  const router = useRouter();
   const id = searchparams.get('id');
   const [value, setValue] = React.useState<number>(0);
   const [item, setUserItem] = React.useState('');
@@ -19,6 +16,7 @@ export default function CashItemDetails() {
   const [name, setName] = React.useState('');
   const [price, setPrice] = React.useState('');
   const [zakat, setZakat] = React.useState(0);
+  const [itemForm, setItemForm] = React.useState<string>('');
 
   return (
     <div className="flex flex-col self-stretch w-full gap-y-4 overflow-y-scroll xs:mb-16 lg:my-5 gridscrollbar">
@@ -48,6 +46,8 @@ export default function CashItemDetails() {
             value={value}
             setCashId={setCashId}
             setUserItem={setUserItem}
+            setItemForm={setItemForm}
+            itemForm={itemForm}
           />
         )}
         {value === 1 && (
@@ -58,6 +58,8 @@ export default function CashItemDetails() {
             setPrice={setPrice}
             cashId={cashId}
             setZakat={setZakat}
+            name={name}
+            price={price}
           />
         )}
         {value === 2 && (

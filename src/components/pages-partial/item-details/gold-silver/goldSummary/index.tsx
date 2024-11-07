@@ -67,8 +67,6 @@ const GoldSummaryForm: React.FC<GoldSummaryProps> = ({
   zakatVal,
   selection,
 }) => {
-  console.log('cash id passed to summary through prop :', goldId);
-  console.log(item, purpose, quality, quantity, weight, price, selection);
   const dispatch = useDispatch();
   const router = useRouter();
   const searchparams = useSearchParams();
@@ -96,9 +94,8 @@ const GoldSummaryForm: React.FC<GoldSummaryProps> = ({
 
   React.useEffect(() => {
     if (id) {
-      console.log(id);
       const data = items.filter((item) => item.goldId === id);
-      console.log('data', data);
+
       form.reset({
         item: data[0].item,
         price: data[0].price,
@@ -116,8 +113,6 @@ const GoldSummaryForm: React.FC<GoldSummaryProps> = ({
       setup.year,
       setup.generic
     );
-
-    console.log('in form submit');
 
     const itemData = {
       item: item,
@@ -141,20 +136,15 @@ const GoldSummaryForm: React.FC<GoldSummaryProps> = ({
 
     const formData = new FormData();
 
-    console.log('itemsData', itemsData);
-
     Object.keys(itemsData).forEach((key) => {
       const value = itemsData[key as keyof FormFields];
       if (value !== undefined && value !== null) {
-        formData.append(key, value as any); // Type assertion for `value` to `any`
+        formData.append(key, value as any);
       }
     });
 
     try {
-      // const response = await createItem(formData); // Uncomment if needed
       if (id) {
-        console.log(id);
-        console.log('in updating item');
         dispatch(updateItem(itemData));
         dispatch(editZakat(zakatCalData));
         toast.success(`${item} item edited successfully.`, {
@@ -169,7 +159,6 @@ const GoldSummaryForm: React.FC<GoldSummaryProps> = ({
       }
 
       form.reset();
-      localStorage.clear();
       router.push('/income/income-details/add-items');
     } catch (error) {
       console.error('Error creating event:', error);

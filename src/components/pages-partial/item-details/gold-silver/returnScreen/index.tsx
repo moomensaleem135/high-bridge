@@ -72,7 +72,6 @@ const ReturnScreen: React.FC<ReturnScreenProps> = ({ setValue, value }) => {
               className="bg-detailsBtn text-btnText font-normal hover:bg-btnHover"
               onClick={() => {
                 setValue(0);
-                localStorage.clear();
               }}
             >
               Add Another Item

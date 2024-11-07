@@ -62,11 +62,7 @@ const IncomeSection: React.FC<IncomeSectionProps> = ({
     (e: React.MouseEvent, text: string, isDisabled: boolean) => {
       if (isDisabled) {
         e.preventDefault();
-      } else if (
-        selector.year === '' ||
-        selector.religion === '' ||
-        selector.startDate === null
-      ) {
+      } else if (selector.year === '' || selector.startDate === null) {
         e.preventDefault();
         toast.error(
           `You have not set up your profile yet. Please complete setup to proceed.`,

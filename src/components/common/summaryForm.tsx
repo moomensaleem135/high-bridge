@@ -10,13 +10,14 @@ import { ArrowLeftIcon, ErrorIcon } from '@/assets/svgs';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
+import { useSearchParams } from 'next/navigation';
 
 interface SummaryProps {
   handleBack: () => void;
   value: number;
   name: string;
   price: string;
-  cashId: string;
+  Id: string;
   item: string;
   zakatVal: number;
   onSubmit: (data: FormFields) => void;
@@ -35,7 +36,7 @@ const SummaryForm: React.FC<SummaryProps> = ({
   value,
   name,
   price,
-  cashId,
+  Id,
   item,
   zakatVal,
   onSubmit,
@@ -44,11 +45,14 @@ const SummaryForm: React.FC<SummaryProps> = ({
     resolver: zodResolver(SummarySchema),
     defaultValues: { item, quantity: price, name },
   });
+  const searchparams = useSearchParams();
+  const id = searchparams.get('id');
 
   const handleFormSubmit = async (data: FormFields) => {
     try {
       await onSubmit(data); // Call the onSubmit callback
       form.reset();
+      localStorage.clear();
       // toast.success(`${data.name} item processed successfully.`, {
       //   position: 'top-right',
       // });
@@ -144,7 +148,7 @@ const SummaryForm: React.FC<SummaryProps> = ({
                 Back
               </Link>
               <Button className="bg-detailsBtn text-btnText font-normal hover:bg-btnHover">
-                {cashId ? 'Update Item' : 'Add Item'}
+                {id ? 'Update Item' : 'Add Item'}
               </Button>
             </div>
           </div>

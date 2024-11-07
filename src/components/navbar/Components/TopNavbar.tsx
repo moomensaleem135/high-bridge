@@ -1,6 +1,5 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { formatDate } from '@/lib/helpers';
 import { ArrowLeftIcon } from '@/assets/svgs';
 import { ILayoutProps } from '@/lib/types';
 import { cn } from '@/lib/cn';
@@ -24,14 +23,9 @@ const TopNavbar = ({
   const zakatVal = useSelector((state: any) => state.zakat.zakat);
   const router = useRouter();
 
-  console.log(selector);
-  console.log('zakatVal', zakatVal);
-
   const totalZakatValue = zakatVal.reduce((total: any, entry: any) => {
     return total + (entry.value || 0);
   }, 0);
-
-  console.log(totalZakatValue);
 
   return (
     <div className="px-2 min-h-[70px] xs:min-h-[45px] sm:min-h-[70px] flex w-full items-center justify-between xs:hidden lg:flex">

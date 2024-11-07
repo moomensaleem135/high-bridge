@@ -7,16 +7,10 @@ import { z } from 'zod';
 import toast from 'react-hot-toast';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-
-import { useCreateItemMutation } from '@/store/features/items/itemsApi';
-import { addCashItems } from '@/store/features/cash-items/cashSlice';
 import { zakatCal } from '@/store/features/zakat/zakatSlice';
-import { updateCashItem } from '@/store/features/cash-items/cashSlice';
 import { editZakat } from '@/store/features/zakat/zakatSlice';
-
-import Spinner from '@/components/common/Spinner';
 import { calculateZakat } from '@/lib/helpers';
-import { CashIItems, HouseIItems } from '@/lib/types';
+import { HouseIItems } from '@/lib/types';
 import { useAppSelector } from '@/store/hooks';
 import SummaryForm from '@/components/common/summaryForm';
 import {
@@ -60,10 +54,6 @@ const HouseSummaryForm: React.FC<SummaryProps> = ({
   const income = useSelector((state: any) => state.income.income);
   const setup = useSelector((state: any) => state.setup.setup);
   const [payableAmount, setPayableAmount] = React.useState<number>(0);
-  const [createItem, { isLoading }] = useCreateItemMutation();
-
-  console.log('house id in house summary', houseId);
-  console.log(item, price);
 
   const form = useForm<FormFields>({
     resolver: zodResolver(SummarySchema),
@@ -118,10 +108,7 @@ const HouseSummaryForm: React.FC<SummaryProps> = ({
     });
 
     try {
-      localStorage.clear();
-      // const response = await createItem(formData); // Uncomment if needed
       if (id) {
-        console.log(id);
         dispatch(updateHouseItem(itemData));
         dispatch(editZakat(zakatCalData));
         toast.success(`${itemsData.item} item edited successfully.`, {
@@ -170,7 +157,7 @@ const HouseSummaryForm: React.FC<SummaryProps> = ({
       value={1}
       name={name}
       price={price}
-      cashId={houseId}
+      Id={houseId}
       item={item}
       zakatVal={zakatVal}
       onSubmit={handleSubmit}
