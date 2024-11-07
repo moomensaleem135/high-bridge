@@ -8,43 +8,10 @@ import MainSection from './item-section/main';
 import Link from 'next/link';
 import { ArrowLeftIcon } from '@/assets/svgs';
 import { useRouter } from 'next/navigation';
-import { CashIItems, GoldIItems, HouseIItems } from '@/lib/types';
-import { useAppSelector } from '@/store/hooks';
 
 export default function PartialAddItems() {
   const router = useRouter();
-  const items = useSelector((state: any) => state.items.items) || [];
   const income = useSelector((state: any) => state.income.income);
-
-  const cash: CashIItems[] = useSelector((state: any) => state.cash.cash) || [];
-  const house: HouseIItems[] = useAppSelector(
-    (state: any) => state.house.house
-  );
-
-  React.useEffect(() => {
-    if (
-      (income?.length != 0 && income?.includes('Cash')) ||
-      income?.includes('Checking')
-    ) {
-      if (cash?.length === 0) {
-        router.push('add-items/item-details');
-      }
-    } else if (
-      (income?.length != 0 && income?.includes('Gold')) ||
-      income?.includes('Silver')
-    ) {
-      if (items?.length === 0) {
-        router.push('add-items/item-details');
-      }
-    } else if (
-      (income?.length != 0 && income?.includes('House')) ||
-      income?.includes('Silver')
-    ) {
-      if (house?.length === 0) {
-        router.push('add-items/item-details');
-      }
-    }
-  });
   return (
     <AppLayout>
       <div className="flex flex-col self-stretch w-full gap-y-4 xs:my-0 lg:my-5 overflow-y-auto overflow-x-hidden pb-10 gridscrollbar">

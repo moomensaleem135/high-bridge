@@ -1,5 +1,6 @@
 'use client';
-import React from 'react';
+import React, { useMemo, useCallback } from 'react';
+import toast from 'react-hot-toast';
 import { useDispatch, useSelector } from 'react-redux';
 import { cn } from '@/lib/cn';
 import { Button } from '../ui/button';
@@ -7,8 +8,7 @@ import Link from 'next/link';
 import { IncomeChoice } from '@/store/features/income/incomeSlice';
 import { Inter } from 'next/font/google';
 import { useAppSelector } from '@/store/hooks';
-import CustomToast from './CustomToast';
-import toast from 'react-hot-toast';
+import { CashIItems, HouseIItems } from '@/lib/types';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -22,14 +22,62 @@ interface IncomeSectionProps {
   titleClassName?: string;
 }
 
+const determineHref = (
+  cash: CashIItems[],
+  items: any[],
+  house: HouseIItems[],
+  text: string
+): string => {
+  if (text === 'Liquid Assets (Cash, Checking, Saving, Loan)') {
+    return cash.length === 0
+      ? 'income/income-details/add-items/item-details'
+      : 'income/income-details/add-items';
+  } else if (text === 'Gold & Silver') {
+    return items.length === 0
+      ? 'income/income-details/add-items/item-details'
+      : 'income/income-details/add-items';
+  } else if (text === 'House') {
+    return house.length === 0
+      ? 'income/income-details/add-items/item-details'
+      : 'income/income-details/add-items';
+  }
+  return 'income/income-details/add-items';
+};
+
 const IncomeSection: React.FC<IncomeSectionProps> = ({
   texts,
   containerClassName = 'bg-accordionBg tracking-tight border-[1px] border-accodionBorder text-xl font-medium text-accordionText flex justify-between items-center w-full max-w-[850px] p-3 pl-6 pr-6 rounded-md xs:flex-col xs:text-center xs:gap-y-2 min-[500px]:flex min-[500px]:flex-row',
   title,
-  titleClassName,
 }) => {
   const dispatch = useDispatch();
   const selector = useSelector((state: any) => state.setup.setup);
+  const items = useSelector((state: any) => state.items.items) || [];
+  const income = useSelector((state: any) => state.income.income);
+  const cash: CashIItems[] = useSelector((state: any) => state.cash.cash) || [];
+  const house: HouseIItems[] = useAppSelector(
+    (state: any) => state.house.house
+  );
+
+  const handleClick = useCallback(
+    (e: React.MouseEvent, text: string, isDisabled: boolean) => {
+      if (isDisabled) {
+        e.preventDefault();
+      } else if (
+        selector.year === '' ||
+        selector.religion === '' ||
+        selector.startDate === null
+      ) {
+        e.preventDefault();
+        toast.error(
+          `You have not set up your profile yet. Please complete setup to proceed.`,
+          { position: 'top-right' }
+        );
+      } else {
+        dispatch(IncomeChoice(text));
+      }
+    },
+    [dispatch, selector]
+  );
 
   return (
     <div className="lg:flex flex-col justify-evenly">
@@ -38,39 +86,23 @@ const IncomeSection: React.FC<IncomeSectionProps> = ({
           {title}
         </h1>
         <div className="flex flex-col w-full justify-center items-center gap-y-3">
-          {texts.map((text, index) => {
-            const isDisabled =
-              text.text !== 'Gold & Silver' &&
-              text.text !== 'Liquid Assets (Cash, Checking, Saving, Loan)' &&
-              text.text !== 'House';
-
-            const handleClick = (e: React.MouseEvent) => {
-              if (isDisabled) {
-                e.preventDefault();
-              } else if (
-                selector.year === '' ||
-                selector.religion === '' ||
-                selector.startDate === null
-              ) {
-                e.preventDefault();
-                toast.error(
-                  `You have not setup your profile yet, please complete setup to proceed.`,
-                  {
-                    position: 'top-right',
-                  }
-                );
-              } else {
-                dispatch(IncomeChoice(text.text));
-              }
-            };
+          {texts.map((item, index) => {
+            const isDisabled = ![
+              'Gold & Silver',
+              'Liquid Assets (Cash, Checking, Saving, Loan)',
+              'House',
+            ].includes(item.text);
+            const href = useMemo(
+              () => determineHref(cash, items, house, item.text),
+              [income, cash, items, house, item.text]
+            );
 
             return (
               <div key={index} className={containerClassName}>
-                <span>{text.text}</span>
-
+                <span>{item.text}</span>
                 <Link
-                  href={'income/income-details/add-items'}
-                  onClick={handleClick}
+                  href={href}
+                  onClick={(e) => handleClick(e, item.text, isDisabled)}
                   className="flex justify-end items-center"
                 >
                   <Button
