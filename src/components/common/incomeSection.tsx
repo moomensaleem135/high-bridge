@@ -9,6 +9,7 @@ import { IncomeChoice } from '@/store/features/income/incomeSlice';
 import { Inter } from 'next/font/google';
 import { useAppSelector } from '@/store/hooks';
 import { CashIItems, HouseIItems } from '@/lib/types';
+import { textConstants } from '@/configs/textConstants';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -118,7 +119,7 @@ const IncomeSection: React.FC<IncomeSectionProps> = ({
                     )}
                     disabled={isDisabled}
                   >
-                    Start
+                    {textConstants.incomeStartButtonText}
                   </Button>
                 </Link>
               </div>

@@ -14,6 +14,7 @@ import { Button } from '@/components/ui/button';
 import { calculateZakat } from '@/lib/helpers';
 import { CashIItems } from '@/lib/types';
 import GenericFormField from '@/components/common/form';
+import { textConstants } from '@/configs/textConstants';
 
 interface ItemDetailsProps {
   setValue: (value: number) => void;
@@ -135,7 +136,7 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = ({
           <GenericFormField
             control={form.control}
             name="name"
-            label="What should the title for this item be?"
+            label={textConstants.itemNameLabel}
             placeholder="Enter Item Name"
             error={form.formState.errors.name}
           />
@@ -143,13 +144,13 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = ({
             control={form.control}
             type="number"
             name="quantity"
-            label="What is the balance of this account on the zakat pay date?"
+            label={textConstants.itemQuantityLabel}
             placeholder="Enter Amount"
             error={form.formState.errors.quantity}
           />
           <div className="flex justify-between items-center">
             <span className="xs:text-base font-medium sm:text-xl flex-1">
-              Your payable zakat for this item is:
+              {textConstants.zakatPayableText}
             </span>
             <span className="font-semibold text-2xl text-zakatText flex-1 text-end">
               {payableAmount !== null
@@ -169,17 +170,12 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = ({
                 }}
               >
                 <ArrowLeftIcon />
-                Back
+                {textConstants.formBackButtonText}
               </Link>
-              {id ? (
-                <Button className="bg-detailsBtn text-btnText font-normal hover:bg-btnHover">
-                  Next
-                </Button>
-              ) : (
-                <Button className="bg-detailsBtn text-btnText font-normal hover:bg-btnHover">
-                  Next
-                </Button>
-              )}
+
+              <Button className="bg-detailsBtn text-btnText font-normal hover:bg-btnHover">
+                {textConstants.formNextButtonText}
+              </Button>
             </div>
           </div>
         </form>

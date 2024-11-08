@@ -1,26 +1,12 @@
 'use client';
 import React from 'react';
-import { useSelector } from 'react-redux';
-import { useForm, Controller } from 'react-hook-form';
-import { useRouter, useSearchParams } from 'next/navigation';
-import { z } from 'zod';
 import Link from 'next/link';
-import toast from 'react-hot-toast';
 
-import { Form, FormControl, FormField } from '@/components/ui/form';
 import { ArrowLeftIcon } from '@/assets/svgs';
-import { zodResolver } from '@hookform/resolvers/zod';
-
 import { Button } from '@/components/ui/button';
-import { Checkbox } from '@/components/ui/checkbox';
-import { Label } from '@/components/ui/label';
-import { ErrorIcon } from '@/assets/svgs';
-
 import { useCreateItemMutation } from '@/store/features/items/itemsApi';
-
-import Spinner from '@/components/common/Spinner';
-import { CashIItems, GoldIItems } from '@/lib/types';
 import StepperComponent from '@/components/ui/stepper';
+import { textConstants } from '@/configs/textConstants';
 
 interface ExcessScreenProps {
   setSelection: (value: string) => void;
@@ -33,11 +19,6 @@ const ExcessScreen: React.FC<ExcessScreenProps> = ({
   setValue,
   value,
 }) => {
-  const router = useRouter();
-  const searchparams = useSearchParams();
-  const id = searchparams.get('id');
-  const gold: GoldIItems[] =
-    useSelector((state: any) => state.items.items) || [];
   const [item, setItem] = React.useState<string>('');
   const [activeStep, setActiveStep] = React.useState(1);
   const [createItem, { isLoading }] = useCreateItemMutation();
@@ -48,7 +29,7 @@ const ExcessScreen: React.FC<ExcessScreenProps> = ({
     <div className="flex flex-col w-full max-w-[960px] justify-start items-center gap-8 rounded-3xl mt-6 pl-6 pr-6">
       <StepperComponent activeStep={activeStep} />
       <p className="font-medium text-xl w-full">
-        Does this exceed the normal personal usage quantity in your society?
+        {textConstants.goldItemExcessiveAmountText}
       </p>
       <div className="w-full flex flex-col gap-y-6">
         <p className="w-full font-normal text-base">
@@ -81,7 +62,7 @@ const ExcessScreen: React.FC<ExcessScreenProps> = ({
             onClick={() => setValue(value - 1)}
           >
             <ArrowLeftIcon />
-            Back
+            {textConstants.formBackButtonText}
           </Link>
 
           <div className="flex gap-x-2">
@@ -92,7 +73,7 @@ const ExcessScreen: React.FC<ExcessScreenProps> = ({
                 setValue(value + 1);
               }}
             >
-              No
+              {textConstants.formNoButtonText}
             </Button>
             <Button
               className="bg-detailsBtn text-btnText font-normal hover:bg-btnHover"
@@ -101,7 +82,7 @@ const ExcessScreen: React.FC<ExcessScreenProps> = ({
                 setValue(value + 1);
               }}
             >
-              Yes
+              {textConstants.formYesButtonText}
             </Button>
           </div>
         </div>

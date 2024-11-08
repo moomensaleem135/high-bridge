@@ -1,5 +1,6 @@
 import { ArrowLeftIcon } from '@/assets/svgs';
 import { Button } from '@/components/ui/button';
+import { textConstants } from '@/configs/textConstants';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import React, { Dispatch, SetStateAction } from 'react';
@@ -30,13 +31,13 @@ export const NotAcceptable: React.FC<ZakatInfoProps> = ({
             onClick={() => router.push('/income')}
           >
             <ArrowLeftIcon />
-            Back
+            {textConstants.formBackButtonText}
           </div>
           <Button
             className="bg-detailsBtn text-btnText font-normal hover:bg-btnHover px-3"
             onClick={() => handleBack()}
           >
-            Add another Item
+            {textConstants.formAddAnotherItemButton}
           </Button>
         </div>
       </div>

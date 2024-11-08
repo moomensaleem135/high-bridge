@@ -20,7 +20,7 @@ const config: Config = {
       lg: '1024px',
       // => @media (min-width: 1024px) { ... }
 
-      custom : '1220px',
+      custom: '1220px',
 
       xl: '1280px',
       // => @media (min-width: 1280px) { ... }
@@ -29,7 +29,6 @@ const config: Config = {
       // => @media (min-width: 1440px) { ... }
     },
     extend: {
-      
       colors: {
         'custom-gray': 'rgba(102, 102, 102, 0.35)',
         bodyColor: 'var(--body)',
@@ -51,11 +50,11 @@ const config: Config = {
 
         formBg: 'var(--formBg)',
         formBorder: 'var(--formBorder)',
-        checkboxBg : 'var(--checkbox)',
-        dropdownBg : 'var(--dropdownBackground)',
-        dropdownIcon : 'var( --dropdownIcon)',
+        checkboxBg: 'var(--checkbox)',
+        dropdownBg: 'var(--dropdownBackground)',
+        dropdownIcon: 'var( --dropdownIcon)',
 
-        agTableTop : 'var(--agTabletopText)',
+        agTableTop: 'var(--agTabletopText)',
 
         underline: 'var(--underline)',
         underlineTop: 'var(--underlineTop)',
@@ -122,7 +121,6 @@ const config: Config = {
         event: {
           heading: 'var(--event-heading)',
         },
-        
       },
       animation: {
         first: 'moveVertical 30s ease infinite',
@@ -131,7 +129,7 @@ const config: Config = {
         fourth: 'moveHorizontal 40s ease infinite',
         fifth: 'moveInCircle 20s ease infinite',
       },
-      
+
       keyframes: {
         moveHorizontal: {
           '0%': {

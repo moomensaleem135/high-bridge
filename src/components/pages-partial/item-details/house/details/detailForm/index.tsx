@@ -17,6 +17,7 @@ import { calculateZakat } from '@/lib/helpers';
 import { HouseIItems } from '@/lib/types';
 import GenericFormField from '@/components/common/form';
 import { useAppSelector } from '@/store/hooks';
+import { textConstants } from '@/configs/textConstants';
 
 interface ItemDetailsProps {
   setName: (value: string) => void;
@@ -138,7 +139,7 @@ const HouseItemDetailsForm: React.FC<ItemDetailsProps> = ({
           <GenericFormField
             control={form.control}
             name="itemName"
-            label="What should the title for this item be?"
+            label={textConstants.itemNameLabel}
             placeholder="Enter Item Name"
             error={form.formState.errors.itemName}
           />
@@ -146,13 +147,13 @@ const HouseItemDetailsForm: React.FC<ItemDetailsProps> = ({
             control={form.control}
             name="itemQuantity"
             type="number"
-            label="What is the balance of this account on the zakat pay date?"
+            label={textConstants.itemQuantityLabel}
             placeholder="Enter Amount"
             error={form.formState.errors.itemQuantity}
           />
           <div className="flex justify-between items-center">
             <span className="xs:text-base font-medium sm:text-xl flex-1">
-              Your payable zakat for this item is:
+              {textConstants.zakatPayableText}
             </span>
             <span className="font-semibold text-2xl text-zakatText flex-1 text-end">
               {payableAmount !== null
@@ -172,14 +173,14 @@ const HouseItemDetailsForm: React.FC<ItemDetailsProps> = ({
                 }}
               >
                 <ArrowLeftIcon />
-                Back
+                {textConstants.formBackButtonText}
               </Link>
               <Button
                 className="bg-detailsBtn text-btnText font-normal hover:bg-btnHover"
                 type="submit"
                 onClick={form.handleSubmit(onSubmit)}
               >
-                Next
+                {textConstants.formNextButtonText}
               </Button>
             </div>
           </div>

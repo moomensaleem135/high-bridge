@@ -8,6 +8,7 @@ import GoldChoiceForm from './choiceForm';
 import ExcessScreen from './excessScreen';
 import GoldSummaryForm from './goldSummary';
 import ReturnScreen from './returnScreen';
+import { textConstants } from '@/configs/textConstants';
 
 export default function GoldItemDetails() {
   const searchparams = useSearchParams();
@@ -28,17 +29,16 @@ export default function GoldItemDetails() {
       <div className="flex flex-col justify-center items-center ">
         {id ? (
           <h1 className="text-center px-4 text-3xl font-semibold">
-            Edit Gold & Sliver Items
+            {textConstants.goldItemEditFormHeading}
           </h1>
         ) : (
           <h1 className="text-center px-4 text-3xl font-semibold">
-            Add Gold & Sliver Items
+            {textConstants.goldItemAddFormHeading}
           </h1>
         )}
 
         <span className="text-center px-4 font-normal text-base mt-2 leading-6 mb-2">
-          Here’s what you have so far. Please add your gold and silver items
-          such as tola, grams, or ounces.
+          {textConstants.goldItemFormParagraph}
         </span>
         <hr className="w-full border-[1px] border-underline" />
       </div>

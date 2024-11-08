@@ -11,6 +11,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { useSearchParams } from 'next/navigation';
+import { textConstants } from '@/configs/textConstants';
 
 interface SummaryProps {
   handleBack: () => void;
@@ -53,9 +54,6 @@ const SummaryForm: React.FC<SummaryProps> = ({
       await onSubmit(data); // Call the onSubmit callback
       form.reset();
       localStorage.clear();
-      // toast.success(`${data.name} item processed successfully.`, {
-      //   position: 'top-right',
-      // });
     } catch (error) {
       console.error('Error processing item:', error);
       toast.error('Failed to process item', { position: 'top-right' });
@@ -72,7 +70,7 @@ const SummaryForm: React.FC<SummaryProps> = ({
         >
           <div className="flex flex-col gap-y-2">
             <Label className="font-medium text-xl">
-              Which item do you have?
+              {textConstants.itemLabel}
             </Label>
             <div className="w-full items-center flex justify-start">
               <span className="font-normal text-base">{item}</span>
@@ -81,7 +79,7 @@ const SummaryForm: React.FC<SummaryProps> = ({
           <div className="w-full items-center">
             <div className="flex flex-col justify-start gap-x-6 gap-y-2 items-start">
               <Label className="font-medium text-lg">
-                What should the title for this item be?
+                {textConstants.itemNameLabel}
               </Label>
               <div className="flex w-full">
                 <FormField
@@ -106,7 +104,7 @@ const SummaryForm: React.FC<SummaryProps> = ({
           <div className="w-full items-center">
             <div className="flex flex-col justify-start gap-x-6 gap-y-2 items-start">
               <Label className="font-medium text-lg">
-                What is the balance of this account on the zakat pay date?
+                {textConstants.itemQuantityLabel}
               </Label>
               <div className="flex w-full">
                 <FormField
@@ -129,7 +127,7 @@ const SummaryForm: React.FC<SummaryProps> = ({
           </div>
           <div className="flex justify-between items-center">
             <span className="xs:text-base font-medium sm:text-xl flex-1">
-              Your payable zakat for this item is:
+              {textConstants.zakatPayableText}
             </span>
             <span className="font-semibold text-2xl text-zakatText flex-1 text-end">
               {zakatVal !== null ? `$${zakatVal.toFixed(2)}` : '$0.00'}
@@ -145,10 +143,12 @@ const SummaryForm: React.FC<SummaryProps> = ({
                 onClick={handleBack}
               >
                 <ArrowLeftIcon />
-                Back
+                {textConstants.formBackButtonText}
               </Link>
               <Button className="bg-detailsBtn text-btnText font-normal hover:bg-btnHover">
-                {id ? 'Update Item' : 'Add Item'}
+                {id
+                  ? textConstants.formEditItemButton
+                  : textConstants.formAddItemButton}
               </Button>
             </div>
           </div>

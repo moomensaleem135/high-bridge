@@ -1,6 +1,7 @@
 import { ArrowLeftIcon, ErrorIcon } from '@/assets/svgs';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
+import { textConstants } from '@/configs/textConstants';
 import { zodResolver } from '@hookform/resolvers/zod';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
@@ -65,7 +66,7 @@ export const HaveYouRecordedAssets: React.FC<HaveYouRecordedAssetsProps> = ({
           data-testid="event-form"
         >
           <h2 className="xs:text-xl font-medium sm:text-2xl flex-1 mt-4">
-            Have you already recorded this amount in your liquid assets?
+            {textConstants.alreadyRecorderHeading}
           </h2>
           <div className="flex flex-col mt-2 w-full text-base text-black max-md:max-w-full">
             <ul className="flex flex-col pt-2.5 pl-6 mt-2.5 w-full max-md:pl-5 max-md:max-w-full">
@@ -135,13 +136,13 @@ export const HaveYouRecordedAssets: React.FC<HaveYouRecordedAssetsProps> = ({
                 }}
               >
                 <ArrowLeftIcon />
-                Back
+                {textConstants.formBackButtonText}
               </Link>
               <Button
                 className="bg-detailsBtn text-btnText font-normal hover:bg-btnHover px-4"
                 onClick={form.handleSubmit(onSubmit)}
               >
-                Next
+                {textConstants.formNextButtonText}
               </Button>
             </div>
           </div>

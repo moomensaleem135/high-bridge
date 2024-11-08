@@ -30,6 +30,7 @@ import Spinner from '@/components/common/Spinner';
 import Calendar from '../../../common/calendar';
 import ReligionDropdown from '../../profilesetup/profile-setupform/religionDropdown';
 import { handleDateChange } from '@/lib/helpers';
+import { textConstants } from '@/configs/textConstants';
 
 interface ProfileDetailsProps {}
 
@@ -109,12 +110,12 @@ const ProfileDetailsForm: React.FC<ProfileDetailsProps> = () => {
     try {
       dispatch(profileData({ setupData: submissionData }));
 
-      toast.success(`Profile setup successful. `, {
+      toast.success(textConstants.profileSetupSuccessMessage, {
         position: 'top-right',
       });
     } catch (error) {
-      console.error('Error creating event:', error);
-      toast.error('Failed to Create event', {
+      console.error(textConstants.profileSetupErrorMessage, error);
+      toast.error(textConstants.profileSetupErrorMessage, {
         position: 'top-right',
       });
     }
@@ -152,7 +153,7 @@ const ProfileDetailsForm: React.FC<ProfileDetailsProps> = () => {
           </div> */}
           <div className="w-full items-center">
             <div className="flex flex-col justify-start gap-y-2 items-start">
-              <Label>According to which calendar do you pay zakat?</Label>
+              <Label>{textConstants.calendarLabel}</Label>
               <FormField
                 control={form.control}
                 name="year"
@@ -178,7 +179,7 @@ const ProfileDetailsForm: React.FC<ProfileDetailsProps> = () => {
               <div className="w-full flex justify-evenly items-center">
                 <div className="flex flex-col gap-y-2 items-center w-full h-[88px]">
                   <div className="col-span-12 w-full">
-                    <Label>Which date to pay Zakat?</Label>
+                    <Label>{textConstants.zakatDateLabel}</Label>
                   </div>
                   <div
                     className="col-span-6 w-full rounded-lg"
@@ -217,10 +218,10 @@ const ProfileDetailsForm: React.FC<ProfileDetailsProps> = () => {
               <div>
                 {startDate && selectedDate && (
                   <>
-                    The Zakat period starts on{' '}
+                    {textConstants.zakatPeriodTextStart}{' '}
                     <span className="font-semibold">{selectedDate}</span> and
                     ends on <span className="font-semibold">{startDate}</span>{' '}
-                    of the following year.
+                    {textConstants.zakatPeriodTextEnd}
                   </>
                 )}
               </div>

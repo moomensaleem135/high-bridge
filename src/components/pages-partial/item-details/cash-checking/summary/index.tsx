@@ -14,6 +14,7 @@ import { editZakat } from '@/store/features/zakat/zakatSlice';
 import { calculateZakat } from '@/lib/helpers';
 import { CashIItems } from '@/lib/types';
 import SummaryForm from '@/components/common/summaryForm';
+import { textConstants } from '@/configs/textConstants';
 
 interface SummaryProps {
   setValue: (value: number) => void;
@@ -110,13 +111,16 @@ const CashSummaryForm: React.FC<SummaryProps> = ({
       if (id) {
         dispatch(updateCashItem(itemData));
         dispatch(editZakat(zakatCalData));
-        toast.success(`${itemsData.item} item edited successfully.`, {
-          position: 'top-right',
-        });
+        toast.success(
+          `${itemsData.item} ${textConstants.itemEditSuccessText}`,
+          {
+            position: 'top-right',
+          }
+        );
       } else {
         dispatch(addCashItems(itemData));
         dispatch(zakatCal(zakatCalData));
-        toast.success(`${itemsData.item} item added successfully.`, {
+        toast.success(`${itemsData.item} ${textConstants.itemAddSuccessText}`, {
           position: 'top-right',
         });
       }

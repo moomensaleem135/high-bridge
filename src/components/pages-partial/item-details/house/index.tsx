@@ -6,6 +6,7 @@ import { NotAcceptable } from './details/notAcceptable';
 import { HaveYouRecordedAssets } from './details/recorded';
 import HouseItemDetailsForm from './details/detailForm';
 import HouseSummaryForm from './details/summary';
+import { textConstants } from '@/configs/textConstants';
 
 const purposeOptions = [
   {
@@ -76,11 +77,12 @@ export default function HouseDetails() {
     <div className="flex flex-col self-stretch w-full gap-y-4 overflow-y-scroll xs:mb-16 lg:my-5 gridscrollbar">
       <div className="flex flex-col justify-center items-center ">
         <h1 className="text-center px-4 text-3xl font-semibold">
-          {id ? 'Edit House Items' : 'Add House Items'}
+          {id
+            ? textConstants.editHouseItemTitle
+            : textConstants.addHouseItemTitle}
         </h1>
         <span className="text-center px-4 font-normal text-base mt-2 leading-6 mb-2">
-          Please add your house items, as zakat is valid only on savings and
-          items held for trading or rental purposes.
+          {textConstants.houseItemDescription}
         </span>
         <hr className="w-full border-[1px] border-underline" />
       </div>
@@ -110,22 +112,22 @@ export default function HouseDetails() {
         )}
         {step === 2 && selectedOption === 'Yes' && (
           <NotAcceptable
-            title="Your Zakat is not applicable to this item."
-            description="You have already included your zakat in your liquid assets; therefore, no zakat is required for this item."
+            title={textConstants.zakatNotApplicableHeading}
+            description={textConstants.zakatAlreadyRecordedText}
             handleBack={handleBack}
           />
         )}
         {step === 1 && selectedPurpose === 'Personal' && (
           <NotAcceptable
-            title="Your Zakat is not applicable to this item."
-            description="Zakat is not applicable for items used for Personal Use. This means you don’t need to pay zakat on things you use for living, as zakat only applies to items for trading, rental, or savings."
+            title={textConstants.zakatNotApplicableHeading}
+            description={textConstants.personalUseText}
             handleBack={handleBack}
           />
         )}
         {step === 1 && selectedPurpose === 'Trading' && (
           <NotAcceptable
-            title="Your zakat is applicable to this item."
-            description="Zakat is applicable to assets designated for trading. Kindly include this item in your commercial assets, as zakat is calculated based on items held for sale or profit."
+            title={textConstants.zakatNotApplicableHeading}
+            description={textConstants.tradeUseText}
             handleBack={handleBack}
           />
         )}

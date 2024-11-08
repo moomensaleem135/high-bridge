@@ -9,6 +9,7 @@ import { useRouter } from 'next/navigation';
 import { IncomeChoice } from '@/store/features/income/incomeSlice';
 import { Inter } from 'next/font/google';
 import { object } from 'zod';
+import { textConstants } from '@/configs/textConstants';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -111,7 +112,9 @@ const ZakatCard = () => {
       {/* Render Personal Items */}
       {hasPersonalItems && (
         <div>
-          <h2 className="font-medium text-2xl mb-2">Personal Property:</h2>
+          <h2 className="font-medium text-2xl mb-2">
+            {textConstants.personalPropertyType}
+          </h2>
 
           {/* Render Gold & Silver if present */}
           {categorizedItems.personal?.['Gold & Silver'] &&
@@ -119,11 +122,11 @@ const ZakatCard = () => {
               <div className="p-4 bg-cardbg rounded-xl border-cardBorder border-[1px] mb-4">
                 <div className="font-medium text-xl flex gap-2">
                   <div className="xs:text-base sm:text-xl text-agTableTop">
-                    Gold & Silver
+                    {textConstants.reviewGoldAndSilver}
                   </div>
                   <div className="font-medium text-sm flex justify-center items-center text-agTableTop">
                     {/* ({categorizedItems.personal['Gold & Silver'][0].religion}) */}
-                    (Assembly of Muslim Jurists of America)
+                    {/* (Assembly of Muslim Jurists of America) */}
                   </div>
                 </div>
                 {categorizedItems.personal['Gold & Silver'].map(
@@ -161,7 +164,7 @@ const ZakatCard = () => {
                             <span
                               className={`text-sm font-medium ${inter.className}`}
                             >
-                              Preview
+                              {textConstants.previewButtonText}
                             </span>
                           </Button>
                           <span
@@ -186,11 +189,11 @@ const ZakatCard = () => {
               <div className="p-4 bg-cardbg rounded-xl border-cardBorder border-[1px] mb-4">
                 <div className="font-medium text-xl flex gap-2">
                   <div className="xs:text-base sm:text-xl text-agTableTop">
-                    House
+                    {textConstants.reviewHouse}
                   </div>
                   <div className="font-medium text-sm flex justify-center items-center text-agTableTop">
                     {/* ({houseItems.personal['Cash & Checking'][0].religion}) */}
-                    (Assembly of Muslim Jurists of America)
+                    {/* (Assembly of Muslim Jurists of America) */}
                   </div>
                 </div>
                 {houseItems.personal['House'].map((item: any, index: any) => (
@@ -227,7 +230,7 @@ const ZakatCard = () => {
                           <span
                             className={`text-sm font-medium ${inter.className}`}
                           >
-                            Preview
+                            {textConstants.previewButtonText}
                           </span>
                         </Button>
                         <span
@@ -255,11 +258,11 @@ const ZakatCard = () => {
               <div className="p-4 bg-cardbg rounded-xl border-cardBorder border-[1px] mb-4">
                 <div className="font-medium text-xl flex gap-2">
                   <div className="xs:text-base sm:text-xl text-agTableTop">
-                    Cash & Checking
+                    {textConstants.reviewCashAndChecking}
                   </div>
                   <div className="font-medium text-sm flex justify-center items-center text-agTableTop">
                     {/* ({categorizedCash.personal['Cash & Checking'][0].religion}) */}
-                    (Assembly of Muslim Jurists of America)
+                    {/* (Assembly of Muslim Jurists of America) */}
                   </div>
                 </div>
                 {categorizedCash.personal[
@@ -298,7 +301,7 @@ const ZakatCard = () => {
                           <span
                             className={`text-sm font-medium ${inter.className}`}
                           >
-                            Preview
+                            {textConstants.previewButtonText}
                           </span>
                         </Button>
                         <span
@@ -365,7 +368,7 @@ const ZakatCard = () => {
                         className="flex justify-center items-center"
                       >
                         <Button className="bg-black text-white font-medium text-xs hover:bg-[#5e5f5d]">
-                          Preview
+                          {textConstants.previewButtonText}
                         </Button>
                       </Link>
                     </div>

@@ -138,7 +138,10 @@ const VerifyCode: React.FC<VerifyProps> = () => {
               {textConstants.backToLoginText}
             </Link>
             <span className="font-medium text-sm text-end">
-              {textConstants.resendCodeText}
+              {textConstants.codeText}{' '}
+              <span className="font-medium text-sm text-end text-resendText">
+                {textConstants.resendText}
+              </span>
             </span>
           </div>
         </form>

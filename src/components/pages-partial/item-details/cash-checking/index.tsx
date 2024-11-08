@@ -6,6 +6,7 @@ import { useSearchParams } from 'next/navigation';
 import ItemChoiceForm from './choiceForm';
 import ItemDetailsForm from './detailsForm';
 import Summary from './summary';
+import { textConstants } from '@/configs/textConstants';
 
 export default function CashItemDetails() {
   const searchparams = useSearchParams();
@@ -23,18 +24,17 @@ export default function CashItemDetails() {
       <div className="flex flex-col justify-center items-center ">
         {id ? (
           <h1 className="text-center px-4 text-3xl font-semibold">
-            Update Cash & Checking Items
+            {textConstants.editCashAndChecking}
           </h1>
         ) : (
           <h1 className="text-center px-4 text-3xl font-semibold">
-            {value <= 1 && <>Add Liquid Assets Items</>}
-            {value > 1 && <>Liquid Asset Item Summary Report</>}
+            {value <= 1 && <>{textConstants.addLiquidAssetsMainHeading}</>}
+            {value > 1 && <>{textConstants.liquidAssetSummaryReport}</>}
           </h1>
         )}
 
         <span className="text-center px-4 font-normal text-base mt-2 leading-6 mb-2 lg:w-3/4 w-full">
-          Here’s what you have so far. Please add your cash and checking account
-          balances for accurate zakat calculation
+          {textConstants.LiquidItemsMainParagraph}
         </span>
         <hr className="w-full border-[1px] border-underline" />
       </div>

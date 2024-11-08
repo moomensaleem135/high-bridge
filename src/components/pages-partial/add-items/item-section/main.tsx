@@ -16,9 +16,7 @@ const MainSection = () => {
       <div className="flex justify-between items-center w-full pt-3 pb-3 pl-4 pr-4">
         <span className="font-medium text-lg text-agTableTop">
           {income ? income : 'Gold & Silver'}
-          <span className="font-medium text-sm ">
-            (Assembly of Muslim Jurists of America)
-          </span>
+          <span className="font-medium text-sm "></span>
         </span>
         <div
           className="cursor-pointer"

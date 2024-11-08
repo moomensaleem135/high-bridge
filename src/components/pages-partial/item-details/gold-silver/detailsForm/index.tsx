@@ -20,6 +20,7 @@ import { ErrorIcon } from '@/assets/svgs';
 import { calculateZakat } from '@/lib/helpers';
 import { GoldIItems } from '@/lib/types';
 import StepperComponent from '@/components/ui/stepper';
+import { textConstants } from '@/configs/textConstants';
 
 interface ItemDetailsProps {
   setValue: (value: number) => void;
@@ -174,7 +175,7 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = ({
         >
           <div className="w-full items-center">
             <div className="flex flex-col justify-start gap-x-6 gap-y-2 items-start">
-              <Label>4 . What is the purity of this item?</Label>
+              <Label>{textConstants.goldItemQualityLabel}</Label>
               <FormField
                 control={form.control}
                 name="quality"
@@ -197,7 +198,7 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = ({
 
           <div className="w-full items-center">
             <div className="flex flex-col justify-start gap-x-6 gap-y-2 items-start">
-              <Label>5 . What is the estimated weight of this item?</Label>
+              <Label>{textConstants.goldItemWeightLabel}</Label>
               <div className="flex w-full">
                 <FormField
                   control={form.control}
@@ -250,7 +251,7 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = ({
 
           <div className="w-full items-center">
             <div className="flex flex-col justify-start gap-x-6 gap-y-2 items-start">
-              <Label>6 . What is the price to buy this item?</Label>
+              <Label>{textConstants.goldItemPriceLabel}</Label>
               <div className="flex w-full">
                 <FormField
                   control={form.control}
@@ -286,7 +287,7 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = ({
           </div>
           <div className="flex justify-between items-center">
             <span className="xs:text-base font-medium sm:text-xl flex-1">
-              Your payable zakat for this item is:
+              {textConstants.zakatPayableText}
             </span>
             <span className="font-semibold text-2xl text-zakatText flex-1 text-end">
               {payableAmount !== null
@@ -306,14 +307,14 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = ({
                 }}
               >
                 <ArrowLeftIcon />
-                Back
+                {textConstants.formBackButtonText}
               </Link>
               <Button
                 className="bg-detailsBtn text-btnText font-normal hover:bg-btnHover"
                 onClick={form.handleSubmit(onSubmit)}
                 type="button"
               >
-                Next
+                {textConstants.formNextButtonText}
               </Button>
             </div>
           </div>

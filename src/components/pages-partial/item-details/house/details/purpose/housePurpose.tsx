@@ -10,6 +10,7 @@ import { Label } from '@/components/ui/label';
 import { HouseIItems } from '@/lib/types';
 import { useAppSelector } from '@/store/hooks';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { textConstants } from '@/configs/textConstants';
 
 interface HousePurposeFormProps {
   setSelectedPurpose: any;
@@ -107,8 +108,7 @@ export const HousePurposeForm: React.FC<HousePurposeFormProps> = ({
           data-testid="event-form"
         >
           <h2 className="xs:text-xl font-medium sm:text-2xl flex-1">
-            Please select the purpose of your house by choosing one of the
-            options below:
+            {textConstants.houseOptionsText}
           </h2>
           <ul className="list-inside list-disc  pl-0">
             {purposeOptions.map((option) => (
@@ -125,7 +125,7 @@ export const HousePurposeForm: React.FC<HousePurposeFormProps> = ({
           </ul>
 
           <Label className="font-medium text-xl">
-            Select one option to proceed to the next step.
+            {textConstants.housePurposeLabel}
           </Label>
           <div>
             <div className="w-full items-center flex justify-start gap-x-20 pl-4">
@@ -217,13 +217,13 @@ export const HousePurposeForm: React.FC<HousePurposeFormProps> = ({
                 }}
               >
                 <ArrowLeftIcon />
-                Back
+                {textConstants.formBackButtonText}
               </div>
               <Button
                 className="bg-detailsBtn text-btnText font-normal hover:bg-btnHover"
                 onClick={form.handleSubmit(onSubmit)}
               >
-                Next
+                {textConstants.formNextButtonText}
               </Button>
             </div>
           </div>

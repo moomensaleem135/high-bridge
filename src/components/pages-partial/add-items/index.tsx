@@ -8,6 +8,7 @@ import MainSection from './item-section/main';
 import Link from 'next/link';
 import { ArrowLeftIcon } from '@/assets/svgs';
 import { useRouter } from 'next/navigation';
+import { textConstants } from '@/configs/textConstants';
 
 export default function PartialAddItems() {
   const router = useRouter();
@@ -26,18 +27,15 @@ export default function PartialAddItems() {
           <div className="w-full md:w-2/3 text-center pb-4 pt-2">
             {income === 'Gold & Silver' ? (
               <span className="text-center px-4 font-normal text-base mt-2 leading-6 mb-2">
-                Here’s what you have so far. Please add your gold and silver
-                items such as tola, grams, or ounces.
+                {textConstants.addGoldAndSilverItemsText}
               </span>
             ) : income === 'House' ? (
               <span className="text-center px-4 font-normal text-base mt-2 leading-6 mb-2">
-                Please add your house items, as zakat is valid only on savings
-                and items held for trading or rental purposes.
+                {textConstants.addHouseItemsText}
               </span>
             ) : (
               <span className="text-center px-4 font-normal text-base mt-2 leading-6 mb-2">
-                Here’s what you have so far. Please add your cash, checking,
-                saving, and loan balances for an accurate zakat calculation.
+                {textConstants.addCashAndCheckingItemsText}
               </span>
             )}
           </div>
@@ -59,7 +57,7 @@ export default function PartialAddItems() {
                   href={''}
                 >
                   <ArrowLeftIcon />
-                  Back
+                  {textConstants.formBackButtonText}
                 </Link>
               </div>
             </div>

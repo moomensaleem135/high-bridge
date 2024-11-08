@@ -1,19 +1,17 @@
 'use client';
 import React from 'react';
-import { useDispatch, UseDispatch, useSelector } from 'react-redux';
-import { useForm, Controller } from 'react-hook-form';
+import { useDispatch, useSelector } from 'react-redux';
+import { useForm } from 'react-hook-form';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { z } from 'zod';
 import Link from 'next/link';
 import toast from 'react-hot-toast';
 
-import { Form, FormControl, FormField } from '@/components/ui/form';
+import { Form, FormField } from '@/components/ui/form';
 import { ArrowLeftIcon } from '@/assets/svgs';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { IconInput } from '@/components/ui/icon-input';
 
 import { Button } from '@/components/ui/button';
-import { Checkbox } from '@/components/ui/checkbox';
 import { Label } from '@/components/ui/label';
 import { ErrorIcon } from '@/assets/svgs';
 
@@ -21,12 +19,11 @@ import { useCreateItemMutation } from '@/store/features/items/itemsApi';
 import { addItems } from '@/store/features/items/golditemsSlice';
 import { updateItem } from '@/store/features/items/golditemsSlice';
 
-import Spinner from '@/components/common/Spinner';
 import { calculateZakat } from '@/lib/helpers';
 import { GoldIItems } from '@/lib/types';
 import { zakatCal } from '@/store/features/zakat/zakatSlice';
 import { editZakat } from '@/store/features/zakat/zakatSlice';
-import { useAppSelector } from '@/store/hooks';
+import { textConstants } from '@/configs/textConstants';
 
 interface GoldSummaryProps {
   setValue: (value: number) => void;
@@ -193,7 +190,7 @@ const GoldSummaryForm: React.FC<GoldSummaryProps> = ({
         >
           <div className="flex flex-col gap-y-2">
             <Label className="font-medium text-xl">
-              Which item do you have?
+              {textConstants.itemLabel}
             </Label>
 
             <div className="flex w-full">
@@ -218,7 +215,7 @@ const GoldSummaryForm: React.FC<GoldSummaryProps> = ({
           <div className="w-full items-center">
             <div className="flex flex-col justify-start gap-x-6 gap-y-2 items-start">
               <Label className="font-medium text-lg">
-                What is the purpose of this item?
+                {textConstants.goldItemPurposeLabel}
               </Label>
               <div className="flex w-full">
                 <FormField
@@ -244,7 +241,7 @@ const GoldSummaryForm: React.FC<GoldSummaryProps> = ({
           <div className="w-full items-center">
             <div className="flex flex-col justify-start gap-x-6 gap-y-2 items-start">
               <Label className="font-medium text-lg">
-                Does this accessible level in your society?
+                {textConstants.goldItemExcessiveAmountText}
               </Label>
               <div className="flex w-full">
                 <FormField
@@ -269,7 +266,7 @@ const GoldSummaryForm: React.FC<GoldSummaryProps> = ({
           <div className="w-full items-center">
             <div className="flex flex-col justify-start gap-x-6 gap-y-2 items-start">
               <Label className="font-medium text-lg">
-                What is the purity of this item?
+                {textConstants.goldItemQualityLabel}
               </Label>
               <div className="flex w-full">
                 <FormField
@@ -294,7 +291,7 @@ const GoldSummaryForm: React.FC<GoldSummaryProps> = ({
           <div className="w-full items-center">
             <div className="flex flex-col justify-start gap-x-6 gap-y-2 items-start">
               <Label className="font-medium text-lg">
-                What is the estimated weight of this item?
+                {textConstants.goldItemWeightLabel}
               </Label>
               <div className="w-full items-center flex justify-start">
                 <div className="flex justify-center items-center">
@@ -308,7 +305,7 @@ const GoldSummaryForm: React.FC<GoldSummaryProps> = ({
           <div className="w-full items-center">
             <div className="flex flex-col justify-start gap-x-6 gap-y-2 items-start">
               <Label className="font-medium text-lg">
-                What is the price to buy this item?
+                {textConstants.goldItemPriceLabel}
               </Label>
               <div className="flex w-full">
                 <FormField
@@ -332,7 +329,7 @@ const GoldSummaryForm: React.FC<GoldSummaryProps> = ({
           </div>
           <div className="flex justify-between items-center">
             <span className="xs:text-base font-medium sm:text-xl flex-1">
-              Your payable zakat for this item is:
+              {textConstants.zakatPayableText}
             </span>
             <span className="font-semibold text-2xl text-zakatText flex-1 text-end">
               {zakatVal !== null ? `$${zakatVal.toFixed(2)}` : '$0.00'}
@@ -348,7 +345,7 @@ const GoldSummaryForm: React.FC<GoldSummaryProps> = ({
                 onClick={() => setValue(value - 1)}
               >
                 <ArrowLeftIcon />
-                Back
+                {textConstants.formBackButtonText}
               </Link>
 
               {id ? (
@@ -356,11 +353,11 @@ const GoldSummaryForm: React.FC<GoldSummaryProps> = ({
                   className="bg-detailsBtn text-btnText font-normal hover:bg-btnHover"
                   onClick={form.handleSubmit(onSubmit)}
                 >
-                  Update Item
+                  {textConstants.formEditItemButton}
                 </Button>
               ) : (
                 <Button className="bg-detailsBtn text-btnText font-normal hover:bg-btnHover">
-                  Add Item
+                  {textConstants.formAddItemButton}
                 </Button>
               )}
             </div>

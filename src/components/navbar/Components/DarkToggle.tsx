@@ -2,6 +2,7 @@ import * as React from 'react';
 import { useTheme } from 'next-themes';
 import { Switch } from '@/components/ui/switch';
 import { ModeIcon } from '@/assets/svgs/mode';
+import { textConstants } from '@/configs/textConstants';
 export function DarkToggle() {
   const { theme, setTheme } = useTheme();
 
@@ -11,7 +12,9 @@ export function DarkToggle() {
     <div className="flex flex-row items-center bg-background h-14 justify-between rounded-lg px-3">
       <div className="flex justify-evenly items-center gap-3">
         <ModeIcon />
-        <span className="text-heading text-sm font-medium">Dark Mode</span>
+        <span className="text-heading text-sm font-medium">
+          {textConstants.navModeSelection}
+        </span>
       </div>
 
       <Switch

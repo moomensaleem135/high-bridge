@@ -40,6 +40,7 @@ import {
 import { DarkToggle } from './DarkToggle';
 import { Hamburger } from './Hamburger';
 import { matches } from 'cypress/types/lodash';
+import { textConstants } from '@/configs/textConstants';
 
 interface NavItemProps {
   to: string;
@@ -137,22 +138,35 @@ const NavItem = memo(
 );
 
 const navItems = [
-  { to: homeUrl, label: 'Home', Symbol: HomeIcon },
-  { to: profilesetupUrl, label: 'Setup', Symbol: SetupIcon },
-  { to: incomeUrl, label: 'Income', Symbol: IncomeIcon },
-  { to: deductionUrl, label: 'Deductions', Symbol: DeductionIcon },
-  { to: reviewUrl, label: 'Review Zakat', Symbol: ReviewIcon },
-  { to: zakatUrl, label: 'Pay Zakat', Symbol: ZakatIcon },
+  { to: homeUrl, label: textConstants.navHome, Symbol: HomeIcon },
+  {
+    to: profilesetupUrl,
+    label: textConstants.navProfileSetup,
+    Symbol: SetupIcon,
+  },
+  { to: incomeUrl, label: textConstants.navIncome, Symbol: IncomeIcon },
+  {
+    to: deductionUrl,
+    label: textConstants.navDeduction,
+    Symbol: DeductionIcon,
+  },
+  { to: reviewUrl, label: textConstants.navReviewZakat, Symbol: ReviewIcon },
+  { to: zakatUrl, label: textConstants.navPayZakat, Symbol: ZakatIcon },
 ];
 
 const settingItems = [
-  { to: profileUrl, label: 'Profile', Symbol: ProfileIcon },
-  { to: settingsUrl, label: 'Settings', Symbol: SettingsIcon },
+  { to: profileUrl, label: textConstants.navProfile, Symbol: ProfileIcon },
+  { to: settingsUrl, label: textConstants.navSettings, Symbol: SettingsIcon },
 ];
 
 const profileItems = [
-  { to: helpUrl, label: 'Help', Symbol: HelpIcon },
-  { to: signinUrl, label: 'Logout Account', Symbol: LogoutIcon, logout: true },
+  { to: helpUrl, label: textConstants.navHelp, Symbol: HelpIcon },
+  {
+    to: signinUrl,
+    label: textConstants.navLogOut,
+    Symbol: LogoutIcon,
+    logout: true,
+  },
 ];
 
 NavItem.displayName = 'NavItem';
@@ -250,7 +264,7 @@ const LeftNavbar = ({
                 <div className="flex flex-col space-y-1 transition-all duration-300">
                   <div className="mt-2 pl-3">
                     <span className="text-headingColor text-[10px] font-[500] tracking-[0.5px] leading-3">
-                      MAIN
+                      {textConstants.mainSectionHeading}
                     </span>
                   </div>
 
@@ -277,7 +291,7 @@ const LeftNavbar = ({
                   <div className="flex flex-col py-3 space-y-1">
                     <div className={cn(collapseNav && 'pl-3')}>
                       <span className="text-headingColor text-[10px] font-[500] tracking-[0.5px] leading-3">
-                        SETTINGS
+                        {textConstants.settingsSectionHeading}
                       </span>
                     </div>
 

@@ -15,6 +15,7 @@ import { Label } from '@/components/ui/label';
 import { ErrorIcon } from '@/assets/svgs';
 import StepperComponent from '@/components/ui/stepper';
 import { GoldIItems } from '@/lib/types';
+import { textConstants } from '@/configs/textConstants';
 
 interface GoldChoiceProps {
   setValue: (value: number) => void;
@@ -117,7 +118,9 @@ const GoldChoiceForm: React.FC<GoldChoiceProps> = ({
           className="flex flex-col w-[82%] gap-5 mb-10"
           data-testid="event-form"
         >
-          <Label className="font-medium text-xl">Which item do you have?</Label>
+          <Label className="font-medium text-xl">
+            {textConstants.itemLabel}
+          </Label>
           <div>
             <div className="w-full items-center flex justify-start xs:gap-x-10 md:gap-x-28 pl-4">
               <div className="flex justify-center items-center gap-4">
@@ -164,7 +167,7 @@ const GoldChoiceForm: React.FC<GoldChoiceProps> = ({
           </div>
 
           <Label className="font-medium text-xl">
-            What is the purpose of this item?
+            {textConstants.goldItemPurposeLabel}
           </Label>
           <div>
             <div className="w-full items-center flex justify-start xs:gap-x-10 md:gap-x-20 pl-4">
@@ -225,17 +228,12 @@ const GoldChoiceForm: React.FC<GoldChoiceProps> = ({
                 }}
               >
                 <ArrowLeftIcon />
-                Back
+                {textConstants.formBackButtonText}
               </div>
-              {id ? (
-                <Button className="bg-detailsBtn text-btnText font-normal hover:bg-btnHover">
-                  Next
-                </Button>
-              ) : (
-                <Button className="bg-detailsBtn text-btnText font-normal hover:bg-btnHover">
-                  Next
-                </Button>
-              )}
+
+              <Button className="bg-detailsBtn text-btnText font-normal hover:bg-btnHover">
+                {textConstants.formNextButtonText}
+              </Button>
             </div>
           </div>
         </form>

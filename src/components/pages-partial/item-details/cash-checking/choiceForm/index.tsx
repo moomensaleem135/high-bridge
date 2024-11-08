@@ -14,6 +14,7 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { Label } from '@/components/ui/label';
 import { ErrorIcon } from '@/assets/svgs';
 import { CashIItems } from '@/lib/types';
+import { textConstants } from '@/configs/textConstants';
 
 interface ItemChoiceProps {
   setValue: (value: number) => void;
@@ -104,7 +105,9 @@ const ItemChoiceForm: React.FC<ItemChoiceProps> = ({
           className="flex flex-col w-[82%] gap-5 mb-10"
           data-testid="event-form"
         >
-          <Label className="font-medium text-xl">Which item do you have?</Label>
+          <Label className="font-medium text-xl">
+            {textConstants.itemLabel}
+          </Label>
           <div>
             <div className="w-full xl:items-center xl:flex xl:flex-row xl:justify-start xl:gap-x-28 xs:flex-col xs:items-start xs:justify-start xs:gap-y-10 pl-4">
               <div className="flex justify-start items-center gap-4">
@@ -199,17 +202,12 @@ const ItemChoiceForm: React.FC<ItemChoiceProps> = ({
                 }}
               >
                 <ArrowLeftIcon />
-                Back
+                {textConstants.formBackButtonText}
               </div>
-              {id ? (
-                <Button className="bg-detailsBtn text-btnText font-normal hover:bg-btnHover">
-                  Next
-                </Button>
-              ) : (
-                <Button className="bg-detailsBtn text-btnText font-normal hover:bg-btnHover">
-                  Next
-                </Button>
-              )}
+
+              <Button className="bg-detailsBtn text-btnText font-normal hover:bg-btnHover">
+                {textConstants.formNextButtonText}
+              </Button>
             </div>
           </div>
         </form>

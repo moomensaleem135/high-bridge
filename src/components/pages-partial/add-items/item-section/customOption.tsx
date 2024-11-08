@@ -1,6 +1,7 @@
 import React from 'react';
 import { EditIcon } from '@/assets/svgs/edit';
 import { DeleteIcon } from '@/assets/svgs/delete';
+import { textConstants } from '@/configs/textConstants';
 
 interface CustomOptionsProps {
   id: string;
@@ -24,7 +25,9 @@ const CustomOptions: React.FC<CustomOptionsProps> = ({
         <button aria-label="Edit" className="flex items-center">
           <EditIcon className="transition-colors xs:w-10 xl:w-5" />
         </button>
-        <span className="text-xs font-normal xs:hidden xl:block">Edit</span>
+        <span className="text-xs font-normal xs:hidden xl:block">
+          {textConstants.editText}
+        </span>
       </div>
 
       <div
@@ -34,7 +37,9 @@ const CustomOptions: React.FC<CustomOptionsProps> = ({
         <button aria-label="Delete" className="flex items-center">
           <DeleteIcon className="transition-colors xs:w-10 xl:w-5" />
         </button>
-        <span className="text-xs font-normal xs:hidden xl:block">Delete</span>
+        <span className="text-xs font-normal xs:hidden xl:block">
+          {textConstants.deleteText}
+        </span>
       </div>
     </div>
   );

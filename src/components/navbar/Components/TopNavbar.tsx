@@ -5,6 +5,7 @@ import { ILayoutProps } from '@/lib/types';
 import { cn } from '@/lib/cn';
 import { useRouter } from 'next/navigation';
 import { reviewZakatUrl } from '@/configs/constants';
+import { textConstants } from '@/configs/textConstants';
 
 interface ITopNavbar extends ILayoutProps {
   open: boolean;
@@ -49,7 +50,7 @@ const TopNavbar = ({
         {/* Search Input */}
         <div className="hidden lg:flex pl-7">
           <span className="text-lg font-medium">
-            Zakat Due:{' '}
+            {textConstants.zakatDueValueText}{' '}
             <span
               className="text-zakatText font-bold text-xl cursor-pointer"
               onClick={() => {
@@ -65,7 +66,7 @@ const TopNavbar = ({
       <div className="flex items-center gap-x-4 flex-1">
         <div className="w-full hidden lg:flex lg:justify-end lg:items-center pr-7 gap-x-2">
           <span className="flex justify-center items-center font-medium text-lg">
-            Zakat Pay Date:
+            {textConstants.zakatPayDateText}
           </span>
           <div className="flex flex-col justify-between items-start">
             <span className="text-sm font-medium leading-5">
