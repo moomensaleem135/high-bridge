@@ -62,6 +62,10 @@
   height: 100% !important;
 }
 
+.ag-row {
+  min-height: 40px !important;
+}
+
 .ag-theme-alpine {
   --ag-borders: none !important;
   --ag-header-column-resize-handle-display: none !important;
