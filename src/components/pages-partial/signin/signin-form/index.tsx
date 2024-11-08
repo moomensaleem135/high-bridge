@@ -1,26 +1,23 @@
 'use client';
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { useForm, Controller } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import toast from 'react-hot-toast';
 import Link from 'next/link';
 
 import { Form, FormControl, FormField } from '@/components/ui/form';
 import { IconInput } from '@/components/ui/icon-input';
-import { zodResolver } from '@hookform/resolvers/zod';
-
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
+import Spinner from '@/components/common/Spinner';
 import { ErrorIcon } from '@/assets/svgs';
-
 import { HideIcon, ShowIcon } from '@/assets/svgs';
 
+import { zodResolver } from '@hookform/resolvers/zod';
 import { useCreateEventMutation } from '@/store/features/events/eventsApi';
-import CustomToast from '@/components/common/CustomToast';
-
-import Spinner from '@/components/common/Spinner';
-import { forgetUrl, signupUrl, selectionUrl } from '@/configs/constants';
+import { forgetUrl, selectionUrl } from '@/configs/constants';
+import { textConstants } from '@/configs/textConstants';
 
 interface LoginProps {}
 
@@ -50,7 +47,7 @@ const Login: React.FC<LoginProps> = () => {
     Object.keys(loginData).forEach((key) => {
       const value = loginData[key as keyof FormFields];
       if (value !== undefined && value !== null) {
-        formData.append(key, value as any); // Type assertion for `value` to `any`
+        formData.append(key, value as any);
       }
     });
 
@@ -78,16 +75,16 @@ const Login: React.FC<LoginProps> = () => {
           data-cy="page-title"
           data-testid="page-title"
         >
-          Log In
+          {textConstants.loginTitle}
         </p>
         <p
           className="font-normal text-sm text-slate-900 text-center"
           data-cy="page-description"
           data-testid="page-description"
         >
-          Don’t have an account?{' '}
+          {textConstants.noAccountText}{' '}
           <Link href={selectionUrl}>
-            <u className="font-medium">Sign up</u>
+            <u className="font-medium">{textConstants.signUpText}</u>
           </Link>
         </p>
       </div>
@@ -104,7 +101,7 @@ const Login: React.FC<LoginProps> = () => {
                 name="email"
                 render={({ field }) => (
                   <div className="w-full flex flex-col">
-                    <Label className="mb-2">Email Address:</Label>
+                    <Label className="mb-2">{textConstants.emailLabel}:</Label>
                     <FormControl>
                       <IconInput
                         {...field}
@@ -138,7 +135,7 @@ const Login: React.FC<LoginProps> = () => {
                 render={({ field }) => (
                   <div className="w-full flex flex-col">
                     <div className="flex justify-between">
-                      <Label>Password:</Label>
+                      <Label>{textConstants.passwordLabel}:</Label>
                       <div
                         className="flex items-center justify-between gap-1 cursor-pointer text-iconText "
                         onClick={(e) => {
@@ -148,12 +145,12 @@ const Login: React.FC<LoginProps> = () => {
                         {showPassword ? (
                           <>
                             <ShowIcon />
-                            Hide
+                            {textConstants.hideText}
                           </>
                         ) : (
                           <>
                             <HideIcon />
-                            Show
+                            {textConstants.showText}
                           </>
                         )}
                       </div>
@@ -189,7 +186,7 @@ const Login: React.FC<LoginProps> = () => {
             {/* <div className="flex items-center gap-x-2 "> */}
             <Link href={forgetUrl}>
               <span className="underline text-sm font-medium">
-                Forgot password ?
+                {textConstants.forgotPasswordText} ?
               </span>
             </Link>
             <div className="w-full bg-black h-full p-[6px] rounded-md ">
@@ -200,7 +197,7 @@ const Login: React.FC<LoginProps> = () => {
                 data-testid="event-submit"
                 disabled={isLoading}
               >
-                {isLoading ? <Spinner /> : 'Continue'}
+                {isLoading ? <Spinner /> : textConstants.continueButtonText}
               </Button>
             </div>
           </div>

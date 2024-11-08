@@ -4,6 +4,7 @@ import React, { FormEvent } from 'react';
 import hide from '../../assets/pngs/hide.png';
 import Link from 'next/link';
 import { forgetUrl, signupUrl } from '@/configs/constants';
+import { textConstants } from '@/configs/textConstants';
 
 const Form: React.FC = () => {
   const [email, setEmail] = useState<string>('');

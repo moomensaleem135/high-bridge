@@ -9,12 +9,13 @@ import { Label } from '@/components/ui/label';
 import { ErrorIcon } from '@/assets/svgs';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio';
 import Spinner from '@/components/common/Spinner';
-import { Stepper, Step, StepLabel } from '@mui/material'; // Import MUI Stepper components
+import { Stepper, Step, StepLabel } from '@mui/material';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useCreateEventMutation } from '@/store/features/events/eventsApi';
 import { userSelection } from '@/store/features/selection/selectionSlice';
 import { useDispatch, UseDispatch } from 'react-redux';
 import { Inter } from 'next/font/google';
+import { textConstants } from '@/configs/textConstants';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -80,7 +81,7 @@ const StorageSelection: React.FC = () => {
   const onSubmit = async (data: FormFields) => {
     router.push('signup');
     dispatch(userSelection(data.storage));
-    toast.success(`Storage selection successful.`, {
+    toast.success(textConstants.successMessage, {
       position: 'top-right',
     });
     setActiveStep((prev) => prev + 1);
@@ -120,14 +121,14 @@ const StorageSelection: React.FC = () => {
             data-cy="page-title"
             data-testid="page-title"
           >
-            Choose Your Storage
+            {textConstants.storagePageTitle}
           </p>
           <p
             className="font-normal text-sm text-slate-900 lg:mb-4 text-center"
             data-cy="page-description"
             data-testid="page-description"
           >
-            Select your preferred storage option for your data.
+            {textConstants.pageDescription}
           </p>
         </div>
         <Form {...form}>
@@ -152,12 +153,11 @@ const StorageSelection: React.FC = () => {
                           htmlFor="local-storage"
                           className="font-medium text-lg"
                         >
-                          Local Storage:
+                          {textConstants.localStorageLabel}
                         </Label>
                       </div>
                       <p className="font-normal text-sm">
-                        Your data will be saved on your local drive, no one from
-                        Zakat software can view or access the data.
+                        {textConstants.localStorageDescription}
                       </p>
                     </div>
                     <div className="flex items-start flex-col justify-start">
@@ -170,13 +170,11 @@ const StorageSelection: React.FC = () => {
                           htmlFor="server-storage"
                           className="font-medium text-lg"
                         >
-                          Server Storage:
+                          {textConstants.serverStorageLabel}
                         </Label>
                       </div>
                       <p className="font-normal text-sm">
-                        Your data will be encrypted and saved on the server
-                        side. Only with your approval Zakat software admins can
-                        view or access the data.
+                        {textConstants.serverStorageDescription}
                       </p>
                     </div>
                   </div>
@@ -190,7 +188,6 @@ const StorageSelection: React.FC = () => {
               </span>
             )}
             <div className="w-full flex flex-col gap-3">
-              {/* <div className="flex items-center gap-x-2 "> */}
               <div className="w-full bg-black h-full p-[6px] rounded-md ">
                 <Button
                   className="text-white text-center w-full h-full font-[400]"
@@ -199,7 +196,7 @@ const StorageSelection: React.FC = () => {
                   data-testid="event-submit"
                   disabled={isLoading}
                 >
-                  {isLoading ? <Spinner /> : 'Next'}
+                  {isLoading ? <Spinner /> : textConstants.nextButtonText}
                 </Button>
               </div>
             </div>

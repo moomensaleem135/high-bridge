@@ -4,41 +4,39 @@ import { useForm, Controller } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
 import { z } from 'zod';
 import toast from 'react-hot-toast';
+import { zodResolver } from '@hookform/resolvers/zod';
 
 import { Form, FormControl, FormField } from '@/components/ui/form';
 import PasswordStrengthMeter from '@/components/common/PasswordStrengthMeter';
 import { IconInput } from '@/components/ui/icon-input';
-import { zodResolver } from '@hookform/resolvers/zod';
-
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
+import Spinner from '@/components/common/Spinner';
 import { ErrorIcon } from '@/assets/svgs';
 import { ShowIcon, HideIcon } from '@/assets/svgs';
-
 import { useCreateEventMutation } from '@/store/features/events/eventsApi';
-
-import Spinner from '@/components/common/Spinner';
+import { textConstants } from '@/configs/textConstants';
 
 interface ResetProps {}
 
-const RessetSchema = z.object({
+const ResetSchema = z.object({
   password: z.string().min(1, { message: 'Password is required' }),
   confirmPassword: z
     .string()
-    .min(1, { message: 'Confrim password is required' }),
+    .min(1, { message: 'Confirm password is required' }),
 });
 
-type FormFields = z.infer<typeof RessetSchema>;
+type FormFields = z.infer<typeof ResetSchema>;
 
 const ResetPassword: React.FC<ResetProps> = () => {
   const router = useRouter();
   const [login, { isLoading }] = useCreateEventMutation();
   const [showPassword, setShowPassword] = useState<boolean>(false);
-  const [showConfirmPassword, setShowConfirmPaasword] =
+  const [showConfirmPassword, setShowConfirmPassword] =
     useState<boolean>(false);
 
   const form = useForm<FormFields>({
-    resolver: zodResolver(RessetSchema),
+    resolver: zodResolver(ResetSchema),
     defaultValues: {
       password: '',
       confirmPassword: '',
@@ -58,14 +56,14 @@ const ResetPassword: React.FC<ResetProps> = () => {
     try {
       // const response = await login(formData);
       form.reset();
-      toast.success(`Password reset successful.`, {
+      toast.success(textConstants.resetPasswordSuccessMessage, {
         position: 'top-right',
       });
 
       router.push('/signin');
     } catch (error) {
       console.error('Error creating event:', error);
-      toast.error('Failed to Create event', {
+      toast.error(textConstants.resetPasswordErrorMessage, {
         position: 'top-right',
       });
     }
@@ -79,15 +77,16 @@ const ResetPassword: React.FC<ResetProps> = () => {
           data-cy="page-title"
           data-testid="page-title"
         >
-          Set a Password
+          {textConstants.resetPasswordTitle}
         </p>
         <p
           className="font-normal text-sm text-slate-900 text-center"
           data-cy="page-description"
           data-testid="page-description"
         >
-          Your previous password has been rested. Please set a new <br />{' '}
-          password for your account.
+          {textConstants.resetPasswordDescription.split('new')[0]}new
+          <br />
+          {textConstants.resetPasswordDescription.split('new')[1]}
         </p>
       </div>
       <Form {...form}>
@@ -105,23 +104,21 @@ const ResetPassword: React.FC<ResetProps> = () => {
                   <div className="w-full flex flex-col">
                     <div className="flex justify-between w-full">
                       <Label className="flex justify-center items-start">
-                        Create Password:
+                        {textConstants.createPasswordLabel}
                       </Label>
                       <span
                         className="flex items-center justify-between gap-1 cursor-pointer"
-                        onClick={(e) => {
-                          setShowPassword(!showPassword);
-                        }}
+                        onClick={() => setShowPassword(!showPassword)}
                       >
                         {showPassword ? (
                           <>
                             <ShowIcon />
-                            Hide
+                            {textConstants.hideText}
                           </>
                         ) : (
                           <>
                             <HideIcon />
-                            Show
+                            {textConstants.showText}
                           </>
                         )}
                       </span>
@@ -170,23 +167,23 @@ const ResetPassword: React.FC<ResetProps> = () => {
                   <div className="w-full flex flex-col">
                     <div className="flex w-full justify-between">
                       <Label className="flex justify-center items-start">
-                        Re-enter Password:
+                        {textConstants.confirmPasswordLabel}
                       </Label>
                       <span
                         className="flex items-center justify-between gap-1 cursor-pointer"
-                        onClick={(e) => {
-                          setShowConfirmPaasword(!showConfirmPassword);
-                        }}
+                        onClick={() =>
+                          setShowConfirmPassword(!showConfirmPassword)
+                        }
                       >
                         {showConfirmPassword ? (
                           <>
                             <ShowIcon />
-                            Hide
+                            {textConstants.hideText}
                           </>
                         ) : (
                           <>
                             <HideIcon />
-                            Show
+                            {textConstants.showText}
                           </>
                         )}
                       </span>
@@ -219,7 +216,6 @@ const ResetPassword: React.FC<ResetProps> = () => {
           </div>
 
           <div className="w-full flex">
-            {/* <div className="flex items-center gap-x-2 "> */}
             <div className="w-full bg-black h-[6vh] rounded-md ">
               <Button
                 className="text-white text-center w-full h-full font-[400]"
@@ -228,7 +224,7 @@ const ResetPassword: React.FC<ResetProps> = () => {
                 data-testid="event-submit"
                 disabled={isLoading}
               >
-                {isLoading ? <Spinner /> : 'Set Password'}
+                {isLoading ? <Spinner /> : textConstants.setPasswordButtonText}
               </Button>
             </div>
           </div>

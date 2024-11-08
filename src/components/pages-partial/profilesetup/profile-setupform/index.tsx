@@ -1,39 +1,24 @@
 'use client';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
-import { usePathname, useRouter } from 'next/navigation';
-import { useDispatch, useSelector } from 'react-redux';
+import { useRouter } from 'next/navigation';
+import { useDispatch } from 'react-redux';
 import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
 import toast from 'react-hot-toast';
 
-import { Form, FormControl, FormField } from '@/components/ui/form';
-
-import { zodResolver } from '@hookform/resolvers/zod';
-
+import { Form, FormField } from '@/components/ui/form';
 import { Button } from '@/components/ui/button';
-import DatePicker from '@/components/ui/datepicker';
 import { Label } from '@/components/ui/label';
-import CalendarDropdown from './calendarDropdown';
 import { ErrorIcon } from '@/assets/svgs';
-
 import { useCreateEventMutation } from '@/store/features/events/eventsApi';
-import CustomToast from '@/components/common/CustomToast';
-
 import Spinner from '@/components/common/Spinner';
 import { profileData } from '@/store/features/setup/setupSlice';
-import IslamicCalendar from '@/components/ui/islamic-calendar';
-import ReligionDropdown from './religionDropdown';
 import Calendar from '@/components/common/calendar';
 import { handleDateChange } from '@/lib/helpers';
 import { Stepper, Step, StepLabel } from '@mui/material';
-import { Inter } from 'next/font/google';
-
-const inter = Inter({
-  subsets: ['latin'],
-  weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
-});
-
-import moment from 'moment';
+import { textConstants } from '@/configs/textConstants';
+import CalendarDropdown from './calendarDropdown';
 
 interface ProfileSetupProps {}
 
@@ -50,11 +35,8 @@ const ProfileSetup: React.FC<ProfileSetupProps> = () => {
   const [login, { isLoading }] = useCreateEventMutation();
   const [year, setYear] = useState<string>('');
   const [startDate, setStartDate] = useState<string>('');
-  const [genericDate, setGenericDate] = useState<string>('');
-  const [endDate, setEndDate] = useState<string>('');
   const [show, setShow] = React.useState<boolean>(false);
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
-  const selection = useSelector((state: any) => state.selection.selection);
   const [activeStep, setActiveStep] = useState(2);
   const dispatch = useDispatch();
 
@@ -152,7 +134,7 @@ const ProfileSetup: React.FC<ProfileSetupProps> = () => {
         setupData.year !== '' &&
         setupData.startDate !== ''
       ) {
-        toast.success(`Profile setup successful.`, {
+        toast.success(textConstants.profileSetupSuccessMessage, {
           position: 'top-right',
         });
       }
@@ -161,7 +143,7 @@ const ProfileSetup: React.FC<ProfileSetupProps> = () => {
       setActiveStep((prev) => prev + 1);
     } catch (error) {
       console.error('Error creating event:', error);
-      toast.error('Failed to Create event', {
+      toast.error(textConstants.profileSetupErrorMessage, {
         position: 'top-right',
       });
     }
@@ -200,15 +182,16 @@ const ProfileSetup: React.FC<ProfileSetupProps> = () => {
             data-cy="page-title"
             data-testid="page-title"
           >
-            Profile Setup
+            {textConstants.profileSetupTitle}
           </p>
           <p
             className="font-normal text-sm text-slate-900 max-lg:mb-4 text-center"
             data-cy="page-description"
             data-testid="page-description"
           >
-            You can update this information from the Setup <br />
-            screen anytime if needed.
+            {textConstants.profileSetupDescription.split('screen')[0]}
+            <br />
+            screen{textConstants.profileSetupDescription.split('screen')[1]}
           </p>
         </div>
         <Form {...form}>
@@ -217,30 +200,9 @@ const ProfileSetup: React.FC<ProfileSetupProps> = () => {
             className="flex flex-col w-[82%] gap-5 py-4 xl:gap-6 xl:mb-2"
             data-testid="event-form"
           >
-            {/* <div className="w-full items-center">
-              <div className="flex flex-col justify-start gap-x-6 gap-y-2 items-start">
-                <Label>Which madhab do you follow by default?</Label>
-                <FormField
-                  control={form.control}
-                  name="religion"
-                  render={({ field }) => (
-                    <ReligionDropdown
-                      initialValue={field.value}
-                      onReligionChange={onReligionChange}
-                    />
-                  )}
-                />
-                {form.formState.errors.religion && (
-                  <span className="text-destructive text-sm flex items-center gap-1 mt-2">
-                    <ErrorIcon />
-                    {form.formState.errors.religion.message}
-                  </span>
-                )}
-              </div>
-            </div> */}
             <div className="w-full items-center">
               <div className="flex flex-col justify-start gap-x-6 gap-y-2 items-start">
-                <Label>According to which calendar do you pay zakat?</Label>
+                <Label>{textConstants.calendarLabel}</Label>
                 <FormField
                   control={form.control}
                   name="year"
@@ -262,9 +224,9 @@ const ProfileSetup: React.FC<ProfileSetupProps> = () => {
             </div>
 
             <div className="w-full flex justify-evenly items-center gap-4">
-              <div className="flex flex-col gap-y-2  items-center w-full">
+              <div className="flex flex-col gap-y-2 items-center w-full">
                 <div className="col-span-12 w-full">
-                  <Label>Which date to pay Zakat?</Label>
+                  <Label>{textConstants.zakatDateLabel}</Label>
                 </div>
                 <div
                   className="col-span-6 w-full"
@@ -298,10 +260,10 @@ const ProfileSetup: React.FC<ProfileSetupProps> = () => {
                 <div className="font-light text-xs">
                   {selectedDate && startDate && (
                     <>
-                      The Zakat period starts on{' '}
+                      {textConstants.zakatPeriodTextStart}
                       <span className="font-semibold">{selectedDate}</span> and
-                      ends on <span className="font-semibold">{startDate}</span>{' '}
-                      of the following year.
+                      ends on <span className="font-semibold">{startDate}</span>
+                      {textConstants.zakatPeriodTextEnd}
                     </>
                   )}
                 </div>
@@ -317,16 +279,16 @@ const ProfileSetup: React.FC<ProfileSetupProps> = () => {
                   data-testid="event-submit"
                   disabled={isLoading}
                 >
-                  {isLoading ? <Spinner /> : 'Continue'}
+                  {isLoading ? <Spinner /> : textConstants.continueButtonText}
                 </Button>
               </div>
               <p
-                className="text-center font-medium text-base cursor-pointer "
+                className="text-center font-medium text-base cursor-pointer"
                 onClick={() => {
                   router.push('signin');
                 }}
               >
-                Skip for Now
+                {textConstants.skipText}
               </p>
             </div>
           </form>

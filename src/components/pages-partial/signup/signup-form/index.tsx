@@ -1,28 +1,25 @@
 'use client';
 import React, { useState } from 'react';
-import { useForm, Controller } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
-import { useSelector, useDispatch } from 'react-redux';
 import { z } from 'zod';
 import toast from 'react-hot-toast';
 import Link from 'next/link';
+import { Stepper, Step, StepLabel } from '@mui/material';
+import { zodResolver } from '@hookform/resolvers/zod';
 
 import { Form, FormControl, FormField } from '@/components/ui/form';
 import PasswordStrengthMeter from '@/components/common/PasswordStrengthMeter';
 import { IconInput } from '@/components/ui/icon-input';
-import { zodResolver } from '@hookform/resolvers/zod';
-
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
-import { Checkbox } from '@/components/ui/checkbox';
+import Spinner from '@/components/common/Spinner';
+
 import { ErrorIcon } from '@/assets/svgs';
 import { HideIcon, ShowIcon } from '@/assets/svgs';
-import { Stepper, Step, StepLabel } from '@mui/material';
-
 import { useCreateEventMutation } from '@/store/features/events/eventsApi';
-
-import Spinner from '@/components/common/Spinner';
 import { signinUrl } from '@/configs/constants';
+import { textConstants } from '@/configs/textConstants';
 
 interface SignUpProps {}
 
@@ -32,15 +29,13 @@ const SignUpSchema = z.object({
   password: z.string().min(1, { message: 'Password is required' }),
   confirmPassword: z
     .string()
-    .min(1, { message: 'Confrim Password is required' }),
+    .min(1, { message: 'Confirm Password is required' }),
 });
 
 type FormFields = z.infer<typeof SignUpSchema>;
 
 const SignUp: React.FC<SignUpProps> = () => {
   const router = useRouter();
-  const dispatch = useDispatch();
-  const selection = useSelector((state: any) => state.selection.selection);
   const [signup, { isLoading }] = useCreateEventMutation();
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [activeStep, setActiveStep] = useState(1);
@@ -97,11 +92,11 @@ const SignUp: React.FC<SignUpProps> = () => {
 
   const steps = ['Choose Your Storage', 'Your Details', 'Profile Set Up'];
 
-  const onSubmit = async (sinupData: FormFields) => {
+  const onSubmit = async (signupData: FormFields) => {
     const formData = new FormData();
 
-    Object.keys(sinupData).forEach((key) => {
-      const value = sinupData[key as keyof FormFields];
+    Object.keys(signupData).forEach((key) => {
+      const value = signupData[key as keyof FormFields];
       if (value !== undefined && value !== null) {
         formData.append(key, value as any);
       }
@@ -109,7 +104,7 @@ const SignUp: React.FC<SignUpProps> = () => {
 
     try {
       //const response = await signup(formData);
-      toast.success(`Signup successful.`, {
+      toast.success(textConstants.signupSuccessMessage, {
         position: 'top-right',
       });
 
@@ -117,7 +112,7 @@ const SignUp: React.FC<SignUpProps> = () => {
       setActiveStep((prev: any) => prev + 1);
     } catch (error) {
       console.error('Error creating event:', error);
-      toast.error('Failed to Create event', {
+      toast.error(textConstants.signupErrorMessage, {
         position: 'top-right',
       });
     }
@@ -160,16 +155,16 @@ const SignUp: React.FC<SignUpProps> = () => {
               data-cy="page-title"
               data-testid="page-title"
             >
-              Create an account
+              {textConstants.createAccountTitle}
             </p>
             <p
               className="font-normal text-sm text-slate-900 max-lg:mb-4 text-center"
               data-cy="page-description"
               data-testid="page-description"
             >
-              Already have an account?{' '}
+              {textConstants.alreadyHaveAccountText}{' '}
               <Link href={signinUrl}>
-                <u className="font-medium">Log in</u>
+                <u className="font-medium">{textConstants.logInText}</u>
               </Link>
             </p>
           </div>
@@ -186,7 +181,7 @@ const SignUp: React.FC<SignUpProps> = () => {
                     name="name"
                     render={({ field }) => (
                       <div className="w-full gap-y-2 flex flex-col">
-                        <Label>Username:</Label>
+                        <Label>{textConstants.usernameLabel}</Label>
                         <FormControl>
                           <IconInput
                             {...field}
@@ -218,7 +213,7 @@ const SignUp: React.FC<SignUpProps> = () => {
                     name="email"
                     render={({ field }) => (
                       <div className="w-full gap-y-2 flex flex-col">
-                        <Label>Email Address:</Label>
+                        <Label>{textConstants.emailLabel}:</Label>
                         <FormControl>
                           <IconInput
                             {...field}
@@ -252,7 +247,7 @@ const SignUp: React.FC<SignUpProps> = () => {
                     render={({ field }) => (
                       <div className="w-full flex flex-col">
                         <div className="flex justify-between">
-                          <Label>Password:</Label>
+                          <Label>{textConstants.passwordLabel}:</Label>
                           <span
                             className="flex items-center justify-between gap-1 cursor-pointer text-iconText"
                             onClick={(e) => {
@@ -262,12 +257,12 @@ const SignUp: React.FC<SignUpProps> = () => {
                             {showPassword ? (
                               <>
                                 <ShowIcon />
-                                Hide
+                                {textConstants.hideText}
                               </>
                             ) : (
                               <>
                                 <HideIcon />
-                                Show
+                                {textConstants.showText}
                               </>
                             )}
                           </span>
@@ -314,7 +309,7 @@ const SignUp: React.FC<SignUpProps> = () => {
                     render={({ field }) => (
                       <div className="w-full  flex flex-col">
                         <div className="flex justify-between">
-                          <Label>Confirm Password:</Label>
+                          <Label>{textConstants.confirmPasswordLabel}</Label>
                           <span
                             className="flex items-center justify-between gap-1 cursor-pointer text-iconText"
                             onClick={(e) => {
@@ -324,12 +319,12 @@ const SignUp: React.FC<SignUpProps> = () => {
                             {showConfirmPassword ? (
                               <>
                                 <ShowIcon />
-                                Hide
+                                {textConstants.hideText}
                               </>
                             ) : (
                               <>
                                 <HideIcon />
-                                Show
+                                {textConstants.showText}
                               </>
                             )}
                           </span>
@@ -362,7 +357,6 @@ const SignUp: React.FC<SignUpProps> = () => {
               </div>
 
               <div className="w-full flex">
-                {/* <div className="flex items-center gap-x-2 "> */}
                 <div className="w-full bg-black h-[6vh] rounded-md ">
                   <Button
                     className="text-white text-center w-full h-full font-[400]"
@@ -371,7 +365,11 @@ const SignUp: React.FC<SignUpProps> = () => {
                     data-testid="event-submit"
                     disabled={isLoading}
                   >
-                    {isLoading ? <Spinner /> : 'Create an account'}
+                    {isLoading ? (
+                      <Spinner />
+                    ) : (
+                      textConstants.createAccountButtonText
+                    )}
                   </Button>
                 </div>
               </div>

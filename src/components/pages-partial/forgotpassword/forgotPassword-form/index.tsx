@@ -1,24 +1,23 @@
 'use client';
-import React, { useState } from 'react';
-import { useForm, Controller } from 'react-hook-form';
+import React from 'react';
+import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 import { z } from 'zod';
 import toast from 'react-hot-toast';
-import Link from 'next/link';
+import { zodResolver } from '@hookform/resolvers/zod';
 
 import { Form, FormControl, FormField } from '@/components/ui/form';
 import { IconInput } from '@/components/ui/icon-input';
-import { zodResolver } from '@hookform/resolvers/zod';
-
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
+import Spinner from '@/components/common/Spinner';
 import { ErrorIcon } from '@/assets/svgs';
-import back from '../../../../assets/pngs/backArrow.png';
 
 import { useCreateEventMutation } from '@/store/features/events/eventsApi';
-
-import Spinner from '@/components/common/Spinner';
 import { signinUrl } from '@/configs/constants';
+import { textConstants } from '@/configs/textConstants';
+import back from '../../../../assets/pngs/backArrow.png';
 
 interface ForgotPasswordProps {}
 
@@ -31,7 +30,6 @@ type FormFields = z.infer<typeof ForgotPasswordSchema>;
 const ForgotPassword: React.FC<ForgotPasswordProps> = () => {
   const router = useRouter();
   const [login, { isLoading }] = useCreateEventMutation();
-  const [showPassword, setShowPaasword] = useState<boolean>(false);
 
   const form = useForm<FormFields>({
     resolver: zodResolver(ForgotPasswordSchema),
@@ -53,14 +51,14 @@ const ForgotPassword: React.FC<ForgotPasswordProps> = () => {
     try {
       // const response = await login(formData);
       form.reset();
-      toast.success(`Verification code sent on the provided email`, {
+      toast.success(textConstants.verificationSuccessMessage, {
         position: 'top-right',
       });
 
       router.push('/verify');
     } catch (error) {
       console.error('Error creating event:', error);
-      toast.error('Failed to Create event', {
+      toast.error(textConstants.verificationErrorMessage, {
         position: 'top-right',
       });
     }
@@ -74,15 +72,16 @@ const ForgotPassword: React.FC<ForgotPasswordProps> = () => {
           data-cy="page-title"
           data-testid="page-title"
         >
-          Forgot your password?
+          {textConstants.forgotPasswordTitle}
         </p>
         <p
           className="font-normal text-sm text-slate-900 text-center"
           data-cy="page-description"
           data-testid="page-description"
         >
-          Don’t worry, happens to all of us. Enter your email below <br /> to
-          recover your password
+          {textConstants.forgotPasswordDescription.split('below')[0]}below
+          <br />
+          {textConstants.forgotPasswordDescription.split('below')[1]}
         </p>
       </div>
       <Form {...form}>
@@ -98,7 +97,7 @@ const ForgotPassword: React.FC<ForgotPasswordProps> = () => {
                 name="email"
                 render={({ field }) => (
                   <div className="w-full flex flex-col">
-                    <Label className="mb-2">Email Address:</Label>
+                    <Label className="mb-2">{textConstants.emailLabel}:</Label>
                     <FormControl>
                       <IconInput
                         {...field}
@@ -125,7 +124,6 @@ const ForgotPassword: React.FC<ForgotPasswordProps> = () => {
           </div>
 
           <div className="w-full flex">
-            {/* <div className="flex items-center gap-x-2 "> */}
             <div className="w-full bg-black h-[6vh] rounded-md ">
               <Button
                 className="text-white text-center w-full h-full font-[400]"
@@ -134,7 +132,7 @@ const ForgotPassword: React.FC<ForgotPasswordProps> = () => {
                 data-testid="event-submit"
                 disabled={isLoading}
               >
-                {isLoading ? <Spinner /> : 'Continue'}
+                {isLoading ? <Spinner /> : textConstants.continueButtonText}
               </Button>
             </div>
           </div>
@@ -144,7 +142,7 @@ const ForgotPassword: React.FC<ForgotPasswordProps> = () => {
             href={signinUrl}
           >
             <img src={back.src} />
-            Back to login
+            {textConstants.backToLoginText}
           </Link>
         </form>
       </Form>

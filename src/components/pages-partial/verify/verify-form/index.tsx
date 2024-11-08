@@ -2,23 +2,21 @@
 import React, { useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 import { z } from 'zod';
 import toast from 'react-hot-toast';
-import Link from 'next/link';
-
-import { Form, FormControl, FormField } from '@/components/ui/form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
+import { Form, FormControl } from '@/components/ui/form';
 import { Button } from '@/components/ui/button';
-
-import { ErrorIcon } from '@/assets/svgs';
-import back from '../../../../assets/pngs/backArrow.png';
-
 import { useCreateEventMutation } from '@/store/features/events/eventsApi';
-
 import Spinner from '@/components/common/Spinner';
 import { signinUrl } from '@/configs/constants';
+import { textConstants } from '@/configs/textConstants';
+import { ErrorIcon } from '@/assets/svgs';
+
 import OtpField from './verifyotp-field';
+import back from '../../../../assets/pngs/backArrow.png';
 
 interface VerifyProps {}
 
@@ -31,7 +29,6 @@ type FormFields = z.infer<typeof VerifySchema>;
 const VerifyCode: React.FC<VerifyProps> = () => {
   const router = useRouter();
   const [verify, { isLoading }] = useCreateEventMutation();
-
   const [otp, setOtp] = useState('');
 
   const form = useForm<FormFields>({
@@ -47,20 +44,20 @@ const VerifyCode: React.FC<VerifyProps> = () => {
     Object.keys(verifyData).forEach((key) => {
       const value = verifyData[key as keyof FormFields];
       if (value !== undefined && value !== null) {
-        formData.append(key, value as any); // Type assertion for `value` to `any`
+        formData.append(key, value as any);
       }
     });
 
     try {
       // const response = await verify(formData);
       form.reset();
-      toast.success(`Verification successful.`, {
+      toast.success(textConstants.verifyCodeSuccessMessage, {
         position: 'top-right',
       });
       router.push('/reset-password');
     } catch (error) {
       console.error('Error creating event:', error);
-      toast.error('Failed to Create event', {
+      toast.error(textConstants.verifyCodeErrorMessage, {
         position: 'top-right',
       });
     }
@@ -74,14 +71,14 @@ const VerifyCode: React.FC<VerifyProps> = () => {
           data-cy="page-title"
           data-testid="page-title"
         >
-          Verify Code
+          {textConstants.verifyCodeTitle}
         </p>
         <p
           className="font-normal text-sm text-slate-900 text-center"
           data-cy="page-description"
           data-testid="page-description"
         >
-          An authentication code has been sent to your email.
+          {textConstants.verifyCodeDescription}
         </p>
       </div>
       <Form {...form}>
@@ -120,7 +117,6 @@ const VerifyCode: React.FC<VerifyProps> = () => {
           </div>
 
           <div className="w-full flex">
-            {/* <div className="flex items-center gap-x-2 "> */}
             <div className="w-full bg-black h-[6vh] rounded-md ">
               <Button
                 className="text-white text-center w-full h-full font-[400]"
@@ -129,7 +125,7 @@ const VerifyCode: React.FC<VerifyProps> = () => {
                 data-testid="code-submit"
                 disabled={isLoading}
               >
-                {isLoading ? <Spinner /> : 'Verify'}
+                {isLoading ? <Spinner /> : textConstants.verifyButtonText}
               </Button>
             </div>
           </div>
@@ -139,13 +135,10 @@ const VerifyCode: React.FC<VerifyProps> = () => {
               href={signinUrl}
             >
               <img src={back.src} />
-              Back to login
+              {textConstants.backToLoginText}
             </Link>
             <span className="font-medium text-sm text-end">
-              Didn’t receive a code?{' '}
-              <span className="text-resendText font-[500] cursor-pointer">
-                Resend
-              </span>
+              {textConstants.resendCodeText}
             </span>
           </div>
         </form>
