@@ -14,7 +14,6 @@ import { subtractVal } from '@/store/features/zakat/zakatSlice';
 import toast from 'react-hot-toast';
 import { useAppSelector } from '@/store/hooks';
 
-// Define types for columns and row data
 interface ColumnDef {
   headerName: string;
   field: string;

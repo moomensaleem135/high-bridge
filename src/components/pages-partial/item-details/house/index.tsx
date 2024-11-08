@@ -1,11 +1,12 @@
 'use client';
 import React, { useState } from 'react';
-import { useSearchParams } from 'next/navigation';
+import { useSearchParams, useRouter } from 'next/navigation';
 import { HousePurposeForm } from './details/purpose/housePurpose';
 import { NotAcceptable } from './details/notAcceptable';
 import { HaveYouRecordedAssets } from './details/recorded';
 import HouseItemDetailsForm from './details/detailForm';
 import HouseSummaryForm from './details/summary';
+import Modal from '@/components/ui/modal';
 
 const purposeOptions = [
   {
@@ -43,6 +44,7 @@ const options = [
 
 export default function HouseDetails() {
   const searchParams = useSearchParams();
+  const router = useRouter();
   const [step, setStep] = useState(0);
   const [selectedPurpose, setSelectedPurpose] = useState<string | null>(null);
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
@@ -71,6 +73,53 @@ export default function HouseDetails() {
       setStep(step - 1);
     }
   };
+
+  const [isDirty, setIsDirty] = React.useState(false);
+  const [isModalOpen, setIsModalOpen] = React.useState(false);
+  const [navigateAway, setNavigateAway] = React.useState('');
+
+  React.useEffect(() => {
+    const checkForUnsavedChanges = () => {
+      if (selectedPurpose || name || price) {
+        setIsDirty(true);
+      }
+    };
+
+    checkForUnsavedChanges();
+
+    return () => {
+      checkForUnsavedChanges();
+    };
+  }, [selectedPurpose, name, price]);
+
+  const confirmNavigation = () => {
+    router.replace(navigateAway);
+    setIsModalOpen(false);
+  };
+
+  const cancelNavigation = () => {
+    setIsModalOpen(false);
+  };
+
+  React.useEffect(() => {
+    const originalPush = router.push;
+
+    router.push = (...args) => {
+      if (args[0] !== '' && args[0] !== '/income/income-details/add-items') {
+        if (isDirty) {
+          setNavigateAway(args[0]);
+          setIsModalOpen(true);
+          return;
+        }
+      }
+
+      return originalPush(...args);
+    };
+
+    return () => {
+      router.push = originalPush;
+    };
+  }, [isDirty, router]);
 
   return (
     <div className="flex flex-col self-stretch w-full gap-y-4 overflow-y-scroll xs:mb-16 lg:my-5 gridscrollbar">
@@ -149,6 +198,18 @@ export default function HouseDetails() {
           />
         )}
       </div>
+      {isModalOpen && (
+        <Modal
+          isOpen={isModalOpen}
+          heading="Unsaved Changes Detected"
+          paragraph="You've made some changes that haven't been saved yet.
+                    Would you like to complete your action now or save
+                    your progress to finish later?"
+          buttonText="Yes"
+          onClose={cancelNavigation}
+          onConfirm={confirmNavigation}
+        />
+      )}
     </div>
   );
 }

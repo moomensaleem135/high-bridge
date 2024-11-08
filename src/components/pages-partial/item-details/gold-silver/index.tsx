@@ -1,16 +1,18 @@
 'use client';
 
 import React from 'react';
-import { useSearchParams } from 'next/navigation';
+import { useSearchParams, useRouter } from 'next/navigation';
 
 import ItemDetailsForm from './detailsForm';
 import GoldChoiceForm from './choiceForm';
 import ExcessScreen from './excessScreen';
 import GoldSummaryForm from './goldSummary';
 import ReturnScreen from './returnScreen';
+import Modal from '@/components/ui/modal';
 
 export default function GoldItemDetails() {
   const searchparams = useSearchParams();
+  const router = useRouter();
   const [value, setValue] = React.useState<number>(0);
   const [item, setUserItem] = React.useState('');
   const [purpose, setPurpose] = React.useState('');
@@ -23,6 +25,61 @@ export default function GoldItemDetails() {
   const [zakatVal, setZakatVal] = React.useState(0);
   const id = searchparams.get('id');
 
+  console.log(item);
+  console.log(purpose);
+  console.log(selection);
+  console.log(quality);
+  console.log(quantity);
+  console.log(price);
+  console.log(weight);
+  console.log(value);
+
+  const [isDirty, setIsDirty] = React.useState(false);
+  const [isModalOpen, setIsModalOpen] = React.useState(false);
+  const [navigateAway, setNavigateAway] = React.useState('');
+
+  React.useEffect(() => {
+    const checkForUnsavedChanges = () => {
+      if (item || purpose || quantity || price || quality) {
+        setIsDirty(true);
+      }
+    };
+
+    checkForUnsavedChanges();
+
+    return () => {
+      checkForUnsavedChanges();
+    };
+  }, [item, purpose, quantity, price, quality]);
+
+  const confirmNavigation = () => {
+    router.replace(navigateAway);
+    setIsModalOpen(false);
+  };
+
+  const cancelNavigation = () => {
+    setIsModalOpen(false);
+  };
+
+  React.useEffect(() => {
+    const originalPush = router.push;
+
+    router.push = (...args) => {
+      if (args[0] !== '' && args[0] !== '/income/income-details/add-items') {
+        if (isDirty) {
+          setNavigateAway(args[0]);
+          setIsModalOpen(true);
+          return;
+        }
+      }
+
+      return originalPush(...args);
+    };
+
+    return () => {
+      router.push = originalPush;
+    };
+  }, [isDirty, router]);
   return (
     <div className="flex flex-col self-stretch w-full gap-y-4 overflow-y-scroll xs:mb-16 lg:my-5 gridscrollbar">
       <div className="flex flex-col justify-center items-center ">
@@ -55,11 +112,29 @@ export default function GoldItemDetails() {
             purpose={purpose}
           />
         )}
-        {value === 1 && (
+        {value === 1 && purpose === 'Personal' && (
           <ExcessScreen
             setSelection={setSelection}
             setValue={setValue}
             value={value}
+          />
+        )}
+        {value === 1 && purpose === 'Saving' && (
+          <ItemDetailsForm
+            setValue={setValue}
+            value={value + 1}
+            goldId={goldId}
+            setGoldId={setGoldId}
+            setPrice={setPrice}
+            setWeight={setWeight}
+            setQuality={setQuality}
+            setQuantity={setQuantity}
+            setZakatVal={setZakatVal}
+            userItem={item}
+            price={price}
+            quality={quality}
+            quantity={quantity}
+            weight={weight}
           />
         )}
         {value === 2 && selection === 'Yes' && (
@@ -95,10 +170,22 @@ export default function GoldItemDetails() {
             weight={weight}
             goldId={goldId}
             purpose={purpose}
-            selection={selection}
+            selection={selection ? selection : ''}
           />
         )}
       </div>
+      {isModalOpen && (
+        <Modal
+          isOpen={isModalOpen}
+          heading="Unsaved Changes Detected"
+          paragraph="You've made some changes that haven't been saved yet.
+                    Would you like to complete your action now or save
+                    your progress to finish later?"
+          buttonText="Yes"
+          onClose={cancelNavigation}
+          onConfirm={confirmNavigation}
+        />
+      )}
     </div>
   );
 }
