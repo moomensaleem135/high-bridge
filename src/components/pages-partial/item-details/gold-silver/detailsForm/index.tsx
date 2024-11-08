@@ -302,7 +302,11 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = ({
                 className="flex justify-start items-center text-base font-medium"
                 href={''}
                 onClick={() => {
-                  setValue(value - 1);
+                  if (value === 1) {
+                    setValue(value - 1);
+                  } else if (value === 2) {
+                    setValue(value - 2);
+                  }
                 }}
               >
                 <ArrowLeftIcon />
