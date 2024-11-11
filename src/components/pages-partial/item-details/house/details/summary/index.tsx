@@ -111,19 +111,20 @@ const HouseSummaryForm: React.FC<SummaryProps> = ({
       if (id) {
         dispatch(updateHouseItem(itemData));
         dispatch(editZakat(zakatCalData));
+        router.push('/income/income-details/add-items');
         toast.success(`${itemsData.item} item edited successfully.`, {
           position: 'top-right',
         });
       } else {
         dispatch(addHouseItems(itemData));
         dispatch(zakatCal(zakatCalData));
+        router.push('/income/income-details/add-items');
         toast.success(`${itemsData.item} item added successfully.`, {
           position: 'top-right',
         });
       }
 
       form.reset();
-      router.push('/income/income-details/add-items');
     } catch (error) {
       console.error('Error creating event:', error);
       toast.error('Failed to create event', {

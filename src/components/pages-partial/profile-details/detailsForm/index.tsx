@@ -237,7 +237,11 @@ const ProfileDetailsForm: React.FC<ProfileDetailsProps> = () => {
                 data-cy="event-submit"
                 data-testid="event-submit"
               >
-                {isLoading ? <Spinner /> : 'Update'}
+                {isLoading ? (
+                  <Spinner />
+                ) : (
+                  textConstants.profileUpdateButtonText
+                )}
               </Button>
             </div>
           </div>

@@ -95,6 +95,7 @@ export const textConstants = {
   profileDetailsmainHeading: 'Account Set Up',
   profileDetailsmainParagraph:
     'Begin calculating your zakat by choosing your income sources from the options listed below.',
+  profileUpdateButtonText: 'Update',
 
   //Gold and Silver Items Form
   goldItemAddFormHeading: 'Add Gold & Sliver Items',
@@ -102,6 +103,10 @@ export const textConstants = {
   goldItemFormParagraph:
     'Here’s what you have so far. Please add your gold and silver items such as tola, grams, or ounces.',
 
+  goldItemCheckboxLabel: 'Gold',
+  silverItemCheckboxLabel: 'Silver',
+  personalItemCheckboxLabel: 'Personal',
+  savingItemChackboxLabel: 'Saving',
   goldItemPurposeLabel: 'What is the purpose of this item?',
   goldItemQualityLabel: 'What is the purity of this item?',
   goldItemWeightLabel: ' What is the estimated weight of this item?',
@@ -124,8 +129,14 @@ export const textConstants = {
   formAddItemButton: 'Add Item',
   formEditItemButton: 'Update Item',
   formAddAnotherItemButton: ' Add Another Item',
+  formNoCheckboxLabel: 'No',
+  formYesCheckboxLabel: 'Yes',
 
   //Liquid Assets Form
+  cashItemCheckboxLabel: 'Cash',
+  checkingItemCheckboxLabel: 'Checking',
+  savingItemCheckboxLabel: 'Saving',
+  loanItemCheckboxLabel: 'Loan',
   addLiquidAssetsMainHeading: 'Add Liquid Assets Items',
   editLiquidAssetsMainHeading: 'Edit Liquid Assets Items',
   editCashAndChecking: 'Update Cash & Checking Items',
@@ -140,6 +151,25 @@ export const textConstants = {
   //House Items Form
   addHouseItemTitle: 'Add House Items',
   editHouseItemTitle: 'Edit House Items',
+
+  // House usage unordered list text
+  housePersonalUseLabel: 'Personal Use',
+  housePersonalUserDesc: 'Your primary residence for personal living.',
+
+  houseRentalUseLabel: 'Rental',
+  houseRentalUseDesc: 'Used for generating rental income.',
+
+  houseSavingUseLabel: 'Saving',
+  houseSavingUseDesc: 'Holding as a long-term investment.',
+
+  houseTradingUseLabel: 'Trading',
+  houseTradingUseDesc: 'Planned for future sale for profit.',
+
+  housePersonalUseCheckboxLabel: 'Personal Use',
+  houseRentalUseCheckboxLabel: 'Rental',
+  houseSavingUseCheckboxLabel: 'Saving',
+  houseTradingUseCheckboxLabel: 'Trading',
+
   houseItemDescription:
     'Please add your house items, as zakat is valid only on savings and items held for trading or rental purposes.',
   houseOptionsText:
@@ -202,4 +232,50 @@ export const textConstants = {
     'Please add your house items, as zakat is valid only on savings and items held for trading or rental purposes.',
   addCashAndCheckingItemsText:
     'Here’s what you have so far. Please add your cash, checking, saving, and loan balances for an accurate zakat calculation.',
+
+  //Calendar Dropdows
+  hijriSelectionText: 'Hijri Calendar (Lunar)',
+  GregorianSelectionText: 'Gregorian Calendar (Solar)',
+
+  //Gold Item Purity Dropdown
+  goldPurityChoiceOneText: '06 Karat',
+  goldPurityChoiceTwoText: '08 Karat',
+  goldPurityChoiceThreeText: '09 Karat',
+  goldPurityChoiceFourText: '10 Karat',
+  goldPurityChoiceFiveText: '12 Karat',
+  goldPurityChoiceSixText: '14 Karat',
+  goldPurityChoiceSevenText: '15 Karat',
+  goldPurityChoiceEightText: '18 Karat',
+  golsPurityChoiceNineText: '20 Karat',
+  goldPurityChoiceTenText: '21 Karat',
+  goldPurityChoiceElevenText: '22 Karat',
+  goldPurityChoiceTwelveText: '24 Karat',
+
+  //Silver Item Purity Dropdown
+  silverPurityChoiceOneText: 'Fine',
+  silverPurityChoiceTwoText: 'Britannia',
+  silverPurityChoiceThreeText: 'Sterling',
+  silverPurityChoiceFourText: 'Jewelery',
+
+  //Weight dropdown
+  weightChoiceOne: 'Grams',
+  weightChoiceTwo: 'Tola',
+  weightChoiceThree: 'Masha',
+
+  // Cash and Checking table header
+  cashTableHeaderOne: 'Item',
+  cashTableHeaderTwo: 'Title',
+  cashTableHeaderThree: 'Amount',
+  cashTableHeaderFour: 'Zakat',
+
+  // Gold and Silver table header
+  goldTableHeaderOne: 'Item',
+  goldTableHeaderTwo: 'Quantity',
+  goldTableHeaderThree: 'Quality',
+  goldTableHeaderFour: 'Quality',
+
+  // House table header
+  houseTableHeaderOne: 'Item',
+  houseTableHeaderTwo: 'Title',
+  houseTableHeaderThree: 'Zakat',
 };

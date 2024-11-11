@@ -106,8 +106,6 @@ const CashSummaryForm: React.FC<SummaryProps> = ({
     });
 
     try {
-      localStorage.clear();
-
       if (id) {
         dispatch(updateCashItem(itemData));
         dispatch(editZakat(zakatCalData));

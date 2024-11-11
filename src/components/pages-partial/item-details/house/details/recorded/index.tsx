@@ -97,7 +97,9 @@ export const HaveYouRecordedAssets: React.FC<HaveYouRecordedAssetsProps> = ({
                     />
                   )}
                 />
-                <label htmlFor="myCheckbox">Yes</label>
+                <label htmlFor="myCheckbox">
+                  {textConstants.formYesCheckboxLabel}
+                </label>
               </div>
               <div className="flex justify-center items-center gap-4">
                 <Controller
@@ -114,7 +116,9 @@ export const HaveYouRecordedAssets: React.FC<HaveYouRecordedAssetsProps> = ({
                     />
                   )}
                 />
-                <label htmlFor="myCheckbox">No</label>
+                <label htmlFor="myCheckbox">
+                  {textConstants.formNoCheckboxLabel}
+                </label>
               </div>
             </div>
             {form.formState.errors.alreadyRecorded && (

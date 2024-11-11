@@ -7,6 +7,7 @@ import {
   SelectContent,
   SelectItem,
 } from '@/components/ui/select';
+import { textConstants } from '@/configs/textConstants';
 
 interface CalendarDropdownProps {
   setYear: (value: string) => void; // Accepting the onValueChange prop
@@ -41,10 +42,10 @@ const CalendarDropdown: React.FC<CalendarDropdownProps> = ({
       <SelectContent>
         <SelectGroup>
           <SelectItem value="lunar" isChecked={selectedYear === 'lunar'}>
-            Hijri Calendar (Lunar)
+            {textConstants.hijriSelectionText}
           </SelectItem>
           <SelectItem value="solar" isChecked={selectedYear === 'solar'}>
-            Gregorian Calendar (Solar)
+            {textConstants.GregorianSelectionText}
           </SelectItem>
         </SelectGroup>
       </SelectContent>

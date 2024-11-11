@@ -125,7 +125,9 @@ const ItemChoiceForm: React.FC<ItemChoiceProps> = ({
                     />
                   )}
                 />
-                <label htmlFor="myCheckbox">Cash</label>
+                <label htmlFor="myCheckbox">
+                  {textConstants.cashItemCheckboxLabel}
+                </label>
               </div>
               <div className="flex justify-start items-center gap-4">
                 <Controller
@@ -142,7 +144,9 @@ const ItemChoiceForm: React.FC<ItemChoiceProps> = ({
                     />
                   )}
                 />
-                <label htmlFor="myCheckbox">Checking</label>
+                <label htmlFor="myCheckbox">
+                  {textConstants.checkingItemCheckboxLabel}
+                </label>
               </div>
               <div className="flex justify-start items-center gap-4">
                 <Controller
@@ -159,7 +163,9 @@ const ItemChoiceForm: React.FC<ItemChoiceProps> = ({
                     />
                   )}
                 />
-                <label htmlFor="myCheckbox">Saving</label>
+                <label htmlFor="myCheckbox">
+                  {textConstants.savingItemCheckboxLabel}
+                </label>
               </div>
               <div className="flex justify-start items-center gap-4">
                 <Controller
@@ -176,7 +182,9 @@ const ItemChoiceForm: React.FC<ItemChoiceProps> = ({
                     />
                   )}
                 />
-                <label htmlFor="myCheckbox">Loan</label>
+                <label htmlFor="myCheckbox">
+                  {textConstants.loanItemCheckboxLabel}
+                </label>
               </div>
             </div>
             {form.formState.errors.itemForm && (

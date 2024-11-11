@@ -138,7 +138,9 @@ const GoldChoiceForm: React.FC<GoldChoiceProps> = ({
                     />
                   )}
                 />
-                <label htmlFor="myCheckbox">Gold</label>
+                <label htmlFor="myCheckbox">
+                  {textConstants.goldItemCheckboxLabel}
+                </label>
               </div>
               <div className="flex justify-center items-center gap-4">
                 <Controller
@@ -155,7 +157,9 @@ const GoldChoiceForm: React.FC<GoldChoiceProps> = ({
                     />
                   )}
                 />
-                <label htmlFor="myCheckbox">Silver</label>
+                <label htmlFor="myCheckbox">
+                  {textConstants.silverItemCheckboxLabel}
+                </label>
               </div>
             </div>
             {form.formState.errors.item && (
@@ -186,7 +190,9 @@ const GoldChoiceForm: React.FC<GoldChoiceProps> = ({
                     />
                   )}
                 />
-                <label htmlFor="myCheckbox">Personal</label>
+                <label htmlFor="myCheckbox">
+                  {textConstants.personalItemCheckboxLabel}
+                </label>
               </div>
               <div className="flex justify-center items-center gap-4">
                 <Controller
@@ -203,7 +209,9 @@ const GoldChoiceForm: React.FC<GoldChoiceProps> = ({
                     />
                   )}
                 />
-                <label htmlFor="myCheckbox">Saving</label>
+                <label htmlFor="myCheckbox">
+                  {textConstants.savingItemChackboxLabel}
+                </label>
               </div>
             </div>
             {form.formState.errors.purpose && (

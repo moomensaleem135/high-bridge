@@ -144,19 +144,20 @@ const GoldSummaryForm: React.FC<GoldSummaryProps> = ({
       if (id) {
         dispatch(updateItem(itemData));
         dispatch(editZakat(zakatCalData));
+        router.push('/income/income-details/add-items');
         toast.success(`${item} item edited successfully.`, {
           position: 'top-right',
         });
       } else {
         dispatch(addItems(itemData));
         dispatch(zakatCal(zakatCalData));
+        router.push('/income/income-details/add-items');
         toast.success(`${item} item added successfully.`, {
           position: 'top-right',
         });
       }
 
       form.reset();
-      router.push('/income/income-details/add-items');
     } catch (error) {
       console.error('Error creating event:', error);
       toast.error('Failed to create event', {

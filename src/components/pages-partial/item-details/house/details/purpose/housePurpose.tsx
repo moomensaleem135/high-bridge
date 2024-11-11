@@ -144,7 +144,9 @@ export const HousePurposeForm: React.FC<HousePurposeFormProps> = ({
                     />
                   )}
                 />
-                <label htmlFor="myCheckbox">Personal Use</label>
+                <label htmlFor="myCheckbox">
+                  {textConstants.housePersonalUseCheckboxLabel}
+                </label>
               </div>
               <div className="flex justify-center items-center gap-4">
                 <Controller
@@ -161,7 +163,9 @@ export const HousePurposeForm: React.FC<HousePurposeFormProps> = ({
                     />
                   )}
                 />
-                <label htmlFor="myCheckbox">Rental</label>
+                <label htmlFor="myCheckbox">
+                  {textConstants.houseRentalUseCheckboxLabel}
+                </label>
               </div>
               <div className="flex justify-center items-center gap-4">
                 <Controller
@@ -179,7 +183,9 @@ export const HousePurposeForm: React.FC<HousePurposeFormProps> = ({
                     />
                   )}
                 />
-                <label htmlFor="myCheckbox">Saving</label>
+                <label htmlFor="myCheckbox">
+                  {textConstants.houseSavingUseCheckboxLabel}
+                </label>
               </div>
               <div className="flex justify-center items-center gap-4">
                 <Controller
@@ -196,7 +202,9 @@ export const HousePurposeForm: React.FC<HousePurposeFormProps> = ({
                     />
                   )}
                 />
-                <label htmlFor="myCheckbox">Trading</label>
+                <label htmlFor="myCheckbox">
+                  {textConstants.houseTradingUseCheckboxLabel}
+                </label>
               </div>
             </div>
             {form.formState.errors.purpose && (

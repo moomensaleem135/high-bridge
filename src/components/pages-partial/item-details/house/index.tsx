@@ -11,23 +11,23 @@ import { textConstants } from '@/configs/textConstants';
 const purposeOptions = [
   {
     id: 'personal',
-    label: 'Personal Use',
-    description: 'Your primary residence for personal living.',
+    label: textConstants.housePersonalUseLabel,
+    description: textConstants.housePersonalUserDesc,
   },
   {
     id: 'rental',
-    label: 'Rental',
-    description: 'Used for generating rental income.',
+    label: textConstants.houseRentalUseLabel,
+    description: textConstants.houseRentalUseDesc,
   },
   {
     id: 'saving',
-    label: 'Saving',
-    description: 'Holding as a long-term investment.',
+    label: textConstants.houseSavingUseLabel,
+    description: textConstants.houseSavingUseDesc,
   },
   {
     id: 'trading',
-    label: 'Trading',
-    description: 'Planned for future sale for profit.',
+    label: textConstants.houseTradingUseLabel,
+    description: textConstants.houseTradingUseDesc,
   },
 ];
 

@@ -7,6 +7,7 @@ import {
   SelectContent,
   SelectItem,
 } from '@/components/ui/select';
+import { textConstants } from '@/configs/textConstants';
 
 interface WeightDropdownProps {
   initialValue: string;
@@ -45,13 +46,13 @@ const WeightDropdown: React.FC<WeightDropdownProps> = ({
       <SelectContent>
         <SelectGroup>
           <SelectItem value="Grams" isChecked={selectedWeight === 'Grams'}>
-            Grams
+            {textConstants.weightChoiceOne}
           </SelectItem>
           <SelectItem value="Tola" isChecked={selectedWeight === 'Tola'}>
-            Tola
+            {textConstants.weightChoiceTwo}
           </SelectItem>
           <SelectItem value="Masha" isChecked={selectedWeight === 'Masha'}>
-            Masha
+            {textConstants.weightChoiceThree}
           </SelectItem>
         </SelectGroup>
       </SelectContent>

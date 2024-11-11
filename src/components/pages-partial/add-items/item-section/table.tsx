@@ -13,6 +13,7 @@ import { useRouter } from 'next/navigation';
 import { subtractVal } from '@/store/features/zakat/zakatSlice';
 import toast from 'react-hot-toast';
 import { useAppSelector } from '@/store/hooks';
+import { textConstants } from '@/configs/textConstants';
 
 // Define types for columns and row data
 interface ColumnDef {
@@ -116,10 +117,10 @@ const GridSection: React.FC = () => {
       income?.includes('Checking')
     ) {
       updatedColumns = [
-        { headerName: 'Item', field: 'item' },
-        { headerName: 'Title', field: 'name' },
-        { headerName: 'Amount', field: 'quantity' },
-        { headerName: 'Zakat', field: 'zakat' },
+        { headerName: textConstants.cashTableHeaderOne, field: 'item' },
+        { headerName: textConstants.cashTableHeaderTwo, field: 'name' },
+        { headerName: textConstants.cashTableHeaderThree, field: 'quantity' },
+        { headerName: textConstants.cashTableHeaderFour, field: 'zakat' },
         {
           headerName: '',
           field: 'option',
@@ -139,10 +140,10 @@ const GridSection: React.FC = () => {
       income?.includes('Silver')
     ) {
       updatedColumns = [
-        { headerName: 'Item', field: 'item' },
-        { headerName: 'Quantity', field: 'quantity' },
-        { headerName: 'Quality', field: 'quality' },
-        { headerName: 'Zakat', field: 'zakat' },
+        { headerName: textConstants.goldTableHeaderOne, field: 'item' },
+        { headerName: textConstants.goldTableHeaderTwo, field: 'quantity' },
+        { headerName: textConstants.goldTableHeaderThree, field: 'quality' },
+        { headerName: textConstants.goldTableHeaderFour, field: 'zakat' },
         {
           headerName: '',
           field: 'option',
@@ -159,9 +160,9 @@ const GridSection: React.FC = () => {
 
     if (income?.length != 0 && income?.includes('House')) {
       updatedColumns = [
-        { headerName: 'Item', field: 'item' },
-        { headerName: 'Title', field: 'name' },
-        { headerName: 'Zakat', field: 'zakat' },
+        { headerName: textConstants.houseTableHeaderOne, field: 'item' },
+        { headerName: textConstants.houseTableHeaderTwo, field: 'name' },
+        { headerName: textConstants.houseTableHeaderThree, field: 'zakat' },
         {
           headerName: '',
           field: 'option',
