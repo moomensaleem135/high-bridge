@@ -348,7 +348,13 @@ const GoldSummaryForm: React.FC<GoldSummaryProps> = ({
               <Link
                 className="flex justify-start items-center text-base font-medium"
                 href={''}
-                onClick={() => setValue(value - 1)}
+                onClick={() => {
+                  if (purpose === 'Saving') {
+                    setValue(value - 2);
+                  } else {
+                    setValue(value - 1);
+                  }
+                }}
               >
                 <ArrowLeftIcon />
                 {textConstants.formBackButtonText}

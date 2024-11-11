@@ -37,9 +37,9 @@ const ReturnScreen: React.FC<ReturnScreenProps> = ({ setValue, value }) => {
         <div className="flex justify-between items-center w-full md:flex-row md:justify-between md:items-center">
           <Link
             className="flex justify-start items-center text-base font-medium"
-            href={'/income'}
+            href={''}
             onClick={() => {
-              localStorage.clear();
+              setValue(0);
             }}
           >
             <ArrowLeftIcon />
