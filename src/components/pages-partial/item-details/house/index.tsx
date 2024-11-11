@@ -7,6 +7,7 @@ import { HaveYouRecordedAssets } from './details/recorded';
 import HouseItemDetailsForm from './details/detailForm';
 import HouseSummaryForm from './details/summary';
 import Modal from '@/components/ui/modal';
+import { useAppSelector } from '@/store/hooks';
 
 const purposeOptions = [
   {
@@ -45,6 +46,7 @@ const options = [
 export default function HouseDetails() {
   const searchParams = useSearchParams();
   const router = useRouter();
+  const setup = useAppSelector((state: any) => state.setup.setup);
   const [step, setStep] = useState(0);
   const [selectedPurpose, setSelectedPurpose] = useState<string | null>(null);
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
@@ -120,6 +122,26 @@ export default function HouseDetails() {
       router.push = originalPush;
     };
   }, [isDirty, router]);
+
+  React.useEffect(() => {
+    const handleBeforeUnload = (e: BeforeUnloadEvent) => {
+      if (isDirty) {
+        e.preventDefault();
+      }
+    };
+
+    window.addEventListener('beforeunload', handleBeforeUnload);
+
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+    };
+  }, [isDirty]);
+
+  React.useEffect(() => {
+    if (setup.startDate === '' || setup.year === '') {
+      router.replace('/income');
+    }
+  });
 
   return (
     <div className="flex flex-col self-stretch w-full gap-y-4 overflow-y-scroll xs:mb-16 lg:my-5 gridscrollbar">

@@ -7,11 +7,13 @@ import Modal from '@/components/ui/modal';
 import ItemChoiceForm from './choiceForm';
 import ItemDetailsForm from './detailsForm';
 import Summary from './summary';
+import { useAppSelector } from '@/store/hooks';
 
 export default function CashItemDetails() {
   const searchparams = useSearchParams();
   const router = useRouter();
   const id = searchparams.get('id');
+  const setup = useAppSelector((state: any) => state.setup.setup);
 
   const [value, setValue] = useState<number>(0);
   const [item, setUserItem] = useState('');
@@ -67,6 +69,26 @@ export default function CashItemDetails() {
       router.push = originalPush;
     };
   }, [isDirty, router]);
+
+  useEffect(() => {
+    const handleBeforeUnload = (e: BeforeUnloadEvent) => {
+      if (isDirty) {
+        e.preventDefault();
+      }
+    };
+
+    window.addEventListener('beforeunload', handleBeforeUnload);
+
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+    };
+  }, [isDirty]);
+
+  useEffect(() => {
+    if (setup.startDate === '' || setup.year === '') {
+      router.replace('/income');
+    }
+  });
 
   return (
     <div className="flex flex-col self-stretch w-full gap-y-4 overflow-y-scroll xs:mb-16 lg:my-5 gridscrollbar">

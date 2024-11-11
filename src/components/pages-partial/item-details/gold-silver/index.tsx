@@ -9,9 +9,12 @@ import ExcessScreen from './excessScreen';
 import GoldSummaryForm from './goldSummary';
 import ReturnScreen from './returnScreen';
 import Modal from '@/components/ui/modal';
+import { useAppSelector } from '@/store/hooks';
 
 export default function GoldItemDetails() {
   const searchparams = useSearchParams();
+  const setup = useAppSelector((state: any) => state.setup.setup);
+
   const router = useRouter();
   const [value, setValue] = React.useState<number>(0);
   const [item, setUserItem] = React.useState('');
@@ -24,15 +27,6 @@ export default function GoldItemDetails() {
   const [weight, setWeight] = React.useState('');
   const [zakatVal, setZakatVal] = React.useState(0);
   const id = searchparams.get('id');
-
-  console.log(item);
-  console.log(purpose);
-  console.log(selection);
-  console.log(quality);
-  console.log(quantity);
-  console.log(price);
-  console.log(weight);
-  console.log(value);
 
   const [isDirty, setIsDirty] = React.useState(false);
   const [isModalOpen, setIsModalOpen] = React.useState(false);
@@ -80,6 +74,26 @@ export default function GoldItemDetails() {
       router.push = originalPush;
     };
   }, [isDirty, router]);
+
+  React.useEffect(() => {
+    const handleBeforeUnload = (e: BeforeUnloadEvent) => {
+      if (isDirty) {
+        e.preventDefault();
+      }
+    };
+
+    window.addEventListener('beforeunload', handleBeforeUnload);
+
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+    };
+  }, [isDirty]);
+
+  React.useEffect(() => {
+    if (setup.startDate === '' || setup.year === '') {
+      router.replace('/income');
+    }
+  });
   return (
     <div className="flex flex-col self-stretch w-full gap-y-4 overflow-y-scroll xs:mb-16 lg:my-5 gridscrollbar">
       <div className="flex flex-col justify-center items-center ">
