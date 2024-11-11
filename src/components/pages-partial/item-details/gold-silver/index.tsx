@@ -146,6 +146,7 @@ export default function GoldItemDetails() {
             setQuantity={setQuantity}
             setZakatVal={setZakatVal}
             userItem={item}
+            purpose={purpose}
             price={price}
             quality={quality}
             quantity={quantity}
@@ -164,6 +165,7 @@ export default function GoldItemDetails() {
             setQuantity={setQuantity}
             setZakatVal={setZakatVal}
             userItem={item}
+            purpose={purpose}
             price={price}
             quality={quality}
             quantity={quantity}

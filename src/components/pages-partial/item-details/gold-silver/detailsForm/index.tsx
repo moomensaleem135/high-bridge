@@ -37,6 +37,7 @@ interface ItemDetailsProps {
   quantity: string;
   weight: string;
   price: string;
+  purpose: string;
 }
 
 const ItemDetailsSchema = z.object({
@@ -65,6 +66,7 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = ({
   quantity,
   weight,
   price,
+  purpose,
 }) => {
   const searchparams = useSearchParams();
   const id = searchparams.get('id');
@@ -301,20 +303,19 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = ({
           <div className="flex flex-col justify-evenly items-center w-full gap-5">
             <hr className="w-full border-[1px] border-solid border-underline" />
             <div className="flex justify-between items-center w-full md:flex-row md:justify-between md:items-center">
-              <Link
-                className="flex justify-start items-center text-base font-medium"
-                href={''}
+              <div
+                className="flex justify-start items-center text-base font-medium cursor-pointer"
                 onClick={() => {
-                  if (value === 1) {
-                    setValue(value - 1);
-                  } else if (value === 2) {
+                  if (purpose === 'Saving') {
                     setValue(value - 2);
+                  } else {
+                    setValue(value - 1);
                   }
                 }}
               >
                 <ArrowLeftIcon />
                 {textConstants.formBackButtonText}
-              </Link>
+              </div>
               <Button
                 className="bg-detailsBtn text-btnText font-normal hover:bg-btnHover"
                 onClick={form.handleSubmit(onSubmit)}
