@@ -1,12 +1,13 @@
 'use client';
 import React, { useState } from 'react';
 import { useSearchParams } from 'next/navigation';
+
+import { textConstants } from '@/configs/textConstants';
 import { HousePurposeForm } from './details/purpose/housePurpose';
 import { NotAcceptable } from './details/notAcceptable';
 import { HaveYouRecordedAssets } from './details/recorded';
 import HouseItemDetailsForm from './details/detailForm';
 import HouseSummaryForm from './details/summary';
-import { textConstants } from '@/configs/textConstants';
 
 const purposeOptions = [
   {
@@ -126,7 +127,7 @@ export default function HouseDetails() {
         )}
         {step === 1 && selectedPurpose === 'Trading' && (
           <NotAcceptable
-            title={textConstants.zakatNotApplicableHeading}
+            title={textConstants.zakatApplicableHeading}
             description={textConstants.tradeUseText}
             handleBack={handleBack}
           />

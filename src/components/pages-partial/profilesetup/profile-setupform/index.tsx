@@ -189,9 +189,9 @@ const ProfileSetup: React.FC<ProfileSetupProps> = () => {
             data-cy="page-description"
             data-testid="page-description"
           >
-            {textConstants.profileSetupDescription.split('screen')[0]}
+            {textConstants.profileSetupDescriptionStartLine}
             <br />
-            screen{textConstants.profileSetupDescription.split('screen')[1]}
+            {textConstants.profileSetUpDescriptionEndLine}
           </p>
         </div>
         <Form {...form}>

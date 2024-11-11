@@ -226,21 +226,21 @@ const GridSection: React.FC = () => {
       await dispatch(deleteItem(id));
       await dispatch(subtractVal(id));
 
-      toast.success(`${item} Item deleted successfully.`, {
+      toast.success(`${item} ${textConstants.itemDeleteSuccessText}`, {
         position: 'top-right',
       });
     } else if (income?.includes('House')) {
       await dispatch(deleteHouseItem(id));
       await dispatch(subtractVal(id));
 
-      toast.success(`${item} Item deleted successfully.`, {
+      toast.success(`${item} ${textConstants.itemDeleteSuccessText}`, {
         position: 'top-right',
       });
     } else if (income?.includes('Cash')) {
       await dispatch(deleteCashItem(id));
       await dispatch(subtractVal(id));
 
-      toast.success(`${item} Item deleted successfully.`, {
+      toast.success(`${item} ${textConstants.itemDeleteSuccessText}`, {
         position: 'top-right',
       });
     }

@@ -1,10 +1,9 @@
+import React from 'react';
+import { useRouter } from 'next/navigation';
+
 import { ArrowLeftIcon } from '@/assets/svgs';
 import { Button } from '@/components/ui/button';
 import { textConstants } from '@/configs/textConstants';
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import React, { Dispatch, SetStateAction } from 'react';
-
 interface ZakatInfoProps {
   title: string;
   description: string;

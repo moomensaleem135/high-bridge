@@ -3,6 +3,7 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
 import toast from 'react-hot-toast';
 
 import { Form, FormField } from '@/components/ui/form';
@@ -10,7 +11,6 @@ import { ArrowLeftIcon, ErrorIcon } from '@/assets/svgs';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
-import { useSearchParams } from 'next/navigation';
 import { textConstants } from '@/configs/textConstants';
 
 interface SummaryProps {
@@ -25,9 +25,11 @@ interface SummaryProps {
 }
 
 const SummarySchema = z.object({
-  item: z.string().min(0, { message: 'Purpose is required' }),
-  quantity: z.string().min(0, { message: 'Amount is required' }),
-  name: z.string().min(0, { message: 'Name of entered item is required' }),
+  item: z.string().min(0, { message: textConstants.itemValidationText }),
+  quantity: z
+    .string()
+    .min(0, { message: textConstants.quantityValidationText }),
+  name: z.string().min(0, { message: textConstants.nameValidationText }),
 });
 
 type FormFields = z.infer<typeof SummarySchema>;
@@ -55,8 +57,10 @@ const SummaryForm: React.FC<SummaryProps> = ({
       form.reset();
       localStorage.clear();
     } catch (error) {
-      console.error('Error processing item:', error);
-      toast.error('Failed to process item', { position: 'top-right' });
+      console.error(textConstants.errorInCreatingEventMsg, error);
+      toast.error(textConstants.failedToCreateEventMsg, {
+        position: 'top-right',
+      });
     }
   };
 

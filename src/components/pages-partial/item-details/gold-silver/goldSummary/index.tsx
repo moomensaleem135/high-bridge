@@ -7,9 +7,9 @@ import { z } from 'zod';
 import Link from 'next/link';
 import toast from 'react-hot-toast';
 
+import { zodResolver } from '@hookform/resolvers/zod';
 import { Form, FormField } from '@/components/ui/form';
 import { ArrowLeftIcon } from '@/assets/svgs';
-import { zodResolver } from '@hookform/resolvers/zod';
 
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
@@ -18,11 +18,11 @@ import { ErrorIcon } from '@/assets/svgs';
 import { useCreateItemMutation } from '@/store/features/items/itemsApi';
 import { addItems } from '@/store/features/items/golditemsSlice';
 import { updateItem } from '@/store/features/items/golditemsSlice';
+import { zakatCal } from '@/store/features/zakat/zakatSlice';
+import { editZakat } from '@/store/features/zakat/zakatSlice';
 
 import { calculateZakat } from '@/lib/helpers';
 import { GoldIItems } from '@/lib/types';
-import { zakatCal } from '@/store/features/zakat/zakatSlice';
-import { editZakat } from '@/store/features/zakat/zakatSlice';
 import { textConstants } from '@/configs/textConstants';
 
 interface GoldSummaryProps {
@@ -40,13 +40,18 @@ interface GoldSummaryProps {
 }
 
 const GoldSummarySchema = z.object({
-  item: z.string().min(0, { message: 'Item is required' }),
-  purpose: z.string().min(0, { message: 'Purpose is required' }),
-  quality: z.string().min(0, { message: 'Quality is required' }),
-  quantity: z.string().min(0, { message: 'Quantity is required' }),
-  weight: z.string().min(0, { message: 'Weight is required' }),
-  price: z.string().min(0, { message: 'Price is required' }),
-  selection: z.string().min(0, { message: 'Selection is required' }).optional(),
+  item: z.string().min(0, { message: textConstants.itemValidationText }),
+  purpose: z.string().min(0, { message: textConstants.purposeValidationText }),
+  quality: z.string().min(0, { message: textConstants.qualityValidationText }),
+  quantity: z
+    .string()
+    .min(0, { message: textConstants.quantityValidationText }),
+  weight: z.string().min(0, { message: textConstants.weightValidationText }),
+  price: z.string().min(0, { message: textConstants.priceValidationText }),
+  selection: z
+    .string()
+    .min(0, { message: textConstants.selectionValidationText })
+    .optional(),
 });
 
 type FormFields = z.infer<typeof GoldSummarySchema>;
@@ -145,22 +150,22 @@ const GoldSummaryForm: React.FC<GoldSummaryProps> = ({
         dispatch(updateItem(itemData));
         dispatch(editZakat(zakatCalData));
         router.push('/income/income-details/add-items');
-        toast.success(`${item} item edited successfully.`, {
+        toast.success(`${item} ${textConstants.itemEditSuccessText}`, {
           position: 'top-right',
         });
       } else {
         dispatch(addItems(itemData));
         dispatch(zakatCal(zakatCalData));
         router.push('/income/income-details/add-items');
-        toast.success(`${item} item added successfully.`, {
+        toast.success(`${item} ${textConstants.itemAddSuccessText}`, {
           position: 'top-right',
         });
       }
 
       form.reset();
     } catch (error) {
-      console.error('Error creating event:', error);
-      toast.error('Failed to create event', {
+      console.error(textConstants.errorInCreatingEventMsg, error);
+      toast.error(textConstants.failedToCreateEventMsg, {
         position: 'top-right',
       });
     }

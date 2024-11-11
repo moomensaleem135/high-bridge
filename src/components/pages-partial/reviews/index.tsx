@@ -13,8 +13,8 @@ export default function PartialReviews() {
             {textConstants.reviewZakatHeading}
           </h1>
           <span className="text-center px-4 font-normal text-base mt-2 leading-6 mb-2 ">
-            {textConstants.reviewZakatParagraphStart}
-            <br /> {textConstants.reviewZakatParagraphEnd}
+            {textConstants.reviewZakatParagraphStartLine}
+            <br /> {textConstants.reviewZakatParagraphEndLine}
           </span>
           <hr className="w-full border-[1px] border-underlineTop" />
         </div>

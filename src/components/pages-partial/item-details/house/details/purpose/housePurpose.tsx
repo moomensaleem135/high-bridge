@@ -3,6 +3,7 @@ import React from 'react';
 import { Controller, Form, useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { z } from 'zod';
+
 import { ArrowLeftIcon, ErrorIcon } from '@/assets/svgs';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
@@ -22,7 +23,7 @@ interface HousePurposeFormProps {
 }
 
 const HouseChoiceSchema = z.object({
-  purpose: z.string().min(1, { message: 'Purpose is required' }),
+  purpose: z.string().min(1, { message: textConstants.purposeValidationText }),
 });
 
 type FormFields = z.infer<typeof HouseChoiceSchema>;
@@ -85,8 +86,8 @@ export const HousePurposeForm: React.FC<HousePurposeFormProps> = ({
         handleNext();
       }
     } catch (error) {
-      console.error('Error creating event:', error);
-      toast.error('Failed to create event', {
+      console.error(textConstants.errorInCreatingEventMsg, error);
+      toast.error(textConstants.failedToCreateEventMsg, {
         position: 'top-right',
       });
     }

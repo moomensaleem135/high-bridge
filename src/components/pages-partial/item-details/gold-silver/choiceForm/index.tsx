@@ -28,8 +28,8 @@ interface GoldChoiceProps {
 }
 
 const GoldChoiceSchema = z.object({
-  item: z.string().min(1, { message: 'Item is required' }),
-  purpose: z.string().min(1, { message: 'Purpose is required' }),
+  item: z.string().min(1, { message: textConstants.itemValidationText }),
+  purpose: z.string().min(1, { message: textConstants.purposeValidationText }),
 });
 
 type FormFields = z.infer<typeof GoldChoiceSchema>;
@@ -100,8 +100,8 @@ const GoldChoiceForm: React.FC<GoldChoiceProps> = ({
         setValue(value + 1);
       }
     } catch (error) {
-      console.error('Error creating event:', error);
-      toast.error('Failed to create event', {
+      console.error(textConstants.errorInCreatingEventMsg, error);
+      toast.error(textConstants.failedToCreateEventMsg, {
         position: 'top-right',
       });
     }

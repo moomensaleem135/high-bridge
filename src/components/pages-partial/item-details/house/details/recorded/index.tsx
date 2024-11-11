@@ -18,7 +18,9 @@ interface HaveYouRecordedAssetsProps {
 }
 
 const HaveYouRecordedAssetsSchema = z.object({
-  alreadyRecorded: z.string().min(1, { message: 'Purpose is required' }),
+  alreadyRecorded: z
+    .string()
+    .min(1, { message: textConstants.alreadyRecorderValidationText }),
 });
 
 type FormFields = z.infer<typeof HaveYouRecordedAssetsSchema>;

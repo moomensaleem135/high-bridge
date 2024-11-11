@@ -8,6 +8,22 @@ import { useCreateItemMutation } from '@/store/features/items/itemsApi';
 import StepperComponent from '@/components/ui/stepper';
 import { textConstants } from '@/configs/textConstants';
 
+const listText = [
+  {
+    id: 1,
+    text: textConstants.goldItemExcessiveAmountListText,
+  },
+
+  {
+    id: 2,
+    text: textConstants.goldItemExcessiveAmountListText,
+  },
+  {
+    id: 3,
+    text: textConstants.goldItemExcessiveAmountListText,
+  },
+];
+
 interface ExcessScreenProps {
   setSelection: (value: string) => void;
   setValue: (value: number) => void;
@@ -33,23 +49,15 @@ const ExcessScreen: React.FC<ExcessScreenProps> = ({
       </p>
       <div className="w-full flex flex-col gap-y-6">
         <p className="w-full font-normal text-base">
-          Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry.
+          {textConstants.goldItemExcessiveAmountFirstParagraph}
         </p>
 
         <div className="w-full items-start flex flex-col justify-start pl-6 gap-y-3">
-          <p className="w-full font-normal text-base">
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry.
-          </p>
-          <p className="w-full font-normal text-base">
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry.
-          </p>
-          <p className="w-full font-normal text-base">
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry.
-          </p>
+          {listText.map((item: any) => (
+            <p className="w-full font-normal text-base" key={item.id}>
+              {item.text}
+            </p>
+          ))}
         </div>
       </div>
 

@@ -3,12 +3,12 @@ import React from 'react';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { useSelector, useDispatch } from 'react-redux';
+import { useRouter } from 'next/navigation';
+import { Inter } from 'next/font/google';
+
 import { ArrowLeftIcon } from '@/assets/svgs';
 import { payZakatUrl } from '@/configs/constants';
-import { useRouter } from 'next/navigation';
 import { IncomeChoice } from '@/store/features/income/incomeSlice';
-import { Inter } from 'next/font/google';
-import { object } from 'zod';
 import { textConstants } from '@/configs/textConstants';
 
 const inter = Inter({
@@ -17,20 +17,20 @@ const inter = Inter({
 });
 
 const personalText = [
-  'Gold & Silver',
-  'Liquid Assets (Cash, Checking, Saving, Loan)',
-  'Stock',
-  'Retirement Accounts',
-  'House',
+  textConstants.goldAndSilverItem,
+  textConstants.liquidAssetsItem,
+  textConstants.stockItem,
+  textConstants.retirementItem,
+  textConstants.houseItem,
 ];
 
 const commercialText = [
-  'Goods & Services',
-  'Manufacturing Plant',
-  'Farmland',
-  'Animal Livestock',
-  'Real Estate',
-  'Rentals',
+  textConstants.goodAndServiceItem,
+  textConstants.manufactureItem,
+  textConstants.farmItem,
+  textConstants.livestockItem,
+  textConstants.realEstateItem,
+  textConstants.rentalItem,
 ];
 
 const ZakatCard = () => {
@@ -389,7 +389,7 @@ const ZakatCard = () => {
                 className="bg-detailsBtn text-btnText font-medium text-base w-6/6 hover:bg-btnHover"
                 onClick={() => router.push(payZakatUrl)}
               >
-                Pay Zakat
+                {textConstants.payZakatButtonText}
               </Button>
             </div>
           </div>

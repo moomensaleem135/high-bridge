@@ -27,9 +27,11 @@ interface SummaryProps {
 }
 
 const SummarySchema = z.object({
-  item: z.string().min(0, { message: 'Purpose is required' }),
-  quantity: z.string().min(0, { message: 'Amount is required' }),
-  name: z.string().min(0, { message: 'Name of entered item is required' }),
+  item: z.string().min(0, { message: textConstants.itemValidationText }),
+  quantity: z
+    .string()
+    .min(0, { message: textConstants.quantityValidationText }),
+  name: z.string().min(0, { message: textConstants.nameValidationText }),
 });
 
 type FormFields = z.infer<typeof SummarySchema>;
@@ -126,8 +128,8 @@ const CashSummaryForm: React.FC<SummaryProps> = ({
       form.reset();
       router.push('/income/income-details/add-items');
     } catch (error) {
-      console.error('Error creating event:', error);
-      toast.error('Failed to create event', {
+      console.error(textConstants.errorInCreatingEventMsg, error);
+      toast.error(textConstants.failedToCreateEventMsg, {
         position: 'top-right',
       });
     }

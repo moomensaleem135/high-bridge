@@ -33,8 +33,9 @@ export const textConstants = {
 
   // Added texts for ProfileSetup component
   profileSetupTitle: 'Profile Setup',
-  profileSetupDescription:
-    'You can update this information from the Setup screen anytime if needed.',
+  profileSetupDescriptionStartLine:
+    'You can update this information from the Setup',
+  profileSetUpDescriptionEndLine: 'screen anytime if needed.',
   religionLabel: 'Which madhab do you follow by default?',
   calendarLabel: 'According to which calendar do you pay zakat?',
   zakatDateLabel: 'Which date to pay Zakat?',
@@ -46,8 +47,9 @@ export const textConstants = {
 
   // ForgotPassword component constants
   forgotPasswordTitle: 'Forgot your password?',
-  forgotPasswordDescription:
-    'Don’t worry, happens to all of us. Enter your email below to recover your password',
+  forgotPasswordDescriptionStartLine:
+    'Don’t worry, happens to all of us. Enter your email below',
+  forgotPasswordDescriptionEndLine: 'to recover your password',
   verificationSuccessMessage: 'Verification code sent on the provided email',
   verificationErrorMessage: 'Failed to Create event',
   backToLoginText: 'Back to login',
@@ -63,8 +65,9 @@ export const textConstants = {
 
   // ResetPassword component texts
   resetPasswordTitle: 'Set a Password',
-  resetPasswordDescription:
-    'Your previous password has been reset. Please set a new password for your account.',
+  resetPasswordDescriptionStartLine:
+    'Your previous password has been reset. Please set a new ',
+  resetPasswordDescriptionEndLine: 'password for your account.',
   createPasswordLabel: 'Create Password:',
   reEnterPasswordLabel: 'Re-enter Password:',
   setPasswordButtonText: 'Set Password',
@@ -96,6 +99,8 @@ export const textConstants = {
   profileDetailsmainParagraph:
     'Begin calculating your zakat by choosing your income sources from the options listed below.',
   profileUpdateButtonText: 'Update',
+  profileNotSetupErrorMsg:
+    'You have not set up your profile yet. Please complete setup to proceed.',
 
   //Gold and Silver Items Form
   goldItemAddFormHeading: 'Add Gold & Sliver Items',
@@ -113,15 +118,21 @@ export const textConstants = {
   goldItemPriceLabel: 'What is the price to buy this item?',
   goldItemExcessiveAmountText:
     'Does this exceed the normal personal usage quantity in your society?',
+  goldItemExcessiveAmountFirstParagraph:
+    ' Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
+  goldItemExcessiveAmountListText:
+    ' Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
 
   //Values used in multiple places in forms
   itemLabel: 'Which item do you have?',
   zakatNotApplicableHeading: 'Your Zakat is not applicable to this item.',
+  zakatApplicableHeading: 'Your zakat is applicable to this item.',
   zakatnotApplicableText:
     'Zakat is not applicable to this item, as personal belongings like clothing, household items, and primary residence are generally exempt from Zakat.',
   zakatPayableText: 'Your payable zakat for this item is:',
   itemAddSuccessText: 'item added successfully.',
   itemEditSuccessText: 'item edited successfully.',
+  itemDeleteSuccessText: 'Item deleted successfully.',
   formBackButtonText: 'Back',
   formNextButtonText: 'Next',
   formNoButtonText: 'No',
@@ -131,6 +142,8 @@ export const textConstants = {
   formAddAnotherItemButton: ' Add Another Item',
   formNoCheckboxLabel: 'No',
   formYesCheckboxLabel: 'Yes',
+  errorInCreatingEventMsg: 'Error creating event:',
+  failedToCreateEventMsg: 'Failed to create event',
 
   //Liquid Assets Form
   cashItemCheckboxLabel: 'Cash',
@@ -208,14 +221,15 @@ export const textConstants = {
 
   //Review Section
   reviewZakatHeading: 'Review Zakat',
-  reviewZakatParagraphStart:
+  reviewZakatParagraphStartLine:
     'Review your zakat details below to ensure accuracy. Confirm the items, amounts,',
-  reviewZakatParagraphEnd:
+  reviewZakatParagraphEndLine:
     'and selected madhab before finalizing your zakat payment.',
   reviewGoldAndSilver: 'Gold & Silver',
   reviewHouse: 'House',
   reviewCashAndChecking: ' Cash & Checking',
   previewButtonText: 'Preview',
+  payZakatButtonText: 'Pay Zakat',
 
   //Custom Option
   editText: 'Edit',
@@ -232,6 +246,8 @@ export const textConstants = {
     'Please add your house items, as zakat is valid only on savings and items held for trading or rental purposes.',
   addCashAndCheckingItemsText:
     'Here’s what you have so far. Please add your cash, checking, saving, and loan balances for an accurate zakat calculation.',
+  addText: 'Add',
+  itemsText: 'Items',
 
   //Calendar Dropdows
   hijriSelectionText: 'Hijri Calendar (Lunar)',
@@ -278,4 +294,29 @@ export const textConstants = {
   houseTableHeaderOne: 'Item',
   houseTableHeaderTwo: 'Title',
   houseTableHeaderThree: 'Zakat',
+
+  //Pay Zakat Screen
+  payZakatMainHeading: 'Pay Zakat',
+  payZakatMainParagraph:
+    ' Pay your zakat details below to ensure accuracy. Confirm the items, amounts, and selected madhab before finalizing your zakat payment.',
+
+  //Form Validation error messages
+  itemValidationText: 'Item is required',
+  amountValidationText: 'Amount is required',
+  nameValidationText: 'Name of entered item is required',
+  purposeValidationText: 'Purpose is required',
+  qualityValidationText: 'Quality is required',
+  quantityValidationText: 'Quantity is required',
+  weightValidationText: 'Weight is required',
+  priceValidationText: 'Price is required',
+  selectionValidationText: 'Selection is required',
+  alreadyRecorderValidationText: 'Record Status is required',
+
+  //Carousel Text Paragraph
+  CarouselTextParagraphOne:
+    'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+  CarouselTextParagraphTwo:
+    'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+  CarouselTextParagraphThree:
+    'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
 };

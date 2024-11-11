@@ -28,8 +28,8 @@ interface ItemDetailsProps {
 }
 
 const ItemDetailsSchema = z.object({
-  quantity: z.string().min(1, { message: 'Amount is required' }),
-  name: z.string().min(1, { message: 'Name of entered item is required' }),
+  quantity: z.string().min(1, { message: textConstants.amountValidationText }),
+  name: z.string().min(1, { message: textConstants.nameValidationText }),
 });
 
 type FormFields = z.infer<typeof ItemDetailsSchema>;
@@ -102,8 +102,8 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = ({
         setValue(value + 1);
       }
     } catch (error) {
-      console.error('Error creating event:', error);
-      toast.error('Failed to create event', {
+      console.error(textConstants.errorInCreatingEventMsg, error);
+      toast.error(textConstants.failedToCreateEventMsg, {
         position: 'top-right',
       });
     }

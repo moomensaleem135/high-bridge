@@ -17,6 +17,7 @@ import {
   addHouseItems,
   updateHouseItem,
 } from '@/store/features/house-items/houseSlice';
+import { textConstants } from '@/configs/textConstants';
 
 interface SummaryProps {
   name: string;
@@ -28,9 +29,9 @@ interface SummaryProps {
 }
 
 const SummarySchema = z.object({
-  item: z.string().min(0, { message: 'Purpose is required' }),
-  quantity: z.string().min(0, { message: 'Amount is required' }),
-  name: z.string().min(0, { message: 'Name of entered item is required' }),
+  item: z.string().min(0, { message: textConstants.purposeValidationText }),
+  quantity: z.string().min(0, { message: textConstants.amountValidationText }),
+  name: z.string().min(0, { message: textConstants.nameValidationText }),
 });
 
 type FormFields = z.infer<typeof SummarySchema>;
@@ -112,22 +113,25 @@ const HouseSummaryForm: React.FC<SummaryProps> = ({
         dispatch(updateHouseItem(itemData));
         dispatch(editZakat(zakatCalData));
         router.push('/income/income-details/add-items');
-        toast.success(`${itemsData.item} item edited successfully.`, {
-          position: 'top-right',
-        });
+        toast.success(
+          `${itemsData.item} ${textConstants.itemEditSuccessText}`,
+          {
+            position: 'top-right',
+          }
+        );
       } else {
         dispatch(addHouseItems(itemData));
         dispatch(zakatCal(zakatCalData));
         router.push('/income/income-details/add-items');
-        toast.success(`${itemsData.item} item added successfully.`, {
+        toast.success(`${itemsData.item} ${textConstants.itemAddSuccessText}`, {
           position: 'top-right',
         });
       }
 
       form.reset();
     } catch (error) {
-      console.error('Error creating event:', error);
-      toast.error('Failed to create event', {
+      console.error(textConstants.errorInCreatingEventMsg, error);
+      toast.error(textConstants.failedToCreateEventMsg, {
         position: 'top-right',
       });
     }

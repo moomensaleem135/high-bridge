@@ -2,14 +2,14 @@
 import React, { useMemo, useCallback } from 'react';
 import toast from 'react-hot-toast';
 import { useDispatch, useSelector } from 'react-redux';
-import { cn } from '@/lib/cn';
-import { Button } from '../ui/button';
-import Link from 'next/link';
-import { IncomeChoice } from '@/store/features/income/incomeSlice';
 import { Inter } from 'next/font/google';
+import Link from 'next/link';
+import { cn } from '@/lib/cn';
+import { IncomeChoice } from '@/store/features/income/incomeSlice';
 import { useAppSelector } from '@/store/hooks';
 import { CashIItems, HouseIItems } from '@/lib/types';
 import { textConstants } from '@/configs/textConstants';
+import { Button } from '../ui/button';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -65,10 +65,9 @@ const IncomeSection: React.FC<IncomeSectionProps> = ({
         e.preventDefault();
       } else if (selector.year === '' || selector.startDate === null) {
         e.preventDefault();
-        toast.error(
-          `You have not set up your profile yet. Please complete setup to proceed.`,
-          { position: 'top-right' }
-        );
+        toast.error(textConstants.profileNotSetupErrorMsg, {
+          position: 'top-right',
+        });
       } else {
         dispatch(IncomeChoice(text));
       }

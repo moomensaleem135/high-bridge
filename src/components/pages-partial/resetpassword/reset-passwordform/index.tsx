@@ -84,9 +84,9 @@ const ResetPassword: React.FC<ResetProps> = () => {
           data-cy="page-description"
           data-testid="page-description"
         >
-          {textConstants.resetPasswordDescription.split('new')[0]}new
+          {textConstants.resetPasswordDescriptionStartLine}
           <br />
-          {textConstants.resetPasswordDescription.split('new')[1]}
+          {textConstants.resetPasswordDescriptionEndLine}
         </p>
       </div>
       <Form {...form}>

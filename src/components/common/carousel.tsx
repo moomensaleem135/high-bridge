@@ -15,7 +15,7 @@ const CarouselText: React.FC<CarouselTextProps> = ({
   interval = 4000,
   containerClassName = 'w-full h-11/12 flex flex-col justify-between',
   title,
-  titleClassName = 'text-4xl font-[700] w-full',
+  titleClassName = 'text-4xl font-[700] w-full mb-12',
 }) => {
   const [current, setCurrent] = React.useState(0);
 
@@ -39,10 +39,12 @@ const CarouselText: React.FC<CarouselTextProps> = ({
           >
             {index === current && (
               // eslint-disable-next-line @next/next/no-img-element
-              <div className="flex flex-col justify-between gap-12 text-base font-normal">
+              <>
                 <h2 className={titleClassName}>{title}</h2>
-                {para.text}
-              </div>
+                <div className="flex flex-col justify-between text-base font-normal xl:max-w-[55%] lg:max-w-[80%]">
+                  {para.text}
+                </div>
+              </>
             )}
           </div>
         ))}

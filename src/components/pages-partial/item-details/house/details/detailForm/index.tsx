@@ -31,8 +31,10 @@ interface ItemDetailsProps {
 }
 
 const ItemDetailsSchema = z.object({
-  itemQuantity: z.string().min(1, { message: 'Amount is required' }),
-  itemName: z.string().min(1, { message: 'Name of entered item is required' }),
+  itemQuantity: z
+    .string()
+    .min(1, { message: textConstants.amountValidationText }),
+  itemName: z.string().min(1, { message: textConstants.nameValidationText }),
 });
 
 type FormFields = z.infer<typeof ItemDetailsSchema>;
@@ -106,8 +108,8 @@ const HouseItemDetailsForm: React.FC<ItemDetailsProps> = ({
         handleNext();
       }
     } catch (error) {
-      console.error('Error creating event:', error);
-      toast.error('Failed to create event', {
+      console.error(textConstants.errorInCreatingEventMsg, error);
+      toast.error(textConstants.failedToCreateEventMsg, {
         position: 'top-right',
       });
     }

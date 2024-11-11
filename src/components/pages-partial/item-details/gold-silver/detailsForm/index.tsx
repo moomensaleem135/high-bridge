@@ -11,16 +11,16 @@ import { Form, FormControl, FormField } from '@/components/ui/form';
 import { ArrowLeftIcon } from '@/assets/svgs';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { IconInput } from '@/components/ui/icon-input';
-
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
-import QualityDropdown from './qualityDropdown';
-import WeightDropdown from './weightDropdown';
 import { ErrorIcon } from '@/assets/svgs';
 import { calculateZakat } from '@/lib/helpers';
 import { GoldIItems } from '@/lib/types';
 import StepperComponent from '@/components/ui/stepper';
 import { textConstants } from '@/configs/textConstants';
+
+import QualityDropdown from './qualityDropdown';
+import WeightDropdown from './weightDropdown';
 
 interface ItemDetailsProps {
   setValue: (value: number) => void;
@@ -40,10 +40,12 @@ interface ItemDetailsProps {
 }
 
 const ItemDetailsSchema = z.object({
-  quality: z.string().min(1, { message: 'Quality is required' }),
-  quantity: z.string().min(1, { message: 'Quantity is required' }),
-  weight: z.string().min(1, { message: 'Weight is required' }),
-  price: z.string().min(1, { message: 'Price is required' }),
+  quality: z.string().min(1, { message: textConstants.qualityValidationText }),
+  quantity: z
+    .string()
+    .min(1, { message: textConstants.quantityValidationText }),
+  weight: z.string().min(1, { message: textConstants.weightValidationText }),
+  price: z.string().min(1, { message: textConstants.priceValidationText }),
 });
 
 type FormFields = z.infer<typeof ItemDetailsSchema>;
@@ -142,8 +144,8 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = ({
         setWeight(itemsData.weight);
       }
     } catch (error) {
-      console.error('Error creating event:', error);
-      toast.error('Failed to Create event', {
+      console.error(textConstants.errorInCreatingEventMsg, error);
+      toast.error(textConstants.failedToCreateEventMsg, {
         position: 'top-right',
       });
     }

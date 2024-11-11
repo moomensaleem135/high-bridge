@@ -79,9 +79,9 @@ const ForgotPassword: React.FC<ForgotPasswordProps> = () => {
           data-cy="page-description"
           data-testid="page-description"
         >
-          {textConstants.forgotPasswordDescription.split('below')[0]}below
+          {textConstants.forgotPasswordDescriptionStartLine}
           <br />
-          {textConstants.forgotPasswordDescription.split('below')[1]}
+          {textConstants.forgotPasswordDescriptionEndLine}
         </p>
       </div>
       <Form {...form}>

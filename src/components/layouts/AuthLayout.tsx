@@ -1,39 +1,19 @@
 import React from 'react';
 import { LogoIcon } from '@/assets/svgs';
 import CarouselText from '../common/carousel';
+import { textConstants } from '@/configs/textConstants';
 
 const paras = [
   {
-    text: (
-      <p>
-        {' '}
-        Lorem ipsum dolor sit amet, consectetur adipiscing <br /> elit, sed do
-        eiusmod tempor incididunt ut labore et <br />
-        dolore magna aliqua.{' '}
-      </p>
-    ),
+    text: <p> {textConstants.CarouselTextParagraphOne}</p>,
     alt: 'info',
   },
   {
-    text: (
-      <p>
-        {' '}
-        Lorem ipsum dolor sit amet, consectetur adipiscing <br /> elit, sed do
-        eiusmod tempor incididunt ut labore et <br />
-        dolore magna aliqua.{' '}
-      </p>
-    ),
+    text: <p> {textConstants.CarouselTextParagraphTwo}</p>,
     alt: 'info',
   },
   {
-    text: (
-      <p>
-        {' '}
-        Lorem ipsum dolor sit amet, consectetur adipiscing <br /> elit, sed do
-        eiusmod tempor incididunt ut labore et <br />
-        dolore magna aliqua.{' '}
-      </p>
-    ),
+    text: <p> {textConstants.CarouselTextParagraphThree}</p>,
     alt: 'info',
   },
 ];
