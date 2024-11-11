@@ -244,31 +244,34 @@ const GoldSummaryForm: React.FC<GoldSummaryProps> = ({
             </div>
           </div>
 
-          <div className="w-full items-center">
-            <div className="flex flex-col justify-start gap-x-6 gap-y-2 items-start">
-              <Label className="font-medium text-lg">
-                {textConstants.goldItemExcessiveAmountText}
-              </Label>
-              <div className="flex w-full">
-                <FormField
-                  control={form.control}
-                  name="selection"
-                  render={({ field }) => (
-                    <div className="w-full flex flex-col">
-                      <span>{selection}</span>
+          {selection !== '' && (
+            <div className="w-full items-center">
+              <div className="flex flex-col justify-start gap-x-6 gap-y-2 items-start">
+                <Label className="font-medium text-lg">
+                  {textConstants.goldItemExcessiveAmountText}
+                </Label>
+                <div className="flex w-full">
+                  <FormField
+                    control={form.control}
+                    name="selection"
+                    render={({ field }) => (
+                      <div className="w-full flex flex-col">
+                        <span>{selection}</span>
 
-                      {form.formState.errors.selection && (
-                        <span className="text-destructive text-sm flex items-center gap-1 mt-2">
-                          <ErrorIcon />
-                          {form.formState.errors.selection.message}
-                        </span>
-                      )}
-                    </div>
-                  )}
-                />
+                        {form.formState.errors.selection && (
+                          <span className="text-destructive text-sm flex items-center gap-1 mt-2">
+                            <ErrorIcon />
+                            {form.formState.errors.selection.message}
+                          </span>
+                        )}
+                      </div>
+                    )}
+                  />
+                </div>
               </div>
             </div>
-          </div>
+          )}
+
           <div className="w-full items-center">
             <div className="flex flex-col justify-start gap-x-6 gap-y-2 items-start">
               <Label className="font-medium text-lg">
