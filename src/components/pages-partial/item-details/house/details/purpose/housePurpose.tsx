@@ -220,7 +220,7 @@ export const HousePurposeForm: React.FC<HousePurposeFormProps> = ({
             <hr className="w-full border-[1px] border-solid border-underline" />
             <div className="flex justify-between items-center w-full md:flex-row md:justify-between md:items-center">
               <div
-                className="flex justify-start items-center text-base font-medium"
+                className="flex justify-start items-center text-base font-medium cursor-pointer"
                 onClick={() => {
                   router.push('/income');
                 }}
