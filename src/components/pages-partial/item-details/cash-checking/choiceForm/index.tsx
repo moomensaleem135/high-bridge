@@ -205,7 +205,7 @@ const ItemChoiceForm: React.FC<ItemChoiceProps> = ({
                     localStorage.clear();
                     router.push('/income');
                   } else {
-                    router.back();
+                    router.push('/income/income-details/add-items');
                   }
                 }}
               >

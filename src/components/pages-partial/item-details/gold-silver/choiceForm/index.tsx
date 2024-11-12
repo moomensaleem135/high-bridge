@@ -231,7 +231,7 @@ const GoldChoiceForm: React.FC<GoldChoiceProps> = ({
                   if (gold?.length === 0) {
                     router.push('/income');
                   } else {
-                    router.back();
+                    router.push('/income/income-details/add-items');
                   }
                 }}
               >

@@ -57,6 +57,13 @@ export default function HouseDetails() {
   const [price, setPrice] = React.useState('');
   const [houseId, setHouseId] = React.useState('');
   const [zakat, setZakat] = React.useState(0);
+  const [show, setShow] = useState<boolean>(true);
+
+  const showRef = React.useRef<boolean>(show);
+
+  React.useEffect(() => {
+    showRef.current = show;
+  }, [show]);
 
   const id = searchParams.get('id');
 
@@ -97,6 +104,12 @@ export default function HouseDetails() {
     };
   }, [selectedPurpose, name, price]);
 
+  React.useEffect(() => {
+    if (step === 2) {
+      setShow(false);
+    }
+  }, [step]);
+
   const confirmNavigation = () => {
     router.replace(navigateAway);
     setIsModalOpen(false);
@@ -111,6 +124,15 @@ export default function HouseDetails() {
 
     router.push = (...args) => {
       if (args[0] !== '' && args[0] !== '/income/income-details/add-items') {
+        if (isDirty) {
+          setNavigateAway(args[0]);
+          setIsModalOpen(true);
+          return;
+        }
+      } else if (
+        args[0] === '/income/income-details/add-items' &&
+        showRef.current === true
+      ) {
         if (isDirty) {
           setNavigateAway(args[0]);
           setIsModalOpen(true);

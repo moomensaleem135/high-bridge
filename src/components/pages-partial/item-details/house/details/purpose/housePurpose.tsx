@@ -222,7 +222,11 @@ export const HousePurposeForm: React.FC<HousePurposeFormProps> = ({
               <div
                 className="flex justify-start items-center text-base font-medium cursor-pointer"
                 onClick={() => {
-                  router.push('/income');
+                  if (house?.length === 0) {
+                    router.push('/income');
+                  } else {
+                    router.push('/income/income-details/add-items');
+                  }
                 }}
               >
                 <ArrowLeftIcon />

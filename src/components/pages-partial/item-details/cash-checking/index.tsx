@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import Modal from '@/components/ui/modal';
@@ -23,10 +23,17 @@ export default function CashItemDetails() {
   const [price, setPrice] = useState('');
   const [zakat, setZakat] = useState(0);
   const [itemForm, setItemForm] = useState<string>('');
+  const [show, setShow] = useState<boolean>(true);
 
   const [isDirty, setIsDirty] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [navigateAway, setNavigateAway] = useState('');
+
+  const showRef = useRef<boolean>(show);
+
+  useEffect(() => {
+    showRef.current = show;
+  }, [show]);
 
   useEffect(() => {
     const checkForUnsavedChanges = () => {
@@ -42,6 +49,12 @@ export default function CashItemDetails() {
     };
   }, [name, price, itemForm]);
 
+  useEffect(() => {
+    if (value === 2) {
+      setShow(false);
+    }
+  }, [value]);
+
   const confirmNavigation = () => {
     router.replace(navigateAway);
     setIsModalOpen(false);
@@ -56,6 +69,15 @@ export default function CashItemDetails() {
 
     router.push = (...args) => {
       if (args[0] !== '' && args[0] !== '/income/income-details/add-items') {
+        if (isDirty) {
+          setNavigateAway(args[0]);
+          setIsModalOpen(true);
+          return;
+        }
+      } else if (
+        args[0] === '/income/income-details/add-items' &&
+        showRef.current === true
+      ) {
         if (isDirty) {
           setNavigateAway(args[0]);
           setIsModalOpen(true);

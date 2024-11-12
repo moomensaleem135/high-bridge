@@ -20,5 +20,6 @@ export const incomedetailsUrl = '/income-details/';
 export const addItemssUrl = '/add-items/';
 export const reviewZakatUrl = '/reviews';
 export const payZakatUrl = '/pay-zakat';
+export const completeZakatUrl = '/export-data';
 
 export const jwtExpMsg = 'jwt expired';

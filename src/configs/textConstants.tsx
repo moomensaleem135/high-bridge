@@ -229,7 +229,7 @@ export const textConstants = {
   reviewHouse: 'House',
   reviewCashAndChecking: ' Cash & Checking',
   previewButtonText: 'Preview',
-  payZakatButtonText: 'Pay Zakat',
+  completeZakatButtonText: 'Completed',
 
   //Custom Option
   editText: 'Edit',
@@ -319,4 +319,13 @@ export const textConstants = {
     'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
   CarouselTextParagraphThree:
     'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+
+  //Export Data Screen
+  exportDataMainHeading: 'Export Your Data',
+  exportDataMainParagraph:
+    'Select an export option to securely transfer your data to Google Sheets or download it locally for flexible access and management.',
+
+  //Modal
+  modalHeading: 'Unsaved Changes Detected',
+  modalDesc: `You've made some changes that haven't been saved yet. Would you like to complete your action now or save your progress to finish later?`,
 };

@@ -7,7 +7,7 @@ import { useRouter } from 'next/navigation';
 import { Inter } from 'next/font/google';
 
 import { ArrowLeftIcon } from '@/assets/svgs';
-import { payZakatUrl } from '@/configs/constants';
+import { completeZakatUrl } from '@/configs/constants';
 import { IncomeChoice } from '@/store/features/income/incomeSlice';
 import { textConstants } from '@/configs/textConstants';
 
@@ -380,16 +380,16 @@ const ZakatCard = () => {
         </div>
       )}
 
-      {items?.length !== 0 || cash?.length !== 0 ? (
+      {items?.length !== 0 || cash?.length !== 0 || house.length !== 0 ? (
         <div className="flex flex-col justify-evenly items-center w-full gap-5 mt-12">
           <hr className="w-full border-[1px] border-solid border-underline" />
           <div className="flex flex-row justify-end items-center w-full">
             <div>
               <Button
                 className="bg-detailsBtn text-btnText font-medium text-base w-6/6 hover:bg-btnHover"
-                onClick={() => router.push(payZakatUrl)}
+                onClick={() => router.push(completeZakatUrl)}
               >
-                {textConstants.payZakatButtonText}
+                {textConstants.completeZakatButtonText}
               </Button>
             </div>
           </div>

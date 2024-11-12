@@ -18,6 +18,7 @@ import { textConstants } from '@/configs/textConstants';
 
 interface SummaryProps {
   setValue: (value: number) => void;
+
   value: number;
   name: string;
   price: string;

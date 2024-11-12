@@ -1,42 +1,47 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
-
+import Modal from '@/components/ui/modal';
 import ItemDetailsForm from './detailsForm';
 import GoldChoiceForm from './choiceForm';
 import ExcessScreen from './excessScreen';
 import GoldSummaryForm from './goldSummary';
 import ReturnScreen from './returnScreen';
 import { textConstants } from '@/configs/textConstants';
-import Modal from '@/components/ui/modal';
 import { useAppSelector } from '@/store/hooks';
 
 export default function GoldItemDetails() {
   const searchparams = useSearchParams();
+  const router = useRouter();
+  const id = searchparams.get('id');
   const setup = useAppSelector((state: any) => state.setup.setup);
 
-  const router = useRouter();
-  const [value, setValue] = React.useState<number>(0);
-  const [item, setUserItem] = React.useState('');
-  const [purpose, setPurpose] = React.useState('');
-  const [goldId, setGoldId] = React.useState('');
-  const [selection, setSelection] = React.useState('');
-  const [quality, setQuality] = React.useState('');
-  const [quantity, setQuantity] = React.useState('');
-  const [price, setPrice] = React.useState('');
-  const [weight, setWeight] = React.useState('');
-  const [zakatVal, setZakatVal] = React.useState(0);
-  const id = searchparams.get('id');
+  const [value, setValue] = useState<number>(0);
+  const [item, setUserItem] = useState('');
+  const [purpose, setPurpose] = useState('');
+  const [goldId, setGoldId] = useState('');
+  const [selection, setSelection] = useState('');
+  const [quality, setQuality] = useState('');
+  const [quantity, setQuantity] = useState('');
+  const [price, setPrice] = useState('');
+  const [weight, setWeight] = useState('');
+  const [zakatVal, setZakatVal] = useState(0);
+  const [show, setShow] = useState<boolean>(true);
 
-  const [isDirty, setIsDirty] = React.useState(false);
-  const [isModalOpen, setIsModalOpen] = React.useState(false);
-  const [navigateAway, setNavigateAway] = React.useState('');
+  const [isDirty, setIsDirty] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [navigateAway, setNavigateAway] = useState('');
 
-  console.log('value', value);
-  React.useEffect(() => {
+  const showRef = useRef<boolean>(show);
+
+  useEffect(() => {
+    showRef.current = show;
+  }, [show]);
+
+  useEffect(() => {
     const checkForUnsavedChanges = () => {
-      if (item || purpose || quantity || price || quality) {
+      if (item || purpose || quantity || price || quality || weight) {
         setIsDirty(true);
       }
     };
@@ -46,7 +51,15 @@ export default function GoldItemDetails() {
     return () => {
       checkForUnsavedChanges();
     };
-  }, [item, purpose, quantity, price, quality]);
+  }, [item, purpose, quantity, price, quality, weight]);
+
+  useEffect(() => {
+    if (value === 2) {
+      setShow(false);
+    } else if (value === 1 && purpose === 'Saving') {
+      setShow(false);
+    }
+  }, [value]);
 
   const confirmNavigation = () => {
     router.replace(navigateAway);
@@ -57,11 +70,20 @@ export default function GoldItemDetails() {
     setIsModalOpen(false);
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     const originalPush = router.push;
 
     router.push = (...args) => {
       if (args[0] !== '' && args[0] !== '/income/income-details/add-items') {
+        if (isDirty) {
+          setNavigateAway(args[0]);
+          setIsModalOpen(true);
+          return;
+        }
+      } else if (
+        args[0] === '/income/income-details/add-items' &&
+        showRef.current === true
+      ) {
         if (isDirty) {
           setNavigateAway(args[0]);
           setIsModalOpen(true);
@@ -77,7 +99,7 @@ export default function GoldItemDetails() {
     };
   }, [isDirty, router]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     const handleBeforeUnload = (e: BeforeUnloadEvent) => {
       if (isDirty) {
         e.preventDefault();
@@ -91,14 +113,15 @@ export default function GoldItemDetails() {
     };
   }, [isDirty]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (setup.startDate === '' || setup.year === '') {
       router.replace('/income');
     }
   });
+
   return (
     <div className="flex flex-col self-stretch w-full gap-y-4 overflow-y-scroll xs:mb-16 lg:my-5 gridscrollbar">
-      <div className="flex flex-col justify-center items-center ">
+      <div className="flex flex-col justify-center items-center">
         {id ? (
           <h1 className="text-center px-4 text-3xl font-semibold">
             {textConstants.goldItemEditFormHeading}
@@ -115,7 +138,7 @@ export default function GoldItemDetails() {
         <hr className="w-full border-[1px] border-underline" />
       </div>
 
-      <div className="flex justify-center items-center mt-2 flex-col ">
+      <div className="flex justify-center items-center mt-2 flex-col">
         {value === 0 && (
           <GoldChoiceForm
             setUserItem={setUserItem}
@@ -191,13 +214,13 @@ export default function GoldItemDetails() {
           />
         )}
       </div>
+
+      {/* Modal for unsaved changes */}
       {isModalOpen && (
         <Modal
           isOpen={isModalOpen}
-          heading="Unsaved Changes Detected"
-          paragraph="You've made some changes that haven't been saved yet.
-                    Would you like to complete your action now or save
-                    your progress to finish later?"
+          heading={textConstants.modalHeading}
+          paragraph={textConstants.modalDesc}
           buttonText="Yes"
           onClose={cancelNavigation}
           onConfirm={confirmNavigation}
