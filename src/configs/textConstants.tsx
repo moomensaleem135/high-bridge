@@ -1,5 +1,5 @@
 export const textConstants = {
-  loginTitle: 'Log in',
+  loginTitle: 'Log In',
   noAccountText: 'Don’t have an account?',
   signUpText: 'Sign up',
   emailLabel: 'Email Address',
