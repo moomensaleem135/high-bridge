@@ -1,6 +1,6 @@
 export const textConstants = {
   loginTitle: 'Log In',
-  noAccountText: 'Don’t have an account?',
+  noAccountText: 'Don’t have a profile yet? Join us!',
   signUpText: 'Sign up',
   emailLabel: 'Email Address',
   passwordLabel: 'Password',
