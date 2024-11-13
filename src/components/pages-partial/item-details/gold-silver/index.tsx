@@ -54,9 +54,9 @@ export default function GoldItemDetails() {
   }, [item, purpose, quantity, price, quality, weight]);
 
   useEffect(() => {
-    if (value === 2) {
+    if (value === 3) {
       setShow(false);
-    } else if (value === 1 && purpose === 'Saving') {
+    } else if (value === 2 && purpose === 'Saving') {
       setShow(false);
     }
   }, [value]);
@@ -211,6 +211,7 @@ export default function GoldItemDetails() {
             goldId={goldId}
             purpose={purpose}
             selection={selection ? selection : ''}
+            setShow={setShow}
           />
         )}
       </div>

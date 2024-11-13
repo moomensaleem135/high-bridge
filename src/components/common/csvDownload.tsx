@@ -5,12 +5,15 @@ import { saveAs } from 'file-saver';
 import { Button } from '../ui/button';
 import { s2ab } from '@/lib/helpers';
 import { textConstants } from '@/configs/textConstants';
+import { useCreateEventMutation } from '@/store/features/events/eventsApi';
+import Spinner from './Spinner';
 
 interface Props {
   dataSet: [];
 }
 
 const CSVDownload: React.FC<Props> = ({ dataSet }) => {
+  const [login, { isLoading }] = useCreateEventMutation();
   const generateData = () => {
     const data = dataSet.map(({ income, item, zakat, price, quantity }) => ({
       Income: income,
@@ -37,7 +40,7 @@ const CSVDownload: React.FC<Props> = ({ dataSet }) => {
       className="bg-black hover:bg-gray-500 text-white xs:text-sm md:text-base font-medium"
       onClick={generateData}
     >
-      {textConstants.downloadButtonText}
+      {isLoading ? <Spinner /> : textConstants.downloadButtonText}
     </Button>
   );
 };

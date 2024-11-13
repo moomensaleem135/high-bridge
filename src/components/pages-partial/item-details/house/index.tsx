@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 
 import Modal from '@/components/ui/modal';
@@ -83,6 +83,7 @@ export default function HouseDetails() {
       setStep(0);
     } else {
       setStep(step - 1);
+      setShow(true);
     }
   };
 
@@ -105,7 +106,7 @@ export default function HouseDetails() {
   }, [selectedPurpose, name, price]);
 
   React.useEffect(() => {
-    if (step === 2) {
+    if (step === 3) {
       setShow(false);
     }
   }, [step]);

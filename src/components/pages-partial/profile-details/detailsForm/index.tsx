@@ -5,32 +5,23 @@ import { useForm, Controller } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
 import { z } from 'zod';
 import toast from 'react-hot-toast';
-
-import { Form, FormField } from '@/components/ui/form';
-
-import { zodResolver } from '@hookform/resolvers/zod';
-
-import { Button } from '@/components/ui/button';
-
-import { Label } from '@/components/ui/label';
-import CalendarSelect from './calendarSelect';
-
 import moment from 'moment-hijri';
 import { DateObject } from 'react-multi-date-picker';
 import hijri from 'react-date-object/calendars/arabic';
 
+import { Form, FormField } from '@/components/ui/form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { Button } from '@/components/ui/button';
+import { Label } from '@/components/ui/label';
 import { useCreateEventMutation } from '@/store/features/events/eventsApi';
-
 import { ErrorIcon } from '@/assets/svgs';
-
-import { useCreateItemMutation } from '@/store/features/items/itemsApi';
 import { profileData } from '@/store/features/setup/setupSlice';
 import Spinner from '@/components/common/Spinner';
-
-import Calendar from '../../../common/calendar';
-import ReligionDropdown from '../../profilesetup/profile-setupform/religionDropdown';
 import { handleDateChange } from '@/lib/helpers';
 import { textConstants } from '@/configs/textConstants';
+
+import CalendarSelect from './calendarSelect';
+import Calendar from '../../../common/calendar';
 
 interface ProfileDetailsProps {}
 

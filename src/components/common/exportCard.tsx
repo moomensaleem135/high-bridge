@@ -4,6 +4,7 @@ import { Tooltip as ReactTooltip } from 'react-tooltip';
 import { useAppSelector } from '@/store/hooks';
 import { textConstants } from '@/configs/textConstants';
 import CSVDownload from '@/components/common/csvDownload';
+
 import { Button } from '../ui/button';
 
 interface ExportCardProps {
@@ -19,7 +20,6 @@ const ExportCard: React.FC<ExportCardProps> = ({
   className,
   ...props
 }) => {
-  const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
   const cash = useAppSelector((state: any) => state.cash.cash);
   const items = useAppSelector((state: any) => state.items.items);
   const house = useAppSelector((state: any) => state.house.house);

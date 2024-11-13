@@ -91,10 +91,9 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = ({
   });
 
   useEffect(() => {
-    console.log('in id use Effect');
     if (id) {
       const data = items.filter((item) => item.goldId === id);
-      console.log('data', data);
+
       setItem(userItem);
       setReason(data[0].purpose);
       form.reset({

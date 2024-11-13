@@ -18,7 +18,7 @@ import { textConstants } from '@/configs/textConstants';
 
 interface SummaryProps {
   setValue: (value: number) => void;
-
+  setShow: (value: boolean) => void;
   value: number;
   name: string;
   price: string;
@@ -39,6 +39,7 @@ type FormFields = z.infer<typeof SummarySchema>;
 
 const CashSummaryForm: React.FC<SummaryProps> = ({
   setValue,
+  setShow,
   value,
   name,
   price,
@@ -157,6 +158,7 @@ const CashSummaryForm: React.FC<SummaryProps> = ({
 
   const handleBack = () => {
     setValue(value - 1);
+    setShow(true);
   };
 
   return (

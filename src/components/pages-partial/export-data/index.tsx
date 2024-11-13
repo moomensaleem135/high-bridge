@@ -6,7 +6,6 @@ import { useRouter } from 'next/navigation';
 import AppLayout from '@/components/layouts/AppLayout';
 import { textConstants } from '@/configs/textConstants';
 import ExportCard from '@/components/common/exportCard';
-import { ArrowLeftIcon } from '@/assets/svgs';
 import { Button } from '@/components/ui/button';
 
 const cardData = [

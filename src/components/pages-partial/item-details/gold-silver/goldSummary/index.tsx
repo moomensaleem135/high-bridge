@@ -27,6 +27,7 @@ import { textConstants } from '@/configs/textConstants';
 
 interface GoldSummaryProps {
   setValue: (value: number) => void;
+  setShow: (value: boolean) => void;
   value: number;
   purpose: string;
   quality: string;
@@ -58,6 +59,7 @@ type FormFields = z.infer<typeof GoldSummarySchema>;
 
 const GoldSummaryForm: React.FC<GoldSummaryProps> = ({
   setValue,
+  setShow,
   value,
   purpose,
   quality,
@@ -354,8 +356,10 @@ const GoldSummaryForm: React.FC<GoldSummaryProps> = ({
                 onClick={() => {
                   if (purpose === 'Saving') {
                     setValue(value - 2);
+                    setShow(true);
                   } else {
                     setValue(value - 1);
+                    setShow(true);
                   }
                 }}
               >

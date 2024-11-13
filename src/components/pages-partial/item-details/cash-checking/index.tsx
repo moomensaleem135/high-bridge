@@ -164,6 +164,7 @@ export default function CashItemDetails() {
             setValue={setValue}
             value={value}
             zakatVal={zakat}
+            setShow={setShow}
           />
         )}
       </div>

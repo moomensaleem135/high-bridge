@@ -82,10 +82,12 @@ const ItemChoiceForm: React.FC<ItemChoiceProps> = ({
     try {
       if (id) {
         setUserItem(itemsData.itemForm);
+        setItemForm(itemsData.itemForm);
         setValue(value + 1);
         setCashId(id);
       } else {
         setUserItem(itemsData.itemForm);
+        setItemForm(itemsData.itemForm);
         setCashId(cashId);
         setValue(value + 1);
       }
