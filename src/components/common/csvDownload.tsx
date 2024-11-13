@@ -16,7 +16,7 @@ const CSVDownload: React.FC<Props> = ({ dataSet }) => {
       Income: income,
       Item: item,
       Price: price ? `$${price}` : `$${quantity}`,
-      Zakat: `$${zakat}`,
+      Zakat: `$${Math.ceil(zakat)}`,
     }));
 
     const ws = XLSX.utils.json_to_sheet(data);
@@ -34,7 +34,7 @@ const CSVDownload: React.FC<Props> = ({ dataSet }) => {
 
   return (
     <Button
-      className="bg-black hover:bg-gray-500 text-white xs:text-sm md:text-lg"
+      className="bg-black hover:bg-gray-500 text-white xs:text-sm md:text-base font-medium"
       onClick={generateData}
     >
       {textConstants.downloadButtonText}

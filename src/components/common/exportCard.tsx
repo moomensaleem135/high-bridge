@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
 import { Tooltip as ReactTooltip } from 'react-tooltip';
 
 import { useAppSelector } from '@/store/hooks';
@@ -27,15 +26,13 @@ const ExportCard: React.FC<ExportCardProps> = ({
 
   const data = cash.concat(items, house);
 
-  const dispatch = useDispatch();
-
   return (
     <>
       {cardData.map((card, index) => {
         const tooltipId = `card-tooltip-${index}`;
         return (
           <div key={index} className="flex justify-center items-center mt-10">
-            <div className="p-2 pt-8 pb-8 gap-y-2 bg-cardbg rounded-2xl border-[1px] cursor-pointer">
+            <div className="p-2 pt-8 pb-8 gap-y-2 bg-cardbg border-cardBorder rounded-2xl border-[1px] cursor-pointer">
               <div className="flex flex-col justify-start items-center md:h-44 md:w-[400px] xs:w-[300px] gap-y-6 pl-2 pr-2">
                 <h2
                   className="text-cardHeading font-medium md:text-xl w-full text-center xs:text-base"
@@ -49,7 +46,10 @@ const ExportCard: React.FC<ExportCardProps> = ({
                 {card.title.includes('Locally') ? (
                   <CSVDownload dataSet={data} />
                 ) : (
-                  <Button className="bg-black hover:bg-gray-500 text-white xs:text-sm md:text-lg">
+                  <Button
+                    className="bg-black hover:bg-gray-500 text-white xs:text-sm md:text-base  font-medium"
+                    disabled
+                  >
                     {textConstants.downloadButtonText}
                   </Button>
                 )}

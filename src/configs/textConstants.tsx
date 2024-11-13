@@ -227,7 +227,7 @@ export const textConstants = {
     'and selected madhab before finalizing your zakat payment.',
   reviewGoldAndSilver: 'Gold & Silver',
   reviewHouse: 'House',
-  reviewCashAndChecking: ' Cash & Checking',
+  reviewCashAndChecking: 'Liquid Assets (Cash, Checking, Saving, Loan)',
   previewButtonText: 'Preview',
   completeZakatButtonText: 'Completed',
 

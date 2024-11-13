@@ -40,19 +40,14 @@ export default function PartialExportData() {
         </div>
         <div className="flex flex-col justify-evenly items-center gap-5 md:mt-12 xs:mt-6">
           <hr className=" max-w-[860px] border-[1px] border-solid border-underline min-[1280px]:w-full min-[768px]:w-[410px] max-[1279px]:w-[410px] min-xs:w-[320px] max-[767px]:w-[320px]" />
-          <div className="flex justify-between items-center max-w-[860px] md:flex-row md:justify-between md:items-center min-[1280px]:w-full min-[768px]:w-[410px] max-[1279px]:w-[410px] min-xs:w-[320px] max-[767px]:w-[320px]">
-            <div
-              className="flex justify-start items-center text-base font-medium cursor-pointer"
+          <div className="flex justify-end items-center max-w-[860px] md:flex-row md:justify-end md:items-center min-[1280px]:w-full min-[768px]:w-[410px] max-[1279px]:w-[410px] min-xs:w-[320px] max-[767px]:w-[320px]">
+            <Button
+              className="bg-detailsBtn text-btnText font-normal hover:bg-btnHover"
               onClick={() => {
                 router.back();
               }}
             >
-              <ArrowLeftIcon />
               {textConstants.formBackButtonText}
-            </div>
-
-            <Button className="bg-detailsBtn text-btnText font-normal hover:bg-btnHover">
-              {textConstants.formNextButtonText}
             </Button>
           </div>
         </div>

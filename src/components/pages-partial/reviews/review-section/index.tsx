@@ -42,6 +42,11 @@ const ZakatCard = () => {
   const router = useRouter();
   const dispatch = useDispatch();
 
+  const [mainText, bracketedText] =
+    textConstants.reviewCashAndChecking.includes('(')
+      ? textConstants.reviewCashAndChecking.split(/(\(.*\))/)
+      : [textConstants.reviewCashAndChecking, ''];
+
   const categorizedItems = items.reduce((acc: any, item: any) => {
     const category = personalText?.includes(item.income)
       ? 'personal'
@@ -257,8 +262,13 @@ const ZakatCard = () => {
             ].length > 0 && (
               <div className="p-4 bg-cardbg rounded-xl border-cardBorder border-[1px] mb-4">
                 <div className="font-medium text-xl flex gap-2">
-                  <div className="xs:text-base sm:text-xl text-agTableTop">
-                    {textConstants.reviewCashAndChecking}
+                  <div className="xs:text-base sm:text-xl te`xt-agTableTop">
+                    <span>
+                      {mainText}
+                      {bracketedText && (
+                        <span className="text-sm">{bracketedText}</span>
+                      )}
+                    </span>
                   </div>
                   <div className="font-medium text-sm flex justify-center items-center text-agTableTop">
                     {/* ({categorizedCash.personal['Cash & Checking'][0].religion}) */}
