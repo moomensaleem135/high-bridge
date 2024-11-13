@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { Tooltip as ReactTooltip } from 'react-tooltip';
 
-import { useDispatch, useSelector } from 'react-redux';
-import { addSect } from '@/store/features/sects/sectsSlice';
-import { Button } from '../ui/button';
-import { ArrowLeftIcon } from 'lucide-react';
+import { useAppSelector } from '@/store/hooks';
 import { textConstants } from '@/configs/textConstants';
+import CSVDownload from '@/components/common/csvDownload';
+import { Button } from '../ui/button';
 
 interface ExportCardProps {
   cardData: {
@@ -21,6 +21,12 @@ const ExportCard: React.FC<ExportCardProps> = ({
   ...props
 }) => {
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
+  const cash = useAppSelector((state: any) => state.cash.cash);
+  const items = useAppSelector((state: any) => state.items.items);
+  const house = useAppSelector((state: any) => state.house.house);
+
+  const data = cash.concat(items, house);
+
   const dispatch = useDispatch();
 
   return (
@@ -40,9 +46,13 @@ const ExportCard: React.FC<ExportCardProps> = ({
                 <span className="text-center text-cardText md:text-base xs:text-sm w-full text-wrap font-light">
                   {card.text}
                 </span>
-                <Button className="bg-black hover:bg-gray-500 text-white xs:text-sm md:text-lg">
-                  Download
-                </Button>
+                {card.title.includes('Locally') ? (
+                  <CSVDownload dataSet={data} />
+                ) : (
+                  <Button className="bg-black hover:bg-gray-500 text-white xs:text-sm md:text-lg">
+                    {textConstants.downloadButtonText}
+                  </Button>
+                )}
               </div>
             </div>
 

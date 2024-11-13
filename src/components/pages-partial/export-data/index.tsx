@@ -11,12 +11,12 @@ import { Button } from '@/components/ui/button';
 
 const cardData = [
   {
-    text: 'Send your data directly to Google Sheets for easy access and collaboration.',
-    title: 'Export Data to Google Sheets',
+    text: textConstants.globalDownloadText,
+    title: textConstants.globalDownloadTitle,
   },
   {
-    text: 'Download your data to your device for offline use and secure storage.',
-    title: 'Export Data Locally',
+    text: textConstants.localDownloadText,
+    title: textConstants.localDownloadTitle,
   },
 ];
 

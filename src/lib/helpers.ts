@@ -92,24 +92,25 @@ export function formatDate(dateString: string) {
   }
 }
 
-export const calculateZakat = (amount: number, year? : string, date? : string) => {
-  const yearVal = date?.split(" ")
+export const calculateZakat = (
+  amount: number,
+  year?: string,
+  date?: string
+) => {
+  const yearVal = date?.split(' ');
 
   let leap;
-  if(yearVal){
+  if (yearVal) {
     leap = Number(yearVal[2]) % 4;
   }
 
-  if(year !== 'lunar'){
-    if(leap === 0){
-     
-      return (amount * 2.5775) / 100; //calculate leap year zakat 
+  if (year !== 'lunar') {
+    if (leap === 0) {
+      return (amount * 2.5775) / 100; //calculate leap year zakat
     } else {
-      return (amount * 2.577) / 100;  //calculate non-leap year zakat
+      return (amount * 2.577) / 100; //calculate non-leap year zakat
     }
-  }
-  else {
-   
+  } else {
     return (amount * 2.5) / 100; // 2.5% of the total amount
   }
 };
@@ -141,11 +142,9 @@ export const handleDateChange = (
   calendarType: string,
   setSelectedDate: Dispatch<SetStateAction<string | null>>,
   setStartDate: Dispatch<SetStateAction<string>>,
-  DateChange: (dateVal :  string) => void
- 
+  DateChange: (dateVal: string) => void
 ) => {
   const momentDate = moment(date); // Convert to moment date for handling
-
 
   // Format dates based on the selected calendar type
   const selectedDateFormatted =
@@ -156,30 +155,31 @@ export const handleDateChange = (
   // Calculate start date (1 year before)
   const startDateMoment =
     calendarType === 'solar'
-      ? momentDate.subtract(1,'years')// Subtract 1 Gregorian year
-      : momentDate.subtract(1,'iYear'); // Subtract 1 Hijri year
+      ? momentDate.subtract(1, 'years') // Subtract 1 Gregorian year
+      : momentDate.subtract(1, 'iYear'); // Subtract 1 Hijri year
 
-  const endDateMoment = 
-    calendarType === 'solar' 
-      ?
-        momentDate: 
-        momentDate
-    
+  const endDateMoment = calendarType === 'solar' ? momentDate : momentDate;
 
   const startDateFormatted =
     calendarType === 'solar'
       ? startDateMoment.format('DD MMMM YYYY') // Format Gregorian date
       : formatHijriDate(startDateMoment); // Format Hijri date
 
-  const endDateFormatted = 
-  calendarType === 'solar' 
-  ? endDateMoment.format('DD MMMM YYYY')
-  : formatHijriDate(endDateMoment)
+  const endDateFormatted =
+    calendarType === 'solar'
+      ? endDateMoment.format('DD MMMM YYYY')
+      : formatHijriDate(endDateMoment);
 
   setSelectedDate(selectedDateFormatted);
   setStartDate(startDateFormatted);
-  DateChange(selectedDateFormatted)
-  
-  
+  DateChange(selectedDateFormatted);
+
   //setEndDate(endDateFormatted)
 };
+
+export function s2ab(s: any) {
+  const buf = new ArrayBuffer(s.length);
+  const view = new Uint8Array(buf);
+  for (let i = 0; i != s.length; ++i) view[i] = s.charCodeAt(i) & 0xff;
+  return buf;
+}

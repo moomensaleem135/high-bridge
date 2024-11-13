@@ -328,4 +328,11 @@ export const textConstants = {
   //Modal
   modalHeading: 'Unsaved Changes Detected',
   modalDesc: `You've made some changes that haven't been saved yet. Would you like to complete your action now or save your progress to finish later?`,
+  localDownloadText:
+    'Download your data to your device for offline use and secure storage.',
+  localDownloadTitle: 'Export Data Locally',
+  globalDownloadText:
+    'Send your data directly to Google Sheets for easy access and collaboration.',
+  globalDownloadTitle: 'Export Data to Google Sheets',
+  downloadButtonText: 'Download',
 };
