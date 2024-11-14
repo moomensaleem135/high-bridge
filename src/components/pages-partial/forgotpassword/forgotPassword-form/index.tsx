@@ -51,16 +51,12 @@ const ForgotPassword: React.FC<ForgotPasswordProps> = () => {
     try {
       // const response = await login(formData);
       form.reset();
-      toast.success(textConstants.verificationSuccessMessage, {
-        position: 'top-right',
-      });
+      toast.success(textConstants.verificationSuccessMessage);
 
       router.push('/verify');
     } catch (error) {
       console.error('Error creating event:', error);
-      toast.error(textConstants.verificationErrorMessage, {
-        position: 'top-right',
-      });
+      toast.error(textConstants.verificationErrorMessage);
     }
   };
 

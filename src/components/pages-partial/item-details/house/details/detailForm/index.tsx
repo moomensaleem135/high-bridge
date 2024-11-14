@@ -109,9 +109,7 @@ const HouseItemDetailsForm: React.FC<ItemDetailsProps> = ({
       }
     } catch (error) {
       console.error(textConstants.errorInCreatingEventMsg, error);
-      toast.error(textConstants.failedToCreateEventMsg, {
-        position: 'top-right',
-      });
+      toast.error(textConstants.failedToCreateEventMsg);
     }
   };
 

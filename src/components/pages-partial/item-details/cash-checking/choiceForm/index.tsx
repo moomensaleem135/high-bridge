@@ -93,9 +93,7 @@ const ItemChoiceForm: React.FC<ItemChoiceProps> = ({
       }
     } catch (error) {
       console.error(textConstants.errorInCreatingEventMsg, error);
-      toast.error(textConstants.failedToCreateEventMsg, {
-        position: 'top-right',
-      });
+      toast.error(textConstants.failedToCreateEventMsg);
     }
   };
 
@@ -204,7 +202,6 @@ const ItemChoiceForm: React.FC<ItemChoiceProps> = ({
                 className="flex justify-start items-center text-base font-medium cursor-pointer"
                 onClick={() => {
                   if (cash?.length === 0) {
-                    localStorage.clear();
                     router.push('/income');
                   } else {
                     router.push('/income/income-details/add-items');

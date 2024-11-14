@@ -152,24 +152,18 @@ const GoldSummaryForm: React.FC<GoldSummaryProps> = ({
         dispatch(updateItem(itemData));
         dispatch(editZakat(zakatCalData));
         router.push('/income/income-details/add-items');
-        toast.success(`${item} ${textConstants.itemEditSuccessText}`, {
-          position: 'top-right',
-        });
+        toast.success(`${item} ${textConstants.itemEditSuccessText}`);
       } else {
         dispatch(addItems(itemData));
         dispatch(zakatCal(zakatCalData));
         router.push('/income/income-details/add-items');
-        toast.success(`${item} ${textConstants.itemAddSuccessText}`, {
-          position: 'top-right',
-        });
+        toast.success(`${item} ${textConstants.itemAddSuccessText}`);
       }
 
       form.reset();
     } catch (error) {
       console.error(textConstants.errorInCreatingEventMsg, error);
-      toast.error(textConstants.failedToCreateEventMsg, {
-        position: 'top-right',
-      });
+      toast.error(textConstants.failedToCreateEventMsg);
     }
   };
 

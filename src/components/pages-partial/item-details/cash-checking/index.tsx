@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { Button } from '@/components/ui/button';
 import Modal from '@/components/ui/modal';
 import ItemChoiceForm from './choiceForm';
 import ItemDetailsForm from './detailsForm';
@@ -172,10 +171,8 @@ export default function CashItemDetails() {
       {isModalOpen && (
         <Modal
           isOpen={isModalOpen}
-          heading="Unsaved Changes Detected"
-          paragraph="You've made some changes that haven't been saved yet.
-                    Would you like to complete your action now or save
-                    your progress to finish later?"
+          heading={textConstants.modalHeading}
+          paragraph={textConstants.modalDesc}
           buttonText="Yes"
           onClose={cancelNavigation}
           onConfirm={confirmNavigation}

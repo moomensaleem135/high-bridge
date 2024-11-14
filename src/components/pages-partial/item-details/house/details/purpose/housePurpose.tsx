@@ -87,14 +87,12 @@ export const HousePurposeForm: React.FC<HousePurposeFormProps> = ({
       }
     } catch (error) {
       console.error(textConstants.errorInCreatingEventMsg, error);
-      toast.error(textConstants.failedToCreateEventMsg, {
-        position: 'top-right',
-      });
+      toast.error(textConstants.failedToCreateEventMsg);
     }
   };
 
   return (
-    <div className="flex flex-col w-full max-w-[960px] justify-center items-center gap-12 rounded-3xl">
+    <div className="flex flex-col w-full max-w-[960px] justify-center items-center gap-12 rounded-3xl pl-10 pr-10">
       <Form
         {...form}
         style={{
@@ -114,10 +112,10 @@ export const HousePurposeForm: React.FC<HousePurposeFormProps> = ({
           <ul className="list-inside list-disc  pl-0">
             {purposeOptions.map((option) => (
               <li key={option.id} className="mb-2">
-                <span className="text-lg font-semibold leading-9">
+                <span className="md:text-lg xs:text-base font-semibold leading-9">
                   {option.label}:
                 </span>
-                <span className="text-lg font-regular leading-9">
+                <span className="md:text-lg xs:text-sm font-regular leading-9">
                   {' '}
                   {option.description}
                 </span>
@@ -125,11 +123,11 @@ export const HousePurposeForm: React.FC<HousePurposeFormProps> = ({
             ))}
           </ul>
 
-          <Label className="font-medium text-xl">
+          <Label className="font-medium md:text-xl xs:text-base">
             {textConstants.housePurposeLabel}
           </Label>
           <div>
-            <div className="w-full items-center flex justify-start gap-x-20 pl-4">
+            <div className="w-full items-center flex justify-start gap-x-20 pr-12 min-xs:flex-col max-[830px]:flex-col xs:justify-start xs:items-start">
               <div className="flex justify-center items-center gap-4">
                 <Controller
                   name="purpose"

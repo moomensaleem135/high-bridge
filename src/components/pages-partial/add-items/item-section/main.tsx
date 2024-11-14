@@ -1,15 +1,13 @@
 import React from 'react';
-import { AddIcon } from '@/assets/svgs/add-icon';
 import { useRouter } from 'next/navigation';
 import { useSelector } from 'react-redux';
+
+import { AddIcon } from '@/assets/svgs/add-icon';
 import GridSection from './table';
 
 const MainSection = () => {
   const router = useRouter();
-  const selector = useSelector((state: any) => state.sect.sect);
-  const setup = useSelector((state: any) => state.setup.setup);
   const income = useSelector((state: any) => state.income.income);
-  const items = useSelector((state: any) => state.items.items) || [];
 
   const [mainText, bracketedText] =
     typeof income === 'string' && income.includes('(')

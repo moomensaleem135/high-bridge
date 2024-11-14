@@ -250,10 +250,8 @@ export default function HouseDetails() {
       {isModalOpen && (
         <Modal
           isOpen={isModalOpen}
-          heading="Unsaved Changes Detected"
-          paragraph="You've made some changes that haven't been saved yet.
-                    Would you like to complete your action now or save
-                    your progress to finish later?"
+          heading={textConstants.modalHeading}
+          paragraph={textConstants.modalDesc}
           buttonText="Yes"
           onClose={cancelNavigation}
           onConfirm={confirmNavigation}

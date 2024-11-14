@@ -134,18 +134,14 @@ const ProfileSetup: React.FC<ProfileSetupProps> = () => {
         setupData.year !== '' &&
         setupData.startDate !== ''
       ) {
-        toast.success(textConstants.profileSetupSuccessMessage, {
-          position: 'top-right',
-        });
+        toast.success(textConstants.profileSetupSuccessMessage);
       }
 
       router.push('/signin');
       setActiveStep((prev) => prev + 1);
     } catch (error) {
       console.error('Error creating event:', error);
-      toast.error(textConstants.profileSetupErrorMessage, {
-        position: 'top-right',
-      });
+      toast.error(textConstants.profileSetupErrorMessage);
     }
   };
 

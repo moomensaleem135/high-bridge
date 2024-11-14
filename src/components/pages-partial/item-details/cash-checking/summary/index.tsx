@@ -113,18 +113,11 @@ const CashSummaryForm: React.FC<SummaryProps> = ({
       if (id) {
         dispatch(updateCashItem(itemData));
         dispatch(editZakat(zakatCalData));
-        toast.success(
-          `${itemsData.item} ${textConstants.itemEditSuccessText}`,
-          {
-            position: 'top-right',
-          }
-        );
+        toast.success(`${itemsData.item} ${textConstants.itemEditSuccessText}`);
       } else {
         dispatch(addCashItems(itemData));
         dispatch(zakatCal(zakatCalData));
-        toast.success(`${itemsData.item} ${textConstants.itemAddSuccessText}`, {
-          position: 'top-right',
-        });
+        toast.success(`${itemsData.item} ${textConstants.itemAddSuccessText}`);
       }
 
       form.reset();

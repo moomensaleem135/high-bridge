@@ -104,17 +104,13 @@ const SignUp: React.FC<SignUpProps> = () => {
 
     try {
       //const response = await signup(formData);
-      toast.success(textConstants.signupSuccessMessage, {
-        position: 'top-right',
-      });
+      toast.success(textConstants.signupSuccessMessage);
 
       router.push('/profilesetup');
       setActiveStep((prev: any) => prev + 1);
     } catch (error) {
       console.error('Error creating event:', error);
-      toast.error(textConstants.signupErrorMessage, {
-        position: 'top-right',
-      });
+      toast.error(textConstants.signupErrorMessage);
     }
   };
 

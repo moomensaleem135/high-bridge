@@ -1,7 +1,6 @@
 'use client';
 
 import React from 'react';
-import { usePathname } from 'next/navigation';
 
 import AppLayout from '@/components/layouts/AppLayout';
 import IncomeSection from '@/components/common/incomeSection';
@@ -47,12 +46,6 @@ const commercialText = [
 ];
 
 export default function Income() {
-  const pathname = usePathname();
-  React.useEffect(() => {
-    if (pathname !== '/income/income-details/add-items/item-details') {
-      localStorage.clear();
-    }
-  }, [pathname]);
   return (
     <AppLayout>
       <div className="flex flex-col self-stretch w-full gap-y-4 pb-16 overflow-y-scroll xs:mb-16 lg:my-5 gridscrollbar">

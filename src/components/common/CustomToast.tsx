@@ -2,7 +2,6 @@ import React from 'react';
 import { toast, Toast } from 'react-hot-toast';
 import { CloseIcon } from '@/assets/svgs';
 import { useRouter } from 'next/navigation';
-import { Button } from '@mui/material';
 
 interface CustomToastProps {
   t: Toast;

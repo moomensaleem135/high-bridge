@@ -101,14 +101,10 @@ const ProfileDetailsForm: React.FC<ProfileDetailsProps> = () => {
     try {
       dispatch(profileData({ setupData: submissionData }));
 
-      toast.success(textConstants.profileSetupSuccessMessage, {
-        position: 'top-right',
-      });
+      toast.success(textConstants.profileSetupSuccessMessage);
     } catch (error) {
       console.error(textConstants.profileSetupErrorMessage, error);
-      toast.error(textConstants.profileSetupErrorMessage, {
-        position: 'top-right',
-      });
+      toast.error(textConstants.profileSetupErrorMessage);
     }
   };
 

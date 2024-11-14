@@ -17,7 +17,7 @@ export const NotAcceptable: React.FC<ZakatInfoProps> = ({
 }) => {
   const router = useRouter();
   return (
-    <div className="flex flex-col text-black px-1 max-w-[807px]">
+    <div className="flex flex-col text-black px-1 max-w-[807px] pl-12 pr-12">
       <div className="xs:text-xl font-medium sm:text-2xl flex-1 my-8">
         {title}
       </div>

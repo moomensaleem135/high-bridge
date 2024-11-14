@@ -51,15 +51,11 @@ const VerifyCode: React.FC<VerifyProps> = () => {
     try {
       // const response = await verify(formData);
       form.reset();
-      toast.success(textConstants.verifyCodeSuccessMessage, {
-        position: 'top-right',
-      });
+      toast.success(textConstants.verifyCodeSuccessMessage);
       router.push('/reset-password');
     } catch (error) {
       console.error('Error creating event:', error);
-      toast.error(textConstants.verifyCodeErrorMessage, {
-        position: 'top-right',
-      });
+      toast.error(textConstants.verifyCodeErrorMessage);
     }
   };
 

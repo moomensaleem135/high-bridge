@@ -55,12 +55,9 @@ const SummaryForm: React.FC<SummaryProps> = ({
     try {
       await onSubmit(data); // Call the onSubmit callback
       form.reset();
-      localStorage.clear();
     } catch (error) {
       console.error(textConstants.errorInCreatingEventMsg, error);
-      toast.error(textConstants.failedToCreateEventMsg, {
-        position: 'top-right',
-      });
+      toast.error(textConstants.failedToCreateEventMsg);
     }
   };
 

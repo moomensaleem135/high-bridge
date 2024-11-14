@@ -1,10 +1,9 @@
 'use client';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { useSearchParams } from 'next/navigation';
 import { z } from 'zod';
-import Link from 'next/link';
 import toast from 'react-hot-toast';
 
 import { Form, FormControl, FormField } from '@/components/ui/form';
@@ -114,13 +113,6 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = ({
 
     setZakatVal(zakatAmount);
 
-    const zakatCalData = {
-      id: goldId,
-      quantity: itemsData.quantity,
-      weight: itemsData.weight,
-      value: zakatAmount || 0,
-    };
-
     const formData = new FormData();
 
     Object.keys(itemsData).forEach((key) => {
@@ -148,9 +140,7 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = ({
       }
     } catch (error) {
       console.error(textConstants.errorInCreatingEventMsg, error);
-      toast.error(textConstants.failedToCreateEventMsg, {
-        position: 'top-right',
-      });
+      toast.error(textConstants.failedToCreateEventMsg);
     }
   };
 
@@ -217,7 +207,7 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = ({
                           min="0"
                           id="weight"
                           aria-label="weight"
-                          placeholder="Enter weight"
+                          placeholder="Enter Weight"
                           className="bg-inputBg rounded-r-none rounded-l-lg h-[45px] border-inputBorder py-1.5 text-black"
                           error={!!form.formState.errors.weight}
                           data-cy="weight"
@@ -270,7 +260,7 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = ({
                           min="0"
                           id="price"
                           aria-label="price"
-                          placeholder="Enter price"
+                          placeholder="Enter Price"
                           className="bg-inputBg rounded-r-none rounded-lg h-[45px] border-inputBorder py-1.5 text-black"
                           error={!!form.formState.errors.price}
                           data-cy="price"

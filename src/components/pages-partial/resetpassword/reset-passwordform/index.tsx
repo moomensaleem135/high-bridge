@@ -56,16 +56,12 @@ const ResetPassword: React.FC<ResetProps> = () => {
     try {
       // const response = await login(formData);
       form.reset();
-      toast.success(textConstants.resetPasswordSuccessMessage, {
-        position: 'top-right',
-      });
+      toast.success(textConstants.resetPasswordSuccessMessage);
 
       router.push('/signin');
     } catch (error) {
       console.error('Error creating event:', error);
-      toast.error(textConstants.resetPasswordErrorMessage, {
-        position: 'top-right',
-      });
+      toast.error(textConstants.resetPasswordErrorMessage);
     }
   };
 

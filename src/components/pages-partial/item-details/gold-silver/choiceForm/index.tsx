@@ -101,9 +101,7 @@ const GoldChoiceForm: React.FC<GoldChoiceProps> = ({
       }
     } catch (error) {
       console.error(textConstants.errorInCreatingEventMsg, error);
-      toast.error(textConstants.failedToCreateEventMsg, {
-        position: 'top-right',
-      });
+      toast.error(textConstants.failedToCreateEventMsg);
     }
   };
 

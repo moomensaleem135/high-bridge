@@ -81,9 +81,7 @@ const StorageSelection: React.FC = () => {
   const onSubmit = async (data: FormFields) => {
     router.push('signup');
     dispatch(userSelection(data.storage));
-    toast.success(textConstants.successMessage, {
-      position: 'top-right',
-    });
+    toast.success(textConstants.successMessage);
     setActiveStep((prev) => prev + 1);
   };
 

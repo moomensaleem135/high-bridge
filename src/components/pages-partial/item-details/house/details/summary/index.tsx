@@ -113,27 +113,18 @@ const HouseSummaryForm: React.FC<SummaryProps> = ({
         dispatch(updateHouseItem(itemData));
         dispatch(editZakat(zakatCalData));
         router.push('/income/income-details/add-items');
-        toast.success(
-          `${itemsData.item} ${textConstants.itemEditSuccessText}`,
-          {
-            position: 'top-right',
-          }
-        );
+        toast.success(`${itemsData.item} ${textConstants.itemEditSuccessText}`);
       } else {
         dispatch(addHouseItems(itemData));
         dispatch(zakatCal(zakatCalData));
         router.push('/income/income-details/add-items');
-        toast.success(`${itemsData.item} ${textConstants.itemAddSuccessText}`, {
-          position: 'top-right',
-        });
+        toast.success(`${itemsData.item} ${textConstants.itemAddSuccessText}`);
       }
 
       form.reset();
     } catch (error) {
       console.error(textConstants.errorInCreatingEventMsg, error);
-      toast.error(textConstants.failedToCreateEventMsg, {
-        position: 'top-right',
-      });
+      toast.error(textConstants.failedToCreateEventMsg);
     }
   };
 

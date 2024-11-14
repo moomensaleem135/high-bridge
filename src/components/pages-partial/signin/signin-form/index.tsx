@@ -54,16 +54,12 @@ const Login: React.FC<LoginProps> = () => {
     try {
       //const response = await login(formData);
       form.reset();
-      toast.success(`Login successful.`, {
-        position: 'top-right',
-      });
+      toast.success(`Login successful.`);
 
       router.push('/income');
     } catch (error) {
       console.error('Error creating event:', error);
-      toast.error('Failed to Create event', {
-        position: 'top-right',
-      });
+      toast.error('Failed to Create event');
     }
   };
 
