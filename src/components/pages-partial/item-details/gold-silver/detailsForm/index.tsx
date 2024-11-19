@@ -111,7 +111,7 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = ({
         price: data[0].price,
         weight: data[0].weight,
         quantity: data[0].quantity,
-        quality: userItem === data[0].item ? data[0].quality : quality,
+        quality: userItem === data[0].item ? data[0].quality : '',
       });
     }
   }, [id, item]);
