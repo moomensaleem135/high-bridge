@@ -17,9 +17,11 @@ import { calculateZakat } from '@/lib/helpers';
 import { GoldIItems } from '@/lib/types';
 import StepperComponent from '@/components/ui/stepper';
 import { textConstants } from '@/configs/textConstants';
+import { setPrevItem } from '@/store/features/prev-item/prevItemSlice';
 
 import QualityDropdown from './qualityDropdown';
 import WeightDropdown from './weightDropdown';
+import { useAppDispatch, useAppSelector } from '@/store/hooks';
 
 interface ItemDetailsProps {
   setValue: (value: number) => void;
@@ -69,6 +71,8 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = ({
 }) => {
   const searchparams = useSearchParams();
   const id = searchparams.get('id');
+  const prevItem = useAppSelector((state: any) => state.prevItem.prevItem);
+  const dispatch = useAppDispatch();
 
   const items: GoldIItems[] =
     useSelector((state: any) => state.items.items) || [];
@@ -88,6 +92,14 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = ({
       price: price ? price : '',
     },
   });
+
+  React.useEffect(() => {
+    if (item !== prevItem) {
+      setQuality('');
+      form.setValue('quality', '');
+      setItem(userItem);
+    }
+  }, [item, prevItem]);
 
   useEffect(() => {
     if (id) {
@@ -138,13 +150,12 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = ({
         setPrice(itemsData.price);
         setWeight(itemsData.weight);
       }
+      dispatch(setPrevItem(userItem));
     } catch (error) {
       console.error(textConstants.errorInCreatingEventMsg, error);
       toast.error(textConstants.failedToCreateEventMsg);
     }
   };
-
-  React.useEffect(() => {}, [item]);
 
   React.useEffect(() => {
     if (form.watch('price')?.length > 0) {
@@ -174,13 +185,17 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = ({
               <FormField
                 control={form.control}
                 name="quality"
-                render={({ field }) => (
-                  <QualityDropdown
-                    initialValue={field.value}
-                    item={item}
-                    onQualityChange={(qualityVal) => field.onChange(qualityVal)}
-                  />
-                )}
+                render={({ field }) => {
+                  return (
+                    <QualityDropdown
+                      initialValue={field.value}
+                      item={item}
+                      onQualityChange={(qualityVal) =>
+                        field.onChange(qualityVal)
+                      }
+                    />
+                  );
+                }}
               />
               {form.formState.errors.quality && (
                 <span className="text-destructive text-sm flex items-center gap-1 ">

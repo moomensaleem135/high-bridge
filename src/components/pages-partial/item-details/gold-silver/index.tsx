@@ -9,12 +9,14 @@ import ExcessScreen from './excessScreen';
 import GoldSummaryForm from './goldSummary';
 import ReturnScreen from './returnScreen';
 import { textConstants } from '@/configs/textConstants';
-import { useAppSelector } from '@/store/hooks';
+import { useAppDispatch, useAppSelector } from '@/store/hooks';
+import { setPrevItem } from '@/store/features/prev-item/prevItemSlice';
 
 export default function GoldItemDetails() {
   const searchparams = useSearchParams();
   const router = useRouter();
   const id = searchparams.get('id');
+  const dispatch = useAppDispatch();
   const setup = useAppSelector((state: any) => state.setup.setup);
 
   const [value, setValue] = useState<number>(0);
@@ -78,6 +80,7 @@ export default function GoldItemDetails() {
         if (isDirty) {
           setNavigateAway(args[0]);
           setIsModalOpen(true);
+          dispatch(setPrevItem(''));
           return;
         }
       } else if (
@@ -87,6 +90,7 @@ export default function GoldItemDetails() {
         if (isDirty) {
           setNavigateAway(args[0]);
           setIsModalOpen(true);
+          dispatch(setPrevItem(''));
           return;
         }
       }

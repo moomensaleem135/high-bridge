@@ -24,6 +24,7 @@ import { editZakat } from '@/store/features/zakat/zakatSlice';
 import { calculateZakat } from '@/lib/helpers';
 import { GoldIItems } from '@/lib/types';
 import { textConstants } from '@/configs/textConstants';
+import { setPrevItem } from '@/store/features/prev-item/prevItemSlice';
 
 interface GoldSummaryProps {
   setValue: (value: number) => void;
@@ -74,6 +75,7 @@ const GoldSummaryForm: React.FC<GoldSummaryProps> = ({
   const dispatch = useDispatch();
   const router = useRouter();
   const searchparams = useSearchParams();
+
   const id = searchparams.get('id');
   const items: GoldIItems[] =
     useSelector((state: any) => state.items.items) || [];
@@ -151,11 +153,13 @@ const GoldSummaryForm: React.FC<GoldSummaryProps> = ({
       if (id) {
         dispatch(updateItem(itemData));
         dispatch(editZakat(zakatCalData));
+        dispatch(setPrevItem(''));
         router.push('/income/income-details/add-items');
         toast.success(`${item} ${textConstants.itemEditSuccessText}`);
       } else {
         dispatch(addItems(itemData));
         dispatch(zakatCal(zakatCalData));
+        dispatch(setPrevItem(''));
         router.push('/income/income-details/add-items');
         toast.success(`${item} ${textConstants.itemAddSuccessText}`);
       }

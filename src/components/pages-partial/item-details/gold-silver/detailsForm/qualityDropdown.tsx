@@ -33,6 +33,9 @@ const QualityDropdown: React.FC<QualityDropdownProps> = ({
     if (initialValue !== '') {
       setSelectedQuality(initialValue);
       handleChange(initialValue);
+    } else if (initialValue === '') {
+      setSelectedQuality('');
+      onQualityChange('');
     }
   }, [initialValue]);
 
