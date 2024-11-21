@@ -1,4 +1,5 @@
 import { ArrowLeftIcon, ErrorIcon } from '@/assets/svgs';
+import BackFlow from '@/components/common/backFlow';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { textConstants } from '@/configs/textConstants';
@@ -130,7 +131,7 @@ export const HaveYouRecordedAssets: React.FC<HaveYouRecordedAssetsProps> = ({
               </span>
             )}
           </div>
-
+          {/* 
           <div className="flex flex-col justify-evenly items-center w-full gap-5">
             <hr className="w-full border-[1px] border-solid border-underline" />
             <div className="flex justify-between items-center w-full md:flex-row md:justify-between md:items-center">
@@ -151,7 +152,12 @@ export const HaveYouRecordedAssets: React.FC<HaveYouRecordedAssetsProps> = ({
                 {textConstants.formNextButtonText}
               </Button>
             </div>
-          </div>
+          </div> */}
+          <BackFlow
+            nextButtonText={textConstants.formNextButtonText}
+            handleBack={handleBack}
+            onSubmit={form.handleSubmit(onSubmit)}
+          />
         </form>
       </Form>
     </div>

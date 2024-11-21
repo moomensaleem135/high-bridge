@@ -12,6 +12,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { textConstants } from '@/configs/textConstants';
+import BackFlow from './backFlow';
 
 interface SummaryProps {
   handleBack: () => void;
@@ -135,7 +136,7 @@ const SummaryForm: React.FC<SummaryProps> = ({
             </span>
           </div>
 
-          <div className="flex flex-col justify-evenly items-center w-full gap-5">
+          {/* <div className="flex flex-col justify-evenly items-center w-full gap-5">
             <hr className="w-full border-[1px] border-solid border-underline" />
             <div className="flex justify-between items-center w-full md:flex-row md:justify-between md:items-center">
               <Link
@@ -152,7 +153,16 @@ const SummaryForm: React.FC<SummaryProps> = ({
                   : textConstants.formAddItemButton}
               </Button>
             </div>
-          </div>
+          </div> */}
+          <BackFlow
+            nextButtonText={
+              id
+                ? textConstants.formEditItemButton
+                : textConstants.formAddItemButton
+            }
+            handleBack={handleBack}
+            onSubmit={form.handleSubmit(onSubmit)}
+          />
         </form>
       </Form>
     </div>

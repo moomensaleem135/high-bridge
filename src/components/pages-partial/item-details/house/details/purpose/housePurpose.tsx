@@ -12,6 +12,7 @@ import { HouseIItems } from '@/lib/types';
 import { useAppSelector } from '@/store/hooks';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { textConstants } from '@/configs/textConstants';
+import BackFlow from '@/components/common/backFlow';
 
 interface HousePurposeFormProps {
   setSelectedPurpose: any;
@@ -214,7 +215,7 @@ export const HousePurposeForm: React.FC<HousePurposeFormProps> = ({
             )}
           </div>
 
-          <div className="flex flex-col justify-evenly items-center w-full gap-5">
+          {/* <div className="flex flex-col justify-evenly items-center w-full gap-5">
             <hr className="w-full border-[1px] border-solid border-underline" />
             <div className="flex justify-between items-center w-full md:flex-row md:justify-between md:items-center">
               <div
@@ -237,7 +238,14 @@ export const HousePurposeForm: React.FC<HousePurposeFormProps> = ({
                 {textConstants.formNextButtonText}
               </Button>
             </div>
-          </div>
+          </div> */}
+          <BackFlow
+            nextButtonText={textConstants.formNextButtonText}
+            incomeArray={house}
+            routeOne="/income"
+            routeTwo="/income/income-details/add-items"
+            onSubmit={form.handleSubmit(onSubmit)}
+          />
         </form>
       </Form>
     </div>

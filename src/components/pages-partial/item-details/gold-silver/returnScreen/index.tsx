@@ -7,6 +7,7 @@ import { ArrowLeftIcon } from '@/assets/svgs';
 import { Button } from '@/components/ui/button';
 import StepperComponent from '@/components/ui/stepper';
 import { textConstants } from '@/configs/textConstants';
+import BackFlow from '@/components/common/backFlow';
 
 interface ReturnScreenProps {
   setValue: (value: number) => void;
@@ -32,7 +33,7 @@ const ReturnScreen: React.FC<ReturnScreenProps> = ({ setValue, value }) => {
         </p>
       </div>
 
-      <div className="flex flex-col justify-evenly items-center w-full gap-5">
+      {/* <div className="flex flex-col justify-evenly items-center w-full gap-5">
         <hr className="w-full border-[1px] border-solid border-underline" />
         <div className="flex justify-between items-center w-full md:flex-row md:justify-between md:items-center">
           <Link
@@ -57,7 +58,12 @@ const ReturnScreen: React.FC<ReturnScreenProps> = ({ setValue, value }) => {
             </Button>
           </div>
         </div>
-      </div>
+      </div> */}
+      <BackFlow
+        nextButtonText={textConstants.formAddAnotherItemButton}
+        setValue={setValue}
+        value={0}
+      />
     </div>
   );
 };

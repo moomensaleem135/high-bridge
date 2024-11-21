@@ -15,6 +15,7 @@ import { calculateZakat } from '@/lib/helpers';
 import { CashIItems } from '@/lib/types';
 import GenericFormField from '@/components/common/form';
 import { textConstants } from '@/configs/textConstants';
+import BackFlow from '@/components/common/backFlow';
 
 interface ItemDetailsProps {
   setValue: (value: number) => void;
@@ -156,7 +157,7 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = ({
                 : '$0.00'}
             </span>
           </div>
-
+          {/* 
           <div className="flex flex-col justify-evenly items-center w-full gap-5">
             <hr className="w-full border-[1px] border-solid border-underline" />
             <div className="flex justify-between items-center w-full md:flex-row md:justify-between md:items-center">
@@ -175,7 +176,13 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = ({
                 {textConstants.formNextButtonText}
               </Button>
             </div>
-          </div>
+          </div> */}
+          <BackFlow
+            nextButtonText={textConstants.formNextButtonText}
+            value={value}
+            setValue={setValue}
+            subtractValue={1}
+          />
         </form>
       </Form>
     </div>

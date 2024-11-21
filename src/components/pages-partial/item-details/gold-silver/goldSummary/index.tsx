@@ -25,6 +25,7 @@ import { calculateZakat } from '@/lib/helpers';
 import { GoldIItems } from '@/lib/types';
 import { textConstants } from '@/configs/textConstants';
 import { setPrevItem } from '@/store/features/prev-item/prevItemSlice';
+import BackFlow from '@/components/common/backFlow';
 
 interface GoldSummaryProps {
   setValue: (value: number) => void;
@@ -345,7 +346,7 @@ const GoldSummaryForm: React.FC<GoldSummaryProps> = ({
             </span>
           </div>
 
-          <div className="flex flex-col justify-evenly items-center w-full gap-5">
+          {/* <div className="flex flex-col justify-evenly items-center w-full gap-5">
             <hr className="w-full border-[1px] border-solid border-underline" />
             <div className="flex justify-between items-center w-full md:flex-row md:justify-between md:items-center">
               <Link
@@ -378,7 +379,20 @@ const GoldSummaryForm: React.FC<GoldSummaryProps> = ({
                 </Button>
               )}
             </div>
-          </div>
+          </div> */}
+          <BackFlow
+            nextButtonText={
+              id
+                ? textConstants.formEditItemButton
+                : textConstants.formAddItemButton
+            }
+            purpose={purpose}
+            setShow={setShow}
+            onSubmit={form.handleSubmit(onSubmit)}
+            value={value}
+            setValue={setValue}
+            subtractValue={1}
+          />
         </form>
       </Form>
     </div>

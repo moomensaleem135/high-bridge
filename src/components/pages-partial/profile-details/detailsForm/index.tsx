@@ -219,7 +219,7 @@ const ProfileDetailsForm: React.FC<ProfileDetailsProps> = () => {
             <hr className="w-full border-[1px] border-solid border-underline" />
             <div className="flex w-full justify-end items-center">
               <Button
-                className="bg-detailsBtn text-btnText font-normal hover:bg-btnHover"
+                className="bg-detailsBtn text-btnText font-normal hover:bg-btnHover px-4"
                 type="submit"
                 data-cy="event-submit"
                 data-testid="event-submit"

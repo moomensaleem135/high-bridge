@@ -41,7 +41,7 @@ export default function PartialExportData() {
           <hr className=" max-w-[860px] border-[1px] border-solid border-underline min-[1280px]:w-full min-[768px]:w-[410px] max-[1279px]:w-[410px] min-xs:w-[320px] max-[767px]:w-[320px]" />
           <div className="flex justify-end items-center max-w-[860px] md:flex-row md:justify-end md:items-center min-[1280px]:w-full min-[768px]:w-[410px] max-[1279px]:w-[410px] min-xs:w-[320px] max-[767px]:w-[320px]">
             <Button
-              className="bg-detailsBtn text-btnText font-normal hover:bg-btnHover"
+              className="bg-detailsBtn text-btnText font-normal hover:bg-btnHover px-4"
               onClick={() => {
                 router.back();
               }}

@@ -22,6 +22,7 @@ import { setPrevItem } from '@/store/features/prev-item/prevItemSlice';
 import QualityDropdown from './qualityDropdown';
 import WeightDropdown from './weightDropdown';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
+import BackFlow from '@/components/common/backFlow';
 
 interface ItemDetailsProps {
   setValue: (value: number) => void;
@@ -306,7 +307,7 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = ({
             </span>
           </div>
 
-          <div className="flex flex-col justify-evenly items-center w-full gap-5">
+          {/* <div className="flex flex-col justify-evenly items-center w-full gap-5">
             <hr className="w-full border-[1px] border-solid border-underline" />
             <div className="flex justify-between items-center w-full md:flex-row md:justify-between md:items-center">
               <div
@@ -322,15 +323,18 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = ({
                 <ArrowLeftIcon />
                 {textConstants.formBackButtonText}
               </div>
-              <Button
-                className="bg-detailsBtn text-btnText font-normal hover:bg-btnHover"
-                onClick={form.handleSubmit(onSubmit)}
-                type="button"
-              >
+              <Button className="bg-detailsBtn text-btnText font-normal hover:bg-btnHover">
                 {textConstants.formNextButtonText}
               </Button>
             </div>
-          </div>
+          </div> */}
+          <BackFlow
+            purpose={purpose}
+            nextButtonText={textConstants.formNextButtonText}
+            setValue={setValue}
+            value={value}
+            subtractValue={1}
+          />
         </form>
       </Form>
     </div>

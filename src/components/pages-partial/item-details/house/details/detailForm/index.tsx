@@ -18,6 +18,7 @@ import { HouseIItems } from '@/lib/types';
 import GenericFormField from '@/components/common/form';
 import { useAppSelector } from '@/store/hooks';
 import { textConstants } from '@/configs/textConstants';
+import BackFlow from '@/components/common/backFlow';
 
 interface ItemDetailsProps {
   setName: (value: string) => void;
@@ -162,7 +163,7 @@ const HouseItemDetailsForm: React.FC<ItemDetailsProps> = ({
             </span>
           </div>
 
-          <div className="flex flex-col justify-evenly items-center w-full gap-5">
+          {/* <div className="flex flex-col justify-evenly items-center w-full gap-5">
             <hr className="w-full border-[1px] border-solid border-underline" />
             <div className="flex justify-between items-center w-full md:flex-row md:justify-between md:items-center">
               <Link
@@ -183,7 +184,12 @@ const HouseItemDetailsForm: React.FC<ItemDetailsProps> = ({
                 {textConstants.formNextButtonText}
               </Button>
             </div>
-          </div>
+          </div> */}
+          <BackFlow
+            nextButtonText={textConstants.formNextButtonText}
+            handleBack={handleBack}
+            onSubmit={form.handleSubmit(onSubmit)}
+          />
         </form>
       </Form>
     </div>

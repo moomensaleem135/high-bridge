@@ -15,6 +15,7 @@ import { Label } from '@/components/ui/label';
 import { ErrorIcon } from '@/assets/svgs';
 import { CashIItems } from '@/lib/types';
 import { textConstants } from '@/configs/textConstants';
+import BackFlow from '@/components/common/backFlow';
 
 interface ItemChoiceProps {
   setValue: (value: number) => void;
@@ -195,7 +196,7 @@ const ItemChoiceForm: React.FC<ItemChoiceProps> = ({
             )}
           </div>
 
-          <div className="flex flex-col justify-evenly items-center w-full gap-5">
+          {/* <div className="flex flex-col justify-evenly items-center w-full gap-5">
             <hr className="w-full border-[1px] border-solid border-underline" />
             <div className="flex justify-between items-center w-full md:flex-row md:justify-between md:items-center">
               <div
@@ -216,7 +217,13 @@ const ItemChoiceForm: React.FC<ItemChoiceProps> = ({
                 {textConstants.formNextButtonText}
               </Button>
             </div>
-          </div>
+          </div> */}
+          <BackFlow
+            nextButtonText={textConstants.formNextButtonText}
+            incomeArray={cash}
+            routeOne="/income"
+            routeTwo="/income/income-details/add-items"
+          />
         </form>
       </Form>
     </div>

@@ -33,7 +33,7 @@ const ZakatCard = () => {
           <div className="flex flex-row justify-end items-center w-full">
             <div>
               <Button
-                className="bg-detailsBtn text-btnText font-medium text-base w-6/6 hover:bg-btnHover"
+                className="bg-detailsBtn text-btnText font-medium text-base w-6/6 hover:bg-btnHover px-4"
                 onClick={() => router.push(completeZakatUrl)}
               >
                 {textConstants.completeZakatButtonText}

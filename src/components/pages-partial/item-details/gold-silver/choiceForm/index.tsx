@@ -16,6 +16,7 @@ import { ErrorIcon } from '@/assets/svgs';
 import StepperComponent from '@/components/ui/stepper';
 import { GoldIItems } from '@/lib/types';
 import { textConstants } from '@/configs/textConstants';
+import BackFlow from '@/components/common/backFlow';
 
 interface GoldChoiceProps {
   setValue: (value: number) => void;
@@ -219,7 +220,7 @@ const GoldChoiceForm: React.FC<GoldChoiceProps> = ({
               </span>
             )}
           </div>
-
+          {/* 
           <div className="flex flex-col justify-evenly items-center w-full gap-5">
             <hr className="w-full border-[1px] border-solid border-underline" />
             <div className="flex justify-between items-center w-full md:flex-row md:justify-between md:items-center">
@@ -241,7 +242,13 @@ const GoldChoiceForm: React.FC<GoldChoiceProps> = ({
                 {textConstants.formNextButtonText}
               </Button>
             </div>
-          </div>
+          </div> */}
+          <BackFlow
+            incomeArray={gold}
+            nextButtonText={textConstants.formNextButtonText}
+            routeOne="/income"
+            routeTwo="/income/income-details/add-items"
+          />
         </form>
       </Form>
     </div>
