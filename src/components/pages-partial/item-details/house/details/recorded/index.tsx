@@ -1,18 +1,15 @@
-import { ArrowLeftIcon, ErrorIcon } from '@/assets/svgs';
-import BackFlow from '@/components/common/backFlow';
-import { Button } from '@/components/ui/button';
-import { Checkbox } from '@/components/ui/checkbox';
+import { ErrorIcon } from '@/assets/svgs';
+import BackContainer from '@/components/common/backContainer';
+import GenericFormField from '@/components/common/form';
 import { textConstants } from '@/configs/textConstants';
 import { zodResolver } from '@hookform/resolvers/zod';
-import Link from 'next/link';
-import { usePathname, useRouter } from 'next/navigation';
-import React, { Dispatch, SetStateAction, useState } from 'react';
-import { Controller, Form, useForm } from 'react-hook-form';
+import React from 'react';
+import { Form, useForm } from 'react-hook-form';
 import { z } from 'zod';
 
 interface HaveYouRecordedAssetsProps {
   options: { id: string; label: string }[];
-  setSelectedOption: Dispatch<SetStateAction<string | null>>;
+  setSelectedOption: any;
   selectedOption: string | null;
   handleBack: () => void;
   handleNext: () => void;
@@ -33,14 +30,11 @@ const bulletPoints = [
 ];
 
 export const HaveYouRecordedAssets: React.FC<HaveYouRecordedAssetsProps> = ({
-  options,
   selectedOption,
   setSelectedOption,
   handleBack,
   handleNext,
 }) => {
-  const router = useRouter();
-
   const form = useForm<FormFields>({
     resolver: zodResolver(HaveYouRecordedAssetsSchema),
     defaultValues: {
@@ -85,44 +79,23 @@ export const HaveYouRecordedAssets: React.FC<HaveYouRecordedAssetsProps> = ({
           </div>
           <div className="py-8">
             <div className="w-full items-center flex justify-start gap-x-20 pl-4">
-              <div className="flex justify-center items-center gap-4">
-                <Controller
-                  name="alreadyRecorded"
-                  control={form.control}
-                  render={({ field }) => (
-                    <Checkbox
-                      checked={field.value === 'Yes'}
-                      onCheckedChange={() => {
-                        field.onChange('Yes');
-                        setSelectedOption('Yes');
-                      }}
-                      className="rounded-sm h-5 w-5 mt-0.5 border-[2px]"
-                    />
-                  )}
-                />
-                <label htmlFor="myCheckbox">
-                  {textConstants.formYesCheckboxLabel}
-                </label>
-              </div>
-              <div className="flex justify-center items-center gap-4">
-                <Controller
-                  name="alreadyRecorded"
-                  control={form.control}
-                  render={({ field }) => (
-                    <Checkbox
-                      checked={field.value === 'No'}
-                      onCheckedChange={() => {
-                        field.onChange('No');
-                        setSelectedOption('No');
-                      }}
-                      className="rounded-sm h-5 w-5 mt-0.5 border-[2px]"
-                    />
-                  )}
-                />
-                <label htmlFor="myCheckbox">
-                  {textConstants.formNoCheckboxLabel}
-                </label>
-              </div>
+              <GenericFormField
+                control={form.control}
+                checkbox={true}
+                name="alreadyRecorded"
+                checkedValue="Yes"
+                label={textConstants.formYesCheckboxLabel}
+                setSelection={setSelectedOption}
+              />
+
+              <GenericFormField
+                control={form.control}
+                checkbox={true}
+                name="alreadyRecorded"
+                checkedValue="No"
+                label={textConstants.formNoCheckboxLabel}
+                setSelection={setSelectedOption}
+              />
             </div>
             {form.formState.errors.alreadyRecorded && (
               <span className="text-destructive text-sm flex items-center gap-1 mt-2">
@@ -131,29 +104,8 @@ export const HaveYouRecordedAssets: React.FC<HaveYouRecordedAssetsProps> = ({
               </span>
             )}
           </div>
-          {/* 
-          <div className="flex flex-col justify-evenly items-center w-full gap-5">
-            <hr className="w-full border-[1px] border-solid border-underline" />
-            <div className="flex justify-between items-center w-full md:flex-row md:justify-between md:items-center">
-              <Link
-                className="flex justify-start items-center text-base font-medium"
-                href={''}
-                onClick={() => {
-                  handleBack();
-                }}
-              >
-                <ArrowLeftIcon />
-                {textConstants.formBackButtonText}
-              </Link>
-              <Button
-                className="bg-detailsBtn text-btnText font-normal hover:bg-btnHover px-4"
-                onClick={form.handleSubmit(onSubmit)}
-              >
-                {textConstants.formNextButtonText}
-              </Button>
-            </div>
-          </div> */}
-          <BackFlow
+
+          <BackContainer
             nextButtonText={textConstants.formNextButtonText}
             handleBack={handleBack}
             onSubmit={form.handleSubmit(onSubmit)}

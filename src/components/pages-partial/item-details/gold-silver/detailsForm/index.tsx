@@ -6,23 +6,18 @@ import { useSearchParams } from 'next/navigation';
 import { z } from 'zod';
 import toast from 'react-hot-toast';
 
-import { Form, FormControl, FormField } from '@/components/ui/form';
-import { ArrowLeftIcon } from '@/assets/svgs';
+import { Form } from '@/components/ui/form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { IconInput } from '@/components/ui/icon-input';
-import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
-import { ErrorIcon } from '@/assets/svgs';
 import { calculateZakat } from '@/lib/helpers';
 import { GoldIItems } from '@/lib/types';
 import StepperComponent from '@/components/ui/stepper';
 import { textConstants } from '@/configs/textConstants';
 import { setPrevItem } from '@/store/features/prev-item/prevItemSlice';
 
-import QualityDropdown from './qualityDropdown';
-import WeightDropdown from './weightDropdown';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
-import BackFlow from '@/components/common/backFlow';
+import BackContainer from '@/components/common/backContainer';
+import GenericFormField from '@/components/common/form';
 
 interface ItemDetailsProps {
   setValue: (value: number) => void;
@@ -77,7 +72,6 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = ({
 
   const items: GoldIItems[] =
     useSelector((state: any) => state.items.items) || [];
-  const income = useSelector((state: any) => state.income.income);
   const setup = useSelector((state: any) => state.setup.setup);
   const [payableAmount, setPayableAmount] = React.useState<number | null>(null);
   const [item, setItem] = React.useState<string>(userItem);
@@ -180,122 +174,52 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = ({
           className="flex flex-col w-[82%] gap-5 mb-10"
           data-testid="event-form"
         >
-          <div className="w-full items-center">
-            <div className="flex flex-col justify-start gap-x-6 gap-y-2 items-start">
-              <Label>{textConstants.goldItemQualityLabel}</Label>
-              <FormField
-                control={form.control}
-                name="quality"
-                render={({ field }) => {
-                  return (
-                    <QualityDropdown
-                      initialValue={field.value}
-                      item={item}
-                      onQualityChange={(qualityVal) =>
-                        field.onChange(qualityVal)
-                      }
-                    />
-                  );
-                }}
-              />
-              {form.formState.errors.quality && (
-                <span className="text-destructive text-sm flex items-center gap-1 ">
-                  <ErrorIcon />
-                  {form.formState.errors.quality.message}
-                </span>
-              )}
-            </div>
-          </div>
+          <GenericFormField
+            label={textConstants.goldItemQualityLabel}
+            dropdown={true}
+            qualityDropdown={true}
+            name="quality"
+            item={item}
+            control={form.control}
+          />
 
           <div className="w-full items-center">
             <div className="flex flex-col justify-start gap-x-6 gap-y-2 items-start">
               <Label>{textConstants.goldItemWeightLabel}</Label>
               <div className="flex w-full">
-                <FormField
+                <GenericFormField
                   control={form.control}
                   name="weight"
-                  render={({ field }) => (
-                    <div className="w-full flex flex-col">
-                      <FormControl>
-                        <IconInput
-                          {...field}
-                          type="number"
-                          min="0"
-                          id="weight"
-                          aria-label="weight"
-                          placeholder="Enter Weight"
-                          className="bg-inputBg rounded-r-none rounded-l-lg h-[45px] border-inputBorder py-1.5 text-black"
-                          error={!!form.formState.errors.weight}
-                          data-cy="weight"
-                          data-testid="weight"
-                        />
-                      </FormControl>
-
-                      {form.formState.errors.weight && (
-                        <span className="text-destructive text-sm flex items-center gap-1 mt-2">
-                          <ErrorIcon />
-                          {form.formState.errors.weight.message}
-                        </span>
-                      )}
-                    </div>
-                  )}
+                  label={textConstants.goldItemWeightLabel}
+                  placeholder="Enter Weight"
+                  textFieldClassName="bg-inputBg rounded-r-none rounded-l-lg h-[45px] border-inputBorder py-1.5 text-black"
+                  error={form.formState.errors.weight}
+                  textInput={true}
+                  type="number"
+                  weightText={true}
                 />
-                <div className="xs:w-2/6 md:w-1/6 items-center">
-                  <div className="flex flex-col justify-start gap-x-6 gap-y-2 items-start">
-                    <FormField
-                      control={form.control}
-                      name="quantity"
-                      render={({ field }) => (
-                        <WeightDropdown
-                          initialValue={field.value}
-                          onWeightChange={(quantityVal) =>
-                            field.onChange(quantityVal)
-                          }
-                        />
-                      )}
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
 
-          <div className="w-full items-center">
-            <div className="flex flex-col justify-start gap-x-6 gap-y-2 items-start">
-              <Label>{textConstants.goldItemPriceLabel}</Label>
-              <div className="flex w-full">
-                <FormField
+                <GenericFormField
+                  dropdown={true}
+                  weightDropdown={true}
+                  name="quantity"
                   control={form.control}
-                  name="price"
-                  render={({ field }) => (
-                    <div className="w-full flex flex-col">
-                      <FormControl>
-                        <IconInput
-                          {...field}
-                          type="number"
-                          min="0"
-                          id="price"
-                          aria-label="price"
-                          placeholder="Enter Price"
-                          className="bg-inputBg rounded-r-none rounded-lg h-[45px] border-inputBorder py-1.5 text-black"
-                          error={!!form.formState.errors.price}
-                          data-cy="price"
-                          data-testid="price"
-                        />
-                      </FormControl>
-
-                      {form.formState.errors.price && (
-                        <span className="text-destructive text-sm flex items-center gap-1 mt-2">
-                          <ErrorIcon />
-                          {form.formState.errors.price.message}
-                        </span>
-                      )}
-                    </div>
-                  )}
                 />
               </div>
             </div>
           </div>
+
+          <GenericFormField
+            control={form.control}
+            name="price"
+            label={textConstants.goldItemPriceLabel}
+            placeholder="Enter Price"
+            error={form.formState.errors.price}
+            textInput={true}
+            type="number"
+            weightText={false}
+          />
+
           <div className="flex justify-between items-center">
             <span className="xs:text-base font-medium sm:text-xl flex-1">
               {textConstants.zakatPayableText}
@@ -307,28 +231,7 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = ({
             </span>
           </div>
 
-          {/* <div className="flex flex-col justify-evenly items-center w-full gap-5">
-            <hr className="w-full border-[1px] border-solid border-underline" />
-            <div className="flex justify-between items-center w-full md:flex-row md:justify-between md:items-center">
-              <div
-                className="flex justify-start items-center text-base font-medium cursor-pointer"
-                onClick={() => {
-                  if (purpose === 'Saving') {
-                    setValue(value - 2);
-                  } else {
-                    setValue(value - 1);
-                  }
-                }}
-              >
-                <ArrowLeftIcon />
-                {textConstants.formBackButtonText}
-              </div>
-              <Button className="bg-detailsBtn text-btnText font-normal hover:bg-btnHover">
-                {textConstants.formNextButtonText}
-              </Button>
-            </div>
-          </div> */}
-          <BackFlow
+          <BackContainer
             purpose={purpose}
             nextButtonText={textConstants.formNextButtonText}
             setValue={setValue}

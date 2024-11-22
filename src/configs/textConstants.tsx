@@ -328,6 +328,7 @@ export const textConstants = {
   //Modal
   modalHeading: 'Unsaved Changes Detected',
   modalDesc: `You've made some changes that haven't been saved yet. Would you like to complete your action now or save your progress to finish later?`,
+
   localDownloadText:
     'Download your data to your device for offline use and secure storage.',
   localDownloadTitle: 'Export Data Locally',

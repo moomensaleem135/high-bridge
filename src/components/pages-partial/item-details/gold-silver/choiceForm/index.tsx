@@ -1,22 +1,20 @@
 'use client';
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { useForm, Controller } from 'react-hook-form';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useForm } from 'react-hook-form';
+import { useSearchParams } from 'next/navigation';
 import { z } from 'zod';
 import toast from 'react-hot-toast';
 
 import { Form } from '@/components/ui/form';
-import { ArrowLeftIcon } from '@/assets/svgs';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Button } from '@/components/ui/button';
-import { Checkbox } from '@/components/ui/checkbox';
 import { Label } from '@/components/ui/label';
 import { ErrorIcon } from '@/assets/svgs';
 import StepperComponent from '@/components/ui/stepper';
 import { GoldIItems } from '@/lib/types';
 import { textConstants } from '@/configs/textConstants';
-import BackFlow from '@/components/common/backFlow';
+import BackContainer from '@/components/common/backContainer';
+import GenericFormField from '@/components/common/form';
 
 interface GoldChoiceProps {
   setValue: (value: number) => void;
@@ -44,7 +42,6 @@ const GoldChoiceForm: React.FC<GoldChoiceProps> = ({
   purpose,
   item,
 }) => {
-  const router = useRouter();
   const searchparams = useSearchParams();
   const id = searchparams.get('id');
   const gold: GoldIItems[] =
@@ -122,44 +119,23 @@ const GoldChoiceForm: React.FC<GoldChoiceProps> = ({
           </Label>
           <div>
             <div className="w-full items-center flex justify-start xs:gap-x-10 md:gap-x-28 pl-4">
-              <div className="flex justify-center items-center gap-4">
-                <Controller
-                  name="item"
-                  control={form.control}
-                  render={({ field }) => (
-                    <Checkbox
-                      checked={field.value === 'Gold'}
-                      onCheckedChange={() => {
-                        field.onChange('Gold');
-                        setUserItem('Gold');
-                      }}
-                      className="rounded-sm h-5 w-5 mt-0.5 border-[2px]"
-                    />
-                  )}
-                />
-                <label htmlFor="myCheckbox">
-                  {textConstants.goldItemCheckboxLabel}
-                </label>
-              </div>
-              <div className="flex justify-center items-center gap-4">
-                <Controller
-                  name="item"
-                  control={form.control}
-                  render={({ field }) => (
-                    <Checkbox
-                      checked={field.value === 'Silver'}
-                      onCheckedChange={() => {
-                        field.onChange('Silver');
-                        setUserItem('Silver');
-                      }}
-                      className="rounded-sm h-5 w-5 mt-0.5 border-[2px]"
-                    />
-                  )}
-                />
-                <label htmlFor="myCheckbox">
-                  {textConstants.silverItemCheckboxLabel}
-                </label>
-              </div>
+              <GenericFormField
+                control={form.control}
+                checkbox={true}
+                name="item"
+                checkedValue="Gold"
+                label={textConstants.goldItemCheckboxLabel}
+                setSelection={setUserItem}
+              />
+
+              <GenericFormField
+                control={form.control}
+                checkbox={true}
+                name="item"
+                checkedValue="Silver"
+                label={textConstants.silverItemCheckboxLabel}
+                setSelection={setUserItem}
+              />
             </div>
             {form.formState.errors.item && (
               <span className="text-destructive text-sm flex items-center gap-1 mt-2">
@@ -174,44 +150,23 @@ const GoldChoiceForm: React.FC<GoldChoiceProps> = ({
           </Label>
           <div>
             <div className="w-full items-center flex justify-start xs:gap-x-10 md:gap-x-20 pl-4">
-              <div className="flex justify-center items-center gap-4">
-                <Controller
-                  name="purpose"
-                  control={form.control}
-                  render={({ field }) => (
-                    <Checkbox
-                      checked={field.value === 'Personal'}
-                      onCheckedChange={() => {
-                        field.onChange('Personal');
-                        setUserItem('Personal');
-                      }}
-                      className="rounded-sm h-5 w-5 mt-0.5 border-[2px]"
-                    />
-                  )}
-                />
-                <label htmlFor="myCheckbox">
-                  {textConstants.personalItemCheckboxLabel}
-                </label>
-              </div>
-              <div className="flex justify-center items-center gap-4">
-                <Controller
-                  name="purpose"
-                  control={form.control}
-                  render={({ field }) => (
-                    <Checkbox
-                      checked={field.value === 'Saving'}
-                      onCheckedChange={() => {
-                        field.onChange('Saving');
-                        setUserItem('Saving');
-                      }}
-                      className="rounded-sm h-5 w-5 mt-0.5 border-[2px]"
-                    />
-                  )}
-                />
-                <label htmlFor="myCheckbox">
-                  {textConstants.savingItemChackboxLabel}
-                </label>
-              </div>
+              <GenericFormField
+                control={form.control}
+                checkbox={true}
+                name="purpose"
+                checkedValue="Personal"
+                label={textConstants.personalItemCheckboxLabel}
+                setSelection={setPurpose}
+              />
+
+              <GenericFormField
+                control={form.control}
+                checkbox={true}
+                name="purpose"
+                checkedValue="Saving"
+                label={textConstants.savingItemChackboxLabel}
+                setSelection={setPurpose}
+              />
             </div>
             {form.formState.errors.purpose && (
               <span className="text-destructive text-sm flex items-center gap-1 mt-2">
@@ -220,30 +175,8 @@ const GoldChoiceForm: React.FC<GoldChoiceProps> = ({
               </span>
             )}
           </div>
-          {/* 
-          <div className="flex flex-col justify-evenly items-center w-full gap-5">
-            <hr className="w-full border-[1px] border-solid border-underline" />
-            <div className="flex justify-between items-center w-full md:flex-row md:justify-between md:items-center">
-              <div
-                className="flex justify-start items-center text-base font-medium cursor-pointer"
-                onClick={() => {
-                  if (gold?.length === 0) {
-                    router.push('/income');
-                  } else {
-                    router.push('/income/income-details/add-items');
-                  }
-                }}
-              >
-                <ArrowLeftIcon />
-                {textConstants.formBackButtonText}
-              </div>
 
-              <Button className="bg-detailsBtn text-btnText font-normal hover:bg-btnHover">
-                {textConstants.formNextButtonText}
-              </Button>
-            </div>
-          </div> */}
-          <BackFlow
+          <BackContainer
             incomeArray={gold}
             nextButtonText={textConstants.formNextButtonText}
             routeOne="/income"

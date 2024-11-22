@@ -2,17 +2,15 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
-import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import toast from 'react-hot-toast';
 
 import { Form, FormField } from '@/components/ui/form';
-import { ArrowLeftIcon, ErrorIcon } from '@/assets/svgs';
+import { ErrorIcon } from '@/assets/svgs';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { textConstants } from '@/configs/textConstants';
-import BackFlow from './backFlow';
+import BackContainer from './backContainer';
 
 interface SummaryProps {
   handleBack: () => void;
@@ -37,10 +35,8 @@ type FormFields = z.infer<typeof SummarySchema>;
 
 const SummaryForm: React.FC<SummaryProps> = ({
   handleBack,
-  value,
   name,
   price,
-  Id,
   item,
   zakatVal,
   onSubmit,
@@ -135,26 +131,7 @@ const SummaryForm: React.FC<SummaryProps> = ({
               {zakatVal !== null ? `$${zakatVal.toFixed(2)}` : '$0.00'}
             </span>
           </div>
-
-          {/* <div className="flex flex-col justify-evenly items-center w-full gap-5">
-            <hr className="w-full border-[1px] border-solid border-underline" />
-            <div className="flex justify-between items-center w-full md:flex-row md:justify-between md:items-center">
-              <Link
-                className="flex justify-start items-center text-base font-medium"
-                href={''}
-                onClick={handleBack}
-              >
-                <ArrowLeftIcon />
-                {textConstants.formBackButtonText}
-              </Link>
-              <Button className="bg-detailsBtn text-btnText font-normal hover:bg-btnHover">
-                {id
-                  ? textConstants.formEditItemButton
-                  : textConstants.formAddItemButton}
-              </Button>
-            </div>
-          </div> */}
-          <BackFlow
+          <BackContainer
             nextButtonText={
               id
                 ? textConstants.formEditItemButton

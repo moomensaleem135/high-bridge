@@ -4,21 +4,17 @@ import { useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { useSearchParams } from 'next/navigation';
 import { z } from 'zod';
-import Link from 'next/link';
 import toast from 'react-hot-toast';
 
 import { Form } from '@/components/ui/form';
-import { ArrowLeftIcon } from '@/assets/svgs';
 import { zodResolver } from '@hookform/resolvers/zod';
-
-import { Button } from '@/components/ui/button';
 
 import { calculateZakat } from '@/lib/helpers';
 import { HouseIItems } from '@/lib/types';
 import GenericFormField from '@/components/common/form';
 import { useAppSelector } from '@/store/hooks';
 import { textConstants } from '@/configs/textConstants';
-import BackFlow from '@/components/common/backFlow';
+import BackContainer from '@/components/common/backContainer';
 
 interface ItemDetailsProps {
   setName: (value: string) => void;
@@ -43,7 +39,6 @@ type FormFields = z.infer<typeof ItemDetailsSchema>;
 const HouseItemDetailsForm: React.FC<ItemDetailsProps> = ({
   setName,
   setPrice,
-  houseId,
   setZakat,
   handleBack,
   handleNext,
@@ -85,11 +80,6 @@ const HouseItemDetailsForm: React.FC<ItemDetailsProps> = ({
     );
 
     setZakat(zakatAmount);
-
-    const zakatCalData = {
-      id: houseId,
-      value: zakatAmount || 0,
-    };
 
     const formData = new FormData();
     Object.keys(itemsData).forEach((key) => {
@@ -143,6 +133,8 @@ const HouseItemDetailsForm: React.FC<ItemDetailsProps> = ({
             label={textConstants.itemNameLabel}
             placeholder="Enter Item Name"
             error={form.formState.errors.itemName}
+            textInput={true}
+            weightText={false}
           />
           <GenericFormField
             control={form.control}
@@ -151,6 +143,8 @@ const HouseItemDetailsForm: React.FC<ItemDetailsProps> = ({
             label={textConstants.itemQuantityLabel}
             placeholder="Enter Amount"
             error={form.formState.errors.itemQuantity}
+            textInput={true}
+            weightText={false}
           />
           <div className="flex justify-between items-center">
             <span className="xs:text-base font-medium sm:text-xl flex-1">
@@ -163,29 +157,7 @@ const HouseItemDetailsForm: React.FC<ItemDetailsProps> = ({
             </span>
           </div>
 
-          {/* <div className="flex flex-col justify-evenly items-center w-full gap-5">
-            <hr className="w-full border-[1px] border-solid border-underline" />
-            <div className="flex justify-between items-center w-full md:flex-row md:justify-between md:items-center">
-              <Link
-                className="flex justify-start items-center text-base font-medium"
-                href={''}
-                onClick={() => {
-                  handleBack();
-                }}
-              >
-                <ArrowLeftIcon />
-                {textConstants.formBackButtonText}
-              </Link>
-              <Button
-                className="bg-detailsBtn text-btnText font-normal hover:bg-btnHover"
-                type="submit"
-                onClick={form.handleSubmit(onSubmit)}
-              >
-                {textConstants.formNextButtonText}
-              </Button>
-            </div>
-          </div> */}
-          <BackFlow
+          <BackContainer
             nextButtonText={textConstants.formNextButtonText}
             handleBack={handleBack}
             onSubmit={form.handleSubmit(onSubmit)}

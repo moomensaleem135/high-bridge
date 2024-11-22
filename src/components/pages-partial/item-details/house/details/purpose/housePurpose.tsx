@@ -1,18 +1,17 @@
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 import React from 'react';
-import { Controller, Form, useForm } from 'react-hook-form';
+import { Form, useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { z } from 'zod';
 
-import { ArrowLeftIcon, ErrorIcon } from '@/assets/svgs';
-import { Button } from '@/components/ui/button';
-import { Checkbox } from '@/components/ui/checkbox';
+import { ErrorIcon } from '@/assets/svgs';
 import { Label } from '@/components/ui/label';
 import { HouseIItems } from '@/lib/types';
 import { useAppSelector } from '@/store/hooks';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { textConstants } from '@/configs/textConstants';
-import BackFlow from '@/components/common/backFlow';
+import BackContainer from '@/components/common/backContainer';
+import GenericFormField from '@/components/common/form';
 
 interface HousePurposeFormProps {
   setSelectedPurpose: any;
@@ -35,11 +34,9 @@ export const HousePurposeForm: React.FC<HousePurposeFormProps> = ({
   selectedPurpose,
   setHouseId,
   handleNext,
-  handleBack,
 }) => {
   const searchparams = useSearchParams();
   const id = searchparams.get('id');
-  const router = useRouter();
 
   const house: HouseIItems[] = useAppSelector(
     (state: any) => state.house.house
@@ -129,83 +126,42 @@ export const HousePurposeForm: React.FC<HousePurposeFormProps> = ({
           </Label>
           <div>
             <div className="w-full items-center flex justify-start gap-x-20 pr-12 min-xs:flex-col max-[830px]:flex-col xs:justify-start xs:items-start">
-              <div className="flex justify-center items-center gap-4">
-                <Controller
-                  name="purpose"
-                  control={form.control}
-                  render={({ field }) => (
-                    <Checkbox
-                      checked={field.value === 'Personal'}
-                      onCheckedChange={() => {
-                        field.onChange('Personal');
-                        setSelectedPurpose('Personal');
-                      }}
-                      className="rounded-sm h-5 w-5 mt-0.5 border-[2px]"
-                    />
-                  )}
-                />
-                <label htmlFor="myCheckbox">
-                  {textConstants.housePersonalUseCheckboxLabel}
-                </label>
-              </div>
-              <div className="flex justify-center items-center gap-4">
-                <Controller
-                  name="purpose"
-                  control={form.control}
-                  render={({ field }) => (
-                    <Checkbox
-                      checked={field.value === 'Rental'}
-                      onCheckedChange={() => {
-                        field.onChange('Rental');
-                        setSelectedPurpose('Rental');
-                      }}
-                      className="rounded-sm h-5 w-5 mt-0.5 border-[2px]"
-                    />
-                  )}
-                />
-                <label htmlFor="myCheckbox">
-                  {textConstants.houseRentalUseCheckboxLabel}
-                </label>
-              </div>
-              <div className="flex justify-center items-center gap-4">
-                <Controller
-                  name="purpose"
-                  control={form.control}
-                  render={({ field }) => (
-                    <Checkbox
-                      disabled
-                      checked={field.value === 'Saving'}
-                      onCheckedChange={() => {
-                        field.onChange('Saving');
-                        setSelectedPurpose('Saving');
-                      }}
-                      className="rounded-sm h-5 w-5 mt-0.5 border-[2px]"
-                    />
-                  )}
-                />
-                <label htmlFor="myCheckbox">
-                  {textConstants.houseSavingUseCheckboxLabel}
-                </label>
-              </div>
-              <div className="flex justify-center items-center gap-4">
-                <Controller
-                  name="purpose"
-                  control={form.control}
-                  render={({ field }) => (
-                    <Checkbox
-                      checked={field.value === 'Trading'}
-                      onCheckedChange={() => {
-                        field.onChange('Trading');
-                        setSelectedPurpose('Trading');
-                      }}
-                      className="rounded-sm h-5 w-5 mt-0.5 border-[2px]"
-                    />
-                  )}
-                />
-                <label htmlFor="myCheckbox">
-                  {textConstants.houseTradingUseCheckboxLabel}
-                </label>
-              </div>
+              <GenericFormField
+                control={form.control}
+                checkbox={true}
+                name="purpose"
+                checkedValue="Personal"
+                label={textConstants.housePersonalUseCheckboxLabel}
+                setSelection={setSelectedPurpose}
+              />
+
+              <GenericFormField
+                control={form.control}
+                checkbox={true}
+                name="purpose"
+                checkedValue="Rental"
+                label={textConstants.houseRentalUseCheckboxLabel}
+                setSelection={setSelectedPurpose}
+              />
+
+              <GenericFormField
+                control={form.control}
+                checkbox={true}
+                name="purpose"
+                checkedValue="Saving"
+                disabled={true}
+                label={textConstants.houseSavingUseCheckboxLabel}
+                setSelection={setSelectedPurpose}
+              />
+
+              <GenericFormField
+                control={form.control}
+                checkbox={true}
+                name="purpose"
+                checkedValue="Trading"
+                label={textConstants.houseTradingUseCheckboxLabel}
+                setSelection={setSelectedPurpose}
+              />
             </div>
             {form.formState.errors.purpose && (
               <span className="text-destructive text-sm flex items-center gap-1 mt-2">
@@ -215,31 +171,7 @@ export const HousePurposeForm: React.FC<HousePurposeFormProps> = ({
             )}
           </div>
 
-          {/* <div className="flex flex-col justify-evenly items-center w-full gap-5">
-            <hr className="w-full border-[1px] border-solid border-underline" />
-            <div className="flex justify-between items-center w-full md:flex-row md:justify-between md:items-center">
-              <div
-                className="flex justify-start items-center text-base font-medium cursor-pointer"
-                onClick={() => {
-                  if (house?.length === 0) {
-                    router.push('/income');
-                  } else {
-                    router.push('/income/income-details/add-items');
-                  }
-                }}
-              >
-                <ArrowLeftIcon />
-                {textConstants.formBackButtonText}
-              </div>
-              <Button
-                className="bg-detailsBtn text-btnText font-normal hover:bg-btnHover"
-                onClick={form.handleSubmit(onSubmit)}
-              >
-                {textConstants.formNextButtonText}
-              </Button>
-            </div>
-          </div> */}
-          <BackFlow
+          <BackContainer
             nextButtonText={textConstants.formNextButtonText}
             incomeArray={house}
             routeOne="/income"

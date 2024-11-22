@@ -18,7 +18,7 @@ interface Props<T> {
   setShow?: (value: boolean) => void;
 }
 
-const BackFlow = <T extends {}>({
+const BackContainer = <T extends {}>({
   nextButtonText,
   incomeArray,
   routeOne,
@@ -97,4 +97,4 @@ const BackFlow = <T extends {}>({
   );
 };
 
-export default BackFlow;
+export default BackContainer;

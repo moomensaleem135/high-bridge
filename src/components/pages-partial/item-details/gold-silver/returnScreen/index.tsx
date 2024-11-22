@@ -1,13 +1,10 @@
 'use client';
 import React from 'react';
 import { useSelector } from 'react-redux';
-import Link from 'next/link';
 
-import { ArrowLeftIcon } from '@/assets/svgs';
-import { Button } from '@/components/ui/button';
 import StepperComponent from '@/components/ui/stepper';
 import { textConstants } from '@/configs/textConstants';
-import BackFlow from '@/components/common/backFlow';
+import BackContainer from '@/components/common/backContainer';
 
 interface ReturnScreenProps {
   setValue: (value: number) => void;
@@ -33,33 +30,7 @@ const ReturnScreen: React.FC<ReturnScreenProps> = ({ setValue, value }) => {
         </p>
       </div>
 
-      {/* <div className="flex flex-col justify-evenly items-center w-full gap-5">
-        <hr className="w-full border-[1px] border-solid border-underline" />
-        <div className="flex justify-between items-center w-full md:flex-row md:justify-between md:items-center">
-          <Link
-            className="flex justify-start items-center text-base font-medium"
-            href={''}
-            onClick={() => {
-              setValue(0);
-            }}
-          >
-            <ArrowLeftIcon />
-            {textConstants.formBackButtonText}
-          </Link>
-
-          <div className="flex gap-x-2">
-            <Button
-              className="bg-detailsBtn text-btnText font-normal hover:bg-btnHover"
-              onClick={() => {
-                setValue(0);
-              }}
-            >
-              {textConstants.formAddAnotherItemButton}
-            </Button>
-          </div>
-        </div>
-      </div> */}
-      <BackFlow
+      <BackContainer
         nextButtonText={textConstants.formAddAnotherItemButton}
         setValue={setValue}
         value={0}

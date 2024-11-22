@@ -2,20 +2,18 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import toast from 'react-hot-toast';
-import { useForm, Controller } from 'react-hook-form';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useForm } from 'react-hook-form';
+import { useSearchParams } from 'next/navigation';
 import { z } from 'zod';
 
 import { Form } from '@/components/ui/form';
-import { ArrowLeftIcon } from '@/assets/svgs';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Button } from '@/components/ui/button';
-import { Checkbox } from '@/components/ui/checkbox';
 import { Label } from '@/components/ui/label';
 import { ErrorIcon } from '@/assets/svgs';
 import { CashIItems } from '@/lib/types';
 import { textConstants } from '@/configs/textConstants';
-import BackFlow from '@/components/common/backFlow';
+import BackContainer from '@/components/common/backContainer';
+import GenericFormField from '@/components/common/form';
 
 interface ItemChoiceProps {
   setValue: (value: number) => void;
@@ -40,7 +38,6 @@ const ItemChoiceForm: React.FC<ItemChoiceProps> = ({
   setItemForm,
   itemForm,
 }) => {
-  const router = useRouter();
   const searchparams = useSearchParams();
   const id = searchparams.get('id');
   const cash: CashIItems[] = useSelector((state: any) => state.cash.cash) || [];
@@ -111,82 +108,41 @@ const ItemChoiceForm: React.FC<ItemChoiceProps> = ({
           </Label>
           <div>
             <div className="w-full xl:items-center xl:flex xl:flex-row xl:justify-start xl:gap-x-28 xs:flex-col xs:items-start xs:justify-start xs:gap-y-10 pl-4">
-              <div className="flex justify-start items-center gap-4">
-                <Controller
-                  name="itemForm"
-                  control={form.control}
-                  render={({ field }) => (
-                    <Checkbox
-                      checked={field.value === 'Cash'}
-                      onCheckedChange={() => {
-                        field.onChange('Cash');
-                        setItemForm('Cash');
-                      }}
-                      className="rounded-sm h-5 w-5 mt-0.5 border-[2px]"
-                    />
-                  )}
-                />
-                <label htmlFor="myCheckbox">
-                  {textConstants.cashItemCheckboxLabel}
-                </label>
-              </div>
-              <div className="flex justify-start items-center gap-4">
-                <Controller
-                  name="itemForm"
-                  control={form.control}
-                  render={({ field }) => (
-                    <Checkbox
-                      checked={field.value === 'Checking'}
-                      onCheckedChange={() => {
-                        field.onChange('Checking');
-                        setItemForm('Checking');
-                      }}
-                      className="rounded-sm h-5 w-5 mt-0.5 border-[2px]"
-                    />
-                  )}
-                />
-                <label htmlFor="myCheckbox">
-                  {textConstants.checkingItemCheckboxLabel}
-                </label>
-              </div>
-              <div className="flex justify-start items-center gap-4">
-                <Controller
-                  name="itemForm"
-                  control={form.control}
-                  render={({ field }) => (
-                    <Checkbox
-                      checked={field.value === 'Saving'}
-                      onCheckedChange={() => {
-                        field.onChange('Saving');
-                        setItemForm('Saving');
-                      }}
-                      className="rounded-sm h-5 w-5 mt-0.5 border-[2px]"
-                    />
-                  )}
-                />
-                <label htmlFor="myCheckbox">
-                  {textConstants.savingItemCheckboxLabel}
-                </label>
-              </div>
-              <div className="flex justify-start items-center gap-4">
-                <Controller
-                  name="itemForm"
-                  control={form.control}
-                  render={({ field }) => (
-                    <Checkbox
-                      checked={field.value === 'Loan'}
-                      onCheckedChange={() => {
-                        field.onChange('Loan');
-                        setItemForm('Loan');
-                      }}
-                      className="rounded-sm h-5 w-5 mt-0.5 border-[2px]"
-                    />
-                  )}
-                />
-                <label htmlFor="myCheckbox">
-                  {textConstants.loanItemCheckboxLabel}
-                </label>
-              </div>
+              <GenericFormField
+                control={form.control}
+                checkbox={true}
+                name="itemForm"
+                checkedValue="Cash"
+                label={textConstants.cashItemCheckboxLabel}
+                setSelection={setItemForm}
+              />
+
+              <GenericFormField
+                control={form.control}
+                checkbox={true}
+                name="itemForm"
+                checkedValue="Checking"
+                label={textConstants.checkingItemCheckboxLabel}
+                setSelection={setItemForm}
+              />
+
+              <GenericFormField
+                control={form.control}
+                checkbox={true}
+                name="itemForm"
+                checkedValue="Saving"
+                label={textConstants.savingItemCheckboxLabel}
+                setSelection={setItemForm}
+              />
+
+              <GenericFormField
+                control={form.control}
+                checkbox={true}
+                name="itemForm"
+                checkedValue="Loan"
+                label={textConstants.loanItemCheckboxLabel}
+                setSelection={setItemForm}
+              />
             </div>
             {form.formState.errors.itemForm && (
               <span className="text-destructive text-sm flex items-center gap-1 mt-2">
@@ -196,29 +152,7 @@ const ItemChoiceForm: React.FC<ItemChoiceProps> = ({
             )}
           </div>
 
-          {/* <div className="flex flex-col justify-evenly items-center w-full gap-5">
-            <hr className="w-full border-[1px] border-solid border-underline" />
-            <div className="flex justify-between items-center w-full md:flex-row md:justify-between md:items-center">
-              <div
-                className="flex justify-start items-center text-base font-medium cursor-pointer"
-                onClick={() => {
-                  if (cash?.length === 0) {
-                    router.push('/income');
-                  } else {
-                    router.push('/income/income-details/add-items');
-                  }
-                }}
-              >
-                <ArrowLeftIcon />
-                {textConstants.formBackButtonText}
-              </div>
-
-              <Button className="bg-detailsBtn text-btnText font-normal hover:bg-btnHover">
-                {textConstants.formNextButtonText}
-              </Button>
-            </div>
-          </div> */}
-          <BackFlow
+          <BackContainer
             nextButtonText={textConstants.formNextButtonText}
             incomeArray={cash}
             routeOne="/income"

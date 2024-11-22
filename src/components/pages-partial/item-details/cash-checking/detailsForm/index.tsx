@@ -1,21 +1,18 @@
 'use client';
 import React from 'react';
 import toast from 'react-hot-toast';
-import Link from 'next/link';
 import { z } from 'zod';
 import { useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { useSearchParams } from 'next/navigation';
 
 import { Form } from '@/components/ui/form';
-import { ArrowLeftIcon } from '@/assets/svgs';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Button } from '@/components/ui/button';
 import { calculateZakat } from '@/lib/helpers';
 import { CashIItems } from '@/lib/types';
 import GenericFormField from '@/components/common/form';
 import { textConstants } from '@/configs/textConstants';
-import BackFlow from '@/components/common/backFlow';
+import BackContainer from '@/components/common/backContainer';
 
 interface ItemDetailsProps {
   setValue: (value: number) => void;
@@ -138,6 +135,8 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = ({
             label={textConstants.itemNameLabel}
             placeholder="Enter Item Name"
             error={form.formState.errors.name}
+            textInput={true}
+            weightText={false}
           />
           <GenericFormField
             control={form.control}
@@ -146,6 +145,8 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = ({
             label={textConstants.itemQuantityLabel}
             placeholder="Enter Amount"
             error={form.formState.errors.quantity}
+            textInput={true}
+            weightText={false}
           />
           <div className="flex justify-between items-center">
             <span className="xs:text-base font-medium sm:text-xl flex-1">
@@ -157,27 +158,8 @@ const ItemDetailsForm: React.FC<ItemDetailsProps> = ({
                 : '$0.00'}
             </span>
           </div>
-          {/* 
-          <div className="flex flex-col justify-evenly items-center w-full gap-5">
-            <hr className="w-full border-[1px] border-solid border-underline" />
-            <div className="flex justify-between items-center w-full md:flex-row md:justify-between md:items-center">
-              <Link
-                className="flex justify-start items-center text-base font-medium"
-                href={''}
-                onClick={() => {
-                  setValue(value - 1);
-                }}
-              >
-                <ArrowLeftIcon />
-                {textConstants.formBackButtonText}
-              </Link>
 
-              <Button className="bg-detailsBtn text-btnText font-normal hover:bg-btnHover">
-                {textConstants.formNextButtonText}
-              </Button>
-            </div>
-          </div> */}
-          <BackFlow
+          <BackContainer
             nextButtonText={textConstants.formNextButtonText}
             value={value}
             setValue={setValue}

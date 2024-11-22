@@ -25,7 +25,7 @@ import { calculateZakat } from '@/lib/helpers';
 import { GoldIItems } from '@/lib/types';
 import { textConstants } from '@/configs/textConstants';
 import { setPrevItem } from '@/store/features/prev-item/prevItemSlice';
-import BackFlow from '@/components/common/backFlow';
+import BackContainer from '@/components/common/backContainer';
 
 interface GoldSummaryProps {
   setValue: (value: number) => void;
@@ -346,41 +346,7 @@ const GoldSummaryForm: React.FC<GoldSummaryProps> = ({
             </span>
           </div>
 
-          {/* <div className="flex flex-col justify-evenly items-center w-full gap-5">
-            <hr className="w-full border-[1px] border-solid border-underline" />
-            <div className="flex justify-between items-center w-full md:flex-row md:justify-between md:items-center">
-              <Link
-                className="flex justify-start items-center text-base font-medium"
-                href={''}
-                onClick={() => {
-                  if (purpose === 'Saving') {
-                    setValue(value - 2);
-                    setShow(true);
-                  } else {
-                    setValue(value - 1);
-                    setShow(true);
-                  }
-                }}
-              >
-                <ArrowLeftIcon />
-                {textConstants.formBackButtonText}
-              </Link>
-
-              {id ? (
-                <Button
-                  className="bg-detailsBtn text-btnText font-normal hover:bg-btnHover"
-                  onClick={form.handleSubmit(onSubmit)}
-                >
-                  {textConstants.formEditItemButton}
-                </Button>
-              ) : (
-                <Button className="bg-detailsBtn text-btnText font-normal hover:bg-btnHover">
-                  {textConstants.formAddItemButton}
-                </Button>
-              )}
-            </div>
-          </div> */}
-          <BackFlow
+          <BackContainer
             nextButtonText={
               id
                 ? textConstants.formEditItemButton
