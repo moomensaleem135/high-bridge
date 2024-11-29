@@ -105,8 +105,12 @@ export const textConstants = {
   //Gold and Silver Items Form
   goldItemAddFormHeading: 'Add Gold & Sliver Items',
   goldItemEditFormHeading: 'Edit Gold & Sliver Items',
+  goldSummaryFormHeading: 'Gold and Silver Item Summary Report',
   goldItemFormParagraph:
     'Here’s what you have so far. Please add your gold and silver items such as tola, grams, or ounces.',
+
+  goldItemSummaryParagraph:
+    'This report summarizes your gold and silver items, detailing their quantities and values for accurate asset assessment.',
 
   goldItemCheckboxLabel: 'Gold',
   silverItemCheckboxLabel: 'Silver',
@@ -157,6 +161,8 @@ export const textConstants = {
 
   LiquidItemsMainParagraph:
     'Here’s what you have so far. Please add your cash, checking, saving, and loan balances for an accurate zakat calculation.',
+  LiquidItemsSummaryParagraph:
+    'This report summarizes your Liquid Asset items, detailing their quantities and values for accurate asset assessment.',
   itemNameLabel: 'What should the title for this item be?',
   itemQuantityLabel:
     'What is the balance of this item as of your selected Zakaat Pay date?',
@@ -164,6 +170,7 @@ export const textConstants = {
   //House Items Form
   addHouseItemTitle: 'Add House Items',
   editHouseItemTitle: 'Edit House Items',
+  addHouseSummaryTitle: 'House Item Summary Report',
 
   // House usage unordered list text
   housePersonalUseLabel: 'Personal Use',
@@ -197,6 +204,9 @@ export const textConstants = {
 
   houseItemDescription:
     'Please add your house items, as zakat is valid only on savings and items held for trading or rental purposes.',
+
+  houseItemSummaryDescription:
+    'This report summarizes your house items, detailing their quantities and values for accurate asset assessment.',
   houseOptionsText:
     ' Please select the purpose of your house by choosing one of the options below:',
   housePurposeLabel: ' Select one option to proceed to the next step.',

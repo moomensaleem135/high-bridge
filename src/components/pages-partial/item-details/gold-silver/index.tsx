@@ -132,12 +132,16 @@ export default function GoldItemDetails() {
           </h1>
         ) : (
           <h1 className="text-center px-4 text-3xl font-semibold">
-            {textConstants.goldItemAddFormHeading}
+            {value === 3
+              ? textConstants.goldSummaryFormHeading
+              : textConstants.goldItemAddFormHeading}
           </h1>
         )}
 
         <span className="text-center px-4 font-normal text-base mt-2 leading-6 mb-2">
-          {textConstants.goldItemFormParagraph}
+          {value === 3
+            ? textConstants.goldItemSummaryParagraph
+            : textConstants.goldItemFormParagraph}
         </span>
         <hr className="w-full border-[1px] border-underline" />
       </div>

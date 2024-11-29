@@ -173,12 +173,20 @@ export default function HouseDetails() {
     <div className="flex flex-col self-stretch w-full gap-y-4 overflow-y-scroll xs:mb-16 lg:my-5 gridscrollbar">
       <div className="flex flex-col justify-center items-center ">
         <h1 className="text-center px-4 text-3xl font-semibold">
-          {id
-            ? textConstants.editHouseItemTitle
-            : textConstants.addHouseItemTitle}
+          {id ? (
+            <span>{textConstants.editHouseItemTitle}</span>
+          ) : (
+            <span>
+              {step === 3
+                ? textConstants.addHouseSummaryTitle
+                : textConstants.addHouseItemTitle}
+            </span>
+          )}
         </h1>
         <span className="text-center px-4 font-normal text-base mt-2 leading-6 mb-2">
-          {textConstants.houseItemDescription}
+          {step === 3
+            ? textConstants.houseItemSummaryDescription
+            : textConstants.houseItemDescription}
         </span>
         <hr className="w-full border-[1px] border-underline" />
       </div>
