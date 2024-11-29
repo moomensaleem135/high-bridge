@@ -37,7 +37,7 @@ const CSVDownload: React.FC<Props> = ({ dataSet }) => {
 
   return (
     <Button
-      className="bg-black hover:bg-gray-500 text-white xs:text-sm md:text-base font-medium"
+      className="bg-black hover:bg-btnHover text-white xs:text-sm md:text-base font-medium"
       onClick={generateData}
     >
       {isLoading ? <Spinner /> : textConstants.downloadButtonText}

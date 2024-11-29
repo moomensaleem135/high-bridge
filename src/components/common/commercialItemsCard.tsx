@@ -26,7 +26,7 @@ export const CommercialItemCard = ({ title, items }: any) => {
               href={'income-details'}
               className="flex justify-center items-center"
             >
-              <Button className="bg-black text-white font-medium text-xs hover:bg-[#5e5f5d]">
+              <Button className="bg-black text-white font-medium text-xs hover:bg-btnHover">
                 {textConstants.previewButtonText}
               </Button>
             </Link>

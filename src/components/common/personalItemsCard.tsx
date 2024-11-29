@@ -58,7 +58,7 @@ export const PersonalItemCard = ({ title, items }: any) => {
               className="flex justify-end items-center flex-1"
             >
               <Button
-                className={`bg-black text-white font-medium text-sm hover:bg-[#5e5f5d] h-7 rounded-md pl-4 pr-4 pt-1 pb-1 xs:hidden sm:flex ${inter.className}`}
+                className={`bg-black text-white font-medium text-sm hover:bg-btnHover h-7 rounded-md pl-4 pr-4 pt-1 pb-1 xs:hidden sm:flex ${inter.className}`}
                 onClick={() => dispatch(IncomeChoice(item.income))}
               >
                 {textConstants.previewButtonText}

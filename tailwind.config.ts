@@ -38,6 +38,8 @@ const config: Config = {
         searchBarBg: 'var(--search-bar-bg)',
         inputBg: 'var(--input-bg)',
         inputBorder: 'var(--input-border)',
+        inputErrorBorder: 'var(--inputErrorBorder)',
+        inputFocusBorder: 'var(--inputFocusBorder)',
         inputText: 'var(--inputText)',
 
         border: 'var(--border)',
@@ -54,6 +56,8 @@ const config: Config = {
         dropdownBg: 'var(--dropdownBackground)',
         dropdownIcon: 'var( --dropdownIcon)',
 
+        DropdownHover: 'var(--dropdownHover)',
+
         agTableTop: 'var(--agTabletopText)',
 
         underline: 'var(--underline)',
@@ -67,6 +71,8 @@ const config: Config = {
         cardBorder: 'var(--card-border)',
         cardHeading: 'var(--cardheading)',
         cardText: 'var(--cardText)',
+
+        calendarBorder: 'var(--calendar-border)',
 
         iconText: 'var(--iconText)',
         loader: 'var( --loader)',
@@ -90,6 +96,23 @@ const config: Config = {
         logoutText: 'var(--logoutText)',
         userMail: 'var(--userMail)',
         zakatText: 'var(--zakatText)',
+
+        toastCloseIcon: 'var(--toastCloseIcon)',
+        selectedCardBorder: 'var(--selectedCardBorder)',
+        customOptionsBorder: 'var(--customOptionsBorder)',
+        customDeleteOptionHover: 'var(--customDeleteOptionHover)',
+
+        datePickerBorder: 'var(----datePickerBorder)',
+        selectTriggerBorder: 'var(--selectTriggerBorder)',
+        selectItemHoverBg: 'var(--selectItemHoverBg)',
+
+        switchBg: 'var(--swicthBg)',
+        switchUncheckedBg: 'var(--switchUncheckedBg)',
+        switchDarkCheckedBg: 'var(--switchDarkCheckedBg)',
+        switchDarkUncheckedBg: 'var(--swicthDarkUncheckedBg)',
+
+        selectedIconBg: 'var(--selectedIconBg)',
+        incomeIconBg: 'var(--incomeIconBg)',
 
         primary: {
           DEFAULT: 'var(--primary)',

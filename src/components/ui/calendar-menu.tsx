@@ -19,13 +19,13 @@ const CalendarMenu: React.FC<Prop> = ({
     <div className="absolute bg-white w-[27.4%] top-[27rem] rounded-md h-[9vh] hover:">
       <ul className="h-full flex flex-col justify-center items-center">
         <li
-          className="w-full h-full flex justify-start items-center rounded-t-md p-2 hover:bg-[#DFE3E6]"
+          className="w-full h-full flex justify-start items-center rounded-t-md p-2 hover:bg-DropdownHover"
           onClick={handleChoice}
         >
           lunar
         </li>
         <li
-          className="w-full h-full flex justify-start items-center rounded-b-md p-2 hover:bg-[#DFE3E6]"
+          className="w-full h-full flex justify-start items-center rounded-b-md p-2 hover:bg-DropdownHover"
           onClick={handleChoice}
         >
           solar

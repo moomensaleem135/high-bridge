@@ -2,6 +2,7 @@
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { XIcon } from 'lucide-react';
+import { textConstants } from '@/configs/textConstants';
 
 interface ModalProps {
   isOpen: boolean;
@@ -40,13 +41,13 @@ const Modal: React.FC<ModalProps> = ({
               onClick={onConfirm}
               className="bg-transparent text-black md:text-base sm:text-sm xs:text-xs font-medium border-[1px] border-black hover:bg-gray-400 sm:px-3 xs:px-2"
             >
-              Discard Changes
+              {textConstants.modalDiscardButton}
             </Button>
             <Button
               onClick={onClose}
-              className="bg-black text-white md:text-base sm:text-sm xs:text-xs font-medium hover:bg-gray-600 sm:px-3 xs:px-2"
+              className="bg-black text-white md:text-base sm:text-sm xs:text-xs font-medium hover:bg-btnHover sm:px-3 xs:px-2"
             >
-              Save and Continue
+              {textConstants.modalSaveButton}
             </Button>
           </div>
         </div>

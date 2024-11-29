@@ -145,7 +145,7 @@ const Calendar: React.FC<CalendarProps> = ({ year, onDateChange, dateVal }) => {
   };
 
   return (
-    <div className="bg-field flex border-[1px] border-solid border-[#66666659] bg-inputBg items-center rounded-md px-3 w-full h-12 cursor-pointer relative text-black">
+    <div className="bg-field flex border-[1px] border-solid border-calendarBorder bg-inputBg items-center rounded-md px-3 w-full h-12 cursor-pointer relative text-black">
       <DatePicker
         ref={datePickerRef}
         value={value}

@@ -44,8 +44,8 @@ const IconInput = React.forwardRef<HTMLInputElement, IconInputProps>(
           //'group flex w-full gap-1.5 px-3 py-1  rounded-lg ',
           'bg-transparent w-[100%] border-[1px] border-solid border-[#666666] border-opacity-30 rounded-md px-2 py-2',
           error
-            ? 'border-[#f85151] border-[2px] border-solid'
-            : 'focus-within:border-[#666666] ',
+            ? 'border-inputErrorBorder border-[2px] border-solid'
+            : 'focus-within:border-inputFocusBorder ',
           className
         )}
       >

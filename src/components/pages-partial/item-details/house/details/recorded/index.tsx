@@ -26,9 +26,9 @@ const HaveYouRecordedAssetsSchema = z.object({
 type FormFields = z.infer<typeof HaveYouRecordedAssetsSchema>;
 
 const bulletPoints = [
-  'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
-  'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
-  'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
+  textConstants.houseRecordedPointOne,
+  textConstants.houseRecordedPointTwo,
+  textConstants.houseRecordedPointThree,
 ];
 
 export const HaveYouRecordedAssets: React.FC<HaveYouRecordedAssetsProps> = ({
@@ -71,6 +71,9 @@ export const HaveYouRecordedAssets: React.FC<HaveYouRecordedAssetsProps> = ({
             {textConstants.alreadyRecorderHeading}
           </h2>
           <div className="flex flex-col mt-2 w-full text-base text-black max-md:max-w-full">
+            <p className="w-full font-normal text-base">
+              {textConstants.houseRecordedPointHeading}
+            </p>
             <ul className="flex flex-col pt-2.5 pl-6 mt-2.5 w-full max-md:pl-5 max-md:max-w-full">
               {bulletPoints.map((point, index) => (
                 <li

@@ -446,6 +446,8 @@ th {
     --dropdownBackground: #ffffff;
     --dropdownIcon: #1d211c;
 
+    --dropdownHover: #dfe3e6;
+
     --navBorder: #dfe3e6;
 
     --formBg: #f8f8f8;
@@ -472,6 +474,8 @@ th {
 
     --input-bg: #f8f8f8;
     --input-border: #dfe3e6;
+    --inputErrorBorder: #f85151;
+    --inputFocusBorder: #666666;
     --inputText: #000000;
 
     --accordionText: #000000;
@@ -506,10 +510,24 @@ th {
     --calendar-active: #f8f8f8;
     --calendar-dropdown: #66666659;
     --calendar-outline: #66666659;
+    --calendar-border: #66666659;
 
     --event-heading: #040f0047;
-
     --destructive: #dd1919;
+    --toastCloseIcon: #dfe3e6;
+    --selectedCardBorder: #4caf50;
+    --customOptionsBorder: #dfe3e6;
+    --customDeleteOptionHover: #2f2f2f;
+    --datePickerBorder: #66666659;
+
+    --selectTriggerBorder: #66666659;
+    --selectItemHoverBg: #dfe3e6;
+
+    --swicthBg: #9ca0b2;
+    --switchUncheckedBg: #9ca0b2;
+
+    --selectedIconBg: #4caf5026;
+    --incomeIconBg: #dfe3e6;
   }
 
   .dark {
@@ -521,6 +539,8 @@ th {
     --checkbox: #8c8c91;
     --dropdownBackground: #ffffff;
     --dropdownIcon: #1d211c;
+
+    --dropdownHover: #dfe3e6;
 
     --agTabletopText: #000000;
 
@@ -536,6 +556,8 @@ th {
     --verifyField: #000000;
     --input-bg: #f8f8f8;
     --input-border: #dfe3e6;
+    --inputErrorBorder: #f85151;
+    --inputFocusBorder: #666666;
     --inputText: #000000;
 
     --underline: #dfe3e6;
@@ -574,8 +596,24 @@ th {
 
     --calendar-text: #898e87;
     --calendar-active: #cccfcc;
+    --calendar-border: #66666659;
 
     --event-heading: #edfdeb57;
+    --toastCloseIcon: #dfe3e6;
+    --selectedCardBorder: #4caf50;
+    --customOptionsBorder: #dfe3e6;
+    --customDeleteOptionHover: #2f2f2f;
+
+    --datePickerBorder: #66666659;
+    --selectTriggerBorder: #66666659;
+    --selectItemHoverBg: #dfe3e6;
+
+    --swicthBg: #9ca0b2;
+    --switchDarkCheckedBg: #212220;
+    --swicthDarkUncheckedBg: #212220;
+
+    --selectedIconBg: #4caf5026;
+    --incomeIconBg: #dfe3e6;
   }
 }
 

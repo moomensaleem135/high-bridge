@@ -19,7 +19,7 @@ const CustomOptions: React.FC<CustomOptionsProps> = ({
   return (
     <div className="flex justify-center items-center gap-1 mt-1.5 w-50 ">
       <div
-        className="flex justify-evenly items-center bg-white gap-1 pl-1.5 pr-1.5 pt-0.5 pb-0.5 rounded border-[#DFE3E6] border-[1px] cursor-pointer hover:bg-zakatText hover:border-[#DFE3E6] hover:text-white"
+        className="flex justify-evenly items-center bg-white gap-1 pl-1.5 pr-1.5 pt-0.5 pb-0.5 rounded border-customOptionsBorder border-[1px] cursor-pointer hover:bg-zakatText hover:border-cardBorder hover:text-white"
         onClick={() => onEdit(id, item)}
       >
         <button aria-label="Edit" className="flex items-center">
@@ -31,7 +31,7 @@ const CustomOptions: React.FC<CustomOptionsProps> = ({
       </div>
 
       <div
-        className="flex justify-evenly items-center bg-white gap-1 pl-1.5 pr-1.5 pt-0.5 pb-0.5 rounded border-[#DFE3E6] border-[1px] cursor-pointer hover:bg-[#2F2F2F] hover:border-[#DFE3E6] hover:text-white"
+        className="flex justify-evenly items-center bg-white gap-1 pl-1.5 pr-1.5 pt-0.5 pb-0.5 rounded border-customOptionsBorder border-[1px] cursor-pointer hover:bg-customDeleteOptionHover hover:border-cardBorder hover:text-white"
         onClick={() => onDelete(id, item)}
       >
         <button aria-label="Delete" className="flex items-center">

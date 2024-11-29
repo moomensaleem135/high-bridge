@@ -71,7 +71,9 @@ const SummaryForm: React.FC<SummaryProps> = ({
         >
           <div className="flex flex-col gap-y-2">
             <Label className="font-medium text-xl">
-              {textConstants.itemLabel}
+              {item === 'Rental'
+                ? textConstants.itemPurposeLabel
+                : textConstants.itemLabel}
             </Label>
             <div className="w-full items-center flex justify-start">
               <span className="font-normal text-base">{item}</span>

@@ -47,7 +47,7 @@ const IncomeDetailsCard: React.FC<IncomeDetailsCardProps> = ({
             <div
               className={`flex flex-col justify-start items-center p-2 pt-8 pb-3 gap-y-2 bg-cardbg rounded-xl ${
                 selectedIndex === index
-                  ? 'border-[#4CAF50] border-[2px]'
+                  ? 'border-selectedCardBorder border-[2px]'
                   : 'border-cardBorder'
               } 
                
@@ -59,11 +59,11 @@ const IncomeDetailsCard: React.FC<IncomeDetailsCardProps> = ({
               }}
             >
               {selectedIndex === index ? (
-                <div className="rounded-[50%] bg-[#4CAF5026] border-[#4CAF50] border-[1px] h-14 w-14 flex justify-center items-center">
+                <div className="rounded-[50%] bg-selectedIconBg border-selectedCardBorder border-[1px] h-14 w-14 flex justify-center items-center">
                   <SelectedIcon />
                 </div>
               ) : (
-                <div className="rounded-[50%] bg-[#DFE3E6] h-14 w-14 flex justify-center items-center">
+                <div className="rounded-[50%] bg-incomeIconBg h-14 w-14 flex justify-center items-center">
                   <IncomeDetailsIcon />
                 </div>
               )}

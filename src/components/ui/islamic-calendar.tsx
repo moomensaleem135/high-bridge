@@ -111,7 +111,7 @@ const IslamicCalendar = ({
   return (
     <div ref={ref} className="relative">
       <div
-        className={`bg-field flex border-[1px] border-solid border-[#66666659] items-center rounded-md px-3 w-full h-12 cursor-pointer ${className}`}
+        className={`bg-field flex border-[1px] border-solid border-datePickerBorder items-center rounded-md px-3 w-full h-12 cursor-pointer ${className}`}
       >
         <input
           type="text"

@@ -2,7 +2,7 @@ export const textConstants = {
   loginTitle: 'Log In',
   noAccountText: 'Don’t have an account?',
   signUpText: 'Sign up',
-  emailLabel: 'Email Address',
+  emailLabel: 'Email address',
   passwordLabel: 'Password',
   hideText: 'Hide',
   showText: 'Show',
@@ -27,7 +27,7 @@ export const textConstants = {
   logInText: 'Log in',
   usernameLabel: 'Username:',
   confirmPasswordLabel: 'Confirm Password:',
-  createAccountButtonText: 'Create an account',
+  createAccountButtonText: 'Create an Account',
   signupSuccessMessage: 'Signup successful.',
   signupErrorMessage: 'Failed to Create event',
 
@@ -87,7 +87,7 @@ export const textConstants = {
   navPayZakat: 'Pay Zakat',
   // Side Navbar Settings
   settingsSectionHeading: 'SETTINGS',
-  navProfile: 'Profile',
+  navProfile: 'My Profile',
   navSettings: 'Settings',
   // Side Navbar Profile Items
   navHelp: 'Help',
@@ -156,10 +156,10 @@ export const textConstants = {
   liquidAssetSummaryReport: 'Liquid Asset Item Summary Report',
 
   LiquidItemsMainParagraph:
-    'Here’s what you have so far. Please add your cash and checking account balances for accurate zakat calculation',
+    'Here’s what you have so far. Please add your cash, checking, saving, and loan balances for an accurate zakat calculation.',
   itemNameLabel: 'What should the title for this item be?',
   itemQuantityLabel:
-    'What is the balance of this account on the zakat pay date?',
+    'What is the balance of this item as of your selected Zakaat Pay date?',
 
   //House Items Form
   addHouseItemTitle: 'Add House Items',
@@ -183,6 +183,18 @@ export const textConstants = {
   houseSavingUseCheckboxLabel: 'Saving',
   houseTradingUseCheckboxLabel: 'Trading',
 
+  itemPurposeLabel: 'What is the purpose of your house?',
+
+  houseRecordedPointHeading:
+    'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
+
+  houseRecordedPointOne:
+    'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
+  houseRecordedPointTwo:
+    'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
+  houseRecordedPointThree:
+    'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
+
   houseItemDescription:
     'Please add your house items, as zakat is valid only on savings and items held for trading or rental purposes.',
   houseOptionsText:
@@ -192,8 +204,7 @@ export const textConstants = {
     'Have you already recorded this amount in your liquid assets?',
   zakatAlreadyRecordedText:
     'You have already included your zakat in your liquid assets; therefore, no zakat is required for this item.',
-  personalUseText:
-    'Zakat is not applicable for items used for Personal Use. This means you don’t need to pay zakat on things you use for living, as zakat only applies to items for trading, rental, or savings.',
+  personalUseText: `Zakat is not applicable for items used for 'Personal Use'. This means you don’t need to pay zakat on things you use for living, as zakat only applies to items for trading, rental, or savings.`,
   tradeUseText:
     'Zakat is applicable to assets designated for trading. Kindly include this item in your commercial assets, as zakat is calculated based on items held for sale or profit.',
 
@@ -288,7 +299,7 @@ export const textConstants = {
   goldTableHeaderOne: 'Item',
   goldTableHeaderTwo: 'Quantity',
   goldTableHeaderThree: 'Quality',
-  goldTableHeaderFour: 'Quality',
+  goldTableHeaderFour: 'Zakat',
 
   // House table header
   houseTableHeaderOne: 'Item',
@@ -328,6 +339,10 @@ export const textConstants = {
   //Modal
   modalHeading: 'Unsaved Changes Detected',
   modalDesc: `You've made some changes that haven't been saved yet. Would you like to complete your action now or save your progress to finish later?`,
+  modalDiscardButton: 'Discard Changes',
+  modalSaveButton: 'Save and Continue',
+
+  //download data
   localDownloadText:
     'Download your data to your device for offline use and secure storage.',
   localDownloadTitle: 'Export Data Locally',

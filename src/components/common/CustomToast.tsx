@@ -48,7 +48,7 @@ const CustomToast: React.FC<CustomToastProps> = ({
           }}
           className="w-full p-4 flex items-center justify-center"
         >
-          <CloseIcon className="text-red w-8 h-8 hover:bg-[#dfe3e6] rounded-sm" />
+          <CloseIcon className="text-red w-8 h-8 hover:bg-toastCloseIcon rounded-sm" />
         </button>
       </div>
     </div>

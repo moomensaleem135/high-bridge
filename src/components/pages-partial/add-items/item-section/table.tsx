@@ -118,7 +118,7 @@ const GridSection: React.FC = () => {
     ) {
       updatedColumns = [
         { headerName: textConstants.cashTableHeaderOne, field: 'item' },
-        { headerName: textConstants.cashTableHeaderTwo, field: 'name' },
+        // { headerName: textConstants.cashTableHeaderTwo, field: 'name' },
         { headerName: textConstants.cashTableHeaderThree, field: 'quantity' },
         { headerName: textConstants.cashTableHeaderFour, field: 'zakat' },
         {

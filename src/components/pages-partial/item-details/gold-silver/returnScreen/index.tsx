@@ -48,7 +48,7 @@ const ReturnScreen: React.FC<ReturnScreenProps> = ({ setValue, value }) => {
 
           <div className="flex gap-x-2">
             <Button
-              className="bg-detailsBtn text-btnText font-normal hover:bg-btnHover"
+              className="bg-detailsBtn text-btnText font-normal hover:bg-btnHover px-4"
               onClick={() => {
                 setValue(0);
               }}
